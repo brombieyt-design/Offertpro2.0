@@ -141,18 +141,18 @@ export default function NewQuotePage() {
   };
 
   return (
-    <div className="space-y-6 pb-24">
+    <div className="space-y-8 pb-28">
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link
           href="/quotes"
-          className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
+          className="p-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all duration-300"
         >
           <ArrowLeft className="w-5 h-5" />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Ny offert</h1>
-          <p className="text-sm text-gray-500">Offert #QT-2026-001</p>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">Ny offert</h1>
+          <p className="text-sm text-gray-500 mt-0.5">Offert #QT-2026-001</p>
         </div>
       </div>
 
@@ -175,7 +175,7 @@ export default function NewQuotePage() {
               </div>
               <span
                 className={cn(
-                  "text-xs mt-1.5 font-medium",
+                  "text-xs mt-2 font-medium",
                   currentStep >= step.number
                     ? "text-indigo-600"
                     : "text-gray-400"
@@ -187,7 +187,7 @@ export default function NewQuotePage() {
             {idx < steps.length - 1 && (
               <div
                 className={cn(
-                  "step-line w-20 mx-2 mb-5",
+                  "step-line w-24 mx-3 mb-6",
                   currentStep > step.number ? "bg-indigo-600" : ""
                 )}
               />
@@ -198,33 +198,33 @@ export default function NewQuotePage() {
 
       {/* Step 1: Customer info */}
       {currentStep === 1 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-6">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold tracking-tight text-gray-900">
               Kundinformation
             </h2>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="text-sm text-gray-500 mt-1">
               Vem är offerten till?
             </p>
           </div>
 
           {/* Customer search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
-              className="form-input pl-10"
+              className="form-input pl-11"
               placeholder="Sök bland sparade kunder..."
               value={customerSearch}
               onChange={(e) => setCustomerSearch(e.target.value)}
             />
             {filteredCustomers.length > 0 && (
-              <div className="absolute z-10 mt-1 w-full bg-white rounded-xl border border-gray-200 shadow-lg max-h-48 overflow-y-auto">
+              <div className="absolute z-10 mt-2 w-full bg-white rounded-2xl border border-gray-200/80 shadow-lg max-h-48 overflow-y-auto">
                 {filteredCustomers.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => selectCustomer(c)}
-                    className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors"
+                    className="w-full text-left px-5 py-3.5 hover:bg-gray-50 transition-all duration-200"
                   >
                     <div className="text-sm font-medium text-gray-900">
                       {c.name}
@@ -237,9 +237,9 @@ export default function NewQuotePage() {
           </div>
 
           {/* Form fields */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Kundnamn <span className="text-red-500">*</span>
               </label>
               <input
@@ -251,7 +251,7 @@ export default function NewQuotePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 E-postadress <span className="text-red-500">*</span>
               </label>
               <input
@@ -263,7 +263,7 @@ export default function NewQuotePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Telefonnummer
               </label>
               <input
@@ -273,10 +273,10 @@ export default function NewQuotePage() {
                 value={formData.phone}
                 onChange={(e) => updateField("phone", e.target.value)}
               />
-              <p className="text-xs text-gray-400 mt-1">för SMS-notis</p>
+              <p className="text-xs text-gray-400 mt-1.5">för SMS-notis</p>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Företag <span className="text-red-500">*</span>
               </label>
               <input
@@ -288,7 +288,7 @@ export default function NewQuotePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Stad / Region
               </label>
               <input
@@ -300,7 +300,7 @@ export default function NewQuotePage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Faktureringsadress
               </label>
               <input
@@ -312,7 +312,7 @@ export default function NewQuotePage() {
               />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Anteckningar (valfritt)
               </label>
               <textarea
@@ -329,12 +329,12 @@ export default function NewQuotePage() {
 
       {/* Step 2: Line items */}
       {currentStep === 2 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-6">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold tracking-tight text-gray-900">
               Radartiklar
             </h2>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="text-sm text-gray-500 mt-1">
               Lägg till produkter eller tjänster
             </p>
           </div>
@@ -343,19 +343,19 @@ export default function NewQuotePage() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-100">
-                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-3">
+                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">
                     Beskrivning
                   </th>
-                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-3 w-24">
+                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 w-24">
                     Antal
                   </th>
-                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-3 w-32">
+                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 w-32">
                     À-pris (kr)
                   </th>
-                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-3 w-24">
+                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 w-24">
                     Rabatt (%)
                   </th>
-                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-3 w-28">
+                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 w-28">
                     Summa
                   </th>
                   <th className="w-10"></th>
@@ -364,7 +364,7 @@ export default function NewQuotePage() {
               <tbody className="divide-y divide-gray-50">
                 {items.map((item) => (
                   <tr key={item.id}>
-                    <td className="py-3 pr-3">
+                    <td className="py-3.5 pr-3">
                       <input
                         type="text"
                         className="form-input"
@@ -375,7 +375,7 @@ export default function NewQuotePage() {
                         }
                       />
                     </td>
-                    <td className="py-3 pr-3">
+                    <td className="py-3.5 pr-3">
                       <input
                         type="number"
                         className="form-input"
@@ -390,7 +390,7 @@ export default function NewQuotePage() {
                         }
                       />
                     </td>
-                    <td className="py-3 pr-3">
+                    <td className="py-3.5 pr-3">
                       <input
                         type="number"
                         className="form-input"
@@ -405,7 +405,7 @@ export default function NewQuotePage() {
                         }
                       />
                     </td>
-                    <td className="py-3 pr-3">
+                    <td className="py-3.5 pr-3">
                       <input
                         type="number"
                         className="form-input"
@@ -421,13 +421,13 @@ export default function NewQuotePage() {
                         }
                       />
                     </td>
-                    <td className="py-3 text-right text-sm font-semibold text-gray-900">
+                    <td className="py-3.5 text-right text-sm font-semibold text-gray-900">
                       {formatCurrency(lineTotal(item))}
                     </td>
-                    <td className="py-3 pl-2">
+                    <td className="py-3.5 pl-2">
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -440,14 +440,14 @@ export default function NewQuotePage() {
 
           <button
             onClick={addItem}
-            className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-all duration-300"
           >
             <Plus className="w-4 h-4" />
             Lägg till rad
           </button>
 
           {/* Summary */}
-          <div className="border-t border-gray-100 pt-4 space-y-2">
+          <div className="border-t border-gray-100 pt-5 space-y-2.5">
             <div className="flex justify-between text-sm text-gray-600">
               <span>Delsumma</span>
               <span>{formatCurrency(subtotal)}</span>
@@ -456,7 +456,7 @@ export default function NewQuotePage() {
               <span>Moms (25%)</span>
               <span>{formatCurrency(vat)}</span>
             </div>
-            <div className="flex justify-between text-base font-bold text-gray-900 pt-2 border-t border-gray-100">
+            <div className="flex justify-between text-base font-bold text-gray-900 pt-3 border-t border-gray-100">
               <span>Total</span>
               <span>{formatCurrency(total)}</span>
             </div>
@@ -466,25 +466,25 @@ export default function NewQuotePage() {
 
       {/* Step 3: Preview */}
       {currentStep === 3 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-6">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold tracking-tight text-gray-900">
               Förhandsvisning
             </h2>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="text-sm text-gray-500 mt-1">
               Granska offerten innan du skickar
             </p>
           </div>
 
           {/* PDF-like preview */}
-          <div className="border border-gray-200 rounded-xl p-8 max-w-2xl mx-auto space-y-8">
+          <div className="border border-gray-200/80 rounded-2xl p-10 max-w-2xl mx-auto space-y-10 shadow-sm bg-white">
             {/* Company header */}
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-xl font-bold text-indigo-600">
                   Offert Pro
                 </h3>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 mt-1.5">
                   Storgatan 1, 111 22 Stockholm
                 </p>
                 <p className="text-xs text-gray-500">info@offertpro.se</p>
@@ -506,8 +506,8 @@ export default function NewQuotePage() {
             </div>
 
             {/* Customer info */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">
+            <div className="bg-gray-50/80 rounded-xl p-5">
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1.5">
                 Kund
               </p>
               <p className="text-sm font-semibold text-gray-900">
@@ -524,19 +524,19 @@ export default function NewQuotePage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-2 font-medium text-gray-600">
+                  <th className="text-left py-3 font-medium text-gray-600">
                     Beskrivning
                   </th>
-                  <th className="text-right py-2 font-medium text-gray-600">
+                  <th className="text-right py-3 font-medium text-gray-600">
                     Antal
                   </th>
-                  <th className="text-right py-2 font-medium text-gray-600">
+                  <th className="text-right py-3 font-medium text-gray-600">
                     À-pris
                   </th>
-                  <th className="text-right py-2 font-medium text-gray-600">
+                  <th className="text-right py-3 font-medium text-gray-600">
                     Rabatt
                   </th>
-                  <th className="text-right py-2 font-medium text-gray-600">
+                  <th className="text-right py-3 font-medium text-gray-600">
                     Summa
                   </th>
                 </tr>
@@ -546,19 +546,19 @@ export default function NewQuotePage() {
                   .filter((i) => i.description)
                   .map((item) => (
                     <tr key={item.id}>
-                      <td className="py-2 text-gray-900">
+                      <td className="py-3 text-gray-900">
                         {item.description}
                       </td>
-                      <td className="py-2 text-right text-gray-600">
+                      <td className="py-3 text-right text-gray-600">
                         {item.quantity}
                       </td>
-                      <td className="py-2 text-right text-gray-600">
+                      <td className="py-3 text-right text-gray-600">
                         {formatCurrency(item.unitPrice)}
                       </td>
-                      <td className="py-2 text-right text-gray-600">
+                      <td className="py-3 text-right text-gray-600">
                         {item.discount > 0 ? `${item.discount}%` : "-"}
                       </td>
-                      <td className="py-2 text-right font-medium text-gray-900">
+                      <td className="py-3 text-right font-medium text-gray-900">
                         {formatCurrency(lineTotal(item))}
                       </td>
                     </tr>
@@ -567,7 +567,7 @@ export default function NewQuotePage() {
             </table>
 
             {/* Totals */}
-            <div className="border-t-2 border-gray-200 pt-4 space-y-1">
+            <div className="border-t-2 border-gray-200 pt-5 space-y-1.5">
               <div className="flex justify-between text-sm text-gray-600">
                 <span>Delsumma</span>
                 <span>{formatCurrency(subtotal)}</span>
@@ -576,7 +576,7 @@ export default function NewQuotePage() {
                 <span>Moms (25%)</span>
                 <span>{formatCurrency(vat)}</span>
               </div>
-              <div className="flex justify-between text-lg font-bold text-gray-900 pt-2">
+              <div className="flex justify-between text-lg font-bold text-gray-900 pt-3">
                 <span>Totalt</span>
                 <span>{formatCurrency(total)}</span>
               </div>
@@ -587,12 +587,12 @@ export default function NewQuotePage() {
 
       {/* Step 4: Send */}
       {currentStep === 4 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-6">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-lg font-semibold tracking-tight text-gray-900">
               Skicka offert
             </h2>
-            <p className="text-sm text-gray-500 mt-0.5">
+            <p className="text-sm text-gray-500 mt-1">
               Välj leveransmetod och skicka
             </p>
           </div>
@@ -600,7 +600,7 @@ export default function NewQuotePage() {
           {/* Delivery method */}
           <div className="space-y-3">
             <p className="text-sm font-medium text-gray-700">Leveransmetod</p>
-            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+            <label className="flex items-center gap-3.5 p-4 border border-gray-200/80 rounded-2xl cursor-pointer hover:bg-gray-50 transition-all duration-300">
               <input
                 type="checkbox"
                 checked={deliveryEmail}
@@ -610,7 +610,7 @@ export default function NewQuotePage() {
               <Mail className="w-4 h-4 text-gray-500" />
               <span className="text-sm text-gray-700">E-post</span>
             </label>
-            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+            <label className="flex items-center gap-3.5 p-4 border border-gray-200/80 rounded-2xl cursor-pointer hover:bg-gray-50 transition-all duration-300">
               <input
                 type="checkbox"
                 checked={deliveryLink}
@@ -623,9 +623,9 @@ export default function NewQuotePage() {
           </div>
 
           {deliveryEmail && (
-            <div className="space-y-4">
+            <div className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   E-postadress
                 </label>
                 <input
@@ -636,7 +636,7 @@ export default function NewQuotePage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
                   Meddelande
                 </label>
                 <textarea
@@ -652,12 +652,12 @@ export default function NewQuotePage() {
       )}
 
       {/* Bottom navigation bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200/60 px-8 py-5 flex items-center justify-between z-10">
         <button
           onClick={goBack}
           disabled={currentStep === 1}
           className={cn(
-            "px-4 py-2.5 text-sm font-medium rounded-xl transition-colors",
+            "px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300",
             currentStep === 1
               ? "text-gray-300 cursor-not-allowed"
               : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
@@ -667,7 +667,7 @@ export default function NewQuotePage() {
         </button>
 
         <div className="flex items-center gap-3">
-          <button className="px-4 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-colors">
+          <button className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300">
             Spara utkast
           </button>
           {currentStep < 4 ? (
@@ -675,9 +675,9 @@ export default function NewQuotePage() {
               onClick={goNext}
               disabled={!canProceed()}
               className={cn(
-                "px-6 py-2.5 text-sm font-medium rounded-xl transition-colors",
+                "px-7 py-2.5 text-sm font-medium rounded-full transition-all duration-300",
                 canProceed()
-                  ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                  ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md"
                   : "bg-gray-200 text-gray-400 cursor-not-allowed"
               )}
             >
@@ -685,7 +685,7 @@ export default function NewQuotePage() {
             </button>
           ) : (
             <button
-              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+              className="inline-flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300"
             >
               <Send className="w-4 h-4" />
               Skicka offert
