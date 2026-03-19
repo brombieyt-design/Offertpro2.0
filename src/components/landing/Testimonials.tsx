@@ -3,15 +3,15 @@ import { testimonials } from "@/lib/constants";
 
 export default function Testimonials() {
   return (
-    <section id="om-oss" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="om-oss" className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 bg-gray-50/70">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+        <div className="text-center max-w-2xl mx-auto mb-20">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">
             Vad våra kunder säger
           </h2>
-          <p className="mt-4 text-lg text-gray-600">
-            Hundratals företag använder Offert-pro för att vinna fler affärer.
+          <p className="mt-6 text-lg text-gray-500 leading-relaxed">
+            Hundratals företag använder Offert Pro för att vinna fler affärer.
           </p>
         </div>
 
@@ -20,25 +20,25 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="rounded-xl border border-gray-100 shadow-sm p-6"
+              className="bg-white rounded-2xl p-8 transition-all duration-300 hover:shadow-lg"
             >
               {/* Stars */}
-              <div className="flex gap-0.5 mb-4">
+              <div className="flex gap-1 mb-6">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star
                     key={i}
-                    className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                    className="h-5 w-5 fill-yellow-400 text-yellow-400"
                   />
                 ))}
               </div>
 
-              <p className="text-sm text-gray-600 italic leading-relaxed">
+              <p className="text-lg text-gray-700 leading-relaxed">
                 &ldquo;{t.quote}&rdquo;
               </p>
 
-              <div className="mt-4">
-                <p className="text-sm font-bold text-gray-900">{t.name}</p>
-                <p className="text-xs text-gray-500">
+              <div className="mt-8">
+                <p className="text-sm font-semibold text-gray-900">{t.name}</p>
+                <p className="mt-1 text-sm text-gray-400">
                   {t.role}, {t.company}
                 </p>
               </div>
