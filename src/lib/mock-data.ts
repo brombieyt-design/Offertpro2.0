@@ -1,0 +1,195 @@
+import { Quote, Invoice, Customer, Template } from "@/types";
+
+export const customers: Customer[] = [
+  {
+    id: "c1",
+    name: "Erik Johansson",
+    email: "erik@acmecorp.se",
+    phone: "+46 70 123 45 67",
+    company: "Acme Corp AB",
+    city: "Stockholm",
+    address: "Kungsgatan 10, 111 43 Stockholm",
+    orgNr: "556789-0123",
+  },
+  {
+    id: "c2",
+    name: "Sofia Lindström",
+    email: "sofia@pixelstudio.se",
+    phone: "+46 73 456 78 90",
+    company: "Pixel Studio",
+    city: "Göteborg",
+    address: "Avenyn 5, 411 36 Göteborg",
+  },
+  {
+    id: "c3",
+    name: "Anders Berg",
+    email: "anders@summitit.se",
+    phone: "+46 76 789 01 23",
+    company: "Summit IT Solutions",
+    city: "Malmö",
+    address: "Stortorget 1, 211 22 Malmö",
+    orgNr: "556123-4567",
+  },
+  {
+    id: "c4",
+    name: "Maria Ekström",
+    email: "maria@novaconsulting.se",
+    company: "Nova Consulting",
+    city: "Uppsala",
+  },
+];
+
+export const quotes: Quote[] = [
+  {
+    id: "q1",
+    number: "QT-2026-001",
+    customer: customers[0],
+    items: [
+      { id: "i1", description: "Webbutveckling", quantity: 40, unitPrice: 950, discount: 0 },
+      { id: "i2", description: "UX-design", quantity: 20, unitPrice: 850, discount: 10 },
+    ],
+    status: "accepted",
+    createdAt: "2026-03-01",
+    validUntil: "2026-03-31",
+    total: 53300,
+  },
+  {
+    id: "q2",
+    number: "QT-2026-002",
+    customer: customers[1],
+    items: [
+      { id: "i3", description: "Logotyp & varumärkespaket", quantity: 1, unitPrice: 28000 },
+    ],
+    status: "opened",
+    createdAt: "2026-03-05",
+    validUntil: "2026-04-04",
+    total: 28000,
+  },
+  {
+    id: "q3",
+    number: "QT-2026-003",
+    customer: customers[2],
+    items: [
+      { id: "i4", description: "IT-infrastruktur audit", quantity: 1, unitPrice: 85000 },
+    ],
+    status: "sent",
+    createdAt: "2026-03-10",
+    validUntil: "2026-04-09",
+    total: 85000,
+  },
+  {
+    id: "q4",
+    number: "QT-2026-004",
+    customer: customers[3],
+    items: [
+      { id: "i5", description: "Strategikonsultation", quantity: 10, unitPrice: 1950 },
+    ],
+    status: "draft",
+    createdAt: "2026-03-15",
+    validUntil: "2026-04-14",
+    total: 19500,
+  },
+];
+
+export const invoices: Invoice[] = [
+  {
+    id: "inv1",
+    number: "FAK-2026-001",
+    customer: customers[0],
+    items: [
+      { id: "i1", description: "Webbutveckling - fas 1", quantity: 20, unitPrice: 950 },
+    ],
+    status: "paid",
+    issuedAt: "2026-02-15",
+    dueDate: "2026-03-15",
+    total: 19000,
+    paymentTerms: "30 dagar netto",
+  },
+  {
+    id: "inv2",
+    number: "FAK-2026-002",
+    customer: customers[1],
+    items: [
+      { id: "i2", description: "Logotypdesign - delbetalning", quantity: 1, unitPrice: 14000 },
+    ],
+    status: "sent",
+    issuedAt: "2026-03-01",
+    dueDate: "2026-03-31",
+    total: 14000,
+    paymentTerms: "30 dagar netto",
+  },
+  {
+    id: "inv3",
+    number: "FAK-2026-003",
+    customer: customers[2],
+    items: [
+      { id: "i3", description: "IT-konsultation", quantity: 8, unitPrice: 1200 },
+    ],
+    status: "overdue",
+    issuedAt: "2026-02-01",
+    dueDate: "2026-03-01",
+    total: 9600,
+    paymentTerms: "30 dagar netto",
+  },
+];
+
+export const templates: Template[] = [];
+
+export const analyticsData = {
+  totalRevenue: 520000,
+  avgQuoteValue: 5474,
+  winRate: 73,
+  sentQuotes: 130,
+  revenueGrowth: 18,
+  avgGrowth: 8,
+  winRateGrowth: 4,
+  sentGrowth: 23,
+  monthlyRevenue: [
+    { month: "Apr", value: 32000 },
+    { month: "Maj", value: 38000 },
+    { month: "Jun", value: 41000 },
+    { month: "Jul", value: 35000 },
+    { month: "Aug", value: 48000 },
+    { month: "Sep", value: 52000 },
+    { month: "Okt", value: 45000 },
+    { month: "Nov", value: 58000 },
+    { month: "Dec", value: 62000 },
+    { month: "Jan", value: 55000 },
+    { month: "Feb", value: 68000 },
+    { month: "Mar", value: 72000 },
+  ],
+  quoteVolume: [
+    { month: "Apr", sent: 8, accepted: 5 },
+    { month: "Maj", sent: 10, accepted: 7 },
+    { month: "Jun", sent: 12, accepted: 9 },
+    { month: "Jul", sent: 9, accepted: 6 },
+    { month: "Aug", sent: 14, accepted: 10 },
+    { month: "Sep", sent: 11, accepted: 8 },
+    { month: "Okt", sent: 13, accepted: 9 },
+    { month: "Nov", sent: 15, accepted: 11 },
+    { month: "Dec", sent: 10, accepted: 7 },
+    { month: "Jan", sent: 12, accepted: 9 },
+    { month: "Feb", sent: 16, accepted: 12 },
+    { month: "Mar", sent: 14, accepted: 10 },
+  ],
+  statusDistribution: [
+    { status: "Accepterade", count: 95, color: "bg-green-500" },
+    { status: "Avböjda", count: 20, color: "bg-red-500" },
+    { status: "Öppnade", count: 16, color: "bg-yellow-500" },
+    { status: "Skickade", count: 10, color: "bg-blue-500" },
+    { status: "Utkast", count: 11, color: "bg-gray-400" },
+  ],
+  topCustomers: [
+    { name: "Byggmax AB", quotes: 12, winRate: 83, total: 145000 },
+    { name: "Teknik Solutions", quotes: 9, winRate: 78, total: 98000 },
+    { name: "Nordic Retail", quotes: 8, winRate: 75, total: 87000 },
+    { name: "Summit IT", quotes: 7, winRate: 71, total: 76000 },
+    { name: "Acme Corp", quotes: 6, winRate: 67, total: 53000 },
+  ],
+  conversionFunnel: [
+    { stage: "Skapade", count: 130, percent: 100 },
+    { stage: "Skickade", count: 117, percent: 90 },
+    { stage: "Öppnade", count: 94, percent: 72 },
+    { stage: "Accepterade", count: 95, percent: 73 },
+  ],
+};

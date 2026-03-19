@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@layer base {
+  .form-input {
+    @apply w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all;
+  }
+
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-xl text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors;
+  }
+
+  .sidebar-item.active {
+    @apply bg-indigo-50 text-indigo-600;
+  }
+
+  .step-dot {
+    @apply w-9 h-9 rounded-full flex items-center justify-center text-sm font-semibold transition-colors;
+  }
+
+  .step-line {
+    @apply h-0.5 bg-gray-200 rounded-full;
+  }
+}
