@@ -16,7 +16,7 @@ export default function DashboardLayout({
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex-1 flex flex-col min-w-0">
         <Header onMenuToggle={() => setSidebarOpen((prev) => !prev)} />
-        <main className="flex-1 overflow-y-auto bg-gray-50/50 p-5 sm:p-8">
+        <main className="flex-1 overflow-y-auto bg-gray-50/40 p-6 sm:p-10">
           {children}
         </main>
       </div>
