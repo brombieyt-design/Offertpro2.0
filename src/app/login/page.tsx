@@ -1,12 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 600);
+  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -26,10 +40,7 @@ export default function LoginPage() {
 
           {/* Form */}
           <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 sm:p-10">
-            <form
-              onSubmit={(e) => e.preventDefault()}
-              className="space-y-5"
-            >
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label
                   htmlFor="email"
@@ -40,7 +51,10 @@ export default function LoginPage() {
                 <input
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="namn@foretag.se"
+                  required
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                 />
               </div>
@@ -56,7 +70,10 @@ export default function LoginPage() {
                   <input
                     id="password"
                     type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Ange ditt lösenord"
+                    required
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all pr-12"
                   />
                   <button
@@ -77,12 +94,15 @@ export default function LoginPage() {
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
                     className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                   />
                   <span className="text-sm text-gray-500">Kom ihåg mig</span>
                 </label>
                 <button
                   type="button"
+                  onClick={() => alert("Lösenordsåterställning kommer snart.")}
                   className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
                 >
                   Glömt lösenord?
@@ -91,10 +111,13 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-xl transition-all duration-300 group"
+                disabled={loading}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-xl transition-all duration-300 group disabled:opacity-60"
               >
-                Logga in
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                {loading ? "Loggar in…" : "Logga in"}
+                {!loading && (
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                )}
               </button>
             </form>
 
@@ -108,7 +131,10 @@ export default function LoginPage() {
             </div>
 
             {/* Social login */}
-            <button className="w-full flex items-center justify-center gap-3 px-6 py-3 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-300 border border-gray-200">
+            <button
+              onClick={() => alert("Google-inloggning kommer snart.")}
+              className="w-full flex items-center justify-center gap-3 px-6 py-3 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-300 border border-gray-200"
+            >
               <svg className="h-4 w-4" viewBox="0 0 24 24">
                 <path
                   d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"

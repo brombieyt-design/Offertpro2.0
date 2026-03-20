@@ -1,3 +1,5 @@
+"use client";
+
 import { Copy, Plus } from "lucide-react";
 import { templates } from "@/lib/mock-data";
 
@@ -12,7 +14,10 @@ export default function TemplatesPage() {
             Spara återanvändbara radartiklar för offerter och fakturor
           </p>
         </div>
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors">
+        <button
+          onClick={() => alert("Funktionen att skapa mallar kommer snart.")}
+          className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+        >
           <Plus className="w-4 h-4" />
           Skapa mall
         </button>
@@ -31,7 +36,10 @@ export default function TemplatesPage() {
             Skapa mallar med vanliga radartiklar så du snabbt kan fylla i nya
             offerter och fakturor.
           </p>
-          <button className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors">
+          <button
+            onClick={() => alert("Funktionen att skapa mallar kommer snart.")}
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+          >
             <Plus className="w-4 h-4" />
             Skapa din första mall
           </button>

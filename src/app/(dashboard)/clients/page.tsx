@@ -1,3 +1,5 @@
+"use client";
+
 import { Plus, Users, Building2, Phone, MapPin } from "lucide-react";
 import { customers } from "@/lib/mock-data";
 
@@ -38,7 +40,10 @@ export default function ClientsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className="text-2xl font-bold text-gray-900">Kunder</h1>
-        <button className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors">
+        <button
+          onClick={() => alert("Funktionen att skapa nya kunder kommer snart.")}
+          className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+        >
           <Plus className="w-4 h-4" />
           Ny kund
         </button>

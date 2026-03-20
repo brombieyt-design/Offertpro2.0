@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Plus, MoreHorizontal } from "lucide-react";
 import { invoices } from "@/lib/mock-data";
@@ -26,9 +29,16 @@ function sumByStatus(status: InvoiceStatus) {
 }
 
 export default function InvoicesPage() {
+  const [activeTab, setActiveTab] = useState<InvoiceStatus | "all">("all");
+
   const paidAmount = sumByStatus("paid");
   const pendingAmount = sumByStatus("sent") + sumByStatus("draft");
   const overdueAmount = sumByStatus("overdue");
+
+  const filtered =
+    activeTab === "all"
+      ? invoices
+      : invoices.filter((inv) => inv.status === activeTab);
 
   return (
     <div className="space-y-10">
@@ -93,9 +103,10 @@ export default function InvoicesPage() {
           return (
             <button
               key={tab.value}
+              onClick={() => setActiveTab(tab.value)}
               className={cn(
                 "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
-                tab.value === "all"
+                tab.value === activeTab
                   ? "bg-white text-gray-900 shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
               )}
@@ -136,7 +147,7 @@ export default function InvoicesPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {invoices.map((invoice) => (
+            {filtered.map((invoice) => (
               <tr
                 key={invoice.id}
                 className="hover:bg-gray-50/50 transition-all duration-300"
@@ -172,12 +183,22 @@ export default function InvoicesPage() {
                   </span>
                 </td>
                 <td className="px-7 py-5 text-right">
-                  <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all duration-300">
+                  <button
+                    onClick={() => alert(`Åtgärder för ${invoice.number} kommer snart.`)}
+                    className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all duration-300"
+                  >
                     <MoreHorizontal className="w-4 h-4" />
                   </button>
                 </td>
               </tr>
             ))}
+            {filtered.length === 0 && (
+              <tr>
+                <td colSpan={7} className="px-7 py-12 text-center text-sm text-gray-400">
+                  Inga fakturor med denna status.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

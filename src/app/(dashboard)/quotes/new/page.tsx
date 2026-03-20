@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -30,6 +31,7 @@ const steps = [
 ];
 
 export default function NewQuotePage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1 state
@@ -667,7 +669,13 @@ export default function NewQuotePage() {
         </button>
 
         <div className="flex items-center gap-3">
-          <button className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300">
+          <button
+            onClick={() => {
+              alert("Utkast sparat!");
+              router.push("/quotes");
+            }}
+            className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
+          >
             Spara utkast
           </button>
           {currentStep < 4 ? (
@@ -685,6 +693,10 @@ export default function NewQuotePage() {
             </button>
           ) : (
             <button
+              onClick={() => {
+                alert("Offert skickad!");
+                router.push("/quotes");
+              }}
               className="inline-flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300"
             >
               <Send className="w-4 h-4" />

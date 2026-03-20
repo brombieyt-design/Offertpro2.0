@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-const tabs = [
+const tabList = [
   { id: "company", label: "Företagsprofil" },
   { id: "payment", label: "Betalning" },
   { id: "defaults", label: "Standardvärden" },
@@ -11,6 +11,27 @@ const tabs = [
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("company");
+  const [saved, setSaved] = useState(false);
+  const [form, setForm] = useState({
+    companyName: "",
+    orgNumber: "",
+    vatNumber: "",
+    email: "",
+    phone: "",
+    website: "",
+    address: "",
+    city: "",
+  });
+
+  function update(field: keyof typeof form, value: string) {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    setSaved(false);
+  }
+
+  function handleSave() {
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }
 
   return (
     <div className="space-y-6">
@@ -18,7 +39,7 @@ export default function SettingsPage() {
 
       {/* Tabs */}
       <div className="flex gap-1 bg-white rounded-xl border border-gray-100 shadow-sm p-1 w-fit">
-        {tabs.map((tab) => (
+        {tabList.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
@@ -47,6 +68,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
+                value={form.companyName}
+                onChange={(e) => update("companyName", e.target.value)}
                 placeholder="Ditt Företag AB"
                 className="form-input"
               />
@@ -57,6 +80,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
+                value={form.orgNumber}
+                onChange={(e) => update("orgNumber", e.target.value)}
                 placeholder="556xxx-xxxx"
                 className="form-input"
               />
@@ -67,6 +92,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
+                value={form.vatNumber}
+                onChange={(e) => update("vatNumber", e.target.value)}
                 placeholder="SE556xxxxxxxxx01"
                 className="form-input"
               />
@@ -77,6 +104,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="email"
+                value={form.email}
+                onChange={(e) => update("email", e.target.value)}
                 placeholder="info@foretag.se"
                 className="form-input"
               />
@@ -87,6 +116,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="tel"
+                value={form.phone}
+                onChange={(e) => update("phone", e.target.value)}
                 placeholder="+46 70 123 45 67"
                 className="form-input"
               />
@@ -97,6 +128,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="url"
+                value={form.website}
+                onChange={(e) => update("website", e.target.value)}
                 placeholder="https://foretag.se"
                 className="form-input"
               />
@@ -107,6 +140,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
+                value={form.address}
+                onChange={(e) => update("address", e.target.value)}
                 placeholder="Storgatan 1"
                 className="form-input"
               />
@@ -117,14 +152,19 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
+                value={form.city}
+                onChange={(e) => update("city", e.target.value)}
                 placeholder="Stockholm"
                 className="form-input"
               />
             </div>
           </div>
           <div className="mt-6">
-            <button className="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors">
-              Spara inställningar
+            <button
+              onClick={handleSave}
+              className="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+            >
+              {saved ? "Sparat!" : "Spara inställningar"}
             </button>
           </div>
         </div>

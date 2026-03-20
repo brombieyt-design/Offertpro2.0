@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Eye, EyeOff, ArrowRight, Check } from "lucide-react";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
@@ -14,7 +15,27 @@ const benefits = [
 ];
 
 export default function SignupPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [company, setCompany] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!acceptTerms) {
+      alert("Du måste godkänna användarvillkoren för att fortsätta.");
+      return;
+    }
+    setLoading(true);
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 600);
+  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -46,10 +67,7 @@ export default function SignupPage() {
           {/* Right - Form */}
           <div className="w-full max-w-md">
             <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 sm:p-10">
-              <form
-                onSubmit={(e) => e.preventDefault()}
-                className="space-y-5"
-              >
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label
@@ -61,7 +79,10 @@ export default function SignupPage() {
                     <input
                       id="firstName"
                       type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                       placeholder="Anna"
+                      required
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                     />
                   </div>
@@ -75,7 +96,10 @@ export default function SignupPage() {
                     <input
                       id="lastName"
                       type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                       placeholder="Svensson"
+                      required
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                     />
                   </div>
@@ -91,6 +115,8 @@ export default function SignupPage() {
                   <input
                     id="company"
                     type="text"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
                     placeholder="Mitt Företag AB"
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                   />
@@ -106,7 +132,10 @@ export default function SignupPage() {
                   <input
                     id="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="namn@foretag.se"
+                    required
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
                   />
                 </div>
@@ -122,7 +151,11 @@ export default function SignupPage() {
                     <input
                       id="password"
                       type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="Minst 8 tecken"
+                      required
+                      minLength={8}
                       className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all pr-12"
                     />
                     <button
@@ -142,6 +175,8 @@ export default function SignupPage() {
                 <label className="flex items-start gap-2 cursor-pointer">
                   <input
                     type="checkbox"
+                    checked={acceptTerms}
+                    onChange={(e) => setAcceptTerms(e.target.checked)}
                     className="w-4 h-4 mt-0.5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                   />
                   <span className="text-xs text-gray-400 leading-relaxed">
@@ -158,10 +193,13 @@ export default function SignupPage() {
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-xl transition-all duration-300 group"
+                  disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-xl transition-all duration-300 group disabled:opacity-60"
                 >
-                  Skapa konto
-                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  {loading ? "Skapar konto…" : "Skapa konto"}
+                  {!loading && (
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  )}
                 </button>
               </form>
 
@@ -175,7 +213,10 @@ export default function SignupPage() {
               </div>
 
               {/* Social signup */}
-              <button className="w-full flex items-center justify-center gap-3 px-6 py-3 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-300 border border-gray-200">
+              <button
+                onClick={() => alert("Google-registrering kommer snart.")}
+                className="w-full flex items-center justify-center gap-3 px-6 py-3 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all duration-300 border border-gray-200"
+              >
                 <svg className="h-4 w-4" viewBox="0 0 24 24">
                   <path
                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"

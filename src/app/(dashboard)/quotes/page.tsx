@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Plus, MoreHorizontal } from "lucide-react";
 import { quotes } from "@/lib/mock-data";
@@ -20,6 +23,13 @@ function countByStatus(status: QuoteStatus | "all") {
 }
 
 export default function QuotesPage() {
+  const [activeTab, setActiveTab] = useState<QuoteStatus | "all">("all");
+
+  const filtered =
+    activeTab === "all"
+      ? quotes
+      : quotes.filter((q) => q.status === activeTab);
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -48,9 +58,10 @@ export default function QuotesPage() {
           return (
             <button
               key={tab.value}
+              onClick={() => setActiveTab(tab.value)}
               className={cn(
                 "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
-                tab.value === "all"
+                tab.value === activeTab
                   ? "bg-white text-gray-900 shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
               )}
@@ -91,7 +102,7 @@ export default function QuotesPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {quotes.map((quote) => (
+            {filtered.map((quote) => (
               <tr
                 key={quote.id}
                 className="hover:bg-gray-50/50 transition-all duration-300"
@@ -127,12 +138,22 @@ export default function QuotesPage() {
                   {formatDate(quote.validUntil)}
                 </td>
                 <td className="px-7 py-5 text-right">
-                  <button className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all duration-300">
+                  <button
+                    onClick={() => alert(`Åtgärder för ${quote.number} kommer snart.`)}
+                    className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all duration-300"
+                  >
                     <MoreHorizontal className="w-4 h-4" />
                   </button>
                 </td>
               </tr>
             ))}
+            {filtered.length === 0 && (
+              <tr>
+                <td colSpan={7} className="px-7 py-12 text-center text-sm text-gray-400">
+                  Inga offerter med denna status.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
