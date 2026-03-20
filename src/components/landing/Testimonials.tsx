@@ -1,5 +1,11 @@
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react";
 import { testimonials } from "@/lib/constants";
+
+const avatarColors = [
+  "bg-indigo-100 text-indigo-600",
+  "bg-emerald-100 text-emerald-600",
+  "bg-amber-100 text-amber-600",
+];
 
 export default function Testimonials() {
   return (
@@ -23,16 +29,16 @@ export default function Testimonials() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((t) => (
+          {testimonials.map((t, i) => (
             <div
               key={t.name}
               className="bg-white rounded-3xl p-10 transition-all duration-500 hover:shadow-xl card-hover border border-gray-100/50"
             >
               {/* Stars */}
               <div className="flex gap-1 mb-8">
-                {Array.from({ length: 5 }).map((_, i) => (
+                {Array.from({ length: 5 }).map((_, j) => (
                   <Star
-                    key={i}
+                    key={j}
                     className="h-4 w-4 fill-yellow-400 text-yellow-400"
                   />
                 ))}
@@ -42,14 +48,46 @@ export default function Testimonials() {
                 &ldquo;{t.quote}&rdquo;
               </p>
 
-              <div className="mt-10 pt-6 border-t border-gray-100">
-                <p className="text-sm font-semibold text-gray-900">{t.name}</p>
-                <p className="mt-1 text-sm text-gray-400">
-                  {t.role}, {t.company}
-                </p>
+              <div className="mt-10 pt-6 border-t border-gray-100 flex items-center gap-4">
+                {/* Avatar */}
+                <div
+                  className={`flex h-11 w-11 items-center justify-center rounded-full text-sm font-bold shrink-0 ${avatarColors[i % avatarColors.length]}`}
+                >
+                  {t.name
+                    .split(" ")
+                    .map((n) => n[0])
+                    .join("")}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {t.name}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    {t.role}, {t.company}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Bottom trust line */}
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-gray-400">
+          <div className="flex items-center gap-2">
+            <div className="flex gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className="h-3 w-3 fill-yellow-400 text-yellow-400"
+                />
+              ))}
+            </div>
+            <span>4.9/5 genomsnittligt betyg</span>
+          </div>
+          <div className="hidden sm:block w-px h-4 bg-gray-200" />
+          <span>200+ verifierade recensioner</span>
+          <div className="hidden sm:block w-px h-4 bg-gray-200" />
+          <span>500+ aktiva företag</span>
         </div>
       </div>
     </section>
