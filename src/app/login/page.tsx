@@ -81,12 +81,12 @@ export default function LoginPage() {
                   />
                   <span className="text-sm text-gray-500">Kom ihåg mig</span>
                 </label>
-                <a
-                  href="#"
+                <button
+                  type="button"
                   className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
                 >
                   Glömt lösenord?
-                </a>
+                </button>
               </div>
 
               <button

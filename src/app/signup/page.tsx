@@ -146,13 +146,13 @@ export default function SignupPage() {
                   />
                   <span className="text-xs text-gray-400 leading-relaxed">
                     Jag godkänner{" "}
-                    <a href="#" className="text-indigo-600 hover:underline">
+                    <span className="text-indigo-600 underline cursor-pointer">
                       användarvillkoren
-                    </a>{" "}
+                    </span>{" "}
                     och{" "}
-                    <a href="#" className="text-indigo-600 hover:underline">
+                    <span className="text-indigo-600 underline cursor-pointer">
                       integritetspolicyn
-                    </a>
+                    </span>
                   </span>
                 </label>
 
