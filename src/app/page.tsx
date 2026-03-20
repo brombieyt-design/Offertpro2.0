@@ -2,8 +2,11 @@ import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
 import SocialProof from "@/components/landing/SocialProof";
 import Features from "@/components/landing/Features";
+import UseCases from "@/components/landing/UseCases";
+import Integrations from "@/components/landing/Integrations";
 import Pricing from "@/components/landing/Pricing";
 import Testimonials from "@/components/landing/Testimonials";
+import FAQ from "@/components/landing/FAQ";
 import CTA from "@/components/landing/CTA";
 import Footer from "@/components/landing/Footer";
 
@@ -14,8 +17,11 @@ export default function Home() {
       <Hero />
       <SocialProof />
       <Features />
+      <UseCases />
+      <Integrations />
       <Pricing />
       <Testimonials />
+      <FAQ />
       <CTA />
       <Footer />
     </main>
