@@ -1,8 +1,9 @@
+import Image from "next/image";
 import { ArrowRight, Star, Shield, Users } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative pt-44 pb-32 md:pt-52 md:pb-40 px-4 sm:px-6 lg:px-8 bg-white min-h-[85vh] flex items-center overflow-hidden">
+    <section className="relative pt-44 pb-16 md:pt-52 md:pb-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white pointer-events-none" />
 
@@ -37,7 +38,7 @@ export default function Hero() {
             Kom igång gratis
           </a>
           <a
-            href="#hur-det-fungerar"
+            href="/hur-det-fungerar"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 text-base font-medium text-gray-500 hover:text-gray-900 transition-colors duration-300 group"
           >
             Se hur det fungerar
@@ -46,7 +47,7 @@ export default function Hero() {
         </div>
 
         {/* Trust row */}
-        <div className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-10 animate-fade-in-up-delay-3">
+        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-10 animate-fade-in-up-delay-3">
           <div className="flex items-center gap-2.5">
             <div className="flex gap-0.5">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -70,6 +71,22 @@ export default function Hero() {
             <span className="text-sm text-gray-400">100% gratis att börja</span>
           </div>
         </div>
+      </div>
+
+      {/* Hero image */}
+      <div className="relative mx-auto max-w-5xl mt-20 animate-fade-in-up-delay-3">
+        <div className="rounded-2xl border border-gray-200/60 shadow-2xl shadow-gray-200/40 overflow-hidden bg-white">
+          <Image
+            src="/images/hero-dashboard.svg"
+            alt="Offert Pro dashboard - skapa och hantera offerter"
+            width={800}
+            height={500}
+            className="w-full h-auto"
+            priority
+          />
+        </div>
+        {/* Subtle glow effect */}
+        <div className="absolute -inset-4 bg-gradient-to-t from-white via-transparent to-transparent pointer-events-none" />
       </div>
     </section>
   );

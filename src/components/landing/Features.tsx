@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   FileText,
   Eye,
@@ -95,7 +96,7 @@ export default function Features() {
       >
         <div className="mx-auto max-w-6xl">
           {/* Header */}
-          <div className="text-center max-w-2xl mx-auto mb-24">
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-400 mb-4">
               Funktioner
             </p>
@@ -106,6 +107,17 @@ export default function Features() {
               Kraftfulla verktyg som hjälper dig att skapa, skicka och följa upp
               offerter snabbare än någonsin.
             </p>
+          </div>
+
+          {/* Feature illustration */}
+          <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-white">
+            <Image
+              src="/images/features-overview.svg"
+              alt="Offert Pro funktioner - PDF, spårning, e-signaturer, mallar och pipeline"
+              width={800}
+              height={400}
+              className="w-full h-auto"
+            />
           </div>
 
           {/* Grid */}

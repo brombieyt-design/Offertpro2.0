@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Building2, Paintbrush, Wrench, Monitor, Briefcase, Truck } from "lucide-react";
 
 const useCases = [
@@ -55,6 +56,17 @@ export default function UseCases() {
             Oavsett bransch hjälper Offert Pro dig att skapa professionella
             offerter och vinna fler affärer.
           </p>
+        </div>
+
+        {/* Analytics illustration */}
+        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30">
+          <Image
+            src="/images/analytics-chart.svg"
+            alt="Offert Pro analys - acceptansgrad och offertstatistik"
+            width={800}
+            height={400}
+            className="w-full h-auto"
+          />
         </div>
 
         {/* Grid */}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   CreditCard,
   FileSpreadsheet,
@@ -45,7 +46,7 @@ export default function Integrations() {
     <section className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="mx-auto max-w-6xl">
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-24">
+        <div className="text-center max-w-2xl mx-auto mb-16">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-400 mb-4">
             Integrationer
           </p>
@@ -56,6 +57,17 @@ export default function Integrations() {
             Koppla ihop Offert Pro med de tjänster du redan använder för ett
             smidigt arbetsflöde.
           </p>
+        </div>
+
+        {/* Integration flow illustration */}
+        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-white p-8">
+          <Image
+            src="/images/integrations-flow.svg"
+            alt="Offert Pro integrationer - Fortnox, Stripe, Gmail, BankID och mer"
+            width={800}
+            height={200}
+            className="w-full h-auto"
+          />
         </div>
 
         {/* Grid */}
