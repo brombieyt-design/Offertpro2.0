@@ -23,10 +23,15 @@ export default function InvoicesPage() {
 
   async function fetchInvoices() {
     setLoading(true);
-    const res = await fetch("/api/invoices");
-    const data = await res.json();
-    setInvoices(data);
-    setLoading(false);
+    try {
+      const res = await fetch("/api/invoices");
+      const data = res.ok ? await res.json() : [];
+      setInvoices(Array.isArray(data) ? data : []);
+    } catch {
+      setInvoices([]);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {

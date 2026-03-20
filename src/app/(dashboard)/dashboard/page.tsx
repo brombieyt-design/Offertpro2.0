@@ -25,15 +25,19 @@ export default function DashboardPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch("/api/quotes").then((r) => r.json()),
-      fetch("/api/invoices").then((r) => r.json()),
-      fetch("/api/customers").then((r) => r.json()),
-    ]).then(([q, inv, c]) => {
-      setQuotes(q);
-      setInvoices(inv);
-      setCustomers(c);
-      setLoading(false);
-    });
+      fetch("/api/quotes").then((r) => r.ok ? r.json() : []),
+      fetch("/api/invoices").then((r) => r.ok ? r.json() : []),
+      fetch("/api/customers").then((r) => r.ok ? r.json() : []),
+    ])
+      .then(([q, inv, c]) => {
+        setQuotes(Array.isArray(q) ? q : []);
+        setInvoices(Array.isArray(inv) ? inv : []);
+        setCustomers(Array.isArray(c) ? c : []);
+      })
+      .catch(() => {
+        // If all fetches fail, still show the dashboard with empty data
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   const openedQuotes = quotes.filter((q) => q.status === "opened");

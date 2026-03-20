@@ -23,10 +23,15 @@ export default function QuotesPage() {
 
   async function fetchQuotes() {
     setLoading(true);
-    const res = await fetch("/api/quotes");
-    const data = await res.json();
-    setQuotes(data);
-    setLoading(false);
+    try {
+      const res = await fetch("/api/quotes");
+      const data = res.ok ? await res.json() : [];
+      setQuotes(Array.isArray(data) ? data : []);
+    } catch {
+      setQuotes([]);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {

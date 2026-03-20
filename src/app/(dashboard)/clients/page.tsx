@@ -21,10 +21,15 @@ export default function ClientsPage() {
 
   async function fetchCustomers() {
     setLoading(true);
-    const res = await fetch("/api/customers");
-    const data = await res.json();
-    setCustomers(data);
-    setLoading(false);
+    try {
+      const res = await fetch("/api/customers");
+      const data = res.ok ? await res.json() : [];
+      setCustomers(Array.isArray(data) ? data : []);
+    } catch {
+      setCustomers([]);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
