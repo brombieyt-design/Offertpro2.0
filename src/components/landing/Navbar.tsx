@@ -5,10 +5,10 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { label: "Hur det fungerar", href: "#hur-det-fungerar" },
-  { label: "Tjänster", href: "#funktioner" },
-  { label: "Priser", href: "#priser" },
-  { label: "För företag", href: "#om-oss" },
+  { label: "Hur det fungerar", href: "/hur-det-fungerar" },
+  { label: "Tjänster", href: "/tjanster" },
+  { label: "Priser", href: "/pricing" },
+  { label: "För företag", href: "/for-foretag" },
 ];
 
 export default function Navbar() {
