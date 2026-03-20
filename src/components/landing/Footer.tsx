@@ -14,6 +14,7 @@ const columns = [
     title: "Företag",
     links: [
       { label: "För företag", href: "/for-foretag" },
+      { label: "Blogg", href: "/blog" },
       { label: "Om oss", href: "/for-foretag" },
     ],
   },
