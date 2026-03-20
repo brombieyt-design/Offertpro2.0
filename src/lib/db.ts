@@ -11,8 +11,10 @@ export interface DB {
 
 const DB_PATH = path.join(process.cwd(), "data", "db.json");
 
+// In-memory store used when filesystem is read-only (e.g. Vercel)
+let memoryDB: DB | null = null;
+
 function getDefaultData(): DB {
-  // Import seed data from mock-data at build time
   return {
     customers: [
       {
@@ -136,7 +138,39 @@ function getDefaultData(): DB {
   };
 }
 
+function canWriteToFS(): boolean {
+  try {
+    const dir = path.dirname(DB_PATH);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    // Test write access
+    const testFile = path.join(dir, ".write-test");
+    fs.writeFileSync(testFile, "");
+    fs.unlinkSync(testFile);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+let useFileSystem: boolean | null = null;
+
+function shouldUseFS(): boolean {
+  if (useFileSystem === null) {
+    useFileSystem = canWriteToFS();
+  }
+  return useFileSystem;
+}
+
 export function readDB(): DB {
+  if (!shouldUseFS()) {
+    if (!memoryDB) {
+      memoryDB = getDefaultData();
+    }
+    return memoryDB;
+  }
+
   try {
     if (!fs.existsSync(DB_PATH)) {
       const defaultData = getDefaultData();
@@ -147,12 +181,22 @@ export function readDB(): DB {
     return JSON.parse(raw) as DB;
   } catch {
     const defaultData = getDefaultData();
-    writeDB(defaultData);
+    try {
+      writeDB(defaultData);
+    } catch {
+      // filesystem failed, fall back to memory
+      memoryDB = defaultData;
+    }
     return defaultData;
   }
 }
 
 export function writeDB(data: DB): void {
+  if (!shouldUseFS()) {
+    memoryDB = data;
+    return;
+  }
+
   const dir = path.dirname(DB_PATH);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
