@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   FileText,
   Eye,
@@ -95,6 +96,17 @@ const detailedFeatures = [
     ],
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Tjänster – Allt du behöver för professionella offerter",
+  description:
+    "PDF-offerter, realtidsspårning, e-signaturer, återanvändbara mallar, automatiska påminnelser och statuspipeline. Allt i ett offertverktyg.",
+  alternates: { canonical: "/tjanster" },
+  openGraph: {
+    title: "Tjänster – Offert Pro",
+    description: "PDF-offerter, e-signaturer, realtidsspårning – allt i ett verktyg.",
+  },
+};
 
 export default function TjansterPage() {
   return (

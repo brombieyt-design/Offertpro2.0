@@ -1,0 +1,54 @@
+# Offert Pro
+
+> Offert Pro är ett svenskt SaaS-verktyg för att skapa professionella offerter och fakturor. Riktat mot småföretag, frilansare och konsulter i Sverige.
+
+## Vad är Offert Pro?
+
+Offert Pro är en webbaserad plattform som hjälper svenska småföretag att:
+- Skapa professionella PDF-offerter på minuter
+- Skicka fakturor med automatisk påminnelse
+- Spåra om kunder öppnar offerter i realtid
+- Samla juridiskt bindande e-signaturer
+- Återanvända mallar för återkommande uppdrag
+
+## Prissättning
+
+- **Gratis**: 0 kr/mån – 5 offerter/månad, PDF-export, e-postleverans
+- **Starter**: 199 kr/mån – 50 offerter/månad, spårning, e-signaturer
+- **Pro**: 499 kr/mån – Obegränsat, CRM-integration, prioriterad support (mest populär)
+- **Business**: 999 kr/mån – Teamfunktioner, API-åtkomst, dedikerad kontaktperson
+
+## Huvudfunktioner
+
+- Professionella PDF-offerter med eget varumärke
+- Realtidsspårning (se när kunden öppnar offerten)
+- E-signaturer direkt i webbläsaren
+- Återanvändbara offertmallar
+- Automatiska påminnelser
+- Fakturering med betalningsvillkor
+- Kundhantering (CRM-light)
+- Statistik och analys
+- GDPR-kompatibel, data lagras inom EU
+
+## Målgrupp
+
+- Svenska småföretag
+- Frilansare och konsulter
+- Bygg- och hantverksföretag
+- IT-konsulter och digitala byråer
+- Alla som behöver skicka offerter professionellt
+
+## Länkar
+
+- Webbplats: https://offertpro.se
+- Priser: https://offertpro.se/pricing
+- Hur det fungerar: https://offertpro.se/hur-det-fungerar
+- Tjänster: https://offertpro.se/tjanster
+- För företag: https://offertpro.se/for-foretag
+- Blogg: https://offertpro.se/blog
+- Registrera: https://offertpro.se/signup
+
+## Kontakt
+
+- E-post: hej@offertpro.se
+- Plats: Stockholm, Sverige

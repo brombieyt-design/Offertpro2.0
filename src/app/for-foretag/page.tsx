@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   Building2,
   Users,
@@ -84,6 +85,17 @@ const caseStudies = [
     rating: 5,
   },
 ];
+
+export const metadata: Metadata = {
+  title: "För företag – Skala din offertprocess med hela teamet",
+  description:
+    "Offert Pro för företag: 40% högre acceptansgrad, 2x snabbare offertprocess. Teamsamarbete, rollhantering, API-integrationer och dedikerad support.",
+  alternates: { canonical: "/for-foretag" },
+  openGraph: {
+    title: "För företag – Offert Pro",
+    description: "Skala din offertprocess. 40% högre acceptansgrad, teamsamarbete, API-integrationer.",
+  },
+};
 
 export default function ForForetagPage() {
   return (

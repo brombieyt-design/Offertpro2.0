@@ -1,0 +1,189 @@
+# Offert Pro – Komplett dokumentation
+
+> Offert Pro är ett svenskt SaaS-verktyg för att skapa professionella offerter och fakturor. Riktat mot småföretag, frilansare och konsulter i Sverige.
+
+## Om Offert Pro
+
+Offert Pro grundades 2026 i Stockholm med målet att demokratisera professionell offerthantering för svenska småföretag. Plattformen gör det möjligt för alla – från enmansföretag till växande team – att skapa, skicka och följa upp offerter och fakturor utan krångel.
+
+### Problemet vi löser
+
+Många svenska småföretag skapar offerter i Word eller Excel, vilket leder till:
+- Oprofessionellt intryck hos kunder
+- Ingen spårning av om offerten öppnats
+- Manuell uppföljning och förlorade affärer
+- Tidskrävande administration
+
+### Vår lösning
+
+En komplett plattform som hanterar hela offertprocessen:
+1. **Skapa** – Välj mall, lägg till rader, anpassa med ditt varumärke
+2. **Skicka** – Leverera via e-post med PDF-bilaga
+3. **Spåra** – Se i realtid när kunden öppnar offerten
+4. **Signera** – Kunden signerar digitalt direkt i webbläsaren
+5. **Fakturera** – Konvertera accepterad offert till faktura med ett klick
+
+## Detaljerade funktioner
+
+### 1. Professionella PDF-offerter
+- Snygga, responsiva PDF:er som imponerar på kunder
+- Eget varumärke: logotyp, färger, typsnitt
+- Automatisk beräkning av radsummor, rabatter och moms
+- Valfritt giltighetsdatum
+
+### 2. Realtidsspårning
+- Få notis direkt när kunden öppnar offerten
+- Se hur lång tid kunden spenderar på offerten
+- Tidslinje med alla händelser per offert
+- Dashboard med överblick över alla offerters status
+
+### 3. E-signaturer
+- Juridiskt bindande digitala signaturer
+- Kunden signerar direkt i webbläsaren
+- Ingen nedladdning eller tredjepartsapp krävs
+- Automatisk bekräftelse till båda parter
+
+### 4. Återanvändbara mallar
+- Spara ofta använda offerttyper som mallar
+- Snabbstart för nya offerter
+- Konsistens i prissättning och format
+- Delningsbara mallar inom teamet
+
+### 5. Automatiska påminnelser
+- Ställ in automatiska påminnelser för offerter som inte besvarats
+- Anpassningsbara intervall och meddelanden
+- Påminnelse vid förfallodatum
+- Maximera acceptansgraden utan manuellt arbete
+
+### 6. Fakturering
+- Skapa fakturor från scratch eller konvertera accepterade offerter
+- Stöd för betalningsvillkor (10, 20, 30, 45, 60 dagar netto)
+- Automatisk förfallodatumsberäkning
+- Statusspårning: utkast, skickad, betald, förfallen
+
+### 7. Kundhantering
+- Centralt kundregister
+- Automatisk ifyllning av kunduppgifter vid ny offert
+- Historik per kund: alla offerter och fakturor
+- Import via CSV
+
+### 8. Statistik och analys
+- Totalt offertvärde och intäkter
+- Acceptansgrad (win rate)
+- Genomsnittligt offertvärde
+- Månadsvis trender
+- Topprankade kunder
+
+## Prissättning i detalj
+
+### Gratis – 0 kr/mån
+- 1 användare
+- 5 offerter per månad
+- Grundläggande PDF-export
+- E-postleverans
+- 7 dagars giltighet per offert
+- Perfekt för: Frilansare som vill testa
+
+### Starter – 199 kr/mån (159 kr/mån vid årsbetalning)
+- 3 användare
+- 50 offerter per månad
+- Allt i Gratis plus:
+- E-signaturer
+- Realtidsspårning
+- Återanvändbara mallar
+- Kundhantering
+- Perfekt för: Små verksamheter som växer
+
+### Pro – 499 kr/mån (399 kr/mån vid årsbetalning) ⭐ Mest populär
+- 10 användare
+- Obegränsat antal offerter
+- Allt i Starter plus:
+- CRM-integration
+- Prioriterad support
+- Automatiska påminnelser
+- Avancerad analys
+- Perfekt för: Etablerade företag
+
+### Business – 999 kr/mån (799 kr/mån vid årsbetalning)
+- Obegränsat antal användare
+- Allt i Pro plus:
+- API-åtkomst
+- Dedikerad kontaktperson
+- SSO (Single Sign-On)
+- Anpassad onboarding
+- Perfekt för: Stora team och organisationer
+
+## Vanliga frågor (FAQ)
+
+**Är det verkligen gratis att komma igång?**
+Ja! Gratisplanen inkluderar upp till 5 offerter per månad utan kreditkort. Uppgradera när du vill.
+
+**Hur fungerar e-signaturerna?**
+Kunder signerar direkt i webbläsaren. Du får notis när offerten signeras och kan följa statusen i realtid.
+
+**Kan jag använda mina egna mallar?**
+Ja, skapa mallar med eget varumärke, logotyp och färger. Spara för att återanvända.
+
+**Vilka betalningsmetoder stöds?**
+Kort (Visa, Mastercard), Swish och faktura. Alla betalningar via Stripe.
+
+**Kan jag byta plan?**
+Ja, uppgradera eller nedgradera när som helst. Ändringen gäller direkt.
+
+**Hur säker är min data?**
+Kryptering i vila och under överföring. Data lagras inom EU. GDPR-kompatibel.
+
+**Kan jag avbryta prenumerationen?**
+Ja, ingen bindningstid. Behåll åtkomst till slutet av faktureringsperioden.
+
+**Finns det support?**
+Alla planer: e-postsupport. Pro: prioriterad. Business: dedikerad kontaktperson.
+
+## Jämförelse med alternativ
+
+| Funktion | Offert Pro | Word/Excel | Andra verktyg |
+|----------|-----------|------------|---------------|
+| Professionella PDF:er | ✅ | ❌ | ✅ |
+| E-signaturer | ✅ | ❌ | Ibland |
+| Realtidsspårning | ✅ | ❌ | Sällan |
+| Automatiska påminnelser | ✅ | ❌ | Ibland |
+| Fakturering | ✅ | ❌ | Separat verktyg |
+| Svenskt gränssnitt | ✅ | ✅ | Sällan |
+| GDPR / EU-data | ✅ | N/A | Inte alltid |
+| Gratis plan | ✅ | ✅ | Sällan |
+
+## Användningsfall
+
+### Byggföretag
+Skapa detaljerade offerter med materiallistor, arbetskostnader och rabatter. Spåra vilka offerter som öppnats och följ upp automatiskt.
+
+### IT-konsulter
+Snabba offerter för timbaserade uppdrag. Återanvändbara mallar för olika tjänstetyper. Konvertera accepterade offerter till fakturor med ett klick.
+
+### Digitala byråer
+Teamsamarbete kring offerter. Gemensamma mallar och varumärkesprofil. Statistik över vinstfrekvens per tjänstetyp.
+
+### Frilansare
+Gör professionellt intryck med snygga offerter. Gratis plan räcker för de flesta. E-signaturer sparar tid.
+
+## Teknisk information
+
+- Webbapplikation – körs i alla moderna webbläsare
+- Ingen installation krävs
+- Responsiv design – fungerar på mobil, surfplatta och dator
+- API tillgängligt på Business-planen
+- Data lagras säkert inom EU
+- GDPR-kompatibel
+- 99.9% drifttid
+
+## Kontakt och support
+
+- Webbplats: https://offertpro.se
+- E-post: hej@offertpro.se
+- Plats: Stockholm, Sverige
+- Support: support@offertpro.se
+
+## Sociala medier
+
+- Twitter/X: https://twitter.com/offertpro
+- LinkedIn: https://linkedin.com/company/offertpro

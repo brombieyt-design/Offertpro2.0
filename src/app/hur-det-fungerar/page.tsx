@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   ClipboardEdit,
   MailCheck,
@@ -78,6 +79,17 @@ const benefits = [
     icon: CheckCircle2,
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Hur det fungerar – Skapa offerter i 3 enkla steg",
+  description:
+    "Från behov till offert på tre enkla steg. Välj mall, anpassa innehållet och skicka professionella offerter direkt till kunden. Spåra öppningar i realtid.",
+  alternates: { canonical: "/hur-det-fungerar" },
+  openGraph: {
+    title: "Hur det fungerar – Offert Pro",
+    description: "Skapa offerter i 3 enkla steg. Välj mall, anpassa, skicka.",
+  },
+};
 
 export default function HowItWorksPage() {
   return (
