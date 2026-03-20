@@ -21,9 +21,7 @@ const newWay = [
 export default function Comparison() {
   return (
     <section className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-      <div className="absolute top-20 left-[50%] w-96 h-96 bg-brand-100/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="relative mx-auto max-w-5xl">
+      <div className="mx-auto max-w-5xl">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 border border-gray-200 mb-6">
@@ -41,7 +39,6 @@ export default function Comparison() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Old way */}
           <div className="rounded-3xl border border-red-200/60 bg-gradient-to-br from-red-50/50 to-orange-50/30 p-10 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-red-200/10 rounded-full blur-3xl pointer-events-none" />
             <div className="relative">
               <div className="flex items-center gap-3 mb-8">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-red-100 shadow-sm">
@@ -69,7 +66,6 @@ export default function Comparison() {
 
           {/* New way */}
           <div className="rounded-3xl border border-green-200/60 bg-gradient-to-br from-green-50/50 to-emerald-50/30 p-10 relative overflow-hidden shadow-lg shadow-green-500/5">
-            <div className="absolute top-0 right-0 w-40 h-40 bg-green-200/10 rounded-full blur-3xl pointer-events-none" />
             <div className="relative">
               <div className="flex items-center gap-3 mb-8">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-green-100 shadow-sm">

@@ -13,9 +13,7 @@ export default function Testimonials() {
       id="om-oss"
       className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-gray-50/50 relative overflow-hidden"
     >
-      <div className="absolute top-0 right-[20%] w-80 h-80 bg-brand-100/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="relative mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-24">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-100 mb-6">

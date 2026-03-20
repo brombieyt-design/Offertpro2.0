@@ -90,11 +90,7 @@ function AnimatedNumber({
 export default function Results() {
   return (
     <section className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-gray-950 relative overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 mesh-gradient opacity-[0.08]" />
-      <div className="absolute inset-0 dot-grid opacity-20" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)" }} />
-
-      <div className="relative mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-20">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
@@ -115,7 +111,7 @@ export default function Results() {
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className="text-center p-8 rounded-3xl glass-dark hover:bg-white/10 transition-all duration-500 card-hover group"
+              className="text-center p-8 rounded-3xl bg-gray-900/90 border border-white/10 hover:bg-white/10 transition-all duration-500 card-hover group"
             >
               <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${stat.gradient} mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
                 <stat.icon className="h-6 w-6 text-white" />

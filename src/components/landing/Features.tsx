@@ -55,10 +55,7 @@ export default function Features() {
         id="hur-det-fungerar"
         className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
       >
-        {/* Subtle background accent */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-100/20 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="relative mx-auto max-w-6xl">
+        <div className="mx-auto max-w-6xl">
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-24">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
@@ -105,9 +102,7 @@ export default function Features() {
         id="funktioner"
         className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-gray-50/50 relative overflow-hidden"
       >
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-100/20 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="relative mx-auto max-w-6xl">
+        <div className="mx-auto max-w-6xl">
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 mb-6">
@@ -123,7 +118,7 @@ export default function Features() {
           </div>
 
           {/* Quote builder mockup */}
-          <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-xl shadow-gray-200/30 bg-white/80 backdrop-blur-sm p-5 sm:p-8 glow">
+          <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-xl shadow-gray-200/30 bg-white p-5 sm:p-8">
             {/* Step indicators */}
             <div className="flex items-center justify-center gap-2 sm:gap-4 mb-8">
               {["Kund", "Rader", "Förhandsgranska", "Skicka"].map((label, i) => (
@@ -210,8 +205,6 @@ export default function Features() {
                   key={f.title}
                   className={`relative bg-white rounded-2xl p-8 lg:p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-500/5 group card-hover border border-gray-100 overflow-hidden ${isLarge ? "sm:col-span-2 lg:col-span-1" : ""}`}
                 >
-                  {/* Hover glow */}
-                  <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-400/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                   <div className="relative">
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-100 mb-6 group-hover:bg-gradient-to-br group-hover:from-brand-500 group-hover:to-purple-500 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-brand-500/20">
                       {Icon && (

@@ -48,9 +48,7 @@ const useCases = [
 export default function UseCases() {
   return (
     <section className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden">
-      <div className="absolute bottom-0 left-[30%] w-96 h-96 bg-purple-100/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="relative mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-24">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 mb-6">
@@ -66,7 +64,7 @@ export default function UseCases() {
         </div>
 
         {/* Analytics dashboard mockup */}
-        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-xl shadow-gray-200/30 bg-white/80 backdrop-blur-sm p-5 sm:p-8 glow">
+        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-xl shadow-gray-200/30 bg-white p-5 sm:p-8">
           {/* Metric cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
             {[
@@ -140,7 +138,6 @@ export default function UseCases() {
               key={useCase.title}
               className="relative bg-white rounded-2xl p-8 lg:p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-500/5 group card-hover border border-gray-100 overflow-hidden"
             >
-              <div className="absolute -top-16 -right-16 w-32 h-32 bg-gray-100/50 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               <div className="relative">
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${useCase.gradient} mb-6 shadow-lg group-hover:scale-105 transition-transform duration-500`}>
                   <useCase.icon className="h-5 w-5 text-white" />

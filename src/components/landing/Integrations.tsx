@@ -50,9 +50,7 @@ const integrations = [
 export default function Integrations() {
   return (
     <section id="integrationer" className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-gray-50/50 relative overflow-hidden">
-      <div className="absolute top-20 right-[10%] w-80 h-80 bg-blue-100/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="relative mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-6">
@@ -68,7 +66,7 @@ export default function Integrations() {
         </div>
 
         {/* Integration flow diagram */}
-        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-xl shadow-gray-200/30 bg-white/80 backdrop-blur-sm p-5 sm:p-8 glow">
+        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-xl shadow-gray-200/30 bg-white p-5 sm:p-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             {/* Left: Source integrations */}
             <div className="flex flex-row sm:flex-col gap-2 sm:gap-3">
@@ -126,7 +124,6 @@ export default function Integrations() {
               key={integration.name}
               className="relative bg-white rounded-2xl p-8 lg:p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-500/5 group card-hover border border-gray-100 overflow-hidden"
             >
-              <div className="absolute -top-16 -right-16 w-32 h-32 bg-brand-100/20 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               <div className="relative">
                 <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${integration.gradient} mb-6 shadow-lg group-hover:scale-105 transition-transform duration-500`}>
                   <integration.icon className="h-5 w-5 text-white" />

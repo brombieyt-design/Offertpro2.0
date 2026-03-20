@@ -5,14 +5,6 @@ export default function CTA() {
     <section className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="mx-auto max-w-4xl text-center">
         <div className="relative rounded-[2rem] bg-gray-950 px-8 py-20 md:px-16 md:py-28 overflow-hidden">
-          {/* Background effects */}
-          <div className="absolute inset-0 mesh-gradient opacity-[0.12]" />
-          <div className="absolute inset-0 dot-grid opacity-10" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)" }} />
-
-          {/* Glow orbs */}
-          <div className="absolute top-10 left-[20%] w-60 h-60 bg-brand-500/15 rounded-full blur-[80px] pointer-events-none" />
-          <div className="absolute bottom-10 right-[20%] w-48 h-48 bg-purple-500/15 rounded-full blur-[80px] pointer-events-none" />
-
           <div className="relative">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8">
               <Sparkles className="h-3 w-3 text-brand-300" />
