@@ -91,9 +91,43 @@ export const metadata: Metadata = {
   },
 };
 
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "Hur du skapar en professionell offert med Offert Pro",
+  description: "Skapa och skicka professionella offerter i tre enkla steg med Offert Pro.",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Beskriv ditt behov",
+      text: "Fyll i en enkel beskrivning av vad du behöver hjälp med. Välj kategori, beskriv projektet och ange budget.",
+      url: "https://offertpro.se/hur-det-fungerar#steg-1",
+    },
+    {
+      "@type": "HowToStep",
+      position: 2,
+      name: "Få matchade offerter",
+      text: "Vi matchar dig med de bästa leverantörerna. Du får skräddarsydda offerter direkt i din inkorg inom 24 timmar.",
+      url: "https://offertpro.se/hur-det-fungerar#steg-2",
+    },
+    {
+      "@type": "HowToStep",
+      position: 3,
+      name: "Jämför och välj",
+      text: "Jämför priser, betyg och villkor sida vid sida. Välj den bästa offerten och signera digitalt med e-signatur.",
+      url: "https://offertpro.se/hur-det-fungerar#steg-3",
+    },
+  ],
+};
+
 export default function HowItWorksPage() {
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
       <Navbar />
 
       {/* Hero */}

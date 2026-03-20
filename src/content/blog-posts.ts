@@ -275,6 +275,253 @@ export const blogPosts: BlogPost[] = [
 <p>Du kan antingen ladda ner vår gratis PDF-mall, eller <a href="/signup">registrera ett konto på Offert Pro</a> och börja skapa professionella offerter direkt i webbläsaren. Helt gratis, inget kreditkort krävs.</p>
 `,
   },
+  {
+    slug: "offert-pro-vs-fortnox",
+    title: "Offert Pro vs Fortnox – Vilket passar ditt företag? (2026 Jämförelse)",
+    description:
+      "Detaljerad jämförelse mellan Offert Pro och Fortnox. Funktioner, priser, användarvänlighet och vilken som passar bäst för offerter och fakturor.",
+    date: "2026-03-18",
+    author: "Marcus Ström",
+    readTime: "7 min",
+    category: "Jämförelse",
+    tags: ["offert pro", "fortnox", "jämförelse", "offertverktyg", "bokföringsprogram"],
+    content: `
+<p>Letar du efter rätt verktyg för offerter och fakturor? Fortnox är Sveriges mest kända bokföringsprogram, medan Offert Pro är specialbyggt för offerthantering. Här jämför vi dem punkt för punkt så du kan välja rätt.</p>
+
+<h2>Snabb sammanfattning</h2>
+<p><strong>Offert Pro</strong> är bäst om ditt primära behov är att skapa, skicka och följa upp offerter professionellt. <strong>Fortnox</strong> är bäst om du behöver ett komplett bokföringssystem med offertfunktion som tillägg.</p>
+
+<h2>Jämförelse: Funktioner</h2>
+<table>
+<thead><tr><th>Funktion</th><th>Offert Pro</th><th>Fortnox</th></tr></thead>
+<tbody>
+<tr><td>Professionella PDF-offerter</td><td>✅ Snygga, varumärkta</td><td>⚠️ Standard-design</td></tr>
+<tr><td>E-signaturer</td><td>✅ Inbyggt</td><td>❌ Kräver tillägg</td></tr>
+<tr><td>Realtidsspårning</td><td>✅ Se när kunden öppnar</td><td>❌ Ej tillgängligt</td></tr>
+<tr><td>Automatiska påminnelser</td><td>✅ Inbyggt</td><td>⚠️ Begränsat</td></tr>
+<tr><td>Fakturering</td><td>✅ Grundläggande</td><td>✅ Komplett med bokföring</td></tr>
+<tr><td>Bokföring</td><td>❌ Ej inkluderat</td><td>✅ Komplett</td></tr>
+<tr><td>Lönehantering</td><td>❌ Ej inkluderat</td><td>✅ Tillägg tillgängligt</td></tr>
+<tr><td>Offertmallar</td><td>✅ Flexibla, varumärkta</td><td>⚠️ Grundläggande</td></tr>
+<tr><td>Kundportal</td><td>✅</td><td>✅</td></tr>
+<tr><td>Svenskt gränssnitt</td><td>✅</td><td>✅</td></tr>
+<tr><td>GDPR / EU-data</td><td>✅</td><td>✅</td></tr>
+</tbody>
+</table>
+
+<h2>Prissättning</h2>
+<table>
+<thead><tr><th>Plan</th><th>Offert Pro</th><th>Fortnox</th></tr></thead>
+<tbody>
+<tr><td>Gratis</td><td>✅ 0 kr/mån (5 offerter)</td><td>❌ Ingen gratisplan</td></tr>
+<tr><td>Bas</td><td>199 kr/mån</td><td>~199 kr/mån (Bokföring Mini)</td></tr>
+<tr><td>Standard</td><td>499 kr/mån</td><td>~399 kr/mån (Bokföring)</td></tr>
+<tr><td>Företag</td><td>999 kr/mån</td><td>Från ~599+ kr/mån med tillägg</td></tr>
+</tbody>
+</table>
+<p><strong>Viktigt:</strong> Fortnox prissättning baseras på bokföring som grund. Offertfunktionen är ett tillägg som kostar extra. Med Offert Pro är offerter kärnfunktionen – du betalar inte för bokföring du inte behöver.</p>
+
+<h2>Användarvänlighet</h2>
+<p><strong>Offert Pro</strong> är byggt med en sak i fokus: att göra det snabbt och enkelt att skapa snygga offerter. Gränssnittet är modernt, intuitivt och kräver ingen utbildning. Du kan skapa din första offert på under 5 minuter.</p>
+<p><strong>Fortnox</strong> är kraftfullt men komplext. Det tar tid att lära sig, och offertfunktionen är en del av ett större system. Om du bara behöver offerter kan det kännas överdimensionerat.</p>
+
+<h2>När ska du välja Offert Pro?</h2>
+<ul>
+<li>Du behöver främst skapa och skicka offerter</li>
+<li>E-signaturer och realtidsspårning är viktigt</li>
+<li>Du vill ha ett enkelt, snabbt verktyg</li>
+<li>Du har redan en bokföringslösning</li>
+<li>Du vill börja gratis</li>
+</ul>
+
+<h2>När ska du välja Fortnox?</h2>
+<ul>
+<li>Du behöver komplett bokföring + offerter</li>
+<li>Du behöver lönehantering</li>
+<li>Du vill ha allt i ett system</li>
+<li>Du har en redovisningskonsult som arbetar i Fortnox</li>
+</ul>
+
+<h2>Kan du använda båda?</h2>
+<p>Ja! Många företag använder Offert Pro för offerthantering och Fortnox för bokföring. Offert Pro hanterar offerter och grundfakturering, medan Fortnox sköter bokföring och deklaration. Det ger dig bäst av båda världar.</p>
+
+<h2>Slutsats</h2>
+<p>Offert Pro och Fortnox löser olika problem. Om offerter är din prioritet – välj Offert Pro. Om du behöver ett komplett ekonomisystem – överväg Fortnox. Och om du vill ha det bästa av båda? Använd dem tillsammans.</p>
+<p><a href="/signup">Testa Offert Pro gratis</a> och se skillnaden själv.</p>
+`,
+  },
+  {
+    slug: "offert-pro-vs-visma",
+    title: "Offert Pro vs Visma – Bästa valet för svenska offerter (2026)",
+    description:
+      "Komplett jämförelse mellan Offert Pro och Visma eEkonomi/Visma Spcs. Priser, offertfunktioner, e-signaturer och vilket som passar småföretag bäst.",
+    date: "2026-03-17",
+    author: "Emma Lindqvist",
+    readTime: "6 min",
+    category: "Jämförelse",
+    tags: ["offert pro", "visma", "visma eEkonomi", "jämförelse", "offertprogram"],
+    content: `
+<p>Visma är en av Nordens största leverantörer av affärssystem. Men hur står sig Visma eEkonomi mot ett specialiserat offertverktyg som Offert Pro? Här är vår ärliga jämförelse.</p>
+
+<h2>Snabb sammanfattning</h2>
+<p><strong>Offert Pro</strong> vinner på offertspecifika funktioner: e-signaturer, realtidsspårning, professionell design och användarvänlighet. <strong>Visma</strong> vinner om du behöver ett komplett affärssystem med bokföring, lön och fakturering.</p>
+
+<h2>Funktioner jämfört</h2>
+<table>
+<thead><tr><th>Funktion</th><th>Offert Pro</th><th>Visma eEkonomi</th></tr></thead>
+<tbody>
+<tr><td>Offertskapande</td><td>✅ Specialbyggt</td><td>⚠️ Grundläggande</td></tr>
+<tr><td>Offertdesign</td><td>✅ Professionell, varumärkt</td><td>⚠️ Standard-mallar</td></tr>
+<tr><td>E-signaturer</td><td>✅ Inbyggt</td><td>❌ Ej tillgängligt</td></tr>
+<tr><td>Realtidsspårning</td><td>✅ Öppningar, tid på sida</td><td>❌ Ej tillgängligt</td></tr>
+<tr><td>Automatiska påminnelser</td><td>✅</td><td>⚠️ Enbart fakturapåminnelser</td></tr>
+<tr><td>Offertmallar</td><td>✅ Obegränsat, anpassningsbara</td><td>⚠️ Begränsat</td></tr>
+<tr><td>Fakturering</td><td>✅ Grundläggande</td><td>✅ Komplett</td></tr>
+<tr><td>Bokföring</td><td>❌</td><td>✅ Komplett</td></tr>
+<tr><td>Lönehantering</td><td>❌</td><td>✅ Tillägg</td></tr>
+<tr><td>Mobilapp</td><td>✅ Responsiv webb</td><td>✅ Nativ app</td></tr>
+<tr><td>Gratis plan</td><td>✅ 0 kr/mån</td><td>❌ Ingen</td></tr>
+</tbody>
+</table>
+
+<h2>Priser</h2>
+<p><strong>Offert Pro:</strong> Gratis (0 kr), Starter (199 kr/mån), Pro (499 kr/mån), Business (999 kr/mån)</p>
+<p><strong>Visma eEkonomi:</strong> Smart (från ~199 kr/mån), Pro (från ~349 kr/mån), Byråanslutning (varierar)</p>
+<p>Offert Pro erbjuder en generös gratisplan och lägre ingångspris. Visma kräver en månadskostnad från start, men inkluderar bokföring som Offert Pro inte gör.</p>
+
+<h2>Offertupplevelsen</h2>
+<p>Här syns den största skillnaden. Offert Pro är designat för att imponera:</p>
+<ul>
+<li><strong>Professionella PDF:er</strong> med ditt varumärke – inte generiska mallar</li>
+<li><strong>Kunden ser offerten i webbläsaren</strong> – snygg, responsiv presentation</li>
+<li><strong>E-signatur med ett klick</strong> – kunden behöver inte ladda ner något</li>
+<li><strong>Du ser i realtid</strong> när kunden öppnar offerten och hur lång tid de spenderar</li>
+</ul>
+<p>I Visma eEkonomi skapar du en offert med standardutseende, skickar den som PDF via e-post, och hoppas att kunden svarar. Ingen spårning, inga e-signaturer.</p>
+
+<h2>Vem ska välja Offert Pro?</h2>
+<ul>
+<li>Konsulter, frilansare och serviceföretag där offerten är första kundkontakten</li>
+<li>Företag som vill öka acceptansgraden med professionella offerter</li>
+<li>De som redan har en bokföringslösning och behöver ett bättre offertverktyg</li>
+<li>De som vill börja gratis och skala uppåt</li>
+</ul>
+
+<h2>Vem ska välja Visma?</h2>
+<ul>
+<li>Företag som behöver bokföring + enklare offerter i samma system</li>
+<li>De som redan arbetar med en Visma-ansluten redovisningsbyrå</li>
+<li>Företag med krav på lönehantering och avancerad rapportering</li>
+</ul>
+
+<h2>Slutsats</h2>
+<p>Om offerter är en viktig del av din försäljningsprocess – och du vill maximera acceptansgraden – är Offert Pro det självklara valet. Om du behöver ett komplett ekonomisystem med grundläggande offertfunktion, kan Visma vara rätt.</p>
+<p>Det bästa? Du kan <a href="/signup">testa Offert Pro helt gratis</a> och se själv.</p>
+`,
+  },
+  {
+    slug: "basta-offertverktyget-sverige-2026",
+    title: "Bästa offertverktyget i Sverige 2026 – Komplett guide",
+    description:
+      "Vi jämför de bästa offertverktygen för svenska företag 2026. Offert Pro, Fortnox, Visma, och fler. Hitta rätt offertprogram för ditt företag.",
+    date: "2026-03-19",
+    author: "Marcus Ström",
+    readTime: "10 min",
+    category: "Guide",
+    tags: ["offertverktyg", "offertprogram", "bästa offertverktyg", "Sverige", "2026", "jämförelse"],
+    content: `
+<p>Det bästa offertverktyget i Sverige 2026 är Offert Pro för företag som prioriterar professionella offerter med e-signaturer och realtidsspårning. För komplett bokföring med grundläggande offerter passar Fortnox eller Visma bättre. Här är vår kompletta jämförelse.</p>
+
+<h2>Topp 5 offertverktyg i Sverige 2026</h2>
+
+<h3>1. Offert Pro – Bäst för professionella offerter</h3>
+<p><strong>Pris:</strong> Gratis – 999 kr/mån</p>
+<p><strong>Bäst för:</strong> Konsulter, frilansare, serviceföretag, bygg</p>
+<p>Offert Pro är det enda svenska verktyget som kombinerar snygga varumärkta offerter, e-signaturer, realtidsspårning och automatiska påminnelser i ett paket. 40% högre acceptansgrad jämfört med Word/Excel-offerter enligt användare.</p>
+<ul>
+<li>✅ Professionella PDF:er med eget varumärke</li>
+<li>✅ E-signaturer (inbyggt, ingen tilläggskostnad)</li>
+<li>✅ Realtidsspårning – se när kunden öppnar</li>
+<li>✅ Generös gratisplan (5 offerter/mån)</li>
+<li>✅ Fakturering ingår</li>
+<li>⚠️ Ingen bokföring</li>
+</ul>
+
+<h3>2. Fortnox – Bäst för komplett ekonomi</h3>
+<p><strong>Pris:</strong> Från ~199 kr/mån</p>
+<p><strong>Bäst för:</strong> Företag som behöver bokföring + enklare offerter</p>
+<p>Sveriges mest använda bokföringsprogram med offertfunktion som tillägg. Starkt ekosystem och många integrationer.</p>
+<ul>
+<li>✅ Komplett bokföring</li>
+<li>✅ Stort ekosystem</li>
+<li>⚠️ Offertdesign är grundläggande</li>
+<li>❌ Ingen e-signatur på offerter</li>
+<li>❌ Ingen realtidsspårning</li>
+</ul>
+
+<h3>3. Visma eEkonomi – Bra allround-val</h3>
+<p><strong>Pris:</strong> Från ~199 kr/mån</p>
+<p><strong>Bäst för:</strong> Företag med Visma-ansluten redovisningsbyrå</p>
+<ul>
+<li>✅ Bokföring + fakturering</li>
+<li>✅ Bra mobilapp</li>
+<li>⚠️ Grundläggande offertfunktion</li>
+<li>❌ Ingen e-signatur</li>
+<li>❌ Ingen offertspårning</li>
+</ul>
+
+<h3>4. HubSpot – Bäst för stora säljteam</h3>
+<p><strong>Pris:</strong> Gratis CRM, betald Sales Hub från ~€45/mån</p>
+<p><strong>Bäst för:</strong> Företag med dedikerat säljteam</p>
+<ul>
+<li>✅ Kraftfullt CRM</li>
+<li>✅ E-signaturer (betald plan)</li>
+<li>⚠️ Inte anpassat för svenska marknaden</li>
+<li>⚠️ Komplext, lång inlärningskurva</li>
+<li>❌ Dyrt för småföretag</li>
+</ul>
+
+<h3>5. Word/Excel – Gratis men begränsat</h3>
+<p><strong>Pris:</strong> Gratis (om du redan har Office)</p>
+<p><strong>Bäst för:</strong> De som skickar enstaka offerter</p>
+<ul>
+<li>✅ Helt gratis</li>
+<li>✅ Fullt anpassningsbar</li>
+<li>❌ Oprofessionellt intryck</li>
+<li>❌ Manuella beräkningar (felrisk)</li>
+<li>❌ Ingen spårning eller uppföljning</li>
+<li>❌ Ingen e-signatur</li>
+</ul>
+
+<h2>Jämförelsetabell</h2>
+<table>
+<thead><tr><th>Funktion</th><th>Offert Pro</th><th>Fortnox</th><th>Visma</th><th>HubSpot</th><th>Word</th></tr></thead>
+<tbody>
+<tr><td>Professionell offertdesign</td><td>✅</td><td>⚠️</td><td>⚠️</td><td>⚠️</td><td>❌</td></tr>
+<tr><td>E-signaturer</td><td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td></tr>
+<tr><td>Realtidsspårning</td><td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td></tr>
+<tr><td>Gratis plan</td><td>✅</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr>
+<tr><td>Bokföring</td><td>❌</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+<tr><td>Svenskt gränssnitt</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>✅</td></tr>
+<tr><td>GDPR/EU-data</td><td>✅</td><td>✅</td><td>✅</td><td>⚠️</td><td>N/A</td></tr>
+<tr><td>Automatiska påminnelser</td><td>✅</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>❌</td></tr>
+</tbody>
+</table>
+
+<h2>Hur vi valde</h2>
+<p>Vi utvärderade verktygen baserat på:</p>
+<ol>
+<li><strong>Offertspecifika funktioner</strong> – design, spårning, signaturer</li>
+<li><strong>Användarvänlighet</strong> – tid till första offerten</li>
+<li><strong>Pris</strong> – värde för pengarna, speciellt för småföretag</li>
+<li><strong>Svenska marknaden</strong> – svenskt gränssnitt, momshantering, GDPR</li>
+</ol>
+
+<h2>Slutsats</h2>
+<p>Det finns inget "bästa" verktyg som passar alla. Men om du vill skicka professionella offerter som imponerar på kunder och ökar din acceptansgrad, är <strong>Offert Pro</strong> det starkaste valet 2026. Det är gratis att börja, tar 5 minuter att komma igång, och du kan alltid komplettera med Fortnox eller Visma för bokföring.</p>
+<p><strong><a href="/signup">Testa Offert Pro gratis idag</a></strong> – ingen bindningstid, inget kreditkort.</p>
+`,
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {

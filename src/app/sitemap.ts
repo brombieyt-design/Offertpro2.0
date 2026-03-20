@@ -16,13 +16,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.7 },
   ];
 
-  // Blog posts - add dynamically when blog grows
+  // Blog posts
   const blogPosts = [
     "sa-skriver-du-en-offert-som-vinner",
     "offert-vs-anbud-skillnaden",
     "5-tips-for-snabbare-betalning",
     "digitala-signaturer-guide",
     "offertmall-gratis-ladda-ner",
+    "offert-pro-vs-fortnox",
+    "offert-pro-vs-visma",
+    "basta-offertverktyget-sverige-2026",
   ].map((slug) => ({
     url: `${SITE_URL}/blog/${slug}`,
     lastModified: now,
