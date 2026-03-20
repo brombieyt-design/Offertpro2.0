@@ -10,6 +10,7 @@ import {
   BarChart3,
   Check,
   Plus,
+  ArrowRight,
 } from "lucide-react";
 import { features } from "@/lib/constants";
 
@@ -52,14 +53,17 @@ export default function Features() {
       {/* How it works */}
       <section
         id="hur-det-fungerar"
-        className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white"
+        className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
       >
-        <div className="mx-auto max-w-6xl">
+        {/* Subtle background accent */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-brand-100/20 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative mx-auto max-w-6xl">
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-24">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-400 mb-4">
-              Så enkelt är det
-            </p>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
+              <span className="text-xs font-semibold text-brand-600 tracking-wide">Så enkelt är det</span>
+            </div>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">
               Hur det fungerar
             </h2>
@@ -69,16 +73,22 @@ export default function Features() {
           </div>
 
           {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            {steps.map((step) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {steps.map((step, i) => (
               <div
                 key={step.number}
-                className="relative bg-gray-50/80 rounded-3xl p-10 lg:p-12 transition-all duration-500 hover:shadow-xl hover:bg-white hover:border-gray-100 border border-transparent group card-hover"
+                className="relative bg-white rounded-3xl p-10 lg:p-12 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-500/5 border border-gray-100 group card-hover"
               >
-                <span className="text-7xl font-extralight text-gray-200/80 leading-none group-hover:text-indigo-200/60 transition-colors duration-500 block">
-                  {step.number}
-                </span>
-                <h3 className="mt-8 text-xl font-semibold text-gray-900 tracking-tight">
+                {/* Step number with gradient */}
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform duration-500">
+                    {step.number}
+                  </div>
+                  {i < 2 && (
+                    <ArrowRight className="hidden md:block absolute -right-4 top-16 w-5 h-5 text-gray-200 z-10" />
+                  )}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 tracking-tight">
                   {step.title}
                 </h3>
                 <p className="mt-4 text-gray-400 leading-relaxed">
@@ -93,14 +103,16 @@ export default function Features() {
       {/* Feature grid */}
       <section
         id="funktioner"
-        className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-gray-50/50"
+        className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-gray-50/50 relative overflow-hidden"
       >
-        <div className="mx-auto max-w-6xl">
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-purple-100/20 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative mx-auto max-w-6xl">
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-gray-400 mb-4">
-              Funktioner
-            </p>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 mb-6">
+              <span className="text-xs font-semibold text-purple-600 tracking-wide">Funktioner</span>
+            </div>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">
               Allt du behöver
             </h2>
@@ -111,27 +123,27 @@ export default function Features() {
           </div>
 
           {/* Quote builder mockup */}
-          <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-gray-50 p-5 sm:p-8">
+          <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-xl shadow-gray-200/30 bg-white/80 backdrop-blur-sm p-5 sm:p-8 glow">
             {/* Step indicators */}
             <div className="flex items-center justify-center gap-2 sm:gap-4 mb-8">
               {["Kund", "Rader", "Förhandsgranska", "Skicka"].map((label, i) => (
                 <div key={label} className="flex items-center gap-2 sm:gap-4">
                   <div className="flex items-center gap-1.5">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold ${i < 2 ? "bg-indigo-600 text-white" : i === 2 ? "bg-indigo-100 text-indigo-600 ring-2 ring-indigo-200" : "bg-gray-100 text-gray-400"}`}>
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold transition-all duration-300 ${i < 2 ? "bg-brand-600 text-white shadow-sm shadow-brand-600/30" : i === 2 ? "bg-brand-100 text-brand-600 ring-2 ring-brand-200" : "bg-gray-100 text-gray-400"}`}>
                       {i < 2 ? <Check className="w-3.5 h-3.5" /> : i + 1}
                     </div>
                     <span className={`text-xs font-medium hidden sm:block ${i <= 2 ? "text-gray-900" : "text-gray-400"}`}>{label}</span>
                   </div>
-                  {i < 3 && <div className={`w-8 sm:w-12 h-px ${i < 2 ? "bg-indigo-300" : "bg-gray-200"}`} />}
+                  {i < 3 && <div className={`w-8 sm:w-12 h-px ${i < 2 ? "bg-brand-300" : "bg-gray-200"}`} />}
                 </div>
               ))}
             </div>
 
             {/* PDF preview */}
-            <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-10 max-w-2xl mx-auto">
+            <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-10 max-w-2xl mx-auto shadow-sm">
               <div className="flex justify-between items-start mb-8">
                 <div>
-                  <h4 className="text-lg font-bold text-indigo-600">Offert Pro</h4>
+                  <h4 className="text-lg font-bold text-brand-600">Offert Pro</h4>
                   <p className="text-xs text-gray-400 mt-0.5">Storgatan 1, 111 22 Stockholm</p>
                 </div>
                 <div className="text-right">
@@ -177,7 +189,7 @@ export default function Features() {
                 </tbody>
               </table>
               <div className="flex justify-between items-center border-t border-gray-200 pt-3">
-                <button className="flex items-center gap-1 text-xs text-indigo-600 font-medium">
+                <button className="flex items-center gap-1 text-xs text-brand-600 font-medium hover:text-brand-700 transition-colors">
                   <Plus className="w-3.5 h-3.5" /> Lägg till rad
                 </button>
                 <div className="text-right">
@@ -188,26 +200,31 @@ export default function Features() {
             </div>
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {features.map((f) => {
+          {/* Bento Grid - feature cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {features.map((f, i) => {
               const Icon = iconMap[f.icon];
+              const isLarge = i === 0 || i === 3;
               return (
                 <div
                   key={f.title}
-                  className="bg-white rounded-2xl p-8 lg:p-10 transition-all duration-500 hover:shadow-xl group card-hover border border-gray-100/50"
+                  className={`relative bg-white rounded-2xl p-8 lg:p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-500/5 group card-hover border border-gray-100 overflow-hidden ${isLarge ? "sm:col-span-2 lg:col-span-1" : ""}`}
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-50 mb-6 group-hover:bg-indigo-50 transition-colors duration-500">
-                    {Icon && (
-                      <Icon className="h-5 w-5 text-gray-400 group-hover:text-indigo-600 transition-colors duration-500" />
-                    )}
+                  {/* Hover glow */}
+                  <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-400/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  <div className="relative">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-100 mb-6 group-hover:bg-gradient-to-br group-hover:from-brand-500 group-hover:to-purple-500 transition-all duration-500 group-hover:shadow-lg group-hover:shadow-brand-500/20">
+                      {Icon && (
+                        <Icon className="h-5 w-5 text-gray-400 group-hover:text-white transition-colors duration-500" />
+                      )}
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 tracking-tight">
+                      {f.title}
+                    </h3>
+                    <p className="mt-3 text-gray-400 leading-relaxed">
+                      {f.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 tracking-tight">
-                    {f.title}
-                  </h3>
-                  <p className="mt-3 text-gray-400 leading-relaxed">
-                    {f.description}
-                  </p>
                 </div>
               );
             })}
