@@ -760,8 +760,17 @@ export default function NewInvoicePage() {
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => {
-              alert("Utkast sparat!");
+            onClick={async () => {
+              await fetch("/api/invoices", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  customer: { name: formData.name, email: formData.email, company: formData.company },
+                  items,
+                  status: "draft",
+                  paymentTerms: formData.paymentTerms,
+                }),
+              });
               router.push("/invoices");
             }}
             className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
@@ -783,8 +792,17 @@ export default function NewInvoicePage() {
             </button>
           ) : (
             <button
-              onClick={() => {
-                alert("Faktura skickad!");
+              onClick={async () => {
+                await fetch("/api/invoices", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    customer: { name: formData.name, email: formData.email, company: formData.company },
+                    items,
+                    status: "sent",
+                    paymentTerms: formData.paymentTerms,
+                  }),
+                });
                 router.push("/invoices");
               }}
               className="inline-flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300"

@@ -670,8 +670,16 @@ export default function NewQuotePage() {
 
         <div className="flex items-center gap-3">
           <button
-            onClick={() => {
-              alert("Utkast sparat!");
+            onClick={async () => {
+              await fetch("/api/quotes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  customer: { name: formData.name, email: formData.email, company: formData.company },
+                  items,
+                  status: "draft",
+                }),
+              });
               router.push("/quotes");
             }}
             className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
@@ -693,8 +701,16 @@ export default function NewQuotePage() {
             </button>
           ) : (
             <button
-              onClick={() => {
-                alert("Offert skickad!");
+              onClick={async () => {
+                await fetch("/api/quotes", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    customer: { name: formData.name, email: formData.email, company: formData.company },
+                    items,
+                    status: "sent",
+                  }),
+                });
                 router.push("/quotes");
               }}
               className="inline-flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300"

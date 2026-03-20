@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   FileText,
@@ -10,116 +13,66 @@ import {
   BarChart3,
   Target,
 } from "lucide-react";
-import { quotes, invoices, customers } from "@/lib/mock-data";
 import { formatCurrency, formatDate } from "@/lib/utils";
-import {
-  quoteStatusLabels,
-  quoteStatusColors,
-} from "@/lib/constants";
-
-const openedQuotes = quotes.filter((q) => q.status === "opened");
-const acceptedQuotes = quotes.filter((q) => q.status === "accepted");
-const totalQuoteValue = quotes.reduce((sum, q) => sum + q.total, 0);
-const paidInvoiceTotal = invoices
-  .filter((i) => i.status === "paid")
-  .reduce((sum, i) => sum + i.total, 0);
-const pendingInvoiceTotal = invoices
-  .filter((i) => i.status === "sent" || i.status === "overdue")
-  .reduce((sum, i) => sum + i.total, 0);
-const avgQuoteValue =
-  quotes.length > 0 ? Math.round(totalQuoteValue / quotes.length) : 0;
-const winRate =
-  quotes.length > 0
-    ? Math.round((acceptedQuotes.length / quotes.length) * 100)
-    : 0;
-const uniqueCustomers = new Set(quotes.map((q) => q.customer.id)).size;
-
-const stats = [
-  {
-    label: "Totalt offerter",
-    value: quotes.length.toString(),
-    icon: FileText,
-    color: "text-indigo-600 bg-indigo-50",
-    accent: "border-l-indigo-500",
-  },
-  {
-    label: "Öppna offerter",
-    value: openedQuotes.length.toString(),
-    icon: Clock,
-    color: "text-amber-600 bg-amber-50",
-    accent: "border-l-amber-500",
-  },
-  {
-    label: "Accepterade",
-    value: acceptedQuotes.length.toString(),
-    icon: CheckCircle2,
-    color: "text-emerald-600 bg-emerald-50",
-    accent: "border-l-emerald-500",
-  },
-  {
-    label: "Totalt offertvärde",
-    value: formatCurrency(totalQuoteValue),
-    icon: DollarSign,
-    color: "text-indigo-600 bg-indigo-50",
-    accent: "border-l-indigo-500",
-  },
-  {
-    label: "Betalda fakturor",
-    value: formatCurrency(paidInvoiceTotal),
-    icon: Receipt,
-    color: "text-emerald-600 bg-emerald-50",
-    accent: "border-l-emerald-500",
-  },
-  {
-    label: "Väntande fakturor",
-    value: formatCurrency(pendingInvoiceTotal),
-    icon: TrendingUp,
-    color: "text-orange-600 bg-orange-50",
-    accent: "border-l-orange-500",
-  },
-  {
-    label: "Genomsnittligt offertvärde",
-    value: formatCurrency(avgQuoteValue),
-    icon: BarChart3,
-    color: "text-blue-600 bg-blue-50",
-    accent: "border-l-blue-500",
-  },
-  {
-    label: "Vinstfrekvens",
-    value: `${winRate}%`,
-    icon: Target,
-    color: "text-emerald-600 bg-emerald-50",
-    accent: "border-l-emerald-500",
-  },
-  {
-    label: "Unika kunder",
-    value: uniqueCustomers.toString(),
-    icon: Users,
-    color: "text-purple-600 bg-purple-50",
-    accent: "border-l-purple-500",
-  },
-];
-
-const activities = [
-  {
-    text: "Offert QT-2026-001 accepterades av Erik Johansson",
-    time: "2 timmar sedan",
-  },
-  {
-    text: "Sofia Lindström öppnade offert QT-2026-002",
-    time: "5 timmar sedan",
-  },
-  {
-    text: "Faktura FAK-2026-003 har förfallit",
-    time: "1 dag sedan",
-  },
-  {
-    text: "Ny offert QT-2026-004 skapades",
-    time: "2 dagar sedan",
-  },
-];
+import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
+import type { Quote, Invoice, Customer } from "@/types";
 
 export default function DashboardPage() {
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/quotes").then((r) => r.json()),
+      fetch("/api/invoices").then((r) => r.json()),
+      fetch("/api/customers").then((r) => r.json()),
+    ]).then(([q, inv, c]) => {
+      setQuotes(q);
+      setInvoices(inv);
+      setCustomers(c);
+      setLoading(false);
+    });
+  }, []);
+
+  const openedQuotes = quotes.filter((q) => q.status === "opened");
+  const acceptedQuotes = quotes.filter((q) => q.status === "accepted");
+  const totalQuoteValue = quotes.reduce((sum, q) => sum + q.total, 0);
+  const paidInvoiceTotal = invoices
+    .filter((i) => i.status === "paid")
+    .reduce((sum, i) => sum + i.total, 0);
+  const pendingInvoiceTotal = invoices
+    .filter((i) => i.status === "sent" || i.status === "overdue")
+    .reduce((sum, i) => sum + i.total, 0);
+  const avgQuoteValue =
+    quotes.length > 0 ? Math.round(totalQuoteValue / quotes.length) : 0;
+  const winRate =
+    quotes.length > 0
+      ? Math.round((acceptedQuotes.length / quotes.length) * 100)
+      : 0;
+  const uniqueCustomers = new Set(quotes.map((q) => q.customer.id)).size;
+
+  const stats = [
+    { label: "Totalt offerter", value: quotes.length.toString(), icon: FileText, color: "text-indigo-600 bg-indigo-50", accent: "border-l-indigo-500" },
+    { label: "Öppna offerter", value: openedQuotes.length.toString(), icon: Clock, color: "text-amber-600 bg-amber-50", accent: "border-l-amber-500" },
+    { label: "Accepterade", value: acceptedQuotes.length.toString(), icon: CheckCircle2, color: "text-emerald-600 bg-emerald-50", accent: "border-l-emerald-500" },
+    { label: "Totalt offertvärde", value: formatCurrency(totalQuoteValue), icon: DollarSign, color: "text-indigo-600 bg-indigo-50", accent: "border-l-indigo-500" },
+    { label: "Betalda fakturor", value: formatCurrency(paidInvoiceTotal), icon: Receipt, color: "text-emerald-600 bg-emerald-50", accent: "border-l-emerald-500" },
+    { label: "Väntande fakturor", value: formatCurrency(pendingInvoiceTotal), icon: TrendingUp, color: "text-orange-600 bg-orange-50", accent: "border-l-orange-500" },
+    { label: "Genomsnittligt offertvärde", value: formatCurrency(avgQuoteValue), icon: BarChart3, color: "text-blue-600 bg-blue-50", accent: "border-l-blue-500" },
+    { label: "Vinstfrekvens", value: `${winRate}%`, icon: Target, color: "text-emerald-600 bg-emerald-50", accent: "border-l-emerald-500" },
+    { label: "Unika kunder", value: uniqueCustomers.toString(), icon: Users, color: "text-purple-600 bg-purple-50", accent: "border-l-purple-500" },
+  ];
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-32">
+        <p className="text-sm text-gray-400">Laddar dashboard...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-10">
       {/* Page header */}
@@ -155,9 +108,7 @@ export default function DashboardPage() {
               className={`bg-white rounded-2xl border border-gray-100/60 shadow-sm hover:shadow-md p-7 border-l-4 ${stat.accent} transition-all duration-300`}
             >
               <div className="flex items-center gap-3.5 mb-5">
-                <div
-                  className={`w-11 h-11 rounded-xl flex items-center justify-center ${stat.color}`}
-                >
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${stat.color}`}>
                   <Icon className="w-5 h-5" />
                 </div>
                 <span className="text-sm text-gray-500">{stat.label}</span>
@@ -174,13 +125,16 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent quotes */}
         <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm">
-          <div className="px-7 py-6 border-b border-gray-100/60">
+          <div className="px-7 py-6 border-b border-gray-100/60 flex items-center justify-between">
             <h2 className="text-base font-semibold tracking-tight text-gray-900">
               Senaste offerter
             </h2>
+            <Link href="/quotes" className="text-xs text-indigo-600 hover:text-indigo-700 font-medium">
+              Visa alla
+            </Link>
           </div>
           <div className="divide-y divide-gray-50">
-            {quotes.map((quote) => (
+            {quotes.slice(0, 5).map((quote) => (
               <div
                 key={quote.id}
                 className="px-7 py-5 flex items-center justify-between hover:bg-gray-50/50 transition-all duration-300"
@@ -190,8 +144,7 @@ export default function DashboardPage() {
                     {quote.number}
                   </p>
                   <p className="text-xs text-gray-500 truncate mt-1">
-                    {quote.customer.name} &middot;{" "}
-                    {formatDate(quote.createdAt)}
+                    {quote.customer.name} &middot; {formatDate(quote.createdAt)}
                   </p>
                 </div>
                 <div className="flex items-center gap-3.5 ml-4">
@@ -199,40 +152,63 @@ export default function DashboardPage() {
                     {formatCurrency(quote.total)}
                   </span>
                   <span
-                    className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${
-                      quoteStatusColors[quote.status] || ""
-                    }`}
+                    className={`inline-flex px-3 py-1 text-xs font-medium rounded-full ${quoteStatusColors[quote.status] || ""}`}
                   >
                     {quoteStatusLabels[quote.status] || quote.status}
                   </span>
                 </div>
               </div>
             ))}
+            {quotes.length === 0 && (
+              <div className="px-7 py-12 text-center text-sm text-gray-400">
+                Inga offerter ännu.{" "}
+                <Link href="/quotes/new" className="text-indigo-600 hover:underline">
+                  Skapa din första
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Recent activity */}
+        {/* Recent invoices */}
         <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm">
-          <div className="px-7 py-6 border-b border-gray-100/60">
+          <div className="px-7 py-6 border-b border-gray-100/60 flex items-center justify-between">
             <h2 className="text-base font-semibold tracking-tight text-gray-900">
-              Senaste aktivitet
+              Senaste fakturor
             </h2>
+            <Link href="/invoices" className="text-xs text-indigo-600 hover:text-indigo-700 font-medium">
+              Visa alla
+            </Link>
           </div>
           <div className="divide-y divide-gray-50">
-            {activities.map((activity, i) => (
+            {invoices.slice(0, 5).map((invoice) => (
               <div
-                key={i}
-                className="px-7 py-5 flex items-start gap-3.5 hover:bg-gray-50/50 transition-all duration-300"
+                key={invoice.id}
+                className="px-7 py-5 flex items-center justify-between hover:bg-gray-50/50 transition-all duration-300"
               >
-                <div className="w-2 h-2 mt-1.5 rounded-full bg-indigo-400 shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-sm text-gray-700 leading-relaxed">{activity.text}</p>
-                  <p className="text-xs text-gray-400 mt-1.5">
-                    {activity.time}
+                  <p className="text-sm font-medium text-gray-900 truncate">
+                    {invoice.number}
                   </p>
+                  <p className="text-xs text-gray-500 truncate mt-1">
+                    {invoice.customer.name} &middot; {formatDate(invoice.issuedAt)}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3.5 ml-4">
+                  <span className="text-sm font-semibold text-gray-900">
+                    {formatCurrency(invoice.total)}
+                  </span>
                 </div>
               </div>
             ))}
+            {invoices.length === 0 && (
+              <div className="px-7 py-12 text-center text-sm text-gray-400">
+                Inga fakturor ännu.{" "}
+                <Link href="/invoices/new" className="text-indigo-600 hover:underline">
+                  Skapa din första
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
