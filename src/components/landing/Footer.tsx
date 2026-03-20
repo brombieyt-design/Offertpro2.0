@@ -4,18 +4,18 @@ const columns = [
   {
     title: "Produkt",
     links: [
-      { label: "Hur det fungerar", href: "#hur-det-fungerar" },
-      { label: "Funktioner", href: "#funktioner" },
-      { label: "Priser", href: "#priser" },
-      { label: "Integrationer", href: "#integrationer" },
+      { label: "Hur det fungerar", href: "/hur-det-fungerar" },
+      { label: "Tjänster", href: "/tjanster" },
+      { label: "Priser", href: "/pricing" },
+      { label: "Integrationer", href: "/tjanster#integrationer" },
     ],
   },
   {
     title: "Företag",
     links: [
-      { label: "Om oss", href: "#om-oss" },
+      { label: "För företag", href: "/for-foretag" },
       { label: "Blogg", href: "/blog" },
-      { label: "Kundröster", href: "#om-oss" },
+      { label: "Om oss", href: "/for-foretag" },
     ],
   },
   {
