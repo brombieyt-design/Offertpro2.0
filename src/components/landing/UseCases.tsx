@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { Building2, Paintbrush, Wrench, Monitor, Briefcase, Truck } from "lucide-react";
+import { Building2, Paintbrush, Wrench, Monitor, Briefcase, Truck, TrendingUp, BarChart3, Target, Users } from "lucide-react";
 
 const useCases = [
   {
@@ -58,15 +57,72 @@ export default function UseCases() {
           </p>
         </div>
 
-        {/* Analytics illustration */}
-        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30">
-          <Image
-            src="/images/analytics-chart.svg"
-            alt="Offert Pro analys - acceptansgrad och offertstatistik"
-            width={800}
-            height={400}
-            className="w-full h-auto"
-          />
+        {/* Analytics dashboard mockup */}
+        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-gray-50 p-5 sm:p-8">
+          {/* Metric cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+            {[
+              { label: "Total intäkt", value: "1,2M kr", change: "+18%", icon: TrendingUp, color: "bg-indigo-50 text-indigo-600" },
+              { label: "Offerter skickade", value: "142", change: "+12%", icon: BarChart3, color: "bg-blue-50 text-blue-600" },
+              { label: "Vinstfrekvens", value: "68%", change: "+5%", icon: Target, color: "bg-emerald-50 text-emerald-600" },
+              { label: "Unika kunder", value: "47", change: "+8%", icon: Users, color: "bg-amber-50 text-amber-600" },
+            ].map((m) => (
+              <div key={m.label} className="bg-white rounded-xl border border-gray-100 p-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${m.color}`}>
+                    <m.icon className="w-3.5 h-3.5" />
+                  </div>
+                </div>
+                <p className="text-lg font-bold text-gray-900">{m.value}</p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  <span className="text-xs font-medium text-green-600 bg-green-50 px-1.5 py-0.5 rounded-full">{m.change}</span>
+                  <span className="text-xs text-gray-400">{m.label}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Charts row */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Revenue bar chart */}
+            <div className="bg-white rounded-xl border border-gray-100 p-5">
+              <h4 className="text-sm font-semibold text-gray-900 mb-4">Intäktsutveckling</h4>
+              <div className="flex items-end gap-1.5 h-32">
+                {[40, 55, 35, 65, 50, 78, 60, 85, 70, 92, 80, 95].map((h, i) => (
+                  <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                    <div
+                      className="w-full bg-indigo-500 rounded-t-sm min-h-[4px]"
+                      style={{ height: `${h}%` }}
+                    />
+                    {i % 3 === 0 && <span className="text-[9px] text-gray-400">{["Jan","","","Apr","","","Jul","","","Okt","","Dec"][i]}</span>}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Conversion funnel */}
+            <div className="bg-white rounded-xl border border-gray-100 p-5">
+              <h4 className="text-sm font-semibold text-gray-900 mb-4">Konverteringstratt</h4>
+              <div className="space-y-3">
+                {[
+                  { stage: "Skickade", count: 142, pct: 100, color: "bg-indigo-500" },
+                  { stage: "Öppnade", count: 118, pct: 83, color: "bg-blue-500" },
+                  { stage: "Besvarade", count: 84, pct: 59, color: "bg-amber-500" },
+                  { stage: "Accepterade", count: 62, pct: 44, color: "bg-green-500" },
+                ].map((s) => (
+                  <div key={s.stage} className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-gray-600 font-medium">{s.stage}</span>
+                      <span className="text-gray-400">{s.count} ({s.pct}%)</span>
+                    </div>
+                    <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full ${s.color}`} style={{ width: `${s.pct}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Grid */}

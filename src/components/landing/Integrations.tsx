@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   CreditCard,
   FileSpreadsheet,
@@ -6,6 +5,7 @@ import {
   Calendar,
   Cloud,
   Shield,
+  ArrowRight,
 } from "lucide-react";
 
 const integrations = [
@@ -59,15 +59,56 @@ export default function Integrations() {
           </p>
         </div>
 
-        {/* Integration flow illustration */}
-        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-white p-8">
-          <Image
-            src="/images/integrations-flow.svg"
-            alt="Offert Pro integrationer - Fortnox, Stripe, Gmail, BankID och mer"
-            width={800}
-            height={200}
-            className="w-full h-auto"
-          />
+        {/* Integration flow diagram */}
+        <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-gray-50 p-5 sm:p-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            {/* Left: Source integrations */}
+            <div className="flex flex-row sm:flex-col gap-2 sm:gap-3">
+              {[
+                { name: "Fortnox", icon: FileSpreadsheet, color: "bg-green-50 text-green-600" },
+                { name: "Gmail", icon: Mail, color: "bg-red-50 text-red-500" },
+                { name: "Google Cal", icon: Calendar, color: "bg-blue-50 text-blue-600" },
+              ].map((s) => (
+                <div key={s.name} className="bg-white rounded-xl border border-gray-100 px-4 py-3 flex items-center gap-2.5 shadow-sm">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${s.color}`}>
+                    <s.icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-medium text-gray-700 hidden sm:block">{s.name}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Arrow */}
+            <ArrowRight className="w-5 h-5 text-gray-300 rotate-90 sm:rotate-0 shrink-0" />
+
+            {/* Center: Offert Pro hub */}
+            <div className="bg-white rounded-2xl border-2 border-indigo-200 shadow-md px-8 py-6 text-center">
+              <div className="w-12 h-12 rounded-xl bg-indigo-600 flex items-center justify-center mx-auto mb-3">
+                <span className="text-white font-bold text-sm">OP</span>
+              </div>
+              <p className="text-sm font-bold text-gray-900">Offert Pro</p>
+              <p className="text-xs text-gray-400 mt-0.5">Allt synkat</p>
+            </div>
+
+            {/* Arrow */}
+            <ArrowRight className="w-5 h-5 text-gray-300 rotate-90 sm:rotate-0 shrink-0" />
+
+            {/* Right: Output integrations */}
+            <div className="flex flex-row sm:flex-col gap-2 sm:gap-3">
+              {[
+                { name: "Stripe", icon: CreditCard, color: "bg-purple-50 text-purple-600" },
+                { name: "BankID", icon: Shield, color: "bg-indigo-50 text-indigo-600" },
+                { name: "Drive", icon: Cloud, color: "bg-amber-50 text-amber-600" },
+              ].map((s) => (
+                <div key={s.name} className="bg-white rounded-xl border border-gray-100 px-4 py-3 flex items-center gap-2.5 shadow-sm">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${s.color}`}>
+                    <s.icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-medium text-gray-700 hidden sm:block">{s.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Grid */}

@@ -1,5 +1,15 @@
-import Image from "next/image";
-import { ArrowRight, Star, Shield, Users } from "lucide-react";
+import {
+  ArrowRight,
+  Star,
+  Shield,
+  Users,
+  FileText,
+  DollarSign,
+  TrendingUp,
+  CheckCircle2,
+  Clock,
+  Eye,
+} from "lucide-react";
 
 export default function Hero() {
   return (
@@ -73,17 +83,58 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Hero image */}
+      {/* Hero — live dashboard mockup */}
       <div className="relative mx-auto max-w-5xl mt-20 animate-fade-in-up-delay-3">
-        <div className="rounded-2xl border border-gray-200/60 shadow-2xl shadow-gray-200/40 overflow-hidden bg-white">
-          <Image
-            src="/images/hero-dashboard.svg"
-            alt="Offert Pro dashboard - skapa och hantera offerter"
-            width={800}
-            height={500}
-            className="w-full h-auto"
-            priority
-          />
+        <div className="rounded-2xl border border-gray-200/60 shadow-2xl shadow-gray-200/40 overflow-hidden bg-gray-50 p-5 sm:p-8">
+          {/* Stats row */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+            {[
+              { label: "Aktiva offerter", value: "24", icon: FileText, color: "bg-indigo-50 text-indigo-600" },
+              { label: "Totalt värde", value: "482 000 kr", icon: DollarSign, color: "bg-emerald-50 text-emerald-600" },
+              { label: "Vinstfrekvens", value: "68%", icon: TrendingUp, color: "bg-amber-50 text-amber-600" },
+              { label: "Accepterade", value: "16", icon: CheckCircle2, color: "bg-green-50 text-green-600" },
+            ].map((s) => (
+              <div key={s.label} className="bg-white rounded-xl border border-gray-100 p-4 sm:p-5">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${s.color}`}>
+                    <s.icon className="w-4 h-4" />
+                  </div>
+                </div>
+                <p className="text-lg sm:text-xl font-bold text-gray-900 tracking-tight">{s.value}</p>
+                <p className="text-xs text-gray-400 mt-0.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Quotes table */}
+          <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-gray-900">Senaste offerter</h3>
+              <span className="text-xs text-gray-400">Visa alla</span>
+            </div>
+            <div className="divide-y divide-gray-50">
+              {[
+                { id: "QT-2026-031", customer: "Andersson Bygg AB", amount: "85 400 kr", status: "Accepterad", statusColor: "bg-green-50 text-green-700", icon: CheckCircle2, iconColor: "text-green-500" },
+                { id: "QT-2026-030", customer: "Nordström Design", amount: "42 000 kr", status: "Öppnad", statusColor: "bg-blue-50 text-blue-700", icon: Eye, iconColor: "text-blue-500" },
+                { id: "QT-2026-029", customer: "TechFlow Solutions", amount: "128 500 kr", status: "Skickad", statusColor: "bg-amber-50 text-amber-700", icon: Clock, iconColor: "text-amber-500" },
+                { id: "QT-2026-028", customer: "Grön Energi AB", amount: "67 200 kr", status: "Accepterad", statusColor: "bg-green-50 text-green-700", icon: CheckCircle2, iconColor: "text-green-500" },
+              ].map((q) => (
+                <div key={q.id} className="px-5 py-3.5 flex items-center justify-between">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <q.icon className={`w-4 h-4 shrink-0 ${q.iconColor}`} />
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-gray-900 truncate">{q.customer}</p>
+                      <p className="text-xs text-gray-400">{q.id}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="text-sm font-semibold text-gray-900 hidden sm:block">{q.amount}</span>
+                    <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${q.statusColor}`}>{q.status}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
         {/* Subtle glow effect */}
         <div className="absolute -inset-4 bg-gradient-to-t from-white via-transparent to-transparent pointer-events-none" />

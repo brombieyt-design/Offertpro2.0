@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   FileText,
   Eye,
@@ -9,6 +8,8 @@ import {
   ClipboardEdit,
   MailCheck,
   BarChart3,
+  Check,
+  Plus,
 } from "lucide-react";
 import { features } from "@/lib/constants";
 
@@ -109,15 +110,82 @@ export default function Features() {
             </p>
           </div>
 
-          {/* Feature illustration */}
-          <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-white">
-            <Image
-              src="/images/features-overview.svg"
-              alt="Offert Pro funktioner - PDF, spårning, e-signaturer, mallar och pipeline"
-              width={800}
-              height={400}
-              className="w-full h-auto"
-            />
+          {/* Quote builder mockup */}
+          <div className="mb-20 rounded-2xl overflow-hidden border border-gray-200/60 shadow-lg shadow-gray-200/30 bg-gray-50 p-5 sm:p-8">
+            {/* Step indicators */}
+            <div className="flex items-center justify-center gap-2 sm:gap-4 mb-8">
+              {["Kund", "Rader", "Förhandsgranska", "Skicka"].map((label, i) => (
+                <div key={label} className="flex items-center gap-2 sm:gap-4">
+                  <div className="flex items-center gap-1.5">
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold ${i < 2 ? "bg-indigo-600 text-white" : i === 2 ? "bg-indigo-100 text-indigo-600 ring-2 ring-indigo-200" : "bg-gray-100 text-gray-400"}`}>
+                      {i < 2 ? <Check className="w-3.5 h-3.5" /> : i + 1}
+                    </div>
+                    <span className={`text-xs font-medium hidden sm:block ${i <= 2 ? "text-gray-900" : "text-gray-400"}`}>{label}</span>
+                  </div>
+                  {i < 3 && <div className={`w-8 sm:w-12 h-px ${i < 2 ? "bg-indigo-300" : "bg-gray-200"}`} />}
+                </div>
+              ))}
+            </div>
+
+            {/* PDF preview */}
+            <div className="bg-white rounded-xl border border-gray-100 p-6 sm:p-10 max-w-2xl mx-auto">
+              <div className="flex justify-between items-start mb-8">
+                <div>
+                  <h4 className="text-lg font-bold text-indigo-600">Offert Pro</h4>
+                  <p className="text-xs text-gray-400 mt-0.5">Storgatan 1, 111 22 Stockholm</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-bold text-gray-900">OFFERT</p>
+                  <p className="text-xs text-gray-500">#QT-2026-031</p>
+                  <p className="text-xs text-gray-400 mt-1">2026-03-20</p>
+                </div>
+              </div>
+              <div className="border-t border-gray-100 pt-4 mb-4">
+                <p className="text-xs font-semibold text-gray-500 mb-1">TILL</p>
+                <p className="text-sm font-medium text-gray-900">Andersson Bygg AB</p>
+                <p className="text-xs text-gray-400">Byggvägen 12, 114 55 Stockholm</p>
+              </div>
+              {/* Line items */}
+              <table className="w-full text-xs mb-6">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="text-left py-2 text-gray-400 font-medium">Beskrivning</th>
+                    <th className="text-right py-2 text-gray-400 font-medium">Antal</th>
+                    <th className="text-right py-2 text-gray-400 font-medium">Pris</th>
+                    <th className="text-right py-2 text-gray-400 font-medium">Summa</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  <tr>
+                    <td className="py-2 text-gray-700">Webbdesign – responsiv layout</td>
+                    <td className="py-2 text-right text-gray-500">1</td>
+                    <td className="py-2 text-right text-gray-500">45 000 kr</td>
+                    <td className="py-2 text-right font-medium text-gray-900">45 000 kr</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-gray-700">SEO-optimering</td>
+                    <td className="py-2 text-right text-gray-500">1</td>
+                    <td className="py-2 text-right text-gray-500">12 000 kr</td>
+                    <td className="py-2 text-right font-medium text-gray-900">12 000 kr</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 text-gray-700">Copywriting (per sida)</td>
+                    <td className="py-2 text-right text-gray-500">5</td>
+                    <td className="py-2 text-right text-gray-500">3 000 kr</td>
+                    <td className="py-2 text-right font-medium text-gray-900">15 000 kr</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="flex justify-between items-center border-t border-gray-200 pt-3">
+                <button className="flex items-center gap-1 text-xs text-indigo-600 font-medium">
+                  <Plus className="w-3.5 h-3.5" /> Lägg till rad
+                </button>
+                <div className="text-right">
+                  <p className="text-xs text-gray-400">Totalt exkl. moms</p>
+                  <p className="text-lg font-bold text-gray-900">72 000 kr</p>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Grid */}
