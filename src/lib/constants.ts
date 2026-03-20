@@ -155,17 +155,17 @@ export const invoiceStatusLabels: Record<string, string> = {
 };
 
 export const quoteStatusColors: Record<string, string> = {
-  draft: "bg-gray-100 text-gray-700",
-  sent: "bg-blue-100 text-blue-700",
-  opened: "bg-yellow-100 text-yellow-700",
-  accepted: "bg-green-100 text-green-700",
-  rejected: "bg-red-100 text-red-700",
+  draft: "bg-gray-100 text-gray-600",
+  sent: "bg-brand-50 text-brand-700",
+  opened: "bg-warning-50 text-warning-600",
+  accepted: "bg-success-50 text-success-700",
+  rejected: "bg-danger-50 text-danger-700",
 };
 
 export const invoiceStatusColors: Record<string, string> = {
-  draft: "bg-gray-100 text-gray-700",
-  sent: "bg-blue-100 text-blue-700",
-  paid: "bg-green-100 text-green-700",
-  overdue: "bg-red-100 text-red-700",
-  partially_paid: "bg-amber-100 text-amber-700",
+  draft: "bg-gray-100 text-gray-600",
+  sent: "bg-brand-50 text-brand-700",
+  paid: "bg-success-50 text-success-700",
+  overdue: "bg-danger-50 text-danger-700",
+  partially_paid: "bg-warning-50 text-warning-600",
 };

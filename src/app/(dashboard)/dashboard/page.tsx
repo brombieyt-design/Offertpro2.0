@@ -135,21 +135,21 @@ export default function DashboardPage() {
   ].sort((a, b) => +new Date(b.date) - +new Date(a.date));
 
   const statusDot: Record<string, string> = {
-    accepted: "bg-emerald-500",
-    paid: "bg-emerald-500",
-    sent: "bg-blue-500",
-    opened: "bg-amber-500",
-    overdue: "bg-red-500",
+    accepted: "bg-success-500",
+    paid: "bg-success-500",
+    sent: "bg-brand-500",
+    opened: "bg-warning-500",
+    overdue: "bg-danger-500",
     draft: "bg-gray-300",
-    rejected: "bg-red-400",
+    rejected: "bg-danger-500",
   };
 
   /* pipeline segments (for stacked bar) */
   const barTotal = paidTotal + pendingTotal + overdueTotal || 1;
   const segments = [
-    { key: "paid", label: "Betalt", value: paidTotal, bg: "bg-emerald-500" },
-    { key: "pending", label: "Väntar", value: pendingTotal, bg: "bg-blue-400" },
-    { key: "overdue", label: "Förfallet", value: overdueTotal, bg: "bg-red-400" },
+    { key: "paid", label: "Betalt", value: paidTotal, bg: "bg-success-500" },
+    { key: "pending", label: "Väntar", value: pendingTotal, bg: "bg-brand-400" },
+    { key: "overdue", label: "Förfallet", value: overdueTotal, bg: "bg-danger-500" },
   ];
 
   return (
@@ -171,7 +171,7 @@ export default function DashboardPage() {
         <div className="flex gap-2 mt-3 sm:mt-0">
           <Link
             href="/quotes/new"
-            className="inline-flex items-center gap-1.5 rounded-lg bg-gray-900 px-3.5 py-2 text-[13px] font-medium text-white shadow-xs hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3.5 py-2 text-[13px] font-medium text-white shadow-xs hover:bg-brand-700 transition-colors"
           >
             <Plus className="w-3.5 h-3.5" /> Ny offert
           </Link>
@@ -186,9 +186,9 @@ export default function DashboardPage() {
 
       {/* ── overdue alert ──────────────────────── */}
       {overdue.length > 0 && (
-        <div className="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-          <AlertTriangle className="w-4 h-4 text-red-600 shrink-0" />
-          <p className="flex-1 text-[13px] text-red-800">
+        <div className="flex items-center gap-3 rounded-lg border border-danger-200 bg-danger-50 px-4 py-3">
+          <AlertTriangle className="w-4 h-4 text-danger-600 shrink-0" />
+          <p className="flex-1 text-[13px] text-danger-700">
             <span className="font-medium">
               {overdue.length} förfallen{overdue.length > 1 ? "a" : ""} faktur
               {overdue.length > 1 ? "or" : "a"}
@@ -197,7 +197,7 @@ export default function DashboardPage() {
           </p>
           <Link
             href="/invoices"
-            className="text-[13px] font-medium text-red-700 hover:text-red-900 whitespace-nowrap"
+            className="text-[13px] font-medium text-danger-700 hover:text-danger-600 whitespace-nowrap"
           >
             Visa&nbsp;&rarr;
           </Link>
@@ -244,7 +244,7 @@ export default function DashboardPage() {
           </p>
           <div className="mt-2 h-1.5 rounded-full bg-gray-100 overflow-hidden">
             <div
-              className="h-full rounded-full bg-emerald-500 transition-all duration-500"
+              className="h-full rounded-full bg-success-500 transition-all duration-500"
               style={{ width: `${Math.max(winRate, 2)}%` }}
             />
           </div>
@@ -369,7 +369,7 @@ export default function DashboardPage() {
                 </p>
                 <Link
                   href="/quotes/new"
-                  className="text-[13px] text-indigo-600 hover:underline mt-1 inline-block"
+                  className="text-[13px] text-brand-600 hover:underline mt-1 inline-block"
                 >
                   Skapa din första offert
                 </Link>
@@ -404,7 +404,7 @@ export default function DashboardPage() {
                   key={c.id}
                   className="flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50/60 transition-colors"
                 >
-                  <span className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-[11px] font-semibold text-gray-600 shrink-0 uppercase">
+                  <span className="w-8 h-8 rounded-full bg-brand-50 flex items-center justify-center text-[11px] font-semibold text-brand-600 shrink-0 uppercase">
                     {initials}
                   </span>
                   <div className="flex-1 min-w-0">

@@ -1,21 +1,57 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@theme {
+  /* ── Brand palette ─────────────────────────── */
+  /* Primary: a confident blue that conveys trust */
+  --color-brand-50:  #eff4ff;
+  --color-brand-100: #dbe6fe;
+  --color-brand-200: #bdd0fe;
+  --color-brand-300: #8fb2fc;
+  --color-brand-400: #5b8af8;
+  --color-brand-500: #3663f0;
+  --color-brand-600: #2044e4;
+  --color-brand-700: #1a33d1;
+  --color-brand-800: #1b2baa;
+  --color-brand-900: #1c2a86;
+
+  /* Success: emerald for positive states */
+  --color-success-50:  #ecfdf5;
+  --color-success-100: #d1fae5;
+  --color-success-500: #10b981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+
+  /* Warning: amber for attention states */
+  --color-warning-50:  #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+
+  /* Danger: red for destructive/overdue */
+  --color-danger-50:  #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-200: #fecaca;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 @layer base {
   .form-input {
-    @apply w-full px-4 py-3.5 text-sm border border-gray-200/80 rounded-2xl bg-white focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-50 transition-all duration-300 placeholder:text-gray-400;
+    @apply w-full px-4 py-3 text-sm border border-gray-200 rounded-lg bg-white focus:outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100 transition-colors placeholder:text-gray-400;
   }
 
   .sidebar-item {
-    @apply flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl text-gray-500 hover:bg-gray-50/80 hover:text-gray-900 transition-all duration-200;
+    @apply flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors;
   }
 
   .sidebar-item.active {
-    @apply bg-indigo-50/80 text-indigo-600;
+    @apply bg-brand-50 text-brand-600;
   }
 
   .step-dot {

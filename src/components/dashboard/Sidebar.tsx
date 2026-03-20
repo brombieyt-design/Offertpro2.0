@@ -46,30 +46,30 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-[280px] bg-white border-r border-gray-100/60 flex flex-col transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col transition-transform duration-200 lg:relative lg:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Logo */}
-        <div className="flex items-center justify-between px-7 py-7">
+        <div className="flex items-center justify-between px-5 py-5">
           <Link href="/dashboard" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-indigo-200 group-hover:scale-105">
-              <Check className="w-5 h-5 text-white" strokeWidth={3} />
+            <div className="w-9 h-9 bg-brand-600 rounded-lg flex items-center justify-center transition-colors group-hover:bg-brand-700">
+              <Check className="w-4.5 h-4.5 text-white" strokeWidth={3} />
             </div>
-            <span className="text-lg font-bold tracking-tight text-gray-900">
+            <span className="text-base font-bold tracking-tight text-gray-900">
               Offert-pro
             </span>
           </Link>
           <button
             onClick={onClose}
-            className="lg:hidden p-2 rounded-xl hover:bg-gray-100 text-gray-400 transition-all duration-200"
+            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-400 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-5 py-4 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = iconMap[item.icon];
             const isActive = pathname === item.href;
@@ -83,7 +83,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                 {Icon && <Icon className="w-5 h-5" />}
                 <span>{item.label}</span>
                 {isActive && item.href === "/quotes" && (
-                  <span className="absolute right-3 w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                  <span className="absolute right-3 w-1.5 h-1.5 rounded-full bg-brand-600" />
                 )}
               </Link>
             );
@@ -91,40 +91,38 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Plan usage */}
-        <div className="px-5 py-6 mx-5 mb-5 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-2xl">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-semibold text-gray-900 tracking-wide">
-              Gratisplan
-            </span>
-          </div>
-          <p className="text-xs text-gray-500 mb-3.5">
-            3 av 5 offerter använda denna månad
+        <div className="mx-4 mb-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+          <span className="text-[12px] font-semibold text-gray-900">
+            Gratisplan
+          </span>
+          <p className="text-[12px] text-gray-500 mt-1 mb-2.5">
+            3 av 5 offerter använda
           </p>
-          <div className="w-full h-2 bg-gray-200/60 rounded-full overflow-hidden">
+          <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full transition-all duration-500"
+              className="h-full bg-brand-500 rounded-full transition-all duration-500"
               style={{ width: "60%" }}
             />
           </div>
           <Link
             href="/settings"
-            className="inline-block mt-4 text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition-all duration-200"
+            className="inline-block mt-3 text-[12px] font-semibold text-brand-600 hover:text-brand-700 transition-colors"
           >
-            Uppgradera till Pro
+            Uppgradera &rarr;
           </Link>
         </div>
 
         {/* User profile */}
-        <div className="px-6 py-6 border-t border-gray-100/60">
-          <div className="flex items-center gap-3.5 p-2.5 -m-2.5 rounded-2xl hover:bg-gray-50/80 transition-all duration-300 cursor-pointer">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold shadow-sm">
+        <div className="px-4 py-4 border-t border-gray-200">
+          <div className="flex items-center gap-3 p-2 -m-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+            <div className="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center text-white text-[11px] font-semibold">
               JD
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">
+              <p className="text-[13px] font-medium text-gray-900 truncate">
                 Jane Doe
               </p>
-              <p className="text-xs text-gray-500 truncate">
+              <p className="text-[12px] text-gray-500 truncate">
                 jane@example.com
               </p>
             </div>
