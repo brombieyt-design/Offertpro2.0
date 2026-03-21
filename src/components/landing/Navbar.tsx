@@ -89,6 +89,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
+        aria-hidden={!mobileOpen}
         className={cn(
           "md:hidden overflow-hidden transition-all duration-300",
           mobileOpen ? "max-h-96 bg-white/95 backdrop-blur-sm border-b border-gray-100" : "max-h-0"

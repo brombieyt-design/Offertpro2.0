@@ -67,6 +67,8 @@ export default function FAQ() {
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${index}`}
                   className="flex w-full items-center justify-between px-8 py-6 text-left"
                 >
                   <span className="text-base font-semibold text-gray-900 pr-4">
@@ -79,6 +81,9 @@ export default function FAQ() {
                   </div>
                 </button>
                 <div
+                  id={`faq-answer-${index}`}
+                  role="region"
+                  aria-hidden={!isOpen}
                   className={`overflow-hidden transition-all duration-300 ${
                     isOpen ? "max-h-48 pb-6" : "max-h-0"
                   }`}

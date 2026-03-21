@@ -27,3 +27,28 @@ export async function POST(request: NextRequest) {
 
   return Response.json(customer, { status: 201 });
 }
+
+export async function PATCH(request: NextRequest) {
+  const body = await request.json();
+  const db = readDB();
+
+  const idx = db.customers.findIndex((c) => c.id === body.id);
+  if (idx === -1) {
+    return Response.json({ error: "Kund hittades inte" }, { status: 404 });
+  }
+
+  db.customers[idx] = { ...db.customers[idx], ...body };
+  writeDB(db);
+
+  return Response.json(db.customers[idx]);
+}
+
+export async function DELETE(request: NextRequest) {
+  const { id } = await request.json();
+  const db = readDB();
+
+  db.customers = db.customers.filter((c) => c.id !== id);
+  writeDB(db);
+
+  return Response.json({ ok: true });
+}

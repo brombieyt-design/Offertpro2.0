@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { Save, Check } from "lucide-react";
 
 const tabList = [
   { id: "company", label: "Företagsprofil" },
@@ -11,8 +12,9 @@ const tabList = [
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("company");
-  const [saved, setSaved] = useState(false);
-  const [form, setForm] = useState({
+  const [saved, setSaved] = useState<string | null>(null);
+
+  const [company, setCompany] = useState({
     companyName: "",
     orgNumber: "",
     vatNumber: "",
@@ -21,16 +23,34 @@ export default function SettingsPage() {
     website: "",
     address: "",
     city: "",
+    zipCode: "",
   });
 
-  function update(field: keyof typeof form, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-    setSaved(false);
-  }
+  const [payment, setPayment] = useState({
+    bankgiro: "",
+    plusgiro: "",
+    bankName: "",
+    iban: "",
+    bic: "",
+    defaultTerms: "30",
+    lateInterest: "8",
+    reminderFee: "60",
+  });
 
-  function handleSave() {
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  const [defaults, setDefaults] = useState({
+    quoteValidity: "30",
+    vatRate: "25",
+    currency: "SEK",
+    language: "sv",
+    invoicePrefix: "FAK",
+    quotePrefix: "QT",
+    footerNote: "",
+    emailSignature: "",
+  });
+
+  function handleSave(section: string) {
+    setSaved(section);
+    setTimeout(() => setSaved(null), 2000);
   }
 
   return (
@@ -61,6 +81,9 @@ export default function SettingsPage() {
           <h2 className="text-base font-semibold text-gray-900 mb-5">
             Företagsinformation
           </h2>
+          <p className="text-sm text-gray-500 mb-5">
+            Denna information visas på offerter och fakturor.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
@@ -68,8 +91,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
-                value={form.companyName}
-                onChange={(e) => update("companyName", e.target.value)}
+                value={company.companyName}
+                onChange={(e) => setCompany({ ...company, companyName: e.target.value })}
                 placeholder="Ditt Företag AB"
                 className="form-input"
               />
@@ -80,8 +103,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
-                value={form.orgNumber}
-                onChange={(e) => update("orgNumber", e.target.value)}
+                value={company.orgNumber}
+                onChange={(e) => setCompany({ ...company, orgNumber: e.target.value })}
                 placeholder="556xxx-xxxx"
                 className="form-input"
               />
@@ -92,8 +115,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
-                value={form.vatNumber}
-                onChange={(e) => update("vatNumber", e.target.value)}
+                value={company.vatNumber}
+                onChange={(e) => setCompany({ ...company, vatNumber: e.target.value })}
                 placeholder="SE556xxxxxxxxx01"
                 className="form-input"
               />
@@ -104,8 +127,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="email"
-                value={form.email}
-                onChange={(e) => update("email", e.target.value)}
+                value={company.email}
+                onChange={(e) => setCompany({ ...company, email: e.target.value })}
                 placeholder="info@foretag.se"
                 className="form-input"
               />
@@ -116,8 +139,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="tel"
-                value={form.phone}
-                onChange={(e) => update("phone", e.target.value)}
+                value={company.phone}
+                onChange={(e) => setCompany({ ...company, phone: e.target.value })}
                 placeholder="+46 70 123 45 67"
                 className="form-input"
               />
@@ -128,8 +151,8 @@ export default function SettingsPage() {
               </label>
               <input
                 type="url"
-                value={form.website}
-                onChange={(e) => update("website", e.target.value)}
+                value={company.website}
+                onChange={(e) => setCompany({ ...company, website: e.target.value })}
                 placeholder="https://foretag.se"
                 className="form-input"
               />
@@ -140,31 +163,55 @@ export default function SettingsPage() {
               </label>
               <input
                 type="text"
-                value={form.address}
-                onChange={(e) => update("address", e.target.value)}
+                value={company.address}
+                onChange={(e) => setCompany({ ...company, address: e.target.value })}
                 placeholder="Storgatan 1"
                 className="form-input"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Stad
-              </label>
-              <input
-                type="text"
-                value={form.city}
-                onChange={(e) => update("city", e.target.value)}
-                placeholder="Stockholm"
-                className="form-input"
-              />
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Postnummer
+                </label>
+                <input
+                  type="text"
+                  value={company.zipCode}
+                  onChange={(e) => setCompany({ ...company, zipCode: e.target.value })}
+                  placeholder="111 43"
+                  className="form-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Stad
+                </label>
+                <input
+                  type="text"
+                  value={company.city}
+                  onChange={(e) => setCompany({ ...company, city: e.target.value })}
+                  placeholder="Stockholm"
+                  className="form-input"
+                />
+              </div>
             </div>
           </div>
           <div className="mt-6">
             <button
-              onClick={handleSave}
-              className="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+              onClick={() => handleSave("company")}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
             >
-              {saved ? "Sparat!" : "Spara inställningar"}
+              {saved === "company" ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  Sparat!
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  Spara inställningar
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -172,27 +219,316 @@ export default function SettingsPage() {
 
       {/* Payment tab */}
       {activeTab === "payment" && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="text-base font-semibold text-gray-900 mb-2">
-            Betalningsinställningar
-          </h2>
-          <p className="text-sm text-gray-500">
-            Konfigurera bankuppgifter och betalningsvillkor som visas på
-            fakturor. Denna funktion kommer snart.
-          </p>
+        <div className="space-y-6">
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+            <h2 className="text-base font-semibold text-gray-900 mb-2">
+              Bankuppgifter
+            </h2>
+            <p className="text-sm text-gray-500 mb-5">
+              Dessa uppgifter visas på dina fakturor.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Bankgiro
+                </label>
+                <input
+                  type="text"
+                  value={payment.bankgiro}
+                  onChange={(e) => setPayment({ ...payment, bankgiro: e.target.value })}
+                  placeholder="123-4567"
+                  className="form-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Plusgiro
+                </label>
+                <input
+                  type="text"
+                  value={payment.plusgiro}
+                  onChange={(e) => setPayment({ ...payment, plusgiro: e.target.value })}
+                  placeholder="12 34 56-7"
+                  className="form-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Banknamn
+                </label>
+                <input
+                  type="text"
+                  value={payment.bankName}
+                  onChange={(e) => setPayment({ ...payment, bankName: e.target.value })}
+                  placeholder="Swedbank"
+                  className="form-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  IBAN
+                </label>
+                <input
+                  type="text"
+                  value={payment.iban}
+                  onChange={(e) => setPayment({ ...payment, iban: e.target.value })}
+                  placeholder="SE00 0000 0000 0000 0000 0000"
+                  className="form-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  BIC/SWIFT
+                </label>
+                <input
+                  type="text"
+                  value={payment.bic}
+                  onChange={(e) => setPayment({ ...payment, bic: e.target.value })}
+                  placeholder="SWEDSESS"
+                  className="form-input"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+            <h2 className="text-base font-semibold text-gray-900 mb-2">
+              Betalningsvillkor
+            </h2>
+            <p className="text-sm text-gray-500 mb-5">
+              Standardvillkor för nya fakturor.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-2xl">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Standard betaltid
+                </label>
+                <select
+                  value={payment.defaultTerms}
+                  onChange={(e) => setPayment({ ...payment, defaultTerms: e.target.value })}
+                  className="form-input"
+                >
+                  <option value="0">Omedelbart</option>
+                  <option value="10">10 dagar netto</option>
+                  <option value="20">20 dagar netto</option>
+                  <option value="30">30 dagar netto</option>
+                  <option value="45">45 dagar netto</option>
+                  <option value="60">60 dagar netto</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Dröjsmålsränta (%)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={payment.lateInterest}
+                  onChange={(e) => setPayment({ ...payment, lateInterest: e.target.value })}
+                  className="form-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Påminnelseavgift (kr)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  value={payment.reminderFee}
+                  onChange={(e) => setPayment({ ...payment, reminderFee: e.target.value })}
+                  className="form-input"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => handleSave("payment")}
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+          >
+            {saved === "payment" ? (
+              <>
+                <Check className="w-4 h-4" />
+                Sparat!
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                Spara betalningsinställningar
+              </>
+            )}
+          </button>
         </div>
       )}
 
       {/* Defaults tab */}
       {activeTab === "defaults" && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="text-base font-semibold text-gray-900 mb-2">
-            Standardvärden
-          </h2>
-          <p className="text-sm text-gray-500">
-            Ställ in standardvärden för offerters giltighet, betalningsvillkor
-            och moms. Denna funktion kommer snart.
-          </p>
+        <div className="space-y-6">
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+            <h2 className="text-base font-semibold text-gray-900 mb-2">
+              Dokument-inställningar
+            </h2>
+            <p className="text-sm text-gray-500 mb-5">
+              Standardvärden som används vid skapande av nya offerter och fakturor.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Offertens giltighet (dagar)
+                </label>
+                <select
+                  value={defaults.quoteValidity}
+                  onChange={(e) => setDefaults({ ...defaults, quoteValidity: e.target.value })}
+                  className="form-input"
+                >
+                  <option value="14">14 dagar</option>
+                  <option value="30">30 dagar</option>
+                  <option value="45">45 dagar</option>
+                  <option value="60">60 dagar</option>
+                  <option value="90">90 dagar</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Momssats (%)
+                </label>
+                <select
+                  value={defaults.vatRate}
+                  onChange={(e) => setDefaults({ ...defaults, vatRate: e.target.value })}
+                  className="form-input"
+                >
+                  <option value="0">0% (momsfritt)</option>
+                  <option value="6">6%</option>
+                  <option value="12">12%</option>
+                  <option value="25">25%</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Valuta
+                </label>
+                <select
+                  value={defaults.currency}
+                  onChange={(e) => setDefaults({ ...defaults, currency: e.target.value })}
+                  className="form-input"
+                >
+                  <option value="SEK">SEK - Svensk krona</option>
+                  <option value="EUR">EUR - Euro</option>
+                  <option value="USD">USD - US Dollar</option>
+                  <option value="NOK">NOK - Norsk krona</option>
+                  <option value="DKK">DKK - Dansk krona</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Språk
+                </label>
+                <select
+                  value={defaults.language}
+                  onChange={(e) => setDefaults({ ...defaults, language: e.target.value })}
+                  className="form-input"
+                >
+                  <option value="sv">Svenska</option>
+                  <option value="en">English</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+            <h2 className="text-base font-semibold text-gray-900 mb-2">
+              Numrering
+            </h2>
+            <p className="text-sm text-gray-500 mb-5">
+              Prefix för automatisk numrering av offerter och fakturor.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-md">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Offert-prefix
+                </label>
+                <input
+                  type="text"
+                  value={defaults.quotePrefix}
+                  onChange={(e) => setDefaults({ ...defaults, quotePrefix: e.target.value })}
+                  placeholder="QT"
+                  className="form-input"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Resultat: {defaults.quotePrefix}-2026-001
+                </p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Faktura-prefix
+                </label>
+                <input
+                  type="text"
+                  value={defaults.invoicePrefix}
+                  onChange={(e) => setDefaults({ ...defaults, invoicePrefix: e.target.value })}
+                  placeholder="FAK"
+                  className="form-input"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Resultat: {defaults.invoicePrefix}-2026-001
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+            <h2 className="text-base font-semibold text-gray-900 mb-2">
+              Texter
+            </h2>
+            <p className="text-sm text-gray-500 mb-5">
+              Standardtexter som läggs till på dokument.
+            </p>
+            <div className="space-y-5 max-w-2xl">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Fotnotstext på fakturor/offerter
+                </label>
+                <textarea
+                  value={defaults.footerNote}
+                  onChange={(e) => setDefaults({ ...defaults, footerNote: e.target.value })}
+                  rows={2}
+                  placeholder="T.ex. Tack för ert förtroende! Vid frågor kontakta oss."
+                  className="form-input resize-none"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  E-postsignatur
+                </label>
+                <textarea
+                  value={defaults.emailSignature}
+                  onChange={(e) => setDefaults({ ...defaults, emailSignature: e.target.value })}
+                  rows={3}
+                  placeholder="Med vänliga hälsningar,&#10;Ditt Företag AB"
+                  className="form-input resize-none"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => handleSave("defaults")}
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+          >
+            {saved === "defaults" ? (
+              <>
+                <Check className="w-4 h-4" />
+                Sparat!
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                Spara standardvärden
+              </>
+            )}
+          </button>
         </div>
       )}
     </div>
