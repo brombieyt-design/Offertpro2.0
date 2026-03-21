@@ -1,12 +1,14 @@
 import fs from "fs";
 import path from "path";
-import type { Customer, Quote, Invoice, Template } from "@/types";
+import type { Customer, Quote, Invoice, Template, User, Session } from "@/types";
 
 export interface DB {
   customers: Customer[];
   quotes: Quote[];
   invoices: Invoice[];
   templates: Template[];
+  users: User[];
+  sessions: Session[];
 }
 
 const DB_PATH = path.join(process.cwd(), "data", "db.json");
@@ -135,6 +137,8 @@ function getDefaultData(): DB {
       },
     ],
     templates: [],
+    users: [],
+    sessions: [],
   };
 }
 

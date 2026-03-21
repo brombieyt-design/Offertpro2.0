@@ -12,9 +12,11 @@ import {
   Settings,
   X,
   Check,
+  LogOut,
 } from "lucide-react";
 import { navItems } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/lib/user-context";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -33,6 +35,11 @@ interface SidebarProps {
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const { user, logout } = useUser();
+
+  const initials = user
+    ? `${user.firstName[0]}${user.lastName[0]}`.toUpperCase()
+    : "?";
 
   return (
     <>
@@ -114,18 +121,25 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
 
         {/* User profile */}
         <div className="px-4 py-4 border-t border-gray-200">
-          <div className="flex items-center gap-3 p-2 -m-2 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+          <div className="flex items-center gap-3 p-2 -m-2 rounded-lg">
             <div className="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center text-white text-[11px] font-semibold">
-              JD
+              {initials}
             </div>
-            <div className="min-w-0">
+            <div className="min-w-0 flex-1">
               <p className="text-[13px] font-medium text-gray-900 truncate">
-                Jane Doe
+                {user ? `${user.firstName} ${user.lastName}` : "Laddar..."}
               </p>
               <p className="text-[12px] text-gray-500 truncate">
-                jane@example.com
+                {user?.email ?? ""}
               </p>
             </div>
+            <button
+              onClick={logout}
+              title="Logga ut"
+              className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </aside>

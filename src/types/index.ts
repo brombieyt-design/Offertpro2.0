@@ -57,6 +57,22 @@ export interface Template {
   createdAt: string;
 }
 
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  company?: string;
+  passwordHash: string;
+  createdAt: string;
+}
+
+export interface Session {
+  id: string;
+  userId: string;
+  expiresAt: string;
+}
+
 export interface PricingTier {
   name: string;
   price: number;

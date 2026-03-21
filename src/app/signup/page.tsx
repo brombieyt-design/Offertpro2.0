@@ -24,17 +24,45 @@ export default function SignupPage() {
   const [password, setPassword] = useState("");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
+
     if (!acceptTerms) {
-      alert("Du måste godkänna användarvillkoren för att fortsätta.");
+      setError("Du måste godkänna användarvillkoren för att fortsätta.");
       return;
     }
+
     setLoading(true);
-    setTimeout(() => {
+
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          password,
+          company: company || undefined,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Något gick fel.");
+        setLoading(false);
+        return;
+      }
+
       router.push("/dashboard");
-    }, 600);
+    } catch {
+      setError("Kunde inte ansluta till servern.");
+      setLoading(false);
+    }
   }
 
   return (
@@ -68,6 +96,11 @@ export default function SignupPage() {
           <div className="w-full max-w-md">
             <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 sm:p-10">
               <form onSubmit={handleSubmit} className="space-y-5">
+                {error && (
+                  <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-sm text-red-600">
+                    {error}
+                  </div>
+                )}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label
