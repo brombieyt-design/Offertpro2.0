@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft } from "lucide-react";
 import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import type { Quote, QuoteStatus } from "@/types";
@@ -17,9 +18,12 @@ const tabs: { label: string; value: QuoteStatus | "all" }[] = [
 ];
 
 export default function QuotesPage() {
+  const router = useRouter();
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [activeTab, setActiveTab] = useState<QuoteStatus | "all">("all");
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [converting, setConverting] = useState<string | null>(null);
 
   async function fetchQuotes() {
     setLoading(true);
@@ -59,15 +63,44 @@ export default function QuotesPage() {
     fetchQuotes();
   }
 
+  async function convertToInvoice(quote: Quote) {
+    if (!confirm(`Skapa faktura från offert ${quote.number}?`)) return;
+    setConverting(quote.id);
+    try {
+      const res = await fetch("/api/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer: quote.customer,
+          items: quote.items,
+          status: "draft",
+          paymentTerms: "30 dagar netto",
+        }),
+      });
+      if (res.ok) {
+        router.push("/invoices");
+      }
+    } finally {
+      setConverting(null);
+    }
+  }
+
   function countByStatus(status: QuoteStatus | "all") {
     if (status === "all") return quotes.length;
     return quotes.filter((q) => q.status === status).length;
   }
 
-  const filtered =
-    activeTab === "all"
-      ? quotes
-      : quotes.filter((q) => q.status === activeTab);
+  const filtered = quotes.filter((q) => {
+    const matchesTab = activeTab === "all" || q.status === activeTab;
+    if (!matchesTab) return false;
+    if (!searchQuery) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      q.number.toLowerCase().includes(query) ||
+      q.customer.name.toLowerCase().includes(query) ||
+      (q.customer.company?.toLowerCase().includes(query) ?? false)
+    );
+  });
 
   return (
     <div className="space-y-10">
@@ -98,26 +131,38 @@ export default function QuotesPage() {
         </div>
       </div>
 
-      {/* Filter tabs */}
-      <div className="flex gap-1 bg-gray-100/60 p-1.5 rounded-full w-fit">
-        {tabs.map((tab) => {
-          const count = countByStatus(tab.value);
-          return (
-            <button
-              key={tab.value}
-              onClick={() => setActiveTab(tab.value)}
-              className={cn(
-                "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
-                tab.value === activeTab
-                  ? "bg-white text-gray-900 shadow-sm"
-                  : "text-gray-500 hover:text-gray-700"
-              )}
-            >
-              {tab.label}
-              <span className="ml-1.5 text-xs text-gray-400">({count})</span>
-            </button>
-          );
-        })}
+      {/* Search + Filter tabs */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <input
+            type="text"
+            className="pl-11 pr-4 py-2.5 text-sm bg-white border border-gray-200/80 rounded-full w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 transition-all"
+            placeholder="Sök offert, kund..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        <div className="flex gap-1 bg-gray-100/60 p-1.5 rounded-full w-fit">
+          {tabs.map((tab) => {
+            const count = countByStatus(tab.value);
+            return (
+              <button
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
+                className={cn(
+                  "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
+                  tab.value === activeTab
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-500 hover:text-gray-700"
+                )}
+              >
+                {tab.label}
+                <span className="ml-1.5 text-xs text-gray-400">({count})</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Table */}
@@ -191,6 +236,16 @@ export default function QuotesPage() {
                   </td>
                   <td className="px-7 py-5 text-right">
                     <div className="flex items-center justify-end gap-1">
+                      {quote.status === "accepted" && (
+                        <button
+                          onClick={() => convertToInvoice(quote)}
+                          disabled={converting === quote.id}
+                          className="p-2 text-gray-400 hover:text-green-600 hover:bg-green-50 rounded-xl transition-all duration-300"
+                          title="Skapa faktura från offert"
+                        >
+                          <ArrowRightLeft className={cn("w-4 h-4", converting === quote.id && "animate-spin")} />
+                        </button>
+                      )}
                       <button
                         onClick={() => sendQuoteEmail(quote.id)}
                         className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
@@ -223,7 +278,9 @@ export default function QuotesPage() {
                     colSpan={7}
                     className="px-7 py-12 text-center text-sm text-gray-400"
                   >
-                    Inga offerter med denna status.
+                    {searchQuery
+                      ? "Inga offerter matchar din sökning."
+                      : "Inga offerter med denna status."}
                   </td>
                 </tr>
               )}

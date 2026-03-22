@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Save, Check } from "lucide-react";
+import { Save, Check, RefreshCw } from "lucide-react";
 
 const tabList = [
   { id: "company", label: "Företagsprofil" },
@@ -13,6 +13,7 @@ const tabList = [
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("company");
   const [saved, setSaved] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const [company, setCompany] = useState({
     companyName: "",
@@ -48,9 +49,50 @@ export default function SettingsPage() {
     emailSignature: "",
   });
 
-  function handleSave(section: string) {
-    setSaved(section);
-    setTimeout(() => setSaved(null), 2000);
+  useEffect(() => {
+    async function loadSettings() {
+      try {
+        const res = await fetch("/api/settings");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.company) setCompany((prev) => ({ ...prev, ...data.company }));
+          if (data.payment) setPayment((prev) => ({ ...prev, ...data.payment }));
+          if (data.defaults) setDefaults((prev) => ({ ...prev, ...data.defaults }));
+        }
+      } catch {
+        // Keep defaults on error
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadSettings();
+  }, []);
+
+  async function handleSave(section: string) {
+    const payload: Record<string, unknown> = {};
+    if (section === "company") payload.company = company;
+    if (section === "payment") payload.payment = payment;
+    if (section === "defaults") payload.defaults = defaults;
+
+    try {
+      await fetch("/api/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      setSaved(section);
+      setTimeout(() => setSaved(null), 2000);
+    } catch {
+      alert("Kunde inte spara inställningar.");
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-32">
+        <RefreshCw className="w-6 h-6 text-gray-400 animate-spin" />
+      </div>
+    );
   }
 
   return (

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import type { Invoice, InvoiceStatus } from "@/types";
@@ -20,6 +20,7 @@ export default function InvoicesPage() {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [activeTab, setActiveTab] = useState<InvoiceStatus | "all">("all");
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
 
   async function fetchInvoices() {
     setLoading(true);
@@ -74,10 +75,17 @@ export default function InvoicesPage() {
   const pendingAmount = sumByStatus("sent") + sumByStatus("draft");
   const overdueAmount = sumByStatus("overdue");
 
-  const filtered =
-    activeTab === "all"
-      ? invoices
-      : invoices.filter((inv) => inv.status === activeTab);
+  const filtered = invoices.filter((inv) => {
+    const matchesTab = activeTab === "all" || inv.status === activeTab;
+    if (!matchesTab) return false;
+    if (!searchQuery) return true;
+    const query = searchQuery.toLowerCase();
+    return (
+      inv.number.toLowerCase().includes(query) ||
+      inv.customer.name.toLowerCase().includes(query) ||
+      (inv.customer.company?.toLowerCase().includes(query) ?? false)
+    );
+  });
 
   return (
     <div className="space-y-10">
@@ -143,7 +151,18 @@ export default function InvoicesPage() {
         </div>
       </div>
 
-      {/* Filter tabs */}
+      {/* Search + Filter tabs */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <input
+            type="text"
+            className="pl-11 pr-4 py-2.5 text-sm bg-white border border-gray-200/80 rounded-full w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-300 transition-all"
+            placeholder="Sök faktura, kund..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       <div className="flex gap-1 bg-gray-100/60 p-1.5 rounded-full w-fit">
         {tabs.map((tab) => {
           const count = countByStatus(tab.value);
@@ -163,6 +182,7 @@ export default function InvoicesPage() {
             </button>
           );
         })}
+      </div>
       </div>
 
       {/* Table */}
@@ -231,7 +251,9 @@ export default function InvoicesPage() {
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={7} className="px-7 py-12 text-center text-sm text-gray-400">
-                    Inga fakturor med denna status.
+                    {searchQuery
+                      ? "Inga fakturor matchar din sökning."
+                      : "Inga fakturor med denna status."}
                   </td>
                 </tr>
               )}

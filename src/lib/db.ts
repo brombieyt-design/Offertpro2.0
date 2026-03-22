@@ -2,6 +2,40 @@ import fs from "fs";
 import path from "path";
 import type { Customer, Quote, Invoice, Template, User, Session } from "@/types";
 
+export interface Settings {
+  company?: {
+    companyName?: string;
+    orgNumber?: string;
+    vatNumber?: string;
+    email?: string;
+    phone?: string;
+    website?: string;
+    address?: string;
+    city?: string;
+    zipCode?: string;
+  };
+  payment?: {
+    bankgiro?: string;
+    plusgiro?: string;
+    bankName?: string;
+    iban?: string;
+    bic?: string;
+    defaultTerms?: string;
+    lateInterest?: string;
+    reminderFee?: string;
+  };
+  defaults?: {
+    quoteValidity?: string;
+    vatRate?: string;
+    currency?: string;
+    language?: string;
+    invoicePrefix?: string;
+    quotePrefix?: string;
+    footerNote?: string;
+    emailSignature?: string;
+  };
+}
+
 export interface DB {
   customers: Customer[];
   quotes: Quote[];
@@ -9,6 +43,7 @@ export interface DB {
   templates: Template[];
   users: User[];
   sessions: Session[];
+  settings?: Settings;
 }
 
 const DB_PATH = path.join(process.cwd(), "data", "db.json");
