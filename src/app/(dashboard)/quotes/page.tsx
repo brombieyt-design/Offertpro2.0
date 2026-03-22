@@ -222,7 +222,9 @@ export default function QuotesPage() {
                   className="hover:bg-gray-50/50 transition-all duration-300"
                 >
                   <td className="px-7 py-5 text-sm font-medium text-indigo-600">
-                    {quote.number}
+                    <Link href={`/quotes/${quote.id}`} className="hover:underline">
+                      {quote.number}
+                    </Link>
                   </td>
                   <td className="px-7 py-5">
                     <div className="text-sm font-medium text-gray-900">

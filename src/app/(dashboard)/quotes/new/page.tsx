@@ -13,7 +13,6 @@ import {
   Send,
   Package,
 } from "lucide-react";
-import { customers } from "@/lib/mock-data";
 import { cn, formatCurrency } from "@/lib/utils";
 
 interface LineItemData {
@@ -93,11 +92,15 @@ export default function NewQuotePage() {
     localStorage.removeItem(DRAFT_KEY);
   }
 
+  // API customers state
+  const [apiCustomers, setApiCustomers] = useState<Array<{id: string; name: string; email: string; phone?: string; company?: string; city?: string; address?: string; orgNr?: string}>>([]);
+
   // Template state
   const [templates, setTemplates] = useState<TemplateData[]>([]);
   const [showTemplates, setShowTemplates] = useState(false);
 
   useEffect(() => {
+    fetch("/api/customers").then((r) => r.ok ? r.json() : []).then((d) => setApiCustomers(Array.isArray(d) ? d : [])).catch(() => {});
     fetch("/api/templates")
       .then((res) => (res.ok ? res.json() : []))
       .then((data) => setTemplates(Array.isArray(data) ? data : []))
@@ -118,14 +121,14 @@ export default function NewQuotePage() {
   }
 
   const filteredCustomers = customerSearch
-    ? customers.filter(
+    ? apiCustomers.filter(
         (c) =>
           c.name.toLowerCase().includes(customerSearch.toLowerCase()) ||
           c.company?.toLowerCase().includes(customerSearch.toLowerCase())
       )
     : [];
 
-  const selectCustomer = (c: (typeof customers)[0]) => {
+  const selectCustomer = (c: (typeof apiCustomers)[0]) => {
     setFormData({
       name: c.name,
       email: c.email,

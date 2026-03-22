@@ -1,8 +1,16 @@
 import { readDB, writeDB, generateId, nextQuoteNumber } from "@/lib/db";
 import type { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const db = readDB();
+  const id = request.nextUrl.searchParams.get("id");
+  if (id) {
+    const quote = db.quotes.find((q) => q.id === id);
+    if (!quote) {
+      return Response.json({ error: "Quote not found" }, { status: 404 });
+    }
+    return Response.json(quote);
+  }
   return Response.json(db.quotes);
 }
 
@@ -50,7 +58,21 @@ export async function PATCH(request: NextRequest) {
     return Response.json({ error: "Quote not found" }, { status: 404 });
   }
 
-  db.quotes[idx] = { ...db.quotes[idx], ...body };
+  const updated = { ...db.quotes[idx], ...body };
+
+  // Recalculate total if items were updated
+  if (body.items) {
+    updated.total = (body.items as { quantity: number; unitPrice: number; discount?: number }[]).reduce(
+      (sum: number, item: { quantity: number; unitPrice: number; discount?: number }) => {
+        const lineTotal = item.quantity * item.unitPrice;
+        const discount = item.discount ? lineTotal * (item.discount / 100) : 0;
+        return sum + lineTotal - discount;
+      },
+      0
+    );
+  }
+
+  db.quotes[idx] = updated;
   writeDB(db);
 
   return Response.json(db.quotes[idx]);

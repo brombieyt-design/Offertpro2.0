@@ -1,8 +1,16 @@
 import { readDB, writeDB, generateId, nextInvoiceNumber } from "@/lib/db";
 import type { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const db = readDB();
+  const id = request.nextUrl.searchParams.get("id");
+  if (id) {
+    const invoice = db.invoices.find((inv) => inv.id === id);
+    if (!invoice) {
+      return Response.json({ error: "Invoice not found" }, { status: 404 });
+    }
+    return Response.json(invoice);
+  }
   return Response.json(db.invoices);
 }
 
@@ -51,7 +59,21 @@ export async function PATCH(request: NextRequest) {
     return Response.json({ error: "Invoice not found" }, { status: 404 });
   }
 
-  db.invoices[idx] = { ...db.invoices[idx], ...body };
+  const updated = { ...db.invoices[idx], ...body };
+
+  // Recalculate total if items were updated
+  if (body.items) {
+    updated.total = (body.items as { quantity: number; unitPrice: number; discount?: number }[]).reduce(
+      (sum: number, item: { quantity: number; unitPrice: number; discount?: number }) => {
+        const lineTotal = item.quantity * item.unitPrice;
+        const discount = item.discount ? lineTotal * (item.discount / 100) : 0;
+        return sum + lineTotal - discount;
+      },
+      0
+    );
+  }
+
+  db.invoices[idx] = updated;
   writeDB(db);
 
   return Response.json(db.invoices[idx]);

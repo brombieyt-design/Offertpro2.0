@@ -225,7 +225,11 @@ export default function InvoicesPage() {
             <tbody className="divide-y divide-gray-50">
               {filtered.map((invoice) => (
                 <tr key={invoice.id} className="hover:bg-gray-50/50 transition-all duration-300">
-                  <td className="px-7 py-5 text-sm font-medium text-indigo-600">{invoice.number}</td>
+                  <td className="px-7 py-5 text-sm font-medium text-indigo-600">
+                    <Link href={`/invoices/${invoice.id}`} className="hover:underline">
+                      {invoice.number}
+                    </Link>
+                  </td>
                   <td className="px-7 py-5">
                     <div className="text-sm font-medium text-gray-900">{invoice.customer.name}</div>
                     <div className="text-xs text-gray-500 mt-0.5">{invoice.customer.company}</div>
