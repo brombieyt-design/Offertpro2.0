@@ -3,9 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft, Copy } from "lucide-react";
 import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { useToast } from "@/components/Toast";
 import type { Quote, QuoteStatus } from "@/types";
 
 const tabs: { label: string; value: QuoteStatus | "all" }[] = [
@@ -24,6 +25,7 @@ export default function QuotesPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [converting, setConverting] = useState<string | null>(null);
+  const { toast } = useToast();
 
   async function fetchQuotes() {
     setLoading(true);
@@ -49,7 +51,7 @@ export default function QuotesPage() {
       body: JSON.stringify({ id }),
     });
     const data = await res.json();
-    alert(data.message);
+    toast(data.message, res.ok ? "success" : "error");
     fetchQuotes();
   }
 
@@ -83,6 +85,21 @@ export default function QuotesPage() {
     } finally {
       setConverting(null);
     }
+  }
+
+  async function duplicateQuote(quote: Quote) {
+    try {
+      const res = await fetch("/api/quotes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer: quote.customer,
+          items: quote.items,
+          status: "draft",
+        }),
+      });
+      if (res.ok) fetchQuotes();
+    } catch {}
   }
 
   function countByStatus(status: QuoteStatus | "all") {
@@ -219,14 +236,27 @@ export default function QuotesPage() {
                     {formatCurrency(quote.total)}
                   </td>
                   <td className="px-7 py-5">
-                    <span
+                    <select
+                      value={quote.status}
+                      onChange={async (e) => {
+                        await fetch("/api/quotes", {
+                          method: "PATCH",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ id: quote.id, status: e.target.value }),
+                        });
+                        fetchQuotes();
+                      }}
                       className={cn(
-                        "inline-flex items-center px-3 py-1 rounded-full text-xs font-medium",
+                        "appearance-none cursor-pointer px-3 py-1 rounded-full text-xs font-medium border-0 focus:ring-2 focus:ring-indigo-200",
                         quoteStatusColors[quote.status]
                       )}
                     >
-                      {quoteStatusLabels[quote.status]}
-                    </span>
+                      <option value="draft">Utkast</option>
+                      <option value="sent">Skickad</option>
+                      <option value="opened">Öppnad</option>
+                      <option value="accepted">Accepterad</option>
+                      <option value="rejected">Avvisad</option>
+                    </select>
                   </td>
                   <td className="px-7 py-5 text-sm text-gray-500">
                     {formatDate(quote.createdAt)}
@@ -246,6 +276,13 @@ export default function QuotesPage() {
                           <ArrowRightLeft className={cn("w-4 h-4", converting === quote.id && "animate-spin")} />
                         </button>
                       )}
+                      <button
+                        onClick={() => duplicateQuote(quote)}
+                        className="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50 rounded-xl transition-all duration-300"
+                        title="Duplicera offert"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </button>
                       <button
                         onClick={() => sendQuoteEmail(quote.id)}
                         className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"

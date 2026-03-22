@@ -59,6 +59,40 @@ export default function NewQuotePage() {
     { id: "1", description: "", quantity: 1, unitPrice: 0, discount: 0 },
   ]);
 
+  // Step 4 state
+  const [deliveryEmail, setDeliveryEmail] = useState(true);
+  const [deliveryLink, setDeliveryLink] = useState(false);
+  const [sendEmail, setSendEmail] = useState("");
+  const [sendMessage, setSendMessage] = useState(
+    "Hej,\n\nBifogat finner du vår offert. Tveka inte att höra av dig om du har några frågor.\n\nMed vänlig hälsning"
+  );
+
+  // Autosave to localStorage
+  const DRAFT_KEY = "offertpro_quote_draft";
+
+  useEffect(() => {
+    const saved = localStorage.getItem(DRAFT_KEY);
+    if (saved) {
+      try {
+        const draft = JSON.parse(saved);
+        if (draft.formData) setFormData(draft.formData);
+        if (draft.items?.length) setItems(draft.items);
+        if (draft.sendEmail) setSendEmail(draft.sendEmail);
+      } catch {}
+    }
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({ formData, items, sendEmail }));
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [formData, items, sendEmail]);
+
+  function clearDraft() {
+    localStorage.removeItem(DRAFT_KEY);
+  }
+
   // Template state
   const [templates, setTemplates] = useState<TemplateData[]>([]);
   const [showTemplates, setShowTemplates] = useState(false);
@@ -82,14 +116,6 @@ export default function NewQuotePage() {
     );
     setShowTemplates(false);
   }
-
-  // Step 4 state
-  const [deliveryEmail, setDeliveryEmail] = useState(true);
-  const [deliveryLink, setDeliveryLink] = useState(false);
-  const [sendEmail, setSendEmail] = useState("");
-  const [sendMessage, setSendMessage] = useState(
-    "Hej,\n\nBifogat finner du vår offert. Tveka inte att höra av dig om du har några frågor.\n\nMed vänlig hälsning"
-  );
 
   const filteredCustomers = customerSearch
     ? customers.filter(
@@ -187,6 +213,10 @@ export default function NewQuotePage() {
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-gray-900">Ny offert</h1>
           <p className="text-sm text-gray-500 mt-0.5">Offert #QT-2026-001</p>
+          <p className="text-xs text-green-500 mt-1 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+            Autosparad
+          </p>
         </div>
       </div>
 
@@ -744,6 +774,7 @@ export default function NewQuotePage() {
                   status: "draft",
                 }),
               });
+              clearDraft();
               router.push("/quotes");
             }}
             className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
@@ -775,6 +806,7 @@ export default function NewQuotePage() {
                     status: "sent",
                   }),
                 });
+                clearDraft();
                 router.push("/quotes");
               }}
               className="inline-flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300"

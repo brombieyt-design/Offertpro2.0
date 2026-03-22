@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Save, Check, RefreshCw } from "lucide-react";
+import { useToast } from "@/components/Toast";
 
 const tabList = [
   { id: "company", label: "Företagsprofil" },
@@ -14,6 +15,7 @@ export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("company");
   const [saved, setSaved] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   const [company, setCompany] = useState({
     companyName: "",
@@ -82,8 +84,9 @@ export default function SettingsPage() {
       });
       setSaved(section);
       setTimeout(() => setSaved(null), 2000);
+      toast("Inställningar sparade!", "success");
     } catch {
-      alert("Kunde inte spara inställningar.");
+      toast("Kunde inte spara inställningar.", "error");
     }
   }
 

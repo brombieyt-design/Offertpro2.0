@@ -26,24 +26,118 @@ const quickLinks: SearchResult[] = [
   { label: "Dashboard", href: "/dashboard", type: "Sida" },
 ];
 
-const notifications = [
-  { id: 1, text: "Offert QT-2026-003 har öppnats av kund", time: "2 tim sedan", read: false },
-  { id: 2, text: "Faktura FAK-2026-003 har förfallit", time: "1 dag sedan", read: false },
-  { id: 3, text: "Offert QT-2026-001 accepterades", time: "3 dagar sedan", read: true },
-];
-
 export default function Header({ onMenuToggle }: HeaderProps) {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [allResults, setAllResults] = useState<SearchResult[]>([]);
   const searchRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+  const [notifications, setNotifications] = useState<Array<{id: string; text: string; time: string; read: boolean}>>([]);
 
+  useEffect(() => {
+    async function loadNotifications() {
+      try {
+        const [qRes, iRes] = await Promise.all([
+          fetch("/api/quotes"),
+          fetch("/api/invoices"),
+        ]);
+        const quotes = qRes.ok ? await qRes.json() : [];
+        const invoices = iRes.ok ? await iRes.json() : [];
+
+        const notifs: Array<{id: string; text: string; time: string; read: boolean; date: string}> = [];
+
+        for (const q of (Array.isArray(quotes) ? quotes : [])) {
+          if (q.status === "accepted") {
+            notifs.push({ id: q.id + "-acc", text: `Offert ${q.number} har accepterats av ${q.customer?.name || "kund"}`, time: q.createdAt, read: true, date: q.createdAt });
+          } else if (q.status === "opened") {
+            notifs.push({ id: q.id + "-open", text: `Offert ${q.number} har öppnats av ${q.customer?.name || "kund"}`, time: q.createdAt, read: false, date: q.createdAt });
+          } else if (q.status === "sent") {
+            notifs.push({ id: q.id + "-sent", text: `Offert ${q.number} skickades till ${q.customer?.name || "kund"}`, time: q.createdAt, read: true, date: q.createdAt });
+          }
+        }
+
+        for (const inv of (Array.isArray(invoices) ? invoices : [])) {
+          if (inv.status === "overdue") {
+            notifs.push({ id: inv.id + "-overdue", text: `Faktura ${inv.number} har förfallit – ${inv.customer?.name || "kund"}`, time: inv.dueDate, read: false, date: inv.dueDate });
+          } else if (inv.status === "paid") {
+            notifs.push({ id: inv.id + "-paid", text: `Faktura ${inv.number} har betalats av ${inv.customer?.name || "kund"}`, time: inv.issuedAt, read: true, date: inv.issuedAt });
+          }
+        }
+
+        // Sort by date descending, take latest 10
+        notifs.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        setNotifications(notifs.slice(0, 10).map(({ id, text, time, read }) => {
+          // Format relative time
+          const days = Math.round((Date.now() - new Date(time).getTime()) / 86400000);
+          const relTime = days === 0 ? "Idag" : days === 1 ? "Igår" : `${days} dagar sedan`;
+          return { id, text, time: relTime, read };
+        }));
+      } catch {}
+    }
+    loadNotifications();
+  }, []);
+
+  useEffect(() => {
+    if (!showSearch) return;
+    async function loadSearchData() {
+      try {
+        const [qRes, iRes, cRes] = await Promise.all([
+          fetch("/api/quotes"),
+          fetch("/api/invoices"),
+          fetch("/api/customers"),
+        ]);
+        const quotes = qRes.ok ? await qRes.json() : [];
+        const invoices = iRes.ok ? await iRes.json() : [];
+        const customers = cRes.ok ? await cRes.json() : [];
+
+        const results: SearchResult[] = [
+          ...quickLinks,
+          ...(Array.isArray(quotes) ? quotes : []).map((q: any) => ({
+            label: `${q.number} – ${q.customer?.name || ""}`,
+            href: "/quotes",
+            type: "Offert",
+          })),
+          ...(Array.isArray(invoices) ? invoices : []).map((i: any) => ({
+            label: `${i.number} – ${i.customer?.name || ""}`,
+            href: "/invoices",
+            type: "Faktura",
+          })),
+          ...(Array.isArray(customers) ? customers : []).map((c: any) => ({
+            label: `${c.name}${c.company ? ` – ${c.company}` : ""}`,
+            href: "/clients",
+            type: "Kund",
+          })),
+        ];
+        setAllResults(results);
+      } catch {
+        setAllResults(quickLinks);
+      }
+    }
+    loadSearchData();
+  }, [showSearch]);
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setShowSearch(true);
+      }
+      if (e.key === "Escape") {
+        setShowSearch(false);
+        setShowNotifications(false);
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const searchSource = allResults.length > 0 ? allResults : quickLinks;
   const filteredResults = searchQuery.trim()
-    ? quickLinks.filter((link) =>
+    ? searchSource.filter((link) =>
         link.label.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      ).slice(0, 8)
     : quickLinks.slice(0, 5);
 
   function handleSelect(href: string) {
@@ -87,7 +181,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
               value={searchQuery}
               onChange={(e) => { setSearchQuery(e.target.value); setShowSearch(true); }}
               onFocus={() => setShowSearch(true)}
-              placeholder="Sök offerter, kunder, sidor..."
+              placeholder="Sök... (⌘K)"
               className="w-full pl-9 pr-4 py-2 text-[13px] bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-colors placeholder:text-gray-400"
             />
             {searchQuery && (

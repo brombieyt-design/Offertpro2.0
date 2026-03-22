@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -36,6 +37,14 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { user, logout } = useUser();
+  const [quoteCount, setQuoteCount] = useState(0);
+
+  useEffect(() => {
+    fetch("/api/quotes")
+      .then((r) => (r.ok ? r.json() : []))
+      .then((d) => setQuoteCount(Array.isArray(d) ? d.length : 0))
+      .catch(() => {});
+  }, []);
 
   const initials = user
     ? `${user.firstName[0]}${user.lastName[0]}`.toUpperCase()
@@ -103,12 +112,19 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             Gratisplan
           </span>
           <p className="text-[12px] text-gray-500 mt-1 mb-2.5">
-            3 av 5 offerter använda
+            {quoteCount} av 5 offerter använda
           </p>
           <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
             <div
-              className="h-full bg-brand-500 rounded-full transition-all duration-500"
-              style={{ width: "60%" }}
+              className={cn(
+                "h-full rounded-full transition-all duration-500",
+                quoteCount >= 5
+                  ? "bg-red-500"
+                  : quoteCount >= 4
+                    ? "bg-amber-500"
+                    : "bg-brand-500"
+              )}
+              style={{ width: `${Math.min((quoteCount / 5) * 100, 100)}%` }}
             />
           </div>
           <Link

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -11,8 +11,8 @@ import {
   Mail,
   LinkIcon,
   Send,
+  Package,
 } from "lucide-react";
-import { customers } from "@/lib/mock-data";
 import { cn, formatCurrency } from "@/lib/utils";
 
 interface LineItemData {
@@ -63,6 +63,26 @@ export default function NewInvoicePage() {
     { id: "1", description: "", quantity: 1, unitPrice: 0, discount: 0 },
   ]);
 
+  const [apiCustomers, setApiCustomers] = useState<Array<{id: string; name: string; email: string; phone?: string; company?: string; city?: string; address?: string; orgNr?: string}>>([]);
+  const [templates, setTemplates] = useState<Array<{id: string; name: string; description: string; items: LineItemData[]}>>([]);
+  const [showTemplates, setShowTemplates] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/customers").then(r => r.ok ? r.json() : []).then(d => setApiCustomers(Array.isArray(d) ? d : [])).catch(() => {});
+    fetch("/api/templates").then(r => r.ok ? r.json() : []).then(d => setTemplates(Array.isArray(d) ? d : [])).catch(() => {});
+  }, []);
+
+  function applyTemplate(tpl: {items: LineItemData[]}) {
+    setItems(tpl.items.map(item => ({
+      id: String(Date.now()) + Math.random().toString(36).slice(2, 6),
+      description: item.description,
+      quantity: item.quantity,
+      unitPrice: item.unitPrice,
+      discount: item.discount ?? 0,
+    })));
+    setShowTemplates(false);
+  }
+
   // Step 4 state
   const [deliveryEmail, setDeliveryEmail] = useState(true);
   const [deliveryLink, setDeliveryLink] = useState(false);
@@ -72,14 +92,14 @@ export default function NewInvoicePage() {
   );
 
   const filteredCustomers = customerSearch
-    ? customers.filter(
+    ? apiCustomers.filter(
         (c) =>
           c.name.toLowerCase().includes(customerSearch.toLowerCase()) ||
           c.company?.toLowerCase().includes(customerSearch.toLowerCase())
       )
     : [];
 
-  const selectCustomer = (c: (typeof customers)[0]) => {
+  const selectCustomer = (c: (typeof apiCustomers)[0]) => {
     setFormData({
       name: c.name,
       email: c.email,
@@ -406,11 +426,32 @@ export default function NewInvoicePage() {
       {/* Step 2: Line items */}
       {currentStep === 2 && (
         <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
-          <div>
-            <h2 className="text-lg font-semibold tracking-tight text-gray-900">Radposter</h2>
-            <p className="text-sm text-gray-500 mt-1">
-              Lägg till produkter eller tjänster
-            </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold tracking-tight text-gray-900">Radposter</h2>
+              <p className="text-sm text-gray-500 mt-1">
+                Lägg till produkter eller tjänster
+              </p>
+            </div>
+            {templates.length > 0 && (
+              <div className="relative">
+                <button onClick={() => setShowTemplates(!showTemplates)} className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-all duration-300">
+                  <Package className="w-4 h-4" />
+                  Välj mall
+                </button>
+                {showTemplates && (
+                  <div className="absolute right-0 z-10 mt-2 w-72 bg-white rounded-2xl border border-gray-200/80 shadow-lg max-h-64 overflow-y-auto">
+                    {templates.map((tpl) => (
+                      <button key={tpl.id} onClick={() => applyTemplate(tpl)} className="w-full text-left px-5 py-3.5 hover:bg-gray-50 transition-all duration-200 border-b border-gray-50 last:border-0">
+                        <div className="text-sm font-medium text-gray-900">{tpl.name}</div>
+                        {tpl.description && <div className="text-xs text-gray-500 mt-0.5">{tpl.description}</div>}
+                        <div className="text-xs text-gray-400 mt-1">{tpl.items.length} {tpl.items.length === 1 ? "rad" : "rader"}</div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="overflow-x-auto">

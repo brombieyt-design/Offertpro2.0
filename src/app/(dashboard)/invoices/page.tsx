@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail, Search } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search, Copy } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { useToast } from "@/components/Toast";
 import type { Invoice, InvoiceStatus } from "@/types";
 
 const tabs: { label: string; value: InvoiceStatus | "all" }[] = [
@@ -21,6 +22,7 @@ export default function InvoicesPage() {
   const [activeTab, setActiveTab] = useState<InvoiceStatus | "all">("all");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const { toast } = useToast();
 
   async function fetchInvoices() {
     setLoading(true);
@@ -46,7 +48,7 @@ export default function InvoicesPage() {
       body: JSON.stringify({ id }),
     });
     const data = await res.json();
-    alert(data.message);
+    toast(data.message, res.ok ? "success" : "error");
     fetchInvoices();
   }
 
@@ -58,6 +60,22 @@ export default function InvoicesPage() {
       body: JSON.stringify({ id }),
     });
     fetchInvoices();
+  }
+
+  async function duplicateInvoice(invoice: Invoice) {
+    try {
+      const res = await fetch("/api/invoices", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer: invoice.customer,
+          items: invoice.items,
+          status: "draft",
+          paymentTerms: invoice.paymentTerms,
+        }),
+      });
+      if (res.ok) fetchInvoices();
+    } catch {}
   }
 
   function countByStatus(status: InvoiceStatus | "all") {
@@ -216,12 +234,37 @@ export default function InvoicesPage() {
                   <td className="px-7 py-5 text-sm text-gray-500">{formatDate(invoice.issuedAt)}</td>
                   <td className="px-7 py-5 text-sm text-gray-500">{formatDate(invoice.dueDate)}</td>
                   <td className="px-7 py-5">
-                    <span className={cn("inline-flex items-center px-3 py-1 rounded-full text-xs font-medium", invoiceStatusColors[invoice.status])}>
-                      {invoiceStatusLabels[invoice.status]}
-                    </span>
+                    <select
+                      value={invoice.status}
+                      onChange={async (e) => {
+                        await fetch("/api/invoices", {
+                          method: "PATCH",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ id: invoice.id, status: e.target.value }),
+                        });
+                        fetchInvoices();
+                      }}
+                      className={cn(
+                        "appearance-none cursor-pointer px-3 py-1 rounded-full text-xs font-medium border-0 focus:ring-2 focus:ring-indigo-200",
+                        invoiceStatusColors[invoice.status]
+                      )}
+                    >
+                      <option value="draft">Utkast</option>
+                      <option value="sent">Skickad</option>
+                      <option value="paid">Betald</option>
+                      <option value="overdue">Förfallen</option>
+                      <option value="partially_paid">Delvis betald</option>
+                    </select>
                   </td>
                   <td className="px-7 py-5 text-right">
                     <div className="flex items-center justify-end gap-1">
+                      <button
+                        onClick={() => duplicateInvoice(invoice)}
+                        className="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50 rounded-xl transition-all duration-300"
+                        title="Duplicera faktura"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </button>
                       <button
                         onClick={() => sendInvoiceEmail(invoice.id)}
                         className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"

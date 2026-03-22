@@ -26,23 +26,20 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 const steps = [
   {
     number: "01",
-    title: "Beskriv ditt behov",
-    description:
-      "Berätta vad du behöver hjälp med. Det tar bara en minut att fylla i dina uppgifter.",
+    title: "Skapa din offert",
+    description: "Fyll i kunduppgifter, lägg till radartiklar och välj bland dina sparade mallar. Klart på under 2 minuter.",
     icon: ClipboardEdit,
   },
   {
     number: "02",
-    title: "Få matchade offerter",
-    description:
-      "Vi matchar dig med de bästa leverantörerna. Du får skräddarsydda offerter direkt.",
+    title: "Skicka & spåra",
+    description: "Skicka offerten som PDF via e-post. Följ i realtid när kunden öppnar och läser din offert.",
     icon: MailCheck,
   },
   {
     number: "03",
-    title: "Jämför och välj",
-    description:
-      "Jämför priser, betyg och villkor. Välj den offert som passar dig bäst.",
+    title: "Stäng affären",
+    description: "När offerten accepteras – konvertera direkt till faktura med ett klick. Allt flödar automatiskt.",
     icon: BarChart3,
   },
 ];
