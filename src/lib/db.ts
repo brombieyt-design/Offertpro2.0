@@ -172,7 +172,17 @@ function getDefaultData(): DB {
       },
     ],
     templates: [],
-    users: [],
+    users: [
+      {
+        id: "admin-001",
+        firstName: "Admin",
+        lastName: "Offertpro",
+        email: "admin@offertpro.se",
+        company: "Offert Pro AB",
+        passwordHash: "44a6e11e21412a186106faacc6adfdb3:033e8b633e3739c086bd0e3acbaeafbd025b0bce517748e2be8dc1c4907bebb904a251c7d422f548ae924be3e737c2ebbaf7c9ba01a0a68b2949a4b6e6f8c54b",
+        createdAt: "2026-03-22",
+      },
+    ],
     sessions: [],
   };
 }
