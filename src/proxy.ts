@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 const protectedPaths = ["/dashboard", "/quotes", "/invoices", "/clients", "/analytics", "/settings", "/templates"];
 const authPaths = ["/login", "/signup"];
+const publicApiPaths = ["/api/auth/login", "/api/auth/signup", "/api/auth/logout"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -17,6 +18,7 @@ export function proxy(request: NextRequest) {
   if (isProtected && !sessionId) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
+    url.searchParams.set("from", pathname);
     return NextResponse.redirect(url);
   }
 
@@ -25,6 +27,17 @@ export function proxy(request: NextRequest) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
+  }
+
+  // Protect API routes — return 401 if no session (except public auth endpoints)
+  const isApiRoute = pathname.startsWith("/api/");
+  const isPublicApi = publicApiPaths.some((p) => pathname === p);
+
+  if (isApiRoute && !isPublicApi && !sessionId) {
+    return NextResponse.json(
+      { error: "Ej autentiserad. Logga in först." },
+      { status: 401 }
+    );
   }
 
   return NextResponse.next();
@@ -41,5 +54,6 @@ export const config = {
     "/templates/:path*",
     "/login",
     "/signup",
+    "/api/:path*",
   ],
 };
