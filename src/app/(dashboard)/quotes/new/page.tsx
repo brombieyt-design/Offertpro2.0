@@ -224,9 +224,9 @@ export default function NewQuotePage() {
       </div>
 
       {/* Step indicator */}
-      <div className="flex items-center justify-center gap-0">
+      <div className="flex items-center justify-center gap-0 overflow-x-auto px-2">
         {steps.map((step, idx) => (
-          <div key={step.number} className="flex items-center">
+          <div key={step.number} className="flex items-center shrink-0">
             <div className="flex flex-col items-center">
               <div
                 className={cn(
@@ -242,7 +242,7 @@ export default function NewQuotePage() {
               </div>
               <span
                 className={cn(
-                  "text-xs mt-2 font-medium",
+                  "text-[10px] sm:text-xs mt-2 font-medium whitespace-nowrap",
                   currentStep >= step.number
                     ? "text-indigo-600"
                     : "text-gray-400"
@@ -254,7 +254,7 @@ export default function NewQuotePage() {
             {idx < steps.length - 1 && (
               <div
                 className={cn(
-                  "step-line w-24 mx-3 mb-6",
+                  "step-line w-8 sm:w-16 md:w-24 mx-1.5 sm:mx-3 mb-6",
                   currentStep > step.number ? "bg-indigo-600" : ""
                 )}
               />
@@ -265,7 +265,7 @@ export default function NewQuotePage() {
 
       {/* Step 1: Customer info */}
       {currentStep === 1 && (
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-7">
           <div>
             <h2 className="text-lg font-semibold tracking-tight text-gray-900">
               Kundinformation
@@ -396,7 +396,7 @@ export default function NewQuotePage() {
 
       {/* Step 2: Line items */}
       {currentStep === 2 && (
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-7">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold tracking-tight text-gray-900">
@@ -565,7 +565,7 @@ export default function NewQuotePage() {
 
       {/* Step 3: Preview */}
       {currentStep === 3 && (
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-7">
           <div>
             <h2 className="text-lg font-semibold tracking-tight text-gray-900">
               Förhandsvisning
@@ -576,11 +576,11 @@ export default function NewQuotePage() {
           </div>
 
           {/* PDF-like preview */}
-          <div className="border border-gray-200/80 rounded-2xl p-10 max-w-2xl mx-auto space-y-10 shadow-sm bg-white">
+          <div className="border border-gray-200/80 rounded-2xl p-4 sm:p-6 md:p-10 max-w-2xl mx-auto space-y-6 sm:space-y-10 shadow-sm bg-white">
             {/* Company header */}
-            <div className="flex justify-between items-start">
+            <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-start">
               <div>
-                <h3 className="text-xl font-bold text-indigo-600">
+                <h3 className="text-lg sm:text-xl font-bold text-indigo-600">
                   Offert Pro
                 </h3>
                 <p className="text-xs text-gray-500 mt-1.5">
@@ -588,7 +588,7 @@ export default function NewQuotePage() {
                 </p>
                 <p className="text-xs text-gray-500">info@offertpro.se</p>
               </div>
-              <div className="text-right">
+              <div className="sm:text-right">
                 <p className="text-sm font-bold text-gray-900">OFFERT</p>
                 <p className="text-sm text-gray-600">#QT-2026-001</p>
                 <p className="text-xs text-gray-500 mt-2">
@@ -686,7 +686,7 @@ export default function NewQuotePage() {
 
       {/* Step 4: Send */}
       {currentStep === 4 && (
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8 space-y-7">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-7">
           <div>
             <h2 className="text-lg font-semibold tracking-tight text-gray-900">
               Skicka offert
@@ -751,12 +751,12 @@ export default function NewQuotePage() {
       )}
 
       {/* Bottom navigation bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200/60 px-8 py-5 flex items-center justify-between z-10">
+      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-gray-200/60 px-3 sm:px-8 py-3 sm:py-5 flex items-center justify-between z-10 gap-2">
         <button
           onClick={goBack}
           disabled={currentStep === 1}
           className={cn(
-            "px-5 py-2.5 text-sm font-medium rounded-full transition-all duration-300",
+            "px-3 sm:px-5 py-2 sm:py-2.5 text-sm font-medium rounded-full transition-all duration-300 shrink-0",
             currentStep === 1
               ? "text-gray-300 cursor-not-allowed"
               : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
@@ -765,7 +765,7 @@ export default function NewQuotePage() {
           Tillbaka
         </button>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={async () => {
               await fetch("/api/quotes", {
@@ -780,7 +780,7 @@ export default function NewQuotePage() {
               clearDraft();
               router.push("/quotes");
             }}
-            className="px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300"
+            className="px-3 sm:px-5 py-2 sm:py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all duration-300 hidden sm:block"
           >
             Spara utkast
           </button>
@@ -789,13 +789,13 @@ export default function NewQuotePage() {
               onClick={goNext}
               disabled={!canProceed()}
               className={cn(
-                "px-7 py-2.5 text-sm font-medium rounded-full transition-all duration-300",
+                "px-5 sm:px-7 py-2 sm:py-2.5 text-sm font-medium rounded-full transition-all duration-300",
                 canProceed()
                   ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md"
                   : "bg-gray-200 text-gray-400 cursor-not-allowed"
               )}
             >
-              Nästa steg
+              Nästa
             </button>
           ) : (
             <button
@@ -812,10 +812,11 @@ export default function NewQuotePage() {
                 clearDraft();
                 router.push("/quotes");
               }}
-              className="inline-flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300"
+              className="inline-flex items-center gap-2 px-5 sm:px-7 py-2 sm:py-2.5 text-sm font-medium rounded-full bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm hover:shadow-md transition-all duration-300"
             >
               <Send className="w-4 h-4" />
-              Skicka offert
+              <span className="hidden sm:inline">Skicka offert</span>
+              <span className="sm:hidden">Skicka</span>
             </button>
           )}
         </div>

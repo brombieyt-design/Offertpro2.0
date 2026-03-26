@@ -100,16 +100,16 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900">Inställningar</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Inställningar</h1>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-white rounded-xl border border-gray-100 shadow-sm p-1 w-fit">
+      <div className="flex gap-1 bg-white rounded-xl border border-gray-100 shadow-sm p-1 w-full sm:w-fit overflow-x-auto scrollbar-hide">
         {tabList.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={cn(
-              "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
+              "px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-colors whitespace-nowrap shrink-0",
               activeTab === tab.id
                 ? "bg-indigo-600 text-white"
                 : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"

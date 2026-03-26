@@ -169,14 +169,14 @@ export default function AnalyticsPage() {
   return (
     <div className="space-y-10">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">Analys</h1>
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-900">Analys</h1>
           <p className="text-sm text-gray-500 mt-1.5">
             Översikt av din affärsprestation
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={fetchData}
             className="p-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all"
@@ -184,13 +184,13 @@ export default function AnalyticsPage() {
           >
             <RefreshCw className="w-4 h-4" />
           </button>
-          <div className="flex gap-1 bg-gray-100/60 p-1.5 rounded-full">
+          <div className="flex gap-1 bg-gray-100/60 p-1 sm:p-1.5 rounded-full">
             {timeFilters.map((filter) => (
               <button
                 key={filter.value}
                 onClick={() => setTimeRange(filter.value)}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
+                  "px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full transition-all duration-300",
                   timeRange === filter.value
                     ? "bg-white text-gray-900 shadow-sm"
                     : "text-gray-500 hover:text-gray-700"
@@ -204,7 +204,7 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Metric cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         {[
           { label: "Total intäkt", value: formatCurrency(data.totalRevenue), icon: TrendingUp, iconBg: "bg-indigo-50", iconColor: "text-indigo-600" },
           { label: "Genomsnittlig offert", value: formatCurrency(data.avgQuoteValue), icon: FileText, iconBg: "bg-blue-50", iconColor: "text-blue-600" },
@@ -213,7 +213,7 @@ export default function AnalyticsPage() {
         ].map((metric) => {
           const Icon = metric.icon;
           return (
-            <div key={metric.label} className="bg-white rounded-2xl border border-gray-100/60 shadow-sm hover:shadow-md p-7 transition-all duration-300">
+            <div key={metric.label} className="bg-white rounded-2xl border border-gray-100/60 shadow-sm hover:shadow-md p-4 sm:p-7 transition-all duration-300">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-500">{metric.label}</p>
                 <div className={cn("p-2.5 rounded-xl", metric.iconBg)}>
@@ -229,9 +229,9 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Charts grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8">
         {/* Revenue chart */}
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-8">
           <h3 className="text-sm font-semibold tracking-tight text-gray-900 mb-6">
             Intäktsutveckling
           </h3>
@@ -252,7 +252,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Quote volume chart */}
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-8">
           <h3 className="text-sm font-semibold tracking-tight text-gray-900 mb-2">
             Offertvolym
           </h3>
@@ -286,7 +286,7 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Status distribution */}
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-8">
           <h3 className="text-sm font-semibold tracking-tight text-gray-900 mb-6">
             Statusfördelning
           </h3>
@@ -313,27 +313,28 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Top customers */}
-        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-8">
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-8">
           <h3 className="text-sm font-semibold tracking-tight text-gray-900 mb-6">
             Topp-kunder
           </h3>
           {data.topCustomers.length > 0 ? (
-            <table className="w-full">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[400px]">
               <thead>
                 <tr className="border-b border-gray-100">
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Kund</th>
-                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Offerter</th>
-                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Vinstfrekvens</th>
+                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 hidden sm:table-cell">Offerter</th>
+                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 hidden sm:table-cell">Vinstfrekvens</th>
                   <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Totalt värde</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {data.topCustomers.map((customer) => (
                   <tr key={customer.name} className="hover:bg-gray-50/50 transition-all duration-300">
-                    <td className="py-4 text-sm font-medium text-gray-900">{customer.name}</td>
-                    <td className="py-4 text-sm text-right text-gray-600">{customer.quotes}</td>
-                    <td className="py-4 text-sm text-right text-gray-600">{customer.winRate}%</td>
-                    <td className="py-4 text-sm text-right font-semibold text-gray-900">{formatCurrency(customer.total)}</td>
+                    <td className="py-4 text-sm font-medium text-gray-900 truncate max-w-[120px] sm:max-w-none">{customer.name}</td>
+                    <td className="py-4 text-sm text-right text-gray-600 hidden sm:table-cell">{customer.quotes}</td>
+                    <td className="py-4 text-sm text-right text-gray-600 hidden sm:table-cell">{customer.winRate}%</td>
+                    <td className="py-4 text-sm text-right font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(customer.total)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -341,6 +342,7 @@ export default function AnalyticsPage() {
           ) : (
             <p className="text-sm text-gray-400 text-center py-8">Ingen data ännu</p>
           )}
+          </div>
         </div>
       </div>
 

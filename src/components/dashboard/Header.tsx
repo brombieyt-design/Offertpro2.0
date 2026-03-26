@@ -172,6 +172,14 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           <Menu className="w-5 h-5" />
         </button>
 
+        {/* Mobile search button */}
+        <button
+          onClick={() => setShowSearch(true)}
+          className="sm:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          <Search className="w-5 h-5" />
+        </button>
+
         {/* Search with dropdown */}
         <div ref={searchRef} className="hidden sm:flex flex-1 max-w-md relative">
           <div className="relative w-full">
@@ -220,6 +228,46 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           )}
         </div>
 
+        {/* Mobile search overlay */}
+        {showSearch && (
+          <div className="sm:hidden fixed inset-0 z-50 bg-white p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div ref={searchRef} className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoFocus
+                  placeholder="Sök..."
+                  className="w-full pl-9 pr-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:bg-white transition-colors"
+                />
+              </div>
+              <button
+                onClick={() => { setShowSearch(false); setSearchQuery(""); }}
+                className="p-2 text-gray-500 hover:text-gray-700"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="overflow-y-auto max-h-[80vh]">
+              {filteredResults.map((result) => (
+                <button
+                  key={result.href + result.label}
+                  onClick={() => handleSelect(result.href)}
+                  className="w-full flex items-center justify-between px-3 py-3 text-sm hover:bg-gray-50 rounded-lg transition-colors"
+                >
+                  <span className="text-gray-900">{result.label}</span>
+                  <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{result.type}</span>
+                </button>
+              ))}
+              {filteredResults.length === 0 && searchQuery && (
+                <p className="text-center text-sm text-gray-400 py-8">Inga resultat</p>
+              )}
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center gap-1">
           {/* Notifications */}
           <div ref={notifRef} className="relative">
@@ -234,7 +282,7 @@ export default function Header({ onMenuToggle }: HeaderProps) {
             </button>
 
             {showNotifications && (
-              <div className="absolute right-0 top-full mt-1 w-80 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
+              <div className="absolute right-0 top-full mt-1 w-[calc(100vw-2rem)] max-w-80 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
                 <div className="px-4 py-3 border-b border-gray-100">
                   <h3 className="text-sm font-semibold text-gray-900">Notifikationer</h3>
                 </div>
