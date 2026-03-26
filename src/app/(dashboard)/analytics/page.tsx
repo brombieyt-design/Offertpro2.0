@@ -319,30 +319,30 @@ export default function AnalyticsPage() {
           </h3>
           {data.topCustomers.length > 0 ? (
             <div className="overflow-x-auto">
-            <table className="w-full min-w-[400px]">
-              <thead>
-                <tr className="border-b border-gray-100">
-                  <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Kund</th>
-                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 hidden sm:table-cell">Offerter</th>
-                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 hidden sm:table-cell">Vinstfrekvens</th>
-                  <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Totalt värde</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-50">
-                {data.topCustomers.map((customer) => (
-                  <tr key={customer.name} className="hover:bg-gray-50/50 transition-all duration-300">
-                    <td className="py-4 text-sm font-medium text-gray-900 truncate max-w-[120px] sm:max-w-none">{customer.name}</td>
-                    <td className="py-4 text-sm text-right text-gray-600 hidden sm:table-cell">{customer.quotes}</td>
-                    <td className="py-4 text-sm text-right text-gray-600 hidden sm:table-cell">{customer.winRate}%</td>
-                    <td className="py-4 text-sm text-right font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(customer.total)}</td>
+              <table className="w-full min-w-[400px]">
+                <thead>
+                  <tr className="border-b border-gray-100">
+                    <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Kund</th>
+                    <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 hidden sm:table-cell">Offerter</th>
+                    <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 hidden sm:table-cell">Vinstfrekvens</th>
+                    <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4">Totalt värde</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {data.topCustomers.map((customer) => (
+                    <tr key={customer.name} className="hover:bg-gray-50/50 transition-all duration-300">
+                      <td className="py-4 text-sm font-medium text-gray-900 truncate max-w-[120px] sm:max-w-none">{customer.name}</td>
+                      <td className="py-4 text-sm text-right text-gray-600 hidden sm:table-cell">{customer.quotes}</td>
+                      <td className="py-4 text-sm text-right text-gray-600 hidden sm:table-cell">{customer.winRate}%</td>
+                      <td className="py-4 text-sm text-right font-semibold text-gray-900 whitespace-nowrap">{formatCurrency(customer.total)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           ) : (
             <p className="text-sm text-gray-400 text-center py-8">Ingen data ännu</p>
           )}
-          </div>
         </div>
       </div>
 

@@ -20,40 +20,44 @@ const statusLabels: Record<string, string> = {
 };
 
 export async function GET() {
-  const db = readDB();
-  const invoices = db.invoices;
+  try {
+    const db = readDB();
+    const invoices = db.invoices;
 
-  const headers = [
-    "Fakturanr",
-    "Kund",
-    "Foretag",
-    "Belopp",
-    "Status",
-    "Utfardad",
-    "Forfaller",
-    "Betalningsvillkor",
-  ];
+    const headers = [
+      "Fakturanr",
+      "Kund",
+      "Foretag",
+      "Belopp",
+      "Status",
+      "Utfardad",
+      "Forfaller",
+      "Betalningsvillkor",
+    ];
 
-  const BOM = "\uFEFF";
-  const rows = invoices.map((inv) =>
-    [
-      escapeCsv(inv.number),
-      escapeCsv(inv.customer.name),
-      escapeCsv(inv.customer.company ?? ""),
-      formatAmount(inv.total),
-      statusLabels[inv.status] ?? inv.status,
-      inv.issuedAt,
-      inv.dueDate,
-      escapeCsv(inv.paymentTerms),
-    ].join(",")
-  );
+    const BOM = "\uFEFF";
+    const rows = invoices.map((inv) =>
+      [
+        escapeCsv(inv.number),
+        escapeCsv(inv.customer.name),
+        escapeCsv(inv.customer.company ?? ""),
+        formatAmount(inv.total),
+        statusLabels[inv.status] ?? inv.status,
+        inv.issuedAt,
+        inv.dueDate,
+        escapeCsv(inv.paymentTerms),
+      ].join(",")
+    );
 
-  const csv = BOM + headers.join(",") + "\n" + rows.join("\n");
+    const csv = BOM + headers.join(",") + "\n" + rows.join("\n");
 
-  return new Response(csv, {
-    headers: {
-      "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": 'attachment; filename="fakturor.csv"',
-    },
-  });
+    return new Response(csv, {
+      headers: {
+        "Content-Type": "text/csv; charset=utf-8",
+        "Content-Disposition": 'attachment; filename="fakturor.csv"',
+      },
+    });
+  } catch (err) {
+    return Response.json({ error: "Kunde inte exportera", details: String(err) }, { status: 500 });
+  }
 }
