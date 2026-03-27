@@ -1,7 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Copy, Plus, Trash2, Pencil, X, Package, Search } from "lucide-react";
+import {
+  Copy,
+  Plus,
+  Trash2,
+  Pencil,
+  X,
+  Package,
+  Search,
+  Sparkles,
+  Download,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 interface TemplateItem {
@@ -20,6 +32,203 @@ interface Template {
   createdAt: string;
 }
 
+interface PredefinedTemplate {
+  name: string;
+  description: string;
+  category: string;
+  items: Omit<TemplateItem, "id">[];
+}
+
+const PREDEFINED_TEMPLATES: PredefinedTemplate[] = [
+  {
+    name: "Webbutveckling – Grundpaket",
+    description: "Standard webbprojekt med design, utveckling och lansering",
+    category: "Teknik",
+    items: [
+      { description: "Förstudie & kravspecifikation", quantity: 8, unitPrice: 1200, discount: 0 },
+      { description: "UX/UI-design (wireframes & mockups)", quantity: 16, unitPrice: 1100, discount: 0 },
+      { description: "Frontend-utveckling (HTML/CSS/JS)", quantity: 40, unitPrice: 1050, discount: 0 },
+      { description: "Backend & databasintegration", quantity: 24, unitPrice: 1150, discount: 0 },
+      { description: "Testning & kvalitetssäkring", quantity: 8, unitPrice: 950, discount: 0 },
+      { description: "Lansering & driftsättning", quantity: 4, unitPrice: 1200, discount: 0 },
+    ],
+  },
+  {
+    name: "Grafisk Design – Varumärkespaket",
+    description: "Komplett visuell identitet för företag",
+    category: "Design",
+    items: [
+      { description: "Logotyp (3 förslag + revision)", quantity: 1, unitPrice: 8500, discount: 0 },
+      { description: "Färgpalett & typografi", quantity: 1, unitPrice: 3500, discount: 0 },
+      { description: "Visitkort (design)", quantity: 1, unitPrice: 2500, discount: 0 },
+      { description: "Brevpapper & e-postsignatur", quantity: 1, unitPrice: 2000, discount: 0 },
+      { description: "Grafisk manual (brand guidelines)", quantity: 1, unitPrice: 5000, discount: 0 },
+    ],
+  },
+  {
+    name: "IT-konsultation – Månadsavtal",
+    description: "Löpande IT-stöd och rådgivning per månad",
+    category: "Teknik",
+    items: [
+      { description: "Systemförvaltning & övervakning", quantity: 20, unitPrice: 1100, discount: 0 },
+      { description: "Helpdesk & användarsupport", quantity: 10, unitPrice: 950, discount: 0 },
+      { description: "Säkerhetsöversyn & backup", quantity: 4, unitPrice: 1300, discount: 0 },
+      { description: "Uppdateringar & patchhantering", quantity: 4, unitPrice: 1050, discount: 0 },
+    ],
+  },
+  {
+    name: "Digital Marknadsföring",
+    description: "Kampanjpaket för sociala medier och Google Ads",
+    category: "Marknadsföring",
+    items: [
+      { description: "Strategi & målgruppsanalys", quantity: 8, unitPrice: 1200, discount: 0 },
+      { description: "Innehållsproduktion (texter & bilder)", quantity: 20, unitPrice: 1000, discount: 0 },
+      { description: "Google Ads – kampanjhantering", quantity: 1, unitPrice: 4500, discount: 0 },
+      { description: "Social media management (månadsvis)", quantity: 1, unitPrice: 6000, discount: 0 },
+      { description: "Månadsrapport & analys", quantity: 1, unitPrice: 1500, discount: 0 },
+    ],
+  },
+  {
+    name: "Redovisning – Löpande bokföring",
+    description: "Bokföring och löneadministration för småföretag",
+    category: "Ekonomi",
+    items: [
+      { description: "Löpande bokföring (per månad)", quantity: 1, unitPrice: 2500, discount: 0 },
+      { description: "Löneadministration (per anställd)", quantity: 3, unitPrice: 600, discount: 0 },
+      { description: "Kvartalsrapport", quantity: 1, unitPrice: 1800, discount: 0 },
+      { description: "Momsdeklaration", quantity: 1, unitPrice: 800, discount: 0 },
+    ],
+  },
+  {
+    name: "Fotografering – Företagsfoto",
+    description: "Professionell fotografering för företag och personal",
+    category: "Kreativt",
+    items: [
+      { description: "Fotografering på plats (halvdag)", quantity: 1, unitPrice: 5500, discount: 0 },
+      { description: "Bildredigering (per bild)", quantity: 20, unitPrice: 250, discount: 0 },
+      { description: "Leverans av högupplösta filer", quantity: 1, unitPrice: 500, discount: 0 },
+    ],
+  },
+  {
+    name: "Snickeri & Renovering",
+    description: "Inomhusrenovering och snickeriarbeten",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Arbetskostnad (per timme)", quantity: 40, unitPrice: 650, discount: 0 },
+      { description: "Material (uppskattning)", quantity: 1, unitPrice: 8000, discount: 0 },
+      { description: "Hyra av verktyg & maskiner", quantity: 1, unitPrice: 1500, discount: 0 },
+      { description: "Städning & bortforsling av skräp", quantity: 1, unitPrice: 1200, discount: 0 },
+    ],
+  },
+  {
+    name: "Utbildning & Workshop",
+    description: "Företagsanpassad utbildning och workshopar",
+    category: "Utbildning",
+    items: [
+      { description: "Förberedelse & kursmaterial", quantity: 8, unitPrice: 1100, discount: 0 },
+      { description: "Kursledning (per timme)", quantity: 8, unitPrice: 1500, discount: 0 },
+      { description: "Deltagarhandledning (per person)", quantity: 10, unitPrice: 500, discount: 0 },
+      { description: "Uppföljning & utvärdering", quantity: 2, unitPrice: 1000, discount: 0 },
+    ],
+  },
+  {
+    name: "Elinstallation – Villor & Lägenheter",
+    description: "Elarbeten för bostäder, inkl. jordfelsbrytare och belysning",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Arbetstid elektriker (per timme)", quantity: 16, unitPrice: 780, discount: 0 },
+      { description: "Material (kablar, uttag, säkringar)", quantity: 1, unitPrice: 4500, discount: 0 },
+      { description: "Installation jordfelsbrytare", quantity: 2, unitPrice: 1200, discount: 0 },
+      { description: "Besiktning & dokumentation", quantity: 1, unitPrice: 1800, discount: 0 },
+      { description: "ROT-avdrag (50%)", quantity: 1, unitPrice: -6240, discount: 0 },
+    ],
+  },
+  {
+    name: "Rörmokeri – Badrumsrenovering",
+    description: "VVS-arbeten vid byte av rör, blandare och sanitetsporslin",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Arbetstid rörmokare (per timme)", quantity: 20, unitPrice: 820, discount: 0 },
+      { description: "Material (rör, kopplingar, tätningar)", quantity: 1, unitPrice: 5500, discount: 0 },
+      { description: "Byte av blandare (per st)", quantity: 3, unitPrice: 850, discount: 0 },
+      { description: "Installation toalett & tvättställ", quantity: 1, unitPrice: 3200, discount: 0 },
+      { description: "ROT-avdrag (50%)", quantity: 1, unitPrice: -8200, discount: 0 },
+    ],
+  },
+  {
+    name: "Målning – Invändig",
+    description: "Invändig målning av rum, inkl. grundning och spackling",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Arbetstid målare (per timme)", quantity: 24, unitPrice: 620, discount: 0 },
+      { description: "Spackling & slipning av väggar", quantity: 1, unitPrice: 2500, discount: 0 },
+      { description: "Grundfärg", quantity: 10, unitPrice: 180, discount: 0 },
+      { description: "Täckfärg (2 strykningar)", quantity: 20, unitPrice: 220, discount: 0 },
+      { description: "Skydd av golv & möbler", quantity: 1, unitPrice: 500, discount: 0 },
+      { description: "ROT-avdrag (50%)", quantity: 1, unitPrice: -7440, discount: 0 },
+    ],
+  },
+  {
+    name: "Takläggning – Tegelpannor",
+    description: "Byte av takpannor och tätskikt på villa",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Rivning av gammalt tak", quantity: 1, unitPrice: 8000, discount: 0 },
+      { description: "Ny läkt & underlagstak", quantity: 120, unitPrice: 95, discount: 0 },
+      { description: "Takpannor (per kvm)", quantity: 120, unitPrice: 280, discount: 0 },
+      { description: "Nockpannor & beslag", quantity: 1, unitPrice: 4500, discount: 0 },
+      { description: "Arbetstid takläggare (per timme)", quantity: 48, unitPrice: 700, discount: 0 },
+      { description: "Bortforsling av gammalt material", quantity: 1, unitPrice: 3500, discount: 0 },
+    ],
+  },
+  {
+    name: "Snickeri – Köksrenovering",
+    description: "Byte av köksluckor, bänkskivor och installation av köksskåp",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Arbetstid snickare (per timme)", quantity: 32, unitPrice: 680, discount: 0 },
+      { description: "Köksluckor (set)", quantity: 1, unitPrice: 12000, discount: 0 },
+      { description: "Bänkskiva laminat (per lm)", quantity: 5, unitPrice: 1200, discount: 0 },
+      { description: "Montering köksfläkt", quantity: 1, unitPrice: 1500, discount: 0 },
+      { description: "Silikon & fogmassa", quantity: 1, unitPrice: 400, discount: 0 },
+      { description: "ROT-avdrag (50%)", quantity: 1, unitPrice: -10880, discount: 0 },
+    ],
+  },
+  {
+    name: "Markarbeten – Uteplats & Altan",
+    description: "Anläggning av uteplats med trädäck eller plattor",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Markberedning & grävning", quantity: 1, unitPrice: 5500, discount: 0 },
+      { description: "Grus & makadam (fundament)", quantity: 1, unitPrice: 3500, discount: 0 },
+      { description: "Trädäck – virke (per kvm)", quantity: 30, unitPrice: 450, discount: 0 },
+      { description: "Arbetstid anläggare (per timme)", quantity: 24, unitPrice: 640, discount: 0 },
+      { description: "Räcke & avslutningslist", quantity: 1, unitPrice: 4200, discount: 0 },
+    ],
+  },
+  {
+    name: "Städtjänst – Hemstädning",
+    description: "Regelbunden hemstädning med RUT-avdrag",
+    category: "Hantverkstjänster",
+    items: [
+      { description: "Hemstädning 3 rum & kök (per tillfälle)", quantity: 4, unitPrice: 1400, discount: 0 },
+      { description: "Fönsterputs (per tillfälle)", quantity: 2, unitPrice: 800, discount: 0 },
+      { description: "Städmaterial & förbrukningsmaterial", quantity: 1, unitPrice: 300, discount: 0 },
+      { description: "RUT-avdrag (50%)", quantity: 1, unitPrice: -2800, discount: 0 },
+    ],
+  },
+];
+
+const CATEGORY_COLORS: Record<string, string> = {
+  Teknik: "bg-blue-100 text-blue-700",
+  Design: "bg-purple-100 text-purple-700",
+  Marknadsföring: "bg-orange-100 text-orange-700",
+  Ekonomi: "bg-green-100 text-green-700",
+  Kreativt: "bg-pink-100 text-pink-700",
+  Hantverkstjänster: "bg-yellow-100 text-yellow-700",
+  Utbildning: "bg-teal-100 text-teal-700",
+};
+
 export default function TemplatesPage() {
   const [templates, setTemplates] = useState<Template[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,6 +236,9 @@ export default function TemplatesPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [importing, setImporting] = useState<string | null>(null);
+  const [showLibrary, setShowLibrary] = useState(false);
+  const [libraryFilter, setLibraryFilter] = useState("Alla");
 
   const [formName, setFormName] = useState("");
   const [formDesc, setFormDesc] = useState("");
@@ -62,6 +274,7 @@ export default function TemplatesPage() {
   function openCreate() {
     resetForm();
     setShowForm(true);
+    setShowLibrary(false);
   }
 
   function openEdit(tpl: Template) {
@@ -74,6 +287,7 @@ export default function TemplatesPage() {
     );
     setEditingId(tpl.id);
     setShowForm(true);
+    setShowLibrary(false);
   }
 
   function addItem() {
@@ -100,7 +314,6 @@ export default function TemplatesPage() {
     if (validItems.length === 0) return;
 
     if (editingId) {
-      // Delete old and recreate (API has no PATCH)
       await fetch("/api/templates", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -138,12 +351,46 @@ export default function TemplatesPage() {
     fetchTemplates();
   }
 
-  function calcTotal(items: TemplateItem[]) {
+  async function handleImport(tpl: PredefinedTemplate) {
+    setImporting(tpl.name);
+    await fetch("/api/templates", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: tpl.name,
+        description: tpl.description,
+        items: tpl.items,
+      }),
+    });
+    setImporting(null);
+    fetchTemplates();
+  }
+
+  function calcTotal(items: { quantity: number; unitPrice: number; discount?: number }[]) {
     return items.reduce((sum, i) => {
       const disc = i.discount ? (i.quantity * i.unitPrice * i.discount) / 100 : 0;
       return sum + i.quantity * i.unitPrice - disc;
     }, 0);
   }
+
+  const categories = ["Alla", ...Array.from(new Set(PREDEFINED_TEMPLATES.map((t) => t.category)))];
+
+  const filteredLibrary =
+    libraryFilter === "Alla"
+      ? PREDEFINED_TEMPLATES
+      : PREDEFINED_TEMPLATES.filter((t) => t.category === libraryFilter);
+
+  const filteredTemplates = templates.filter((tpl) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      tpl.name.toLowerCase().includes(q) ||
+      tpl.description.toLowerCase().includes(q) ||
+      tpl.items.some((i) => i.description.toLowerCase().includes(q))
+    );
+  });
+
+  const alreadyImported = new Set(templates.map((t) => t.name));
 
   return (
     <div className="space-y-6">
@@ -155,14 +402,131 @@ export default function TemplatesPage() {
             Spara återanvändbara radartiklar för offerter och fakturor
           </p>
         </div>
-        <button
-          onClick={openCreate}
-          className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          Skapa mall
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => {
+              setShowLibrary(!showLibrary);
+              setShowForm(false);
+            }}
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-indigo-700 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors"
+          >
+            <Sparkles className="w-4 h-4" />
+            Mallbibliotek
+            {showLibrary ? (
+              <ChevronUp className="w-3.5 h-3.5" />
+            ) : (
+              <ChevronDown className="w-3.5 h-3.5" />
+            )}
+          </button>
+          <button
+            onClick={openCreate}
+            className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            Skapa mall
+          </button>
+        </div>
       </div>
+
+      {/* Template Library */}
+      {showLibrary && (
+        <div className="bg-white rounded-xl border border-indigo-100 shadow-sm p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-base font-semibold text-gray-900 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-indigo-500" />
+                Färdiga mallar
+              </h2>
+              <p className="text-xs text-gray-500 mt-0.5">
+                Välj en mall att importera till dina egna mallar
+              </p>
+            </div>
+            <button
+              onClick={() => setShowLibrary(false)}
+              className="p-1 text-gray-400 hover:text-gray-600"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Category filter */}
+          <div className="flex flex-wrap gap-2 mb-5">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setLibraryFilter(cat)}
+                className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                  libraryFilter === cat
+                    ? "bg-indigo-600 text-white"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {filteredLibrary.map((tpl) => {
+              const imported = alreadyImported.has(tpl.name);
+              const isImporting = importing === tpl.name;
+              return (
+                <div
+                  key={tpl.name}
+                  className="border border-gray-100 rounded-xl p-4 hover:border-indigo-200 hover:bg-indigo-50/30 transition-all"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span
+                          className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                            CATEGORY_COLORS[tpl.category] ?? "bg-gray-100 text-gray-600"
+                          }`}
+                        >
+                          {tpl.category}
+                        </span>
+                      </div>
+                      <h3 className="text-sm font-semibold text-gray-900">{tpl.name}</h3>
+                      <p className="text-xs text-gray-500 mt-0.5 mb-2">{tpl.description}</p>
+                      <div className="space-y-0.5">
+                        {tpl.items.slice(0, 3).map((item, idx) => (
+                          <p key={idx} className="text-xs text-gray-400 truncate">
+                            • {item.description}
+                          </p>
+                        ))}
+                        {tpl.items.length > 3 && (
+                          <p className="text-xs text-gray-400">
+                            +{tpl.items.length - 3} fler rader
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end gap-2 shrink-0">
+                      <span className="text-sm font-semibold text-gray-900">
+                        {formatCurrency(calcTotal(tpl.items))}
+                      </span>
+                      {imported ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-green-700 bg-green-50 rounded-lg">
+                          Importerad
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleImport(tpl)}
+                          disabled={isImporting}
+                          className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-medium text-indigo-700 bg-indigo-50 rounded-lg hover:bg-indigo-100 transition-colors disabled:opacity-50"
+                        >
+                          <Download className="w-3 h-3" />
+                          {isImporting ? "Importerar..." : "Importera"}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Search */}
       {templates.length > 0 && !showForm && (
@@ -259,7 +623,9 @@ export default function TemplatesPage() {
                             type="number"
                             min="1"
                             value={item.quantity}
-                            onChange={(e) => updateItem(item.id, "quantity", Number(e.target.value))}
+                            onChange={(e) =>
+                              updateItem(item.id, "quantity", Number(e.target.value))
+                            }
                             className="form-input"
                           />
                         </td>
@@ -268,7 +634,9 @@ export default function TemplatesPage() {
                             type="number"
                             min="0"
                             value={item.unitPrice}
-                            onChange={(e) => updateItem(item.id, "unitPrice", Number(e.target.value))}
+                            onChange={(e) =>
+                              updateItem(item.id, "unitPrice", Number(e.target.value))
+                            }
                             className="form-input"
                           />
                         </td>
@@ -278,7 +646,9 @@ export default function TemplatesPage() {
                             min="0"
                             max="100"
                             value={item.discount || 0}
-                            onChange={(e) => updateItem(item.id, "discount", Number(e.target.value))}
+                            onChange={(e) =>
+                              updateItem(item.id, "discount", Number(e.target.value))
+                            }
                             className="form-input"
                           />
                         </td>
@@ -332,17 +702,7 @@ export default function TemplatesPage() {
         </div>
       ) : templates.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {templates
-            .filter((tpl) => {
-              if (!searchQuery.trim()) return true;
-              const q = searchQuery.toLowerCase();
-              return (
-                tpl.name.toLowerCase().includes(q) ||
-                tpl.description.toLowerCase().includes(q) ||
-                tpl.items.some((i) => i.description.toLowerCase().includes(q))
-              );
-            })
-            .map((tpl) => (
+          {filteredTemplates.map((tpl) => (
             <div
               key={tpl.id}
               className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-all"
@@ -411,16 +771,24 @@ export default function TemplatesPage() {
           </div>
           <h3 className="text-base font-semibold text-gray-900 mb-1">Inga mallar ännu</h3>
           <p className="text-sm text-gray-500 max-w-sm mx-auto mb-6">
-            Skapa mallar med vanliga radartiklar så du snabbt kan fylla i nya offerter och
-            fakturor.
+            Skapa egna mallar eller välj från vårt mallbibliotek med färdiga branschmallar.
           </p>
-          <button
-            onClick={openCreate}
-            className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            Skapa din första mall
-          </button>
+          <div className="flex items-center justify-center gap-3">
+            <button
+              onClick={() => setShowLibrary(true)}
+              className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-indigo-700 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors"
+            >
+              <Sparkles className="w-4 h-4" />
+              Bläddra mallbiblioteket
+            </button>
+            <button
+              onClick={openCreate}
+              className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Skapa mall
+            </button>
+          </div>
         </div>
       ) : null}
     </div>
