@@ -1,0 +1,23 @@
+{
+  "name": "offertpro-instagram-videos",
+  "version": "1.0.0",
+  "description": "Instagram Reels for Offert Pro",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render:hero": "remotion render src/index.ts HeroVideo out/hero.mp4",
+    "render:features": "remotion render src/index.ts FeaturesVideo out/features.mp4",
+    "render:cta": "remotion render src/index.ts CTAVideo out/cta.mp4",
+    "render:all": "npm run render:hero && npm run render:features && npm run render:cta"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.441",
+    "remotion": "4.0.441",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.0",
+    "@types/react-dom": "18.2.0",
+    "typescript": "5.3.3"
+  }
+}
