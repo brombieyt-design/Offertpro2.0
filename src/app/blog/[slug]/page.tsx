@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Clock, User } from "lucide-react";
+import { ArrowLeft, Clock, User, ChevronRight, Home } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getBlogPost, getAllBlogPosts } from "@/content/blog-posts";
 import Navbar from "@/components/landing/Navbar";
@@ -88,14 +88,27 @@ export default async function BlogPostPage({
 
       <article className="pt-32 pb-24 px-6">
         <div className="max-w-3xl mx-auto">
-          {/* Back link */}
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-indigo-600 mb-8 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Tillbaka till bloggen
-          </Link>
+          {/* Breadcrumb navigation */}
+          <nav aria-label="Breadcrumb" className="mb-8">
+            <ol className="flex items-center gap-1.5 text-sm text-gray-400">
+              <li>
+                <Link href="/" className="hover:text-indigo-600 transition-colors flex items-center gap-1">
+                  <Home className="w-3.5 h-3.5" />
+                  <span className="sr-only">Hem</span>
+                </Link>
+              </li>
+              <li><ChevronRight className="w-3.5 h-3.5" /></li>
+              <li>
+                <Link href="/blog" className="hover:text-indigo-600 transition-colors">
+                  Blogg
+                </Link>
+              </li>
+              <li><ChevronRight className="w-3.5 h-3.5" /></li>
+              <li className="text-gray-600 font-medium truncate max-w-[250px]">
+                {post.title}
+              </li>
+            </ol>
+          </nav>
 
           {/* Meta */}
           <div className="flex flex-wrap items-center gap-4 mb-6">

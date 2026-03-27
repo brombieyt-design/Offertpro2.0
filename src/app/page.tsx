@@ -95,19 +95,45 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       <Navbar />
-      <Hero />
-      <LogoBar />
-      <SocialProof />
-      <Features />
-      <Comparison />
-      <UseCases />
-      <Results />
-      <Integrations />
-      <Pricing />
-      <Testimonials />
-      <TrustBadges />
-      <FAQ />
-      <CTA />
+      <section aria-label="Hero">
+        <Hero />
+      </section>
+      <section aria-label="Betrodda varumärken">
+        <LogoBar />
+      </section>
+      <section aria-label="Socialt bevis">
+        <SocialProof />
+      </section>
+      <section aria-label="Funktioner">
+        <Features />
+      </section>
+      <section aria-label="Jämförelse">
+        <Comparison />
+      </section>
+      <section aria-label="Användningsfall">
+        <UseCases />
+      </section>
+      <section aria-label="Resultat">
+        <Results />
+      </section>
+      <section aria-label="Integrationer">
+        <Integrations />
+      </section>
+      <section aria-label="Priser">
+        <Pricing />
+      </section>
+      <section aria-label="Kundrecensioner">
+        <Testimonials />
+      </section>
+      <section aria-label="Trygghet och förtroende">
+        <TrustBadges />
+      </section>
+      <section aria-label="Vanliga frågor">
+        <FAQ />
+      </section>
+      <section aria-label="Kom igång">
+        <CTA />
+      </section>
       <Footer />
     </main>
   );
