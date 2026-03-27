@@ -96,12 +96,12 @@ export default function Header({ onMenuToggle }: HeaderProps) {
           ...quickLinks,
           ...(Array.isArray(quotes) ? quotes : []).map((q: any) => ({
             label: `${q.number} – ${q.customer?.name || ""}`,
-            href: "/quotes",
+            href: `/quotes/${q.id}`,
             type: "Offert",
           })),
           ...(Array.isArray(invoices) ? invoices : []).map((i: any) => ({
             label: `${i.number} – ${i.customer?.name || ""}`,
-            href: "/invoices",
+            href: `/invoices/${i.id}`,
             type: "Faktura",
           })),
           ...(Array.isArray(customers) ? customers : []).map((c: any) => ({
@@ -206,9 +206,9 @@ export default function Header({ onMenuToggle }: HeaderProps) {
             <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50">
               {filteredResults.length > 0 ? (
                 <div className="py-1">
-                  {filteredResults.map((result) => (
+                  {filteredResults.map((result, idx) => (
                     <button
-                      key={result.href}
+                      key={result.href + "-" + idx}
                       onClick={() => handleSelect(result.href)}
                       className="w-full flex items-center justify-between px-4 py-2.5 text-sm hover:bg-gray-50 transition-colors"
                     >

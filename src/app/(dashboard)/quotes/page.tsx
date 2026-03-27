@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft, Copy } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft, Copy, CheckSquare } from "lucide-react";
 import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/components/Toast";
@@ -25,6 +25,7 @@ export default function QuotesPage() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [converting, setConverting] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   const { toast } = useToast();
 
   async function fetchQuotes() {
@@ -100,6 +101,40 @@ export default function QuotesPage() {
       });
       if (res.ok) fetchQuotes();
     } catch {}
+  }
+
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleSelectAll() {
+    if (selected.size === filtered.length) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(filtered.map((q) => q.id)));
+    }
+  }
+
+  async function bulkDelete() {
+    if (selected.size === 0) return;
+    if (!confirm(`Vill du ta bort ${selected.size} offert(er)?`)) return;
+    await Promise.all(
+      Array.from(selected).map((id) =>
+        fetch("/api/quotes", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        })
+      )
+    );
+    setSelected(new Set());
+    toast(`${selected.size} offert(er) borttagna`, "success");
+    fetchQuotes();
   }
 
   function countByStatus(status: QuoteStatus | "all") {
@@ -182,6 +217,29 @@ export default function QuotesPage() {
         </div>
       </div>
 
+      {/* Bulk action bar */}
+      {selected.size > 0 && (
+        <div className="flex items-center gap-3 px-4 py-3 bg-indigo-50 border border-indigo-200 rounded-xl">
+          <CheckSquare className="w-4 h-4 text-indigo-600" />
+          <span className="text-sm font-medium text-indigo-700">
+            {selected.size} markerad(e)
+          </span>
+          <button
+            onClick={bulkDelete}
+            className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 hover:bg-red-200 rounded-lg transition-colors"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            Ta bort valda
+          </button>
+          <button
+            onClick={() => setSelected(new Set())}
+            className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors"
+          >
+            Avmarkera
+          </button>
+        </div>
+      )}
+
       {/* Table */}
       <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm overflow-hidden">
         {loading ? (
@@ -193,6 +251,14 @@ export default function QuotesPage() {
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="border-b border-gray-100/80">
+                  <th className="px-4 sm:px-5 py-3 sm:py-4 w-10">
+                    <input
+                      type="checkbox"
+                      checked={filtered.length > 0 && selected.size === filtered.length}
+                      onChange={toggleSelectAll}
+                      className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                  </th>
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-4 sm:px-7 py-3 sm:py-4">
                     Offert#
                   </th>
@@ -222,6 +288,14 @@ export default function QuotesPage() {
                     key={quote.id}
                     className="hover:bg-gray-50/50 transition-all duration-300"
                   >
+                    <td className="px-4 sm:px-5 py-4 sm:py-5">
+                      <input
+                        type="checkbox"
+                        checked={selected.has(quote.id)}
+                        onChange={() => toggleSelect(quote.id)}
+                        className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                    </td>
                     <td className="px-4 sm:px-7 py-4 sm:py-5 text-sm font-medium text-indigo-600">
                       <Link href={`/quotes/${quote.id}`} className="hover:underline">
                         {quote.number}
@@ -315,7 +389,7 @@ export default function QuotesPage() {
                 {filtered.length === 0 && (
                   <tr>
                     <td
-                      colSpan={7}
+                      colSpan={8}
                       className="px-4 sm:px-7 py-12 text-center text-sm text-gray-400"
                     >
                       {searchQuery

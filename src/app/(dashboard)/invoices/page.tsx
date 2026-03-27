@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail, Search, Copy } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search, Copy, CheckSquare } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/components/Toast";
@@ -22,6 +22,7 @@ export default function InvoicesPage() {
   const [activeTab, setActiveTab] = useState<InvoiceStatus | "all">("all");
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   const { toast } = useToast();
 
   async function fetchInvoices() {
@@ -76,6 +77,40 @@ export default function InvoicesPage() {
       });
       if (res.ok) fetchInvoices();
     } catch {}
+  }
+
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleSelectAll() {
+    if (selected.size === filtered.length) {
+      setSelected(new Set());
+    } else {
+      setSelected(new Set(filtered.map((inv) => inv.id)));
+    }
+  }
+
+  async function bulkDelete() {
+    if (selected.size === 0) return;
+    if (!confirm(`Vill du ta bort ${selected.size} faktura(or)?`)) return;
+    await Promise.all(
+      Array.from(selected).map((id) =>
+        fetch("/api/invoices", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id }),
+        })
+      )
+    );
+    setSelected(new Set());
+    toast(`${selected.size} faktura(or) borttagna`, "success");
+    fetchInvoices();
   }
 
   function countByStatus(status: InvoiceStatus | "all") {
@@ -203,6 +238,29 @@ export default function InvoicesPage() {
       </div>
       </div>
 
+      {/* Bulk action bar */}
+      {selected.size > 0 && (
+        <div className="flex items-center gap-3 px-4 py-3 bg-indigo-50 border border-indigo-200 rounded-xl">
+          <CheckSquare className="w-4 h-4 text-indigo-600" />
+          <span className="text-sm font-medium text-indigo-700">
+            {selected.size} markerad(e)
+          </span>
+          <button
+            onClick={bulkDelete}
+            className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-700 bg-red-100 hover:bg-red-200 rounded-lg transition-colors"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            Ta bort valda
+          </button>
+          <button
+            onClick={() => setSelected(new Set())}
+            className="px-3 py-1.5 text-xs font-medium text-gray-600 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 transition-colors"
+          >
+            Avmarkera
+          </button>
+        </div>
+      )}
+
       {/* Table */}
       <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm overflow-hidden">
         {loading ? (
@@ -214,6 +272,14 @@ export default function InvoicesPage() {
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="border-b border-gray-100/80">
+                  <th className="px-4 sm:px-5 py-3 sm:py-4 w-10">
+                    <input
+                      type="checkbox"
+                      checked={filtered.length > 0 && selected.size === filtered.length}
+                      onChange={toggleSelectAll}
+                      className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                  </th>
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-4 sm:px-7 py-3 sm:py-4">Fakturanr</th>
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-4 sm:px-7 py-3 sm:py-4">Kund</th>
                   <th className="text-left text-xs font-medium text-gray-500 uppercase tracking-wider px-4 sm:px-7 py-3 sm:py-4">Belopp</th>
@@ -226,6 +292,14 @@ export default function InvoicesPage() {
               <tbody className="divide-y divide-gray-50">
                 {filtered.map((invoice) => (
                   <tr key={invoice.id} className="hover:bg-gray-50/50 transition-all duration-300">
+                    <td className="px-4 sm:px-5 py-4 sm:py-5">
+                      <input
+                        type="checkbox"
+                        checked={selected.has(invoice.id)}
+                        onChange={() => toggleSelect(invoice.id)}
+                        className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                    </td>
                     <td className="px-4 sm:px-7 py-4 sm:py-5 text-sm font-medium text-indigo-600">
                       <Link href={`/invoices/${invoice.id}`} className="hover:underline">
                         {invoice.number}
@@ -298,7 +372,7 @@ export default function InvoicesPage() {
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-4 sm:px-7 py-12 text-center text-sm text-gray-400">
+                    <td colSpan={8} className="px-4 sm:px-7 py-12 text-center text-sm text-gray-400">
                       {searchQuery
                         ? "Inga fakturor matchar din sökning."
                         : "Inga fakturor med denna status."}

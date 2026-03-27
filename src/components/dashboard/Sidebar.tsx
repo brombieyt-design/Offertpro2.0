@@ -14,10 +14,13 @@ import {
   X,
   Check,
   LogOut,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { navItems } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { useUser } from "@/lib/user-context";
+import { useTheme } from "@/lib/theme-context";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutDashboard,
@@ -37,6 +40,7 @@ interface SidebarProps {
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { user, logout } = useUser();
+  const { theme, toggleTheme } = useTheme();
   const [quoteCount, setQuoteCount] = useState(0);
 
   useEffect(() => {
@@ -133,6 +137,21 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           >
             Uppgradera &rarr;
           </Link>
+        </div>
+
+        {/* Dark mode toggle */}
+        <div className="mx-4 mb-3">
+          <button
+            onClick={toggleTheme}
+            className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
+          >
+            {theme === "dark" ? (
+              <Sun className="w-4.5 h-4.5 text-amber-500" />
+            ) : (
+              <Moon className="w-4.5 h-4.5 text-gray-400" />
+            )}
+            <span>{theme === "dark" ? "Ljust läge" : "Mörkt läge"}</span>
+          </button>
         </div>
 
         {/* User profile */}

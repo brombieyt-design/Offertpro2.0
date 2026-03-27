@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Copy, Plus, Trash2, Pencil, X, Package } from "lucide-react";
+import { Copy, Plus, Trash2, Pencil, X, Package, Search } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 
 interface TemplateItem {
@@ -26,6 +26,7 @@ export default function TemplatesPage() {
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [formName, setFormName] = useState("");
   const [formDesc, setFormDesc] = useState("");
@@ -162,6 +163,20 @@ export default function TemplatesPage() {
           Skapa mall
         </button>
       </div>
+
+      {/* Search */}
+      {templates.length > 0 && !showForm && (
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Sök mallar..."
+            className="form-input pl-11 w-full sm:w-72"
+          />
+        </div>
+      )}
 
       {/* Create/Edit form */}
       {showForm && (
@@ -317,7 +332,17 @@ export default function TemplatesPage() {
         </div>
       ) : templates.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {templates.map((tpl) => (
+          {templates
+            .filter((tpl) => {
+              if (!searchQuery.trim()) return true;
+              const q = searchQuery.toLowerCase();
+              return (
+                tpl.name.toLowerCase().includes(q) ||
+                tpl.description.toLowerCase().includes(q) ||
+                tpl.items.some((i) => i.description.toLowerCase().includes(q))
+              );
+            })
+            .map((tpl) => (
             <div
               key={tpl.id}
               className="bg-white rounded-xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-all"
