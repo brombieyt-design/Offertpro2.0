@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Users, Building2, Phone, MapPin, X, RefreshCw, Pencil, Trash2, Search } from "lucide-react";
-import type { Customer } from "@/types";
+import { Plus, Users, Building2, Phone, MapPin, X, RefreshCw, Pencil, Trash2, Search, User } from "lucide-react";
+import type { Customer, CustomerType } from "@/types";
 import { cn } from "@/lib/utils";
 
-const emptyForm = { name: "", email: "", phone: "", company: "", city: "", address: "", orgNr: "" };
+const emptyForm = { name: "", email: "", phone: "", company: "", city: "", address: "", orgNr: "", personnummer: "", customerType: "business" as CustomerType };
 
 export default function ClientsPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -48,6 +48,8 @@ export default function ClientsPage() {
       city: customer.city || "",
       address: customer.address || "",
       orgNr: customer.orgNr || "",
+      personnummer: customer.personnummer || "",
+      customerType: customer.customerType || (customer.company ? "business" : "private"),
     });
     setEditingId(customer.id);
     setShowForm(true);
@@ -97,14 +99,15 @@ export default function ClientsPage() {
       })
     : customers;
 
-  const withCompany = customers.filter((c) => c.company);
+  const businessCustomers = customers.filter((c) => c.customerType !== "private" && c.company);
+  const privateCustomers = customers.filter((c) => c.customerType === "private" || (!c.company && !c.orgNr));
   const withPhone = customers.filter((c) => c.phone);
   const withAddress = customers.filter((c) => c.address);
 
   const clientStats = [
     { label: "Totala kunder", value: customers.length, icon: Users, color: "text-indigo-600 bg-indigo-50" },
-    { label: "Med företag", value: withCompany.length, icon: Building2, color: "text-blue-600 bg-blue-50" },
-    { label: "Med telefon", value: withPhone.length, icon: Phone, color: "text-green-600 bg-green-50" },
+    { label: "Företagskunder", value: businessCustomers.length, icon: Building2, color: "text-blue-600 bg-blue-50" },
+    { label: "Privatkunder", value: privateCustomers.length, icon: User, color: "text-green-600 bg-green-50" },
     { label: "Med adress", value: withAddress.length, icon: MapPin, color: "text-purple-600 bg-purple-50" },
   ];
 
@@ -141,7 +144,38 @@ export default function ClientsPage() {
               <X className="w-5 h-5" />
             </button>
           </div>
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
+          <form onSubmit={handleSubmit} className="space-y-5 max-w-2xl">
+            {/* Customer type toggle */}
+            <div className="flex gap-2 p-1 bg-gray-100/60 rounded-xl w-fit">
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, customerType: "business" })}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200",
+                  form.customerType === "business"
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-500 hover:text-gray-700"
+                )}
+              >
+                <Building2 className="w-4 h-4" />
+                Företag
+              </button>
+              <button
+                type="button"
+                onClick={() => setForm({ ...form, customerType: "private" })}
+                className={cn(
+                  "flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200",
+                  form.customerType === "private"
+                    ? "bg-white text-gray-900 shadow-sm"
+                    : "text-gray-500 hover:text-gray-700"
+                )}
+              >
+                <User className="w-4 h-4" />
+                Privatkund
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Namn *</label>
               <input
@@ -160,20 +194,48 @@ export default function ClientsPage() {
                 required
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="anna@foretag.se"
+                placeholder={form.customerType === "private" ? "anna@gmail.com" : "anna@foretag.se"}
                 className="form-input"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Företag</label>
-              <input
-                type="text"
-                value={form.company}
-                onChange={(e) => setForm({ ...form, company: e.target.value })}
-                placeholder="Företag AB"
-                className="form-input"
-              />
-            </div>
+
+            {form.customerType === "business" ? (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Företag</label>
+                  <input
+                    type="text"
+                    value={form.company}
+                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    placeholder="Företag AB"
+                    className="form-input"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Org.nr</label>
+                  <input
+                    type="text"
+                    value={form.orgNr}
+                    onChange={(e) => setForm({ ...form, orgNr: e.target.value })}
+                    placeholder="556xxx-xxxx"
+                    className="form-input"
+                  />
+                </div>
+              </>
+            ) : (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Personnummer</label>
+                <input
+                  type="text"
+                  value={form.personnummer}
+                  onChange={(e) => setForm({ ...form, personnummer: e.target.value })}
+                  placeholder="199001011234"
+                  className="form-input"
+                />
+                <p className="text-xs text-gray-400 mt-1">Krävs för ROT/RUT-avdrag</p>
+              </div>
+            )}
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">Telefon</label>
               <input
@@ -204,17 +266,8 @@ export default function ClientsPage() {
                 className="form-input"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Org.nr</label>
-              <input
-                type="text"
-                value={form.orgNr}
-                onChange={(e) => setForm({ ...form, orgNr: e.target.value })}
-                placeholder="556xxx-xxxx"
-                className="form-input"
-              />
             </div>
-            <div className="sm:col-span-2 flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <button
                 type="submit"
                 className="px-5 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
@@ -291,7 +344,14 @@ export default function ClientsPage() {
                 {filtered.map((customer) => (
                   <tr key={customer.id} className="hover:bg-gray-50 transition-colors group">
                     <td className="px-5 py-3.5 font-medium text-gray-900">{customer.name}</td>
-                    <td className="px-5 py-3.5 text-gray-600">{customer.company || "—"}</td>
+                    <td className="px-5 py-3.5 text-gray-600">
+                      {customer.company || (
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
+                          <User className="w-3 h-3" />
+                          Privatkund
+                        </span>
+                      )}
+                    </td>
                     <td className="px-5 py-3.5 text-gray-600 hidden sm:table-cell">{customer.email}</td>
                     <td className="px-5 py-3.5 text-gray-600 hidden md:table-cell">{customer.phone || "—"}</td>
                     <td className="px-5 py-3.5 text-gray-600 hidden lg:table-cell">{customer.city || "—"}</td>

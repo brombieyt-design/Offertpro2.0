@@ -6,6 +6,9 @@ export type InvoiceStatus =
   | "overdue"
   | "partially_paid";
 
+export type CustomerType = "business" | "private";
+export type TaxDeduction = "none" | "rot" | "rut";
+
 export interface Customer {
   id: string;
   name: string;
@@ -15,6 +18,8 @@ export interface Customer {
   city?: string;
   address?: string;
   orgNr?: string;
+  personnummer?: string;
+  customerType?: CustomerType;
   notes?: string;
 }
 
@@ -35,6 +40,8 @@ export interface Quote {
   createdAt: string;
   validUntil: string;
   total: number;
+  taxDeduction?: TaxDeduction;
+  laborCost?: number;
 }
 
 export interface Invoice {
@@ -47,6 +54,8 @@ export interface Invoice {
   dueDate: string;
   total: number;
   paymentTerms: string;
+  taxDeduction?: TaxDeduction;
+  laborCost?: number;
 }
 
 export interface Template {

@@ -12,6 +12,8 @@ import {
   LinkIcon,
   Send,
   Package,
+  Building2,
+  User,
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
 
@@ -42,6 +44,7 @@ export default function NewQuotePage() {
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1 state
+  const [customerType, setCustomerType] = useState<"business" | "private">("business");
   const [customerSearch, setCustomerSearch] = useState("");
   const [formData, setFormData] = useState({
     name: "",
@@ -50,8 +53,14 @@ export default function NewQuotePage() {
     company: "",
     city: "",
     address: "",
+    orgNr: "",
+    personnummer: "",
     notes: "",
   });
+
+  // ROT/RUT state
+  const [taxDeduction, setTaxDeduction] = useState<"none" | "rot" | "rut">("none");
+  const [laborCost, setLaborCost] = useState(0);
 
   // Step 2 state
   const [items, setItems] = useState<LineItemData[]>([
@@ -77,16 +86,19 @@ export default function NewQuotePage() {
         if (draft.formData) setFormData(draft.formData);
         if (draft.items?.length) setItems(draft.items);
         if (draft.sendEmail) setSendEmail(draft.sendEmail);
+        if (draft.customerType) setCustomerType(draft.customerType);
+        if (draft.taxDeduction) setTaxDeduction(draft.taxDeduction);
+        if (draft.laborCost) setLaborCost(draft.laborCost);
       } catch {}
     }
   }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      localStorage.setItem(DRAFT_KEY, JSON.stringify({ formData, items, sendEmail }));
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({ formData, items, sendEmail, customerType, taxDeduction, laborCost }));
     }, 500);
     return () => clearTimeout(timeout);
-  }, [formData, items, sendEmail]);
+  }, [formData, items, sendEmail, customerType, taxDeduction, laborCost]);
 
   function clearDraft() {
     localStorage.removeItem(DRAFT_KEY);
@@ -129,6 +141,8 @@ export default function NewQuotePage() {
     : [];
 
   const selectCustomer = (c: (typeof apiCustomers)[0]) => {
+    const isPrivate = !c.company && !c.orgNr;
+    setCustomerType(isPrivate ? "private" : "business");
     setFormData({
       name: c.name,
       email: c.email,
@@ -136,6 +150,8 @@ export default function NewQuotePage() {
       company: c.company || "",
       city: c.city || "",
       address: c.address || "",
+      orgNr: c.orgNr || "",
+      personnummer: "",
       notes: "",
     });
     setSendEmail(c.email);
@@ -185,8 +201,18 @@ export default function NewQuotePage() {
   const vat = subtotal * 0.25;
   const total = subtotal + vat;
 
+  // ROT/RUT calculation
+  const rotRutRate = taxDeduction === "rot" ? 0.3 : taxDeduction === "rut" ? 0.5 : 0;
+  const rotRutDeduction = taxDeduction !== "none" ? laborCost * rotRutRate : 0;
+  const rotRutMaxPerPerson = taxDeduction === "rot" ? 50000 : taxDeduction === "rut" ? 75000 : 0;
+  const appliedDeduction = Math.min(rotRutDeduction, rotRutMaxPerPerson);
+  const totalAfterDeduction = total - appliedDeduction;
+
   const canProceed = () => {
     if (currentStep === 1) {
+      if (customerType === "private") {
+        return formData.name && formData.email;
+      }
       return formData.name && formData.email && formData.company;
     }
     if (currentStep === 2) {
@@ -275,6 +301,36 @@ export default function NewQuotePage() {
             </p>
           </div>
 
+          {/* Customer type toggle */}
+          <div className="flex gap-2 p-1 bg-gray-100/60 rounded-xl w-fit">
+            <button
+              type="button"
+              onClick={() => setCustomerType("business")}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200",
+                customerType === "business"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              )}
+            >
+              <Building2 className="w-4 h-4" />
+              Företag
+            </button>
+            <button
+              type="button"
+              onClick={() => setCustomerType("private")}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-200",
+                customerType === "private"
+                  ? "bg-white text-gray-900 shadow-sm"
+                  : "text-gray-500 hover:text-gray-700"
+              )}
+            >
+              <User className="w-4 h-4" />
+              Privatkund
+            </button>
+          </div>
+
           {/* Customer search */}
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -296,7 +352,7 @@ export default function NewQuotePage() {
                     <div className="text-sm font-medium text-gray-900">
                       {c.name}
                     </div>
-                    <div className="text-xs text-gray-500">{c.company}</div>
+                    <div className="text-xs text-gray-500">{c.company || "Privatkund"}</div>
                   </button>
                 ))}
               </div>
@@ -307,12 +363,12 @@ export default function NewQuotePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Kundnamn <span className="text-red-500">*</span>
+                {customerType === "private" ? "Fullständigt namn" : "Kundnamn"} <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 className="form-input"
-                placeholder="t.ex. Anna Svensson"
+                placeholder={customerType === "private" ? "t.ex. Anna Svensson" : "t.ex. Anna Svensson"}
                 value={formData.name}
                 onChange={(e) => updateField("name", e.target.value)}
               />
@@ -324,7 +380,7 @@ export default function NewQuotePage() {
               <input
                 type="email"
                 className="form-input"
-                placeholder="t.ex. anna@foretag.se"
+                placeholder={customerType === "private" ? "t.ex. anna@gmail.com" : "t.ex. anna@foretag.se"}
                 value={formData.email}
                 onChange={(e) => updateField("email", e.target.value)}
               />
@@ -342,18 +398,50 @@ export default function NewQuotePage() {
               />
               <p className="text-xs text-gray-400 mt-1.5">för SMS-notis</p>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Företag <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                className="form-input"
-                placeholder="t.ex. Acme AB"
-                value={formData.company}
-                onChange={(e) => updateField("company", e.target.value)}
-              />
-            </div>
+
+            {customerType === "business" ? (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Företag <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="t.ex. Acme AB"
+                    value={formData.company}
+                    onChange={(e) => updateField("company", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Organisationsnummer
+                  </label>
+                  <input
+                    type="text"
+                    className="form-input"
+                    placeholder="t.ex. 556789-0123"
+                    value={formData.orgNr}
+                    onChange={(e) => updateField("orgNr", e.target.value)}
+                  />
+                </div>
+              </>
+            ) : (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Personnummer
+                </label>
+                <input
+                  type="text"
+                  className="form-input"
+                  placeholder="t.ex. 199001011234"
+                  value={formData.personnummer}
+                  onChange={(e) => updateField("personnummer", e.target.value)}
+                />
+                <p className="text-xs text-gray-400 mt-1.5">Krävs för ROT/RUT-avdrag</p>
+              </div>
+            )}
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
                 Stad / Region
@@ -368,7 +456,7 @@ export default function NewQuotePage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                Faktureringsadress
+                {customerType === "private" ? "Adress" : "Faktureringsadress"}
               </label>
               <input
                 type="text"
@@ -391,6 +479,54 @@ export default function NewQuotePage() {
               />
             </div>
           </div>
+
+          {/* ROT/RUT for private customers */}
+          {customerType === "private" && (
+            <div className="border-t border-gray-100 pt-5">
+              <h3 className="text-sm font-semibold text-gray-900 mb-3">Skatteavdrag</h3>
+              <div className="flex gap-2 flex-wrap">
+                {([["none", "Inget avdrag"], ["rot", "ROT-avdrag (30%)"], ["rut", "RUT-avdrag (50%)"]] as const).map(([value, label]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setTaxDeduction(value)}
+                    className={cn(
+                      "px-4 py-2.5 text-sm font-medium rounded-xl border transition-all duration-200",
+                      taxDeduction === value
+                        ? value === "rot"
+                          ? "bg-emerald-50 border-emerald-300 text-emerald-700"
+                          : value === "rut"
+                            ? "bg-blue-50 border-blue-300 text-blue-700"
+                            : "bg-gray-100 border-gray-300 text-gray-700"
+                        : "border-gray-200 text-gray-500 hover:border-gray-300"
+                    )}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {taxDeduction !== "none" && (
+                <div className="mt-4 p-4 rounded-xl bg-gray-50 border border-gray-200/80">
+                  <p className="text-xs text-gray-500 mb-3">
+                    {taxDeduction === "rot"
+                      ? "ROT-avdrag ger 30% skattereduktion på arbetskostnaden (max 50 000 kr/person/år). Gäller reparation, underhåll, om- och tillbyggnad av bostäder."
+                      : "RUT-avdrag ger 50% skattereduktion på arbetskostnaden (max 75 000 kr/person/år). Gäller hushållsnära tjänster som städning, trädgårdsarbete m.m."}
+                  </p>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Arbetskostnad (kr)
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    className="form-input w-full sm:w-48"
+                    placeholder="t.ex. 25000"
+                    value={laborCost || ""}
+                    onChange={(e) => setLaborCost(Number(e.target.value))}
+                  />
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -559,6 +695,18 @@ export default function NewQuotePage() {
               <span>Total</span>
               <span>{formatCurrency(total)}</span>
             </div>
+            {taxDeduction !== "none" && appliedDeduction > 0 && (
+              <>
+                <div className="flex justify-between text-sm text-emerald-600 font-medium pt-2">
+                  <span>{taxDeduction === "rot" ? "ROT-avdrag (30%)" : "RUT-avdrag (50%)"}</span>
+                  <span>-{formatCurrency(appliedDeduction)}</span>
+                </div>
+                <div className="flex justify-between text-base font-bold text-emerald-700 pt-2 border-t border-emerald-100">
+                  <span>Att betala efter avdrag</span>
+                  <span>{formatCurrency(totalAfterDeduction)}</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
@@ -607,12 +755,14 @@ export default function NewQuotePage() {
             {/* Customer info */}
             <div className="bg-gray-50/80 rounded-xl p-5">
               <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1.5">
-                Kund
+                {customerType === "private" ? "Privatkund" : "Kund"}
               </p>
               <p className="text-sm font-semibold text-gray-900">
                 {formData.name}
               </p>
-              <p className="text-sm text-gray-600">{formData.company}</p>
+              {formData.company && <p className="text-sm text-gray-600">{formData.company}</p>}
+              {formData.orgNr && <p className="text-sm text-gray-600">Org.nr: {formData.orgNr}</p>}
+              {formData.personnummer && <p className="text-sm text-gray-600">Personnr: {formData.personnummer}</p>}
               <p className="text-sm text-gray-600">{formData.email}</p>
               {formData.address && (
                 <p className="text-sm text-gray-600">{formData.address}</p>
@@ -679,6 +829,21 @@ export default function NewQuotePage() {
                 <span>Totalt</span>
                 <span>{formatCurrency(total)}</span>
               </div>
+              {taxDeduction !== "none" && appliedDeduction > 0 && (
+                <>
+                  <div className="flex justify-between text-sm text-emerald-600 font-medium pt-2">
+                    <span>
+                      {taxDeduction === "rot" ? "ROT-avdrag (30%)" : "RUT-avdrag (50%)"}
+                      {laborCost > 0 && <span className="text-xs text-gray-400 ml-1">(arbetskostnad {formatCurrency(laborCost)})</span>}
+                    </span>
+                    <span>-{formatCurrency(appliedDeduction)}</span>
+                  </div>
+                  <div className="flex justify-between text-lg font-bold text-emerald-700 pt-3 border-t border-emerald-200">
+                    <span>Att betala efter avdrag</span>
+                    <span>{formatCurrency(totalAfterDeduction)}</span>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -772,9 +937,18 @@ export default function NewQuotePage() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                  customer: { name: formData.name, email: formData.email, company: formData.company },
+                  customer: {
+                    name: formData.name,
+                    email: formData.email,
+                    company: formData.company || undefined,
+                    orgNr: formData.orgNr || undefined,
+                    personnummer: formData.personnummer || undefined,
+                    customerType,
+                  },
                   items,
                   status: "draft",
+                  taxDeduction: taxDeduction !== "none" ? taxDeduction : undefined,
+                  laborCost: laborCost > 0 ? laborCost : undefined,
                 }),
               });
               clearDraft();
@@ -804,9 +978,18 @@ export default function NewQuotePage() {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
-                    customer: { name: formData.name, email: formData.email, company: formData.company },
+                    customer: {
+                      name: formData.name,
+                      email: formData.email,
+                      company: formData.company || undefined,
+                      orgNr: formData.orgNr || undefined,
+                      personnummer: formData.personnummer || undefined,
+                      customerType,
+                    },
                     items,
                     status: "sent",
+                    taxDeduction: taxDeduction !== "none" ? taxDeduction : undefined,
+                    laborCost: laborCost > 0 ? laborCost : undefined,
                   }),
                 });
                 clearDraft();
