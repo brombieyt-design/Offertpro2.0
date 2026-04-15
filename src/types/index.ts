@@ -47,6 +47,15 @@ export interface Quote {
   tags?: string[];
 }
 
+export interface Payment {
+  id: string;
+  amount: number;
+  paidAt: string;
+  method?: string;
+  reference?: string;
+  note?: string;
+}
+
 export interface Invoice {
   id: string;
   number: string;
@@ -60,6 +69,8 @@ export interface Invoice {
   taxDeduction?: TaxDeduction;
   laborCost?: number;
   tags?: string[];
+  payments?: Payment[];
+  paidAmount?: number;
 }
 
 export interface SavedItem {

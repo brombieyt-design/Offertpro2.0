@@ -24,7 +24,7 @@ import type { Quote, LineItem } from "@/types";
 export default function QuoteDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const { formatMoney: formatCurrency } = useSettings();
+  const { formatMoney: formatCurrency, vatRate: defaultVatRate } = useSettings();
   const id = params.id as string;
   const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(true);
@@ -212,7 +212,7 @@ export default function QuoteDetailPage() {
     (sum, item) => sum + lineTotal(item),
     0
   );
-  const vat = subtotal * 0.25;
+  const vat = subtotal * (defaultVatRate / 100);
   const total = subtotal + vat;
 
   return (
@@ -543,7 +543,7 @@ export default function QuoteDetailPage() {
                 <span>{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm text-gray-600">
-                <span>Moms (25%)</span>
+                <span>Moms ({defaultVatRate}%)</span>
                 <span>{formatCurrency(vat)}</span>
               </div>
               <div className="flex justify-between text-base font-bold text-gray-900 pt-2 border-t border-gray-100">

@@ -13,6 +13,8 @@ import {
   Save,
   X,
   Plus,
+  Wallet,
+  Calendar,
 } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
 import { formatDate, cn } from "@/lib/utils";
@@ -23,7 +25,7 @@ import type { Invoice, LineItem } from "@/types";
 export default function InvoiceDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const { formatMoney: formatCurrency } = useSettings();
+  const { formatMoney: formatCurrency, vatRate: defaultVatRate } = useSettings();
   const id = params.id as string;
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +38,16 @@ export default function InvoiceDetailPage() {
   const [editCustomer, setEditCustomer] = useState({ name: "", email: "", company: "" });
   const [editDueDate, setEditDueDate] = useState("");
   const [editPaymentTerms, setEditPaymentTerms] = useState("");
+
+  // Payment form state
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [paymentForm, setPaymentForm] = useState({
+    amount: 0,
+    paidAt: new Date().toISOString().split("T")[0],
+    method: "Bankgiro",
+    reference: "",
+    note: "",
+  });
 
   async function fetchInvoice() {
     setLoading(true);
@@ -142,6 +154,53 @@ export default function InvoiceDetailPage() {
     }
   }
 
+  async function recordPayment() {
+    if (!invoice) return;
+    if (!paymentForm.amount || paymentForm.amount <= 0) {
+      toast("Ange ett belopp", "error");
+      return;
+    }
+    try {
+      const res = await fetch("/api/invoices/payments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ invoiceId: invoice.id, ...paymentForm }),
+      });
+      if (!res.ok) throw new Error();
+      const updated = await res.json();
+      setInvoice(updated);
+      toast("Betalning registrerad", "success");
+      setShowPaymentForm(false);
+      setPaymentForm({
+        amount: 0,
+        paidAt: new Date().toISOString().split("T")[0],
+        method: "Bankgiro",
+        reference: "",
+        note: "",
+      });
+    } catch {
+      toast("Kunde inte registrera betalning", "error");
+    }
+  }
+
+  async function deletePayment(paymentId: string) {
+    if (!invoice) return;
+    if (!confirm("Ta bort denna betalning?")) return;
+    try {
+      const res = await fetch("/api/invoices/payments", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ invoiceId: invoice.id, paymentId }),
+      });
+      if (!res.ok) throw new Error();
+      const updated = await res.json();
+      setInvoice(updated);
+      toast("Betalning borttagen", "success");
+    } catch {
+      toast("Kunde inte ta bort betalning", "error");
+    }
+  }
+
   async function sendEmail() {
     const res = await fetch("/api/send-invoice", {
       method: "POST",
@@ -191,7 +250,7 @@ export default function InvoiceDetailPage() {
     (sum, item) => sum + lineTotal(item),
     0
   );
-  const vat = subtotal * 0.25;
+  const vat = subtotal * (defaultVatRate / 100);
   const total = subtotal + vat;
 
   return (
@@ -526,7 +585,7 @@ export default function InvoiceDetailPage() {
                 <span>{formatCurrency(subtotal)}</span>
               </div>
               <div className="flex justify-between text-sm text-gray-600">
-                <span>Moms (25%)</span>
+                <span>Moms ({defaultVatRate}%)</span>
                 <span>{formatCurrency(vat)}</span>
               </div>
               <div className="flex justify-between text-base font-bold text-gray-900 pt-2 border-t border-gray-100">
@@ -573,6 +632,173 @@ export default function InvoiceDetailPage() {
                 Ta bort faktura
               </button>
             </div>
+          </div>
+
+          {/* Payments panel */}
+          <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-6">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                <Wallet className="w-4 h-4 text-emerald-600" />
+                Betalningar
+              </h3>
+              <button
+                onClick={() => {
+                  const remaining = invoice.total - (invoice.paidAmount || 0);
+                  setPaymentForm((p) => ({
+                    ...p,
+                    amount: remaining > 0 ? remaining : invoice.total,
+                  }));
+                  setShowPaymentForm((v) => !v);
+                }}
+                className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 hover:text-emerald-800"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                Registrera
+              </button>
+            </div>
+
+            {/* Summary */}
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              <div className="bg-emerald-50 rounded-xl px-3 py-2.5">
+                <p className="text-[10px] uppercase tracking-wider text-emerald-700 font-semibold">
+                  Betalt
+                </p>
+                <p className="text-sm font-bold text-emerald-900 mt-0.5">
+                  {formatCurrency(invoice.paidAmount || 0)}
+                </p>
+              </div>
+              <div className="bg-amber-50 rounded-xl px-3 py-2.5">
+                <p className="text-[10px] uppercase tracking-wider text-amber-700 font-semibold">
+                  Återstår
+                </p>
+                <p className="text-sm font-bold text-amber-900 mt-0.5">
+                  {formatCurrency(Math.max(0, invoice.total - (invoice.paidAmount || 0)))}
+                </p>
+              </div>
+            </div>
+
+            {showPaymentForm && (
+              <div className="space-y-3 mb-4 p-3 bg-gray-50 rounded-xl animate-slide-up">
+                <div>
+                  <label className="block text-[11px] font-medium text-gray-600 mb-1">
+                    Belopp
+                  </label>
+                  <input
+                    type="number"
+                    min={0.01}
+                    step="0.01"
+                    value={paymentForm.amount || ""}
+                    onChange={(e) =>
+                      setPaymentForm({ ...paymentForm, amount: Number(e.target.value) })
+                    }
+                    className="form-input"
+                    autoFocus
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-[11px] font-medium text-gray-600 mb-1">
+                      Datum
+                    </label>
+                    <input
+                      type="date"
+                      value={paymentForm.paidAt}
+                      onChange={(e) =>
+                        setPaymentForm({ ...paymentForm, paidAt: e.target.value })
+                      }
+                      className="form-input"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-medium text-gray-600 mb-1">
+                      Metod
+                    </label>
+                    <select
+                      value={paymentForm.method}
+                      onChange={(e) =>
+                        setPaymentForm({ ...paymentForm, method: e.target.value })
+                      }
+                      className="form-input"
+                    >
+                      <option>Bankgiro</option>
+                      <option>Plusgiro</option>
+                      <option>Swish</option>
+                      <option>Banköverföring</option>
+                      <option>Kontant</option>
+                      <option>Kort</option>
+                      <option>Annan</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-medium text-gray-600 mb-1">
+                    Referens (valfri)
+                  </label>
+                  <input
+                    type="text"
+                    value={paymentForm.reference}
+                    onChange={(e) =>
+                      setPaymentForm({ ...paymentForm, reference: e.target.value })
+                    }
+                    placeholder="OCR / referens"
+                    className="form-input"
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={recordPayment}
+                    className="flex-1 px-3 py-2 text-xs font-medium text-white bg-emerald-600 rounded-lg hover:bg-emerald-700"
+                  >
+                    Spara betalning
+                  </button>
+                  <button
+                    onClick={() => setShowPaymentForm(false)}
+                    className="px-3 py-2 text-xs font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+                  >
+                    Avbryt
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Payment list */}
+            {(!invoice.payments || invoice.payments.length === 0) ? (
+              <p className="text-xs text-gray-400 text-center py-4">
+                Inga betalningar registrerade
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {invoice.payments.map((p) => (
+                  <div
+                    key={p.id}
+                    className="group flex items-start justify-between gap-2 px-3 py-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+                  >
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-gray-900">
+                        {formatCurrency(p.amount)}
+                      </p>
+                      <p className="text-[11px] text-gray-500 flex items-center gap-1 mt-0.5">
+                        <Calendar className="w-3 h-3" />
+                        {formatDate(p.paidAt)}
+                        {p.method && <span>· {p.method}</span>}
+                      </p>
+                      {p.reference && (
+                        <p className="text-[11px] text-gray-400 mt-0.5 truncate">
+                          Ref: {p.reference}
+                        </p>
+                      )}
+                    </div>
+                    <button
+                      onClick={() => deletePayment(p.id)}
+                      className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-500 rounded-md transition-all"
+                      aria-label="Ta bort betalning"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
