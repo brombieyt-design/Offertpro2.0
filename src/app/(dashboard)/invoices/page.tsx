@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Plus, Trash2, RefreshCw, Download, Mail, Search, Copy, CheckSquare, ClipboardList } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
-import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import { useToast } from "@/components/Toast";
 import EmptyState from "@/components/EmptyState";
 import type { Invoice, InvoiceStatus } from "@/types";
@@ -19,6 +20,7 @@ const tabs: { label: string; value: InvoiceStatus | "all" }[] = [
 ];
 
 export default function InvoicesPage() {
+  const { formatMoney: formatCurrency } = useSettings();
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [activeTab, setActiveTab] = useState<InvoiceStatus | "all">("all");
   const [loading, setLoading] = useState(true);

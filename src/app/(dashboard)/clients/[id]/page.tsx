@@ -19,7 +19,8 @@ import {
   X,
   Tag,
 } from "lucide-react";
-import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import { quoteStatusLabels, quoteStatusColors, invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
 import { useToast } from "@/components/Toast";
 import type { Customer, Quote, Invoice } from "@/types";
@@ -28,6 +29,7 @@ export default function CustomerDetailPage({ params }: { params: Promise<{ id: s
   const { id } = use(params);
   const router = useRouter();
   const { toast } = useToast();
+  const { formatMoney: formatCurrency } = useSettings();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);

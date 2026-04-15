@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { Plus, Package, Trash2, Search, X } from "lucide-react";
-import { formatCurrency, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/components/Toast";
+import { useSettings } from "@/lib/settings-context";
 import EmptyState from "@/components/EmptyState";
 import type { SavedItem } from "@/types";
 
 const COMMON_CATEGORIES = ["Tjänst", "Produkt", "Konsultation", "Material", "Frakt", "Övrigt"];
 
 export default function SavedItemsPage() {
+  const { formatMoney: formatCurrency } = useSettings();
   const [items, setItems] = useState<SavedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);

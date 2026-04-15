@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Package, Search, X, Plus } from "lucide-react";
-import { formatCurrency, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import type { SavedItem } from "@/types";
 
 interface SavedItemsPickerProps {
@@ -10,6 +11,7 @@ interface SavedItemsPickerProps {
 }
 
 export default function SavedItemsPicker({ onPick }: SavedItemsPickerProps) {
+  const { formatMoney: formatCurrency } = useSettings();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<SavedItem[]>([]);
   const [loading, setLoading] = useState(false);

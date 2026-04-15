@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft, Copy, CheckSquare, FileText } from "lucide-react";
 import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
-import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import { useToast } from "@/components/Toast";
 import EmptyState from "@/components/EmptyState";
 import type { Quote, QuoteStatus } from "@/types";
@@ -21,6 +22,7 @@ const tabs: { label: string; value: QuoteStatus | "all" }[] = [
 
 export default function QuotesPage() {
   const router = useRouter();
+  const { formatMoney: formatCurrency } = useSettings();
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [activeTab, setActiveTab] = useState<QuoteStatus | "all">("all");
   const [loading, setLoading] = useState(true);

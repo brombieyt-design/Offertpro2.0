@@ -111,6 +111,7 @@ export default function SettingsPage() {
       setSaved(section);
       setTimeout(() => setSaved(null), 2000);
       toast("Inställningar sparade!", "success");
+      window.dispatchEvent(new Event("settings-updated"));
     } catch {
       toast("Kunde inte spara inställningar.", "error");
     }

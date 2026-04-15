@@ -14,7 +14,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import { formatCurrency } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 
 interface TemplateItem {
   id: string;
@@ -230,6 +230,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export default function TemplatesPage() {
+  const { formatMoney: formatCurrency } = useSettings();
   const [templates, setTemplates] = useState<Template[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);

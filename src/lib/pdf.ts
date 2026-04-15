@@ -1,13 +1,10 @@
 import PDFDocument from "pdfkit";
 import type { Quote, Invoice, LineItem } from "@/types";
 import type { Settings } from "@/lib/db";
+import { formatCurrency as utilsFormatCurrency } from "@/lib/utils";
 
-function formatCurrency(n: number) {
-  return new Intl.NumberFormat("sv-SE", {
-    style: "currency",
-    currency: "SEK",
-    minimumFractionDigits: 0,
-  }).format(n);
+function makeFormatter(currency: string = "SEK") {
+  return (n: number) => utilsFormatCurrency(n, currency);
 }
 
 function lineTotal(item: LineItem) {
@@ -98,7 +95,8 @@ function drawTable(
   doc: PDFKit.PDFDocument,
   items: LineItem[],
   startY: number,
-  accent: string
+  accent: string,
+  fmt: (n: number) => string
 ): number {
   const tableTop = startY + 8;
   doc.rect(50, tableTop - 5, 495, 22).fill("#f8f8fa");
@@ -113,8 +111,8 @@ function drawTable(
   for (const item of items) {
     doc.fillColor("#333").text(item.description, 55, y, { width: 250 });
     doc.fillColor("#666").text(String(item.quantity), 320, y, { align: "right", width: 50 });
-    doc.text(formatCurrency(item.unitPrice), 380, y, { align: "right", width: 70 });
-    doc.fillColor("#1a1a1a").text(formatCurrency(lineTotal(item)), 460, y, { align: "right", width: 80 });
+    doc.text(fmt(item.unitPrice), 380, y, { align: "right", width: 70 });
+    doc.fillColor("#1a1a1a").text(fmt(lineTotal(item)), 460, y, { align: "right", width: 80 });
     y += 22;
   }
 
@@ -143,6 +141,7 @@ export async function generateQuotePDF(
   const accent = isHexColor(settings?.company?.primaryColor)
     ? settings!.company!.primaryColor!
     : "#4F46E5";
+  const fmt = makeFormatter(settings?.defaults?.currency);
 
   const headerEnd = drawHeader(doc, {
     company: settings?.company,
@@ -162,10 +161,10 @@ export async function generateQuotePDF(
   if (quote.customer.company) { doc.text(quote.customer.company, 50, cy); cy += 14; }
   if (quote.customer.email) { doc.text(quote.customer.email, 50, cy); cy += 14; }
 
-  const totalsTop = drawTable(doc, quote.items, Math.max(cy, headerEnd + 60), accent);
+  const totalsTop = drawTable(doc, quote.items, Math.max(cy, headerEnd + 60), accent, fmt);
 
   doc.fontSize(10).fillColor("#666").text("Totalt exkl. moms", 350, totalsTop);
-  doc.fontSize(14).fillColor(accent).text(formatCurrency(quote.total), 460, totalsTop - 2, { align: "right", width: 80 });
+  doc.fontSize(14).fillColor(accent).text(fmt(quote.total), 460, totalsTop - 2, { align: "right", width: 80 });
 
   drawFooter(doc, settings);
   return collectPDFBuffer(doc);
@@ -179,6 +178,7 @@ export async function generateInvoicePDF(
   const accent = isHexColor(settings?.company?.primaryColor)
     ? settings!.company!.primaryColor!
     : "#4F46E5";
+  const fmt = makeFormatter(settings?.defaults?.currency);
 
   const headerEnd = drawHeader(doc, {
     company: settings?.company,
@@ -199,10 +199,10 @@ export async function generateInvoicePDF(
   if (invoice.customer.company) { doc.text(invoice.customer.company, 50, cy); cy += 14; }
   if (invoice.customer.email) { doc.text(invoice.customer.email, 50, cy); cy += 14; }
 
-  const totalsTop = drawTable(doc, invoice.items, Math.max(cy, headerEnd + 60), accent);
+  const totalsTop = drawTable(doc, invoice.items, Math.max(cy, headerEnd + 60), accent, fmt);
 
   doc.fontSize(10).fillColor("#666").text("Att betala", 350, totalsTop);
-  doc.fontSize(14).fillColor(accent).text(formatCurrency(invoice.total), 460, totalsTop - 2, { align: "right", width: 80 });
+  doc.fontSize(14).fillColor(accent).text(fmt(invoice.total), 460, totalsTop - 2, { align: "right", width: 80 });
 
   // Payment details from settings
   const pay = settings?.payment;

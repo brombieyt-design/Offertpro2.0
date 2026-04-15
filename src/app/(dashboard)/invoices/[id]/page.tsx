@@ -15,13 +15,15 @@ import {
   Plus,
 } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
-import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import { useToast } from "@/components/Toast";
 import type { Invoice, LineItem } from "@/types";
 
 export default function InvoiceDetailPage() {
   const router = useRouter();
   const params = useParams();
+  const { formatMoney: formatCurrency } = useSettings();
   const id = params.id as string;
   const [invoice, setInvoice] = useState<Invoice | null>(null);
   const [loading, setLoading] = useState(true);

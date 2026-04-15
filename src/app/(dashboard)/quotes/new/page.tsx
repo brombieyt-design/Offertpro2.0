@@ -16,9 +16,10 @@ import {
   User,
   BookmarkPlus,
 } from "lucide-react";
-import { cn, formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import SavedItemsPicker from "@/components/SavedItemsPicker";
 import { useToast } from "@/components/Toast";
+import { useSettings } from "@/lib/settings-context";
 import type { SavedItem } from "@/types";
 
 interface LineItemData {
@@ -46,6 +47,7 @@ const steps = [
 export default function NewQuotePage() {
   const router = useRouter();
   const { toast } = useToast();
+  const { formatMoney: formatCurrency, vatRate: defaultVatRate } = useSettings();
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1 state
@@ -241,7 +243,7 @@ export default function NewQuotePage() {
   };
 
   const subtotal = items.reduce((sum, item) => sum + lineTotal(item), 0);
-  const vat = subtotal * 0.25;
+  const vat = subtotal * (defaultVatRate / 100);
   const total = subtotal + vat;
 
   // ROT/RUT calculation

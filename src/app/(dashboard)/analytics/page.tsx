@@ -8,7 +8,8 @@ import {
   Send,
   RefreshCw,
 } from "lucide-react";
-import { formatCurrency, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import type { Quote, Invoice } from "@/types";
 
 const timeFilters = [
@@ -124,6 +125,7 @@ function computeAnalytics(quotes: Quote[], invoices: Invoice[]) {
 }
 
 export default function AnalyticsPage() {
+  const { formatMoney: formatCurrency } = useSettings();
   const [timeRange, setTimeRange] = useState(12);
   const [loading, setLoading] = useState(true);
   const [quotes, setQuotes] = useState<Quote[]>([]);

@@ -16,13 +16,15 @@ import {
   Plus,
 } from "lucide-react";
 import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
-import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { formatDate, cn } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import { useToast } from "@/components/Toast";
 import type { Quote, LineItem } from "@/types";
 
 export default function QuoteDetailPage() {
   const router = useRouter();
   const params = useParams();
+  const { formatMoney: formatCurrency } = useSettings();
   const id = params.id as string;
   const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(true);

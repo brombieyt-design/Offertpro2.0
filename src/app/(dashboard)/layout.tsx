@@ -6,6 +6,7 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import Header from "@/components/dashboard/Header";
 import MobileBottomNav from "@/components/dashboard/MobileBottomNav";
 import { UserProvider } from "@/lib/user-context";
+import { SettingsProvider } from "@/lib/settings-context";
 import { ToastProvider } from "@/components/Toast";
 import { ThemeProvider } from "@/lib/theme-context";
 
@@ -24,6 +25,7 @@ export default function DashboardLayout({
   return (
     <ThemeProvider>
       <UserProvider>
+        <SettingsProvider>
         <ToastProvider>
           <div className="flex h-screen overflow-hidden">
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -42,6 +44,7 @@ export default function DashboardLayout({
             <KeyboardShortcuts />
           </div>
         </ToastProvider>
+        </SettingsProvider>
       </UserProvider>
     </ThemeProvider>
   );

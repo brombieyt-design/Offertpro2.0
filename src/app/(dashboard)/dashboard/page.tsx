@@ -29,7 +29,8 @@ import {
   FileClock,
   FileX,
 } from "lucide-react";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { useSettings } from "@/lib/settings-context";
 import {
   quoteStatusLabels,
   quoteStatusColors,
@@ -150,6 +151,7 @@ function StatusDonut({
 /* ── page ──────────────────────────────────────── */
 
 export default function DashboardPage() {
+  const { formatMoney: formatCurrency } = useSettings();
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
