@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { MessageCircle, X, Send, Bot, User } from "lucide-react";
 
 /* ── Knowledge base ─────────────────────────── */
@@ -153,6 +154,14 @@ function findAnswer(input: string): { text: string; links?: { label: string; hre
 type Message = { role: "bot" | "user"; text: string; links?: { label: string; href: string }[] };
 
 export default function SupportBot() {
+  const pathname = usePathname() || "";
+  // Hide on pages that already have a fixed bottom action bar or are
+  // customer-facing (the shared offer link shouldn't show our support widget)
+  const hiddenRoutes = ["/quotes/new", "/invoices/new"];
+  const isHidden =
+    pathname.startsWith("/q/") ||
+    hiddenRoutes.some((r) => pathname === r || pathname.startsWith(r + "/"));
+
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -167,6 +176,8 @@ export default function SupportBot() {
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
+
+  if (isHidden) return null;
 
   function handleSend() {
     const trimmed = input.trim();
