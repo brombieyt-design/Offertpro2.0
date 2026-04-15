@@ -15,6 +15,7 @@ import {
   Plus,
   Wallet,
   Calendar,
+  Bell,
 } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
 import { formatDate, cn } from "@/lib/utils";
@@ -210,6 +211,25 @@ export default function InvoiceDetailPage() {
     const data = await res.json();
     toast(data.message, res.ok ? "success" : "error");
     fetchInvoice();
+  }
+
+  async function sendReminder() {
+    if (!invoice) return;
+    if (!confirm(`Skicka betalningspåminnelse till ${invoice.customer.email}?`)) return;
+    try {
+      const res = await fetch("/api/invoices/reminder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: invoice.id }),
+      });
+      const data = await res.json();
+      toast(
+        data.message || (res.ok ? "Påminnelse skickad" : "Kunde inte skicka påminnelse"),
+        res.ok ? "success" : "error"
+      );
+    } catch {
+      toast("Kunde inte skicka påminnelse", "error");
+    }
   }
 
   function lineTotal(item: LineItem) {
@@ -609,6 +629,18 @@ export default function InvoiceDetailPage() {
                 <Mail className="w-4 h-4 text-blue-500" />
                 Skicka via e-post
               </button>
+              {(invoice.status === "overdue" ||
+                invoice.status === "sent" ||
+                invoice.status === "partially_paid") &&
+                (invoice.paidAmount || 0) < invoice.total && (
+                  <button
+                    onClick={sendReminder}
+                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-xl transition-all"
+                  >
+                    <Bell className="w-4 h-4 text-amber-500" />
+                    Skicka påminnelse
+                  </button>
+                )}
               <a
                 href={`/api/invoices/pdf?id=${invoice.id}`}
                 download
