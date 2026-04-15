@@ -14,8 +14,12 @@ import {
   Package,
   Building2,
   User,
+  BookmarkPlus,
 } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
+import SavedItemsPicker from "@/components/SavedItemsPicker";
+import { useToast } from "@/components/Toast";
+import type { SavedItem } from "@/types";
 
 interface LineItemData {
   id: string;
@@ -43,6 +47,7 @@ const paymentTermsOptions = [
 
 export default function NewInvoicePage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
 
   // Step 1 state
@@ -145,9 +150,46 @@ export default function NewInvoicePage() {
     ]);
   };
 
+  const addItemFromSaved = (saved: SavedItem) => {
+    setItems((prev) => {
+      const isFirstEmpty =
+        prev.length === 1 && !prev[0].description && !prev[0].unitPrice;
+      const newItem = {
+        id: String(Date.now()) + Math.random().toString(36).slice(2, 6),
+        description: saved.description,
+        quantity: 1,
+        unitPrice: saved.unitPrice,
+        discount: 0,
+      };
+      return isFirstEmpty ? [newItem] : [...prev, newItem];
+    });
+  };
+
   const removeItem = (id: string) => {
     if (items.length > 1) {
       setItems((prev) => prev.filter((item) => item.id !== id));
+    }
+  };
+
+  const saveAsItem = async (item: LineItemData) => {
+    if (!item.description.trim() || item.unitPrice <= 0) {
+      toast("Beskrivning och à-pris krävs", "error");
+      return;
+    }
+    try {
+      const res = await fetch("/api/saved-items", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          description: item.description,
+          unitPrice: item.unitPrice,
+          category: "Övrigt",
+        }),
+      });
+      if (!res.ok) throw new Error();
+      toast("Sparad som artikel", "success");
+    } catch {
+      toast("Kunde inte spara", "error");
     }
   };
 
@@ -592,7 +634,7 @@ export default function NewInvoicePage() {
                   <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 w-28">
                     Summa
                   </th>
-                  <th className="w-10"></th>
+                  <th className="w-20"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
@@ -659,12 +701,24 @@ export default function NewInvoicePage() {
                       {formatCurrency(lineTotal(item))}
                     </td>
                     <td className="py-3.5 pl-2">
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                      <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => saveAsItem(item)}
+                          title="Spara som artikel"
+                          className="p-2 text-gray-400 hover:text-brand-600 hover:bg-brand-50 rounded-xl transition-all duration-300"
+                        >
+                          <BookmarkPlus className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          title="Ta bort rad"
+                          className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all duration-300"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -672,13 +726,16 @@ export default function NewInvoicePage() {
             </table>
           </div>
 
-          <button
-            onClick={addItem}
-            className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-all duration-300"
-          >
-            <Plus className="w-4 h-4" />
-            Lägg till rad
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={addItem}
+              className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-all duration-300"
+            >
+              <Plus className="w-4 h-4" />
+              Lägg till rad
+            </button>
+            <SavedItemsPicker onPick={addItemFromSaved} />
+          </div>
 
           {/* Summary */}
           <div className="border-t border-gray-100 pt-5 space-y-2.5">

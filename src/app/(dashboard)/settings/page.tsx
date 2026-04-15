@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Save, Check, RefreshCw } from "lucide-react";
+import { Save, Check, RefreshCw, Upload, X, Image as ImageIcon } from "lucide-react";
 import { useToast } from "@/components/Toast";
 
 const tabList = [
@@ -27,7 +27,10 @@ export default function SettingsPage() {
     address: "",
     city: "",
     zipCode: "",
+    logo: "",
+    primaryColor: "#4f46e5",
   });
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [payment, setPayment] = useState({
     bankgiro: "",
@@ -69,6 +72,29 @@ export default function SettingsPage() {
     }
     loadSettings();
   }, []);
+
+  function handleLogoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast("Endast bilder är tillåtna", "error");
+      return;
+    }
+    if (file.size > 500_000) {
+      toast("Bilden är för stor (max 500 KB)", "error");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      if (typeof result === "string") {
+        setCompany((prev) => ({ ...prev, logo: result }));
+        toast("Logotyp uppladdad", "success");
+      }
+    };
+    reader.onerror = () => toast("Kunde inte läsa filen", "error");
+    reader.readAsDataURL(file);
+  }
 
   async function handleSave(section: string) {
     const payload: Record<string, unknown> = {};
@@ -129,6 +155,83 @@ export default function SettingsPage() {
           <p className="text-sm text-gray-500 mb-5">
             Denna information visas på offerter och fakturor.
           </p>
+
+          {/* Logo upload */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Företagslogotyp
+            </label>
+            <div className="flex items-center gap-4">
+              <div className="w-24 h-24 rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 flex items-center justify-center overflow-hidden shrink-0">
+                {company.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={company.logo}
+                    alt="Logotyp"
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <ImageIcon className="w-8 h-8 text-gray-300" />
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoUpload}
+                  className="hidden"
+                />
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="inline-flex items-center gap-2 px-3 py-2 text-xs font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors w-fit"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  {company.logo ? "Byt logotyp" : "Ladda upp logotyp"}
+                </button>
+                {company.logo && (
+                  <button
+                    type="button"
+                    onClick={() => setCompany({ ...company, logo: "" })}
+                    className="inline-flex items-center gap-2 px-3 py-2 text-xs font-medium text-red-600 bg-white border border-red-100 rounded-lg hover:bg-red-50 transition-colors w-fit"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                    Ta bort
+                  </button>
+                )}
+                <p className="text-[11px] text-gray-400">
+                  PNG, JPG eller SVG. Max 500 KB.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Brand color */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Varumärkesfärg
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                type="color"
+                value={company.primaryColor}
+                onChange={(e) => setCompany({ ...company, primaryColor: e.target.value })}
+                className="w-12 h-10 rounded-lg border border-gray-200 cursor-pointer"
+              />
+              <input
+                type="text"
+                value={company.primaryColor}
+                onChange={(e) => setCompany({ ...company, primaryColor: e.target.value })}
+                placeholder="#4f46e5"
+                className="form-input w-32 font-mono text-sm"
+              />
+              <p className="text-xs text-gray-400">
+                Används som accentfärg på dina dokument.
+              </p>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-2xl">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1.5">

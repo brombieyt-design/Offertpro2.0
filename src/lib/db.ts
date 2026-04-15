@@ -13,6 +13,8 @@ export interface Settings {
     address?: string;
     city?: string;
     zipCode?: string;
+    logo?: string; // base64 data URL, max ~500KB
+    primaryColor?: string; // hex, e.g. "#4f46e5"
   };
   payment?: {
     bankgiro?: string;
