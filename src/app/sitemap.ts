@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { getAllBlogPosts } from "@/content/blog-posts";
+import { getAllBlogPostsEn } from "@/content/blog-posts-en";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
@@ -56,24 +58,59 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/en`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/en/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${SITE_URL}/en/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
+    {
+      url: `${SITE_URL}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/blog`,
+          en: `${SITE_URL}/en/blog`,
+          "x-default": `${SITE_URL}/blog`,
+        },
+      },
+    },
+    { url: `${SITE_URL}/en/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
   ];
 
-  // Blog posts
-  const blogPosts = [
-    "sa-skriver-du-en-offert-som-vinner",
-    "offert-vs-anbud-skillnaden",
-    "5-tips-for-snabbare-betalning",
-    "digitala-signaturer-guide",
-    "offertmall-gratis-ladda-ner",
-    "offert-pro-vs-fortnox",
-    "offert-pro-vs-visma",
-    "basta-offertverktyget-sverige-2026",
-  ].map((slug) => ({
-    url: `${SITE_URL}/blog/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
+  /** Swedish blog posts. If a post has an English counterpart, announce it. */
+  const blogPosts: MetadataRoute.Sitemap = getAllBlogPosts().map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: post.date,
+    changeFrequency: "monthly",
     priority: 0.6,
+    ...(post.englishSlug
+      ? {
+          alternates: {
+            languages: {
+              "sv-SE": `${SITE_URL}/blog/${post.slug}`,
+              en: `${SITE_URL}/en/blog/${post.englishSlug}`,
+              "x-default": `${SITE_URL}/blog/${post.slug}`,
+            },
+          },
+        }
+      : {}),
   }));
 
-  return [...staticRoutes, ...blogPosts];
+  /** English blog posts. If matched to a Swedish post, announce alternates. */
+  const blogPostsEn: MetadataRoute.Sitemap = getAllBlogPostsEn().map((post) => ({
+    url: `${SITE_URL}/en/blog/${post.slug}`,
+    lastModified: post.date,
+    changeFrequency: "monthly",
+    priority: 0.65,
+    ...(post.swedishSlug
+      ? {
+          alternates: {
+            languages: {
+              "sv-SE": `${SITE_URL}/blog/${post.swedishSlug}`,
+              en: `${SITE_URL}/en/blog/${post.slug}`,
+              "x-default": `${SITE_URL}/en/blog/${post.slug}`,
+            },
+          },
+        }
+      : {}),
+  }));
+
+  return [...staticRoutes, ...blogPosts, ...blogPostsEn];
 }

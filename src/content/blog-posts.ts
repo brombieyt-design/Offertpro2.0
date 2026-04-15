@@ -7,6 +7,8 @@ export interface BlogPost {
   readTime: string;
   category: string;
   tags: string[];
+  /** Optional slug of the matching English article for hreflang cross-linking. */
+  englishSlug?: string;
   content: string; // HTML content
 }
 
@@ -21,6 +23,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "8 min",
     category: "Guide",
     tags: ["offert", "tips", "säljstrategi", "småföretag"],
+    englishSlug: "how-to-write-winning-b2b-proposal",
     content: `
 <p>Att skriva en offert som faktiskt leder till affär handlar om mer än bara rätt pris. Det handlar om att kommunicera värde, bygga förtroende och göra det enkelt för kunden att säga ja.</p>
 
@@ -182,6 +185,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "7 min",
     category: "Guide",
     tags: ["e-signatur", "digital signatur", "juridik", "eIDAS"],
+    englishSlug: "eidas-e-signatures-guide",
     content: `
 <p>Digitala signaturer har revolutionerat hur svenska företag gör affärer. Men är de juridiskt giltiga? Och vilken typ behöver du? Här är allt du behöver veta.</p>
 
@@ -429,6 +433,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "10 min",
     category: "Guide",
     tags: ["offertverktyg", "offertprogram", "bästa offertverktyg", "Sverige", "2026", "jämförelse"],
+    englishSlug: "best-proposal-software-europe-2026",
     content: `
 <p>Det bästa offertverktyget i Sverige 2026 är Offert Pro för företag som prioriterar professionella offerter med e-signaturer och realtidsspårning. För komplett bokföring med grundläggande offerter passar Fortnox eller Visma bättre. Här är vår kompletta jämförelse.</p>
 

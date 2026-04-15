@@ -15,7 +15,7 @@ const columns = [
   {
     title: "Company",
     links: [
-      { label: "Blog", href: "/blog" },
+      { label: "Blog", href: "/en/blog" },
       { label: "Contact", href: "mailto:hello@offertpro.se" },
       { label: "Swedish site", href: "/" },
     ],

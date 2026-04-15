@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Clock, User, ChevronRight, Home } from "lucide-react";
 import { notFound } from "next/navigation";
-import { getBlogPost, getAllBlogPosts } from "@/content/blog-posts";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import {
+  getBlogPostEn,
+  getAllBlogPostsEn,
+} from "@/content/blog-posts-en";
+import NavbarEn from "@/components/landing/en/NavbarEn";
+import FooterEn from "@/components/landing/en/FooterEn";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 export async function generateStaticParams() {
-  return getAllBlogPosts().map((post) => ({ slug: post.slug }));
+  return getAllBlogPostsEn().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -18,35 +21,36 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = getBlogPostEn(slug);
   if (!post) return {};
 
-  const hasEnglish = !!post.englishSlug;
+  const hasSwedish = !!post.swedishSlug;
   const languages: Record<string, string> = {
-    "sv-SE": `${SITE_URL}/blog/${post.slug}`,
-    "x-default": `${SITE_URL}/blog/${post.slug}`,
+    en: `${SITE_URL}/en/blog/${post.slug}`,
+    "x-default": `${SITE_URL}/en/blog/${post.slug}`,
   };
-  if (hasEnglish) {
-    languages.en = `${SITE_URL}/en/blog/${post.englishSlug}`;
+  if (hasSwedish) {
+    languages["sv-SE"] = `${SITE_URL}/blog/${post.swedishSlug}`;
+    languages["x-default"] = `${SITE_URL}/blog/${post.swedishSlug}`;
   }
 
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `${SITE_URL}/blog/${post.slug}`,
+      canonical: `${SITE_URL}/en/blog/${post.slug}`,
       languages,
     },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
-      url: `${SITE_URL}/blog/${post.slug}`,
+      url: `${SITE_URL}/en/blog/${post.slug}`,
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
-      locale: "sv_SE",
-      alternateLocale: hasEnglish ? ["en"] : [],
+      locale: "en",
+      alternateLocale: hasSwedish ? ["sv_SE"] : [],
     },
     twitter: {
       card: "summary_large_image",
@@ -56,13 +60,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({
+export default async function EnBlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPost(slug);
+  const post = getBlogPostEn(slug);
   if (!post) notFound();
 
   const articleJsonLd = {
@@ -72,10 +76,11 @@ export default async function BlogPostPage({
     description: post.description,
     datePublished: post.date,
     dateModified: post.date,
-    inLanguage: "sv-SE",
+    inLanguage: "en",
     author: {
       "@type": "Person",
       name: post.author,
+      jobTitle: post.authorRole,
       worksFor: {
         "@type": "Organization",
         name: "Offert Pro",
@@ -91,7 +96,7 @@ export default async function BlogPostPage({
         url: `${SITE_URL}/logo.png`,
       },
     },
-    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/en/blog/${post.slug}`,
     image: `${SITE_URL}/og-image.png`,
     keywords: post.tags.join(", "),
     articleSection: post.category,
@@ -101,11 +106,32 @@ export default async function BlogPostPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Hem", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Blogg", item: `${SITE_URL}/blog` },
-      { "@type": "ListItem", position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/en/blog` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `${SITE_URL}/en/blog/${post.slug}`,
+      },
     ],
   };
+
+  const howToJsonLd = post.howToSteps
+    ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: post.title,
+        description: post.description,
+        inLanguage: "en",
+        step: post.howToSteps.map((s, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: s.name,
+          text: s.text,
+        })),
+      }
+    : null;
 
   return (
     <div className="min-h-screen bg-white">
@@ -117,7 +143,13 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <Navbar />
+      {howToJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+        />
+      )}
+      <NavbarEn />
 
       <article className="pt-32 pb-24 px-6">
         <div className="max-w-3xl mx-auto">
@@ -125,18 +157,25 @@ export default async function BlogPostPage({
           <nav aria-label="Breadcrumb" className="mb-8">
             <ol className="flex items-center gap-1.5 text-sm text-gray-400">
               <li>
-                <Link href="/" className="hover:text-indigo-600 transition-colors flex items-center gap-1">
+                <Link
+                  href="/en"
+                  className="hover:text-brand-600 transition-colors flex items-center gap-1"
+                >
                   <Home className="w-3.5 h-3.5" />
-                  <span className="sr-only">Hem</span>
+                  <span className="sr-only">Home</span>
                 </Link>
               </li>
-              <li><ChevronRight className="w-3.5 h-3.5" /></li>
               <li>
-                <Link href="/blog" className="hover:text-indigo-600 transition-colors">
-                  Blogg
+                <ChevronRight className="w-3.5 h-3.5" />
+              </li>
+              <li>
+                <Link href="/en/blog" className="hover:text-brand-600 transition-colors">
+                  Blog
                 </Link>
               </li>
-              <li><ChevronRight className="w-3.5 h-3.5" /></li>
+              <li>
+                <ChevronRight className="w-3.5 h-3.5" />
+              </li>
               <li className="text-gray-600 font-medium truncate max-w-[250px]">
                 {post.title}
               </li>
@@ -145,15 +184,15 @@ export default async function BlogPostPage({
 
           {/* Meta */}
           <div className="flex flex-wrap items-center gap-4 mb-6">
-            <span className="text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
+            <span className="text-xs font-medium text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
               {post.category}
             </span>
             <span className="flex items-center gap-1 text-sm text-gray-400">
               <Clock className="w-3.5 h-3.5" />
-              {post.readTime} läsning
+              {post.readTime} read
             </span>
             <span className="text-sm text-gray-400">
-              {new Date(post.date).toLocaleDateString("sv-SE", {
+              {new Date(post.date).toLocaleDateString("en-GB", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -168,20 +207,20 @@ export default async function BlogPostPage({
 
           {/* Author */}
           <div className="flex items-center gap-3 mb-12 pb-8 border-b border-gray-100">
-            <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
-              <User className="w-5 h-5 text-indigo-600" />
+            <div className="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center">
+              <User className="w-5 h-5 text-brand-600" />
             </div>
             <div>
               <p className="text-sm font-medium text-gray-900">{post.author}</p>
-              <p className="text-xs text-gray-500">Offert Pro</p>
+              <p className="text-xs text-gray-500">{post.authorRole}</p>
             </div>
-            {post.englishSlug && (
+            {post.swedishSlug && (
               <Link
-                href={`/en/blog/${post.englishSlug}`}
-                hrefLang="en"
-                className="ml-auto text-xs text-indigo-600 hover:text-indigo-700 font-medium"
+                href={`/blog/${post.swedishSlug}`}
+                hrefLang="sv"
+                className="ml-auto text-xs text-brand-600 hover:text-brand-700 font-medium"
               >
-                Read in English →
+                Läs på svenska →
               </Link>
             )}
           </div>
@@ -191,13 +230,16 @@ export default async function BlogPostPage({
             className="prose prose-gray prose-lg max-w-none
               prose-headings:font-bold prose-headings:tracking-tight
               prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
               prose-p:leading-relaxed prose-p:text-gray-600
-              prose-a:text-indigo-600 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+              prose-a:text-brand-600 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
               prose-li:text-gray-600
               prose-strong:text-gray-900
               prose-table:text-sm
               prose-th:bg-gray-50 prose-th:px-4 prose-th:py-2
-              prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-gray-100"
+              prose-td:px-4 prose-td:py-2 prose-td:border-b prose-td:border-gray-100
+              prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono prose-code:text-gray-800 prose-code:before:content-none prose-code:after:content-none
+              prose-pre:bg-gray-50 prose-pre:border prose-pre:border-gray-100"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
@@ -216,24 +258,24 @@ export default async function BlogPostPage({
           </div>
 
           {/* CTA */}
-          <div className="mt-12 bg-indigo-50 rounded-2xl p-8 text-center">
+          <div className="mt-12 bg-brand-50 rounded-2xl p-8 text-center">
             <h3 className="text-lg font-bold text-gray-900 mb-2">
-              Redo att skapa professionella offerter?
+              Ready to send better proposals?
             </h3>
             <p className="text-gray-600 mb-6">
-              Kom igång gratis – skapa din första offert på under 5 minuter.
+              Get started free — create your first proposal in under 5 minutes.
             </p>
             <Link
               href="/signup"
-              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors"
             >
-              Testa gratis
+              Try it free
             </Link>
           </div>
         </div>
       </article>
 
-      <Footer />
+      <FooterEn />
     </div>
   );
 }
