@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const invoice = db.invoices.find((inv) => inv.id === id);
     if (!invoice) return Response.json({ error: "Not found" }, { status: 404 });
 
-    const pdfBuffer = await generateInvoicePDF(invoice);
+    const pdfBuffer = await generateInvoicePDF(invoice, db.settings);
 
     const result = await sendEmail({
       to: invoice.customer.email,

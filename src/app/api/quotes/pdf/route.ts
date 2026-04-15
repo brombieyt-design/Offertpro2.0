@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const quote = db.quotes.find((q) => q.id === id);
     if (!quote) return Response.json({ error: "Not found" }, { status: 404 });
 
-    const pdf = await generateQuotePDF(quote);
+    const pdf = await generateQuotePDF(quote, db.settings);
 
     return new Response(new Uint8Array(pdf), {
       headers: {

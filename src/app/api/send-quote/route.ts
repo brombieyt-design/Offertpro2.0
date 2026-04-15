@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     const quote = db.quotes.find((q) => q.id === id);
     if (!quote) return Response.json({ error: "Not found" }, { status: 404 });
 
-    const pdfBuffer = await generateQuotePDF(quote);
+    const pdfBuffer = await generateQuotePDF(quote, db.settings);
 
     const result = await sendEmail({
       to: quote.customer.email,

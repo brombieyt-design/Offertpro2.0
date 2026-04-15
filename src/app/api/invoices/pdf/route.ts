@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     const invoice = db.invoices.find((inv) => inv.id === id);
     if (!invoice) return Response.json({ error: "Not found" }, { status: 404 });
 
-    const pdf = await generateInvoicePDF(invoice);
+    const pdf = await generateInvoicePDF(invoice, db.settings);
 
     return new Response(new Uint8Array(pdf), {
       headers: {
