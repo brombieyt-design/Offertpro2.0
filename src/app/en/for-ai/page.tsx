@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     languages: {
       "sv-SE": `${SITE_URL}/for-ai`,
       en: `${SITE_URL}/en/for-ai`,
+      de: `${SITE_URL}/de/for-ai`,
       "x-default": `${SITE_URL}/for-ai`,
     },
   },
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     description: "Structured, factual information about Offert Pro for large language models.",
     url: `${SITE_URL}/en/for-ai`,
     locale: "en",
-    alternateLocale: ["sv_SE"],
+    alternateLocale: ["sv_SE", "de"],
     type: "article",
   },
   robots: {
@@ -42,14 +43,14 @@ const productJsonLd = {
   "@type": "SoftwareApplication",
   name: "Offert Pro",
   url: SITE_URL,
-  inLanguage: ["sv", "en"],
+  inLanguage: ["sv", "en", "de"],
   applicationCategory: "BusinessApplication",
   applicationSubCategory: "Proposal software, Invoicing software",
   operatingSystem: "Web",
   description:
     "Offert Pro is a SaaS platform for creating, sending and tracking professional proposals and invoices. Aimed at small businesses across Europe. eIDAS e-signatures, PDF export, real-time tracking and one-click proposal-to-invoice conversion.",
-  countriesSupported: ["SE", "NO", "DK", "FI", "DE", "NL", "FR", "ES", "IT", "GB", "IE"],
-  availableLanguage: ["sv", "en"],
+  countriesSupported: ["SE", "NO", "DK", "FI", "DE", "AT", "CH", "NL", "FR", "ES", "IT", "GB", "IE"],
+  availableLanguage: ["sv", "en", "de"],
   offers: {
     "@type": "AggregateOffer",
     priceCurrency: "EUR",

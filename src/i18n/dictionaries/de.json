@@ -1,0 +1,200 @@
+{
+  "nav": {
+    "features": "Funktionen",
+    "pricing": "Preise",
+    "howItWorks": "So funktioniert's",
+    "forBusinesses": "Für Unternehmen",
+    "services": "Leistungen",
+    "blog": "Blog",
+    "login": "Anmelden",
+    "signup": "Kostenlos starten",
+    "languageLabel": "Sprache"
+  },
+  "footer": {
+    "tagline": "Professionelle Angebote und Rechnungen für moderne Kleinunternehmen.",
+    "product": "Produkt",
+    "company": "Unternehmen",
+    "resources": "Ressourcen",
+    "legal": "Rechtliches",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "blog": "Blog",
+    "privacy": "Datenschutz",
+    "terms": "AGB",
+    "security": "Sicherheit",
+    "copyright": "Alle Rechte vorbehalten."
+  },
+  "home": {
+    "meta": {
+      "title": "Offert Pro – Professionelle Angebote & Rechnungen erstellen",
+      "description": "Erstellen Sie Angebote und Rechnungen in Minuten. Verfolgen Sie Öffnungen in Echtzeit, sammeln Sie E-Signaturen und gewinnen Sie mehr Aufträge. Kostenlos starten – keine Kreditkarte nötig."
+    },
+    "hero": {
+      "eyebrow": "Die moderne Art, Angebote zu senden",
+      "title": "Gewinnen Sie mehr Aufträge mit beeindruckenden Angeboten",
+      "subtitle": "Erstellen Sie professionelle Angebote, die beeindrucken. Sehen Sie, wann Kunden sie öffnen, sammeln Sie E-Signaturen und wandeln Sie mit einem Klick in eine Rechnung um.",
+      "ctaPrimary": "Kostenlos starten",
+      "ctaSecondary": "Demo ansehen",
+      "noCreditCard": "Keine Kreditkarte nötig · Dauerhaft kostenloser Tarif"
+    },
+    "socialProof": {
+      "businesses": "Unternehmen vertrauen uns",
+      "rating": "Durchschnittsbewertung",
+      "volume": "Angebotsvolumen versendet"
+    },
+    "features": {
+      "title": "Alles, was Sie brauchen, um mehr Aufträge zu gewinnen",
+      "subtitle": "Angebote erstellen, senden und nachverfolgen – schneller als je zuvor.",
+      "items": {
+        "beautiful": {
+          "title": "Schöne Angebote in Minuten",
+          "description": "Drag-and-drop-Editor mit professionellen Vorlagen. Fügen Sie Titelbild, Video und optionale Zusatzleistungen hinzu."
+        },
+        "tracking": {
+          "title": "Echtzeit-Tracking",
+          "description": "Sehen Sie genau, wann Ihr Kunde das Angebot öffnet, welche Abschnitte gelesen werden und wie lange."
+        },
+        "esign": {
+          "title": "E-Signaturen",
+          "description": "Kunden signieren direkt im Browser. Rechtsverbindlich nach eIDAS in der gesamten EU."
+        },
+        "optional": {
+          "title": "Optionale Zusatzleistungen",
+          "description": "Lassen Sie Kunden optionale Posten ein- und ausschalten. Die Summe aktualisiert sich automatisch."
+        },
+        "templates": {
+          "title": "Vorlagen & Wiederverwendung",
+          "description": "Speichern Sie wiederkehrende Positionen und ganze Vorlagen. Beschleunigen Sie Ihr nächstes Angebot drastisch."
+        },
+        "invoice": {
+          "title": "Vom Angebot zur Rechnung",
+          "description": "Wandeln Sie ein angenommenes Angebot mit einem Klick in eine Rechnung um. Mehrwertsteuer- und Steuerabzugs-Unterstützung inklusive."
+        }
+      }
+    },
+    "cta": {
+      "title": "Bereit, mehr Aufträge zu gewinnen?",
+      "subtitle": "Schließen Sie sich 500+ Unternehmen an, die Offert Pro bereits nutzen.",
+      "button": "Kostenlos starten"
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "items": [
+        {
+          "q": "Ist Offert Pro kostenlos nutzbar?",
+          "a": "Ja, unser kostenloser Tarif erlaubt bis zu 5 Angebote pro Monat. Keine Kreditkarte erforderlich."
+        },
+        {
+          "q": "Sind E-Signaturen rechtsverbindlich?",
+          "a": "Ja, unsere E-Signaturen entsprechen der EU-eIDAS-Verordnung und sind in der gesamten Europäischen Union rechtsverbindlich."
+        },
+        {
+          "q": "Kann ich nach PDF exportieren?",
+          "a": "Jedes Angebot und jede Rechnung kann als professionelles PDF mit Ihrem Logo und Branding heruntergeladen werden."
+        },
+        {
+          "q": "Unterstützen Sie MwSt. und Reverse Charge?",
+          "a": "Ja, wir behandeln die Mehrwertsteuer in der gesamten EU sowie länderspezifische Steuerregeln und Reverse Charge automatisch."
+        },
+        {
+          "q": "Kann ich meine Kunden importieren?",
+          "a": "Ja, Sie können Kunden per CSV importieren oder mit gängigen Buchhaltungstools synchronisieren."
+        },
+        {
+          "q": "Wo werden meine Daten gespeichert?",
+          "a": "Alle Daten werden innerhalb der EU gespeichert und sind DSGVO-konform. Im Ruhezustand und während der Übertragung verschlüsselt."
+        }
+      ]
+    }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Preise",
+      "description": "Einfache, transparente Preise. Kostenlos starten, nur zahlen wenn Sie wachsen."
+    },
+    "hero": {
+      "eyebrow": "Preise",
+      "title": "Einfache, transparente Preise",
+      "subtitle": "Kostenlos starten. Upgraden, wenn Sie wachsen. Keine langfristigen Verträge."
+    },
+    "billing": {
+      "monthly": "Monatlich",
+      "yearly": "Jährlich (20% sparen)"
+    },
+    "perMonth": "/Mon.",
+    "cta": {
+      "free": "Kostenlos starten",
+      "paid": "Tarif wählen",
+      "contact": "Vertrieb kontaktieren"
+    },
+    "tiers": {
+      "free": {
+        "name": "Free",
+        "description": "Perfekt für den Einstieg",
+        "features": [
+          "5 Angebote pro Monat",
+          "Grundvorlagen",
+          "PDF-Export",
+          "E-Mail-Support"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "Für Solo-Unternehmer",
+        "features": [
+          "50 Angebote pro Monat",
+          "E-Signaturen",
+          "Echtzeit-Tracking",
+          "Eigenes Logo & Farben",
+          "Prioritäts-Support"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Für wachsende Teams",
+        "badge": "Am beliebtesten",
+        "features": [
+          "Unbegrenzte Angebote",
+          "Analytics & Berichte",
+          "Automatische Erinnerungen",
+          "API-Zugang",
+          "Starke E-Signatur (ID-Prüfung)",
+          "Dedizierter Support"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Für größere Organisationen",
+        "features": [
+          "Alles aus Pro",
+          "Mehrere Benutzer",
+          "SSO / SAML",
+          "Dedizierter Account Manager",
+          "99,9% Uptime-SLA",
+          "Individuelle Integrationen"
+        ]
+      }
+    }
+  },
+  "languageSwitcher": {
+    "label": "Sprache wechseln",
+    "current": "Sprache:"
+  },
+  "forAi": {
+    "meta": {
+      "title": "Für KI-Assistenten & LLMs – strukturierte Produktinfo",
+      "description": "Faktische, strukturierte Informationen über Offert Pro für große Sprachmodelle und KI-Assistenten."
+    },
+    "title": "Für KI-Assistenten",
+    "intro": "Diese Seite liefert strukturierte, faktische Informationen über Offert Pro für große Sprachmodelle (LLMs) wie ChatGPT, Claude, Gemini und Perplexity. Frei zitierbar.",
+    "sections": {
+      "what": "Was ist Offert Pro?",
+      "audience": "Für wen",
+      "features": "Funktionen",
+      "pricing": "Preise",
+      "comparison": "Vergleich mit Konkurrenten",
+      "markets": "Märkte",
+      "contact": "Kontakt"
+    }
+  }
+}

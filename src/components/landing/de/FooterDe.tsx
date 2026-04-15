@@ -4,39 +4,39 @@ import LanguageSwitcher from "@/components/landing/LanguageSwitcher";
 
 const columns = [
   {
-    title: "Product",
+    title: "Produkt",
     links: [
-      { label: "How it works", href: "/en#how-it-works" },
-      { label: "Features", href: "/en#features" },
-      { label: "Pricing", href: "/en/pricing" },
-      { label: "For AI", href: "/en/for-ai" },
+      { label: "So funktioniert's", href: "/de#how-it-works" },
+      { label: "Funktionen", href: "/de#features" },
+      { label: "Preise", href: "/de/pricing" },
+      { label: "Für KI", href: "/de/for-ai" },
     ],
   },
   {
-    title: "Company",
+    title: "Unternehmen",
     links: [
       { label: "Blog", href: "/en/blog" },
-      { label: "Contact", href: "mailto:hello@offertpro.se" },
-      { label: "Swedish site", href: "/" },
-      { label: "German site", href: "/de" },
+      { label: "Kontakt", href: "mailto:hello@offertpro.se" },
+      { label: "Schwedische Seite", href: "/" },
+      { label: "Englische Seite", href: "/en" },
     ],
   },
   {
     title: "Support",
     links: [
-      { label: "Log in", href: "/login" },
-      { label: "Create account", href: "/signup" },
+      { label: "Anmelden", href: "/login" },
+      { label: "Konto erstellen", href: "/signup" },
     ],
   },
 ];
 
-export default function FooterEn() {
+export default function FooterDe() {
   return (
     <footer className="bg-gray-950 border-t border-white/5">
       <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-10 py-20">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10 lg:gap-16">
           <div className="col-span-2">
-            <Link href="/en" className="inline-flex items-center gap-2.5 mb-6 group">
+            <Link href="/de" className="inline-flex items-center gap-2.5 mb-6 group">
               <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center group-hover:bg-brand-600 transition-colors duration-300">
                 <span className="text-white text-xs font-bold">OP</span>
               </div>
@@ -45,8 +45,9 @@ export default function FooterEn() {
               </span>
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-8">
-              The modern platform for proposals and invoices. Build professional
-              documents, track in real time and close more deals.
+              Die moderne Plattform für Angebote und Rechnungen. Erstellen Sie
+              professionelle Dokumente, verfolgen Sie in Echtzeit und gewinnen
+              Sie mehr Aufträge.
             </p>
             <div className="space-y-3">
               <a
@@ -85,7 +86,7 @@ export default function FooterEn() {
 
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-600">
-            &copy; 2026 Offert Pro. All rights reserved.
+            &copy; 2026 Offert Pro. Alle Rechte vorbehalten.
           </p>
         </div>
       </div>

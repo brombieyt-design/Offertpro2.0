@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "sv_SE",
-    alternateLocale: ["en"],
+    alternateLocale: ["en", "de"],
     images: [
       {
         url: "/og-image.png",
@@ -87,6 +87,7 @@ export const metadata: Metadata = {
     languages: {
       "sv-SE": SITE_URL,
       en: `${SITE_URL}/en`,
+      de: `${SITE_URL}/de`,
       "x-default": SITE_URL,
     },
   },
@@ -108,7 +109,7 @@ const organizationJsonLd = {
     "@type": "ContactPoint",
     email: "hej@offertpro.se",
     contactType: "customer service",
-    availableLanguage: "Swedish",
+    availableLanguage: ["Swedish", "English", "German"],
   },
   address: {
     "@type": "PostalAddress",

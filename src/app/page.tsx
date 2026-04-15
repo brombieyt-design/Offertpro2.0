@@ -24,12 +24,13 @@ export const metadata: Metadata = {
     languages: {
       "sv-SE": SITE_URL,
       en: `${SITE_URL}/en`,
+      de: `${SITE_URL}/de`,
       "x-default": SITE_URL,
     },
   },
   openGraph: {
     locale: "sv_SE",
-    alternateLocale: ["en"],
+    alternateLocale: ["en", "de"],
     url: SITE_URL,
   },
 };

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Clock, User, ChevronRight, Home } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getBlogPost, getAllBlogPosts } from "@/content/blog-posts";
+import { authorNameToSlug, getAuthorByName } from "@/content/authors";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
@@ -73,15 +74,25 @@ export default async function BlogPostPage({
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: "sv-SE",
-    author: {
-      "@type": "Person",
-      name: post.author,
-      worksFor: {
-        "@type": "Organization",
-        name: "Offert Pro",
-        url: SITE_URL,
-      },
-    },
+    author: (() => {
+      const authorBio = getAuthorByName(post.author);
+      return {
+        "@type": "Person",
+        name: post.author,
+        ...(authorBio
+          ? {
+              jobTitle: authorBio.roleSv,
+              url: `${SITE_URL}/authors/${authorBio.slug}`,
+              knowsAbout: authorBio.expertise,
+            }
+          : {}),
+        worksFor: {
+          "@type": "Organization",
+          name: "Offert Pro",
+          url: SITE_URL,
+        },
+      };
+    })(),
     publisher: {
       "@type": "Organization",
       name: "Offert Pro",
@@ -172,8 +183,15 @@ export default async function BlogPostPage({
               <User className="w-5 h-5 text-indigo-600" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">{post.author}</p>
-              <p className="text-xs text-gray-500">Offert Pro</p>
+              <Link
+                href={`/authors/${authorNameToSlug(post.author)}`}
+                className="text-sm font-medium text-gray-900 hover:text-indigo-600 transition-colors"
+              >
+                {post.author}
+              </Link>
+              <p className="text-xs text-gray-500">
+                {getAuthorByName(post.author)?.roleSv ?? "Offert Pro"}
+              </p>
             </div>
             {post.englishSlug && (
               <Link

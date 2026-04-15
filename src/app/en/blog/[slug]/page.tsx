@@ -6,6 +6,7 @@ import {
   getBlogPostEn,
   getAllBlogPostsEn,
 } from "@/content/blog-posts-en";
+import { authorNameToSlug, getAuthorByName } from "@/content/authors";
 import NavbarEn from "@/components/landing/en/NavbarEn";
 import FooterEn from "@/components/landing/en/FooterEn";
 
@@ -77,16 +78,25 @@ export default async function EnBlogPostPage({
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: "en",
-    author: {
-      "@type": "Person",
-      name: post.author,
-      jobTitle: post.authorRole,
-      worksFor: {
-        "@type": "Organization",
-        name: "Offert Pro",
-        url: SITE_URL,
-      },
-    },
+    author: (() => {
+      const authorBio = getAuthorByName(post.author);
+      return {
+        "@type": "Person",
+        name: post.author,
+        jobTitle: post.authorRole,
+        ...(authorBio
+          ? {
+              url: `${SITE_URL}/en/authors/${authorBio.slug}`,
+              knowsAbout: authorBio.expertise,
+            }
+          : {}),
+        worksFor: {
+          "@type": "Organization",
+          name: "Offert Pro",
+          url: SITE_URL,
+        },
+      };
+    })(),
     publisher: {
       "@type": "Organization",
       name: "Offert Pro",
@@ -211,7 +221,12 @@ export default async function EnBlogPostPage({
               <User className="w-5 h-5 text-brand-600" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">{post.author}</p>
+              <Link
+                href={`/en/authors/${authorNameToSlug(post.author)}`}
+                className="text-sm font-medium text-gray-900 hover:text-brand-600 transition-colors"
+              >
+                {post.author}
+              </Link>
               <p className="text-xs text-gray-500">{post.authorRole}</p>
             </div>
             {post.swedishSlug && (

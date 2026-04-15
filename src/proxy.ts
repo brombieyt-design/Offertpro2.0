@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { locales, defaultLocale, type Locale } from "@/i18n/config";
+import {
+  locales,
+  defaultLocale,
+  localePathPrefix,
+  type Locale,
+} from "@/i18n/config";
 
 const protectedPaths = ["/dashboard", "/quotes", "/invoices", "/clients", "/analytics", "/settings", "/templates", "/saved-items"];
 const authPaths = ["/login", "/signup"];
@@ -116,23 +121,30 @@ export function proxy(request: NextRequest) {
     );
   }
 
-  // ── 5) Soft locale suggestion for first-time English visitors ───
+  // ── 5) Soft locale suggestion for first-time non-Swedish visitors ─
   // Only redirect if: on a Swedish-root marketing page, no explicit locale
-  // cookie, browser prefers English. This preserves Swedish SEO for all
-  // direct URL hits and bots (bots usually don't send Accept-Language: en).
-  const isEnTree = pathname === "/en" || pathname.startsWith("/en/");
+  // cookie, browser prefers a supported non-Swedish locale. This preserves
+  // Swedish SEO for all direct URL hits and bots (bots usually don't send a
+  // strong Accept-Language preference).
+  const inLocalizedTree = locales.some((loc) => {
+    if (loc === defaultLocale) return false;
+    const prefix = localePathPrefix[loc];
+    return pathname === prefix || pathname.startsWith(`${prefix}/`);
+  });
   const hasLocalePref = request.cookies.get(LOCALE_COOKIE)?.value;
 
-  if (
-    !isEnTree &&
-    !hasLocalePref &&
-    isMarketingRoot(pathname) &&
-    pickLocaleFromAcceptLanguage(request.headers.get("accept-language")) ===
-      "en"
-  ) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname === "/" ? "/en" : `/en${pathname}`;
-    return NextResponse.redirect(url);
+  if (!inLocalizedTree && !hasLocalePref && isMarketingRoot(pathname)) {
+    const preferred = pickLocaleFromAcceptLanguage(
+      request.headers.get("accept-language")
+    );
+    if (preferred !== defaultLocale) {
+      const prefix = localePathPrefix[preferred];
+      if (prefix) {
+        const url = request.nextUrl.clone();
+        url.pathname = pathname === "/" ? prefix : `${prefix}${pathname}`;
+        return NextResponse.redirect(url);
+      }
+    }
   }
 
   return NextResponse.next();

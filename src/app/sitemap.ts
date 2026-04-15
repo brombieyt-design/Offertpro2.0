@@ -1,13 +1,17 @@
 import type { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/content/blog-posts";
 import { getAllBlogPostsEn } from "@/content/blog-posts-en";
+import { getAllAuthors } from "@/content/authors";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
-  /** Swedish routes with English alternates announced via `alternates.languages`. */
+  /**
+   * Swedish routes with English and German alternates announced via
+   * `alternates.languages`. Swedish is the x-default.
+   */
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}`,
@@ -18,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           "sv-SE": SITE_URL,
           en: `${SITE_URL}/en`,
+          de: `${SITE_URL}/de`,
           "x-default": SITE_URL,
         },
       },
@@ -31,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           "sv-SE": `${SITE_URL}/pricing`,
           en: `${SITE_URL}/en/pricing`,
+          de: `${SITE_URL}/de/pricing`,
           "x-default": `${SITE_URL}/pricing`,
         },
       },
@@ -44,6 +50,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           "sv-SE": `${SITE_URL}/for-ai`,
           en: `${SITE_URL}/en/for-ai`,
+          de: `${SITE_URL}/de/for-ai`,
           "x-default": `${SITE_URL}/for-ai`,
         },
       },
@@ -53,11 +60,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/for-foretag`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE_URL}/login`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/signup`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    // English tree
-    { url: `${SITE_URL}/en`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
-    { url: `${SITE_URL}/en/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
-    { url: `${SITE_URL}/en/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     {
       url: `${SITE_URL}/blog`,
       lastModified: now,
@@ -71,7 +73,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    // English tree
+    { url: `${SITE_URL}/en`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/en/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${SITE_URL}/en/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     { url: `${SITE_URL}/en/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    // German tree
+    { url: `${SITE_URL}/de`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${SITE_URL}/de/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
+    { url: `${SITE_URL}/de/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
   ];
 
   /** Swedish blog posts. If a post has an English counterpart, announce it. */
@@ -112,5 +122,63 @@ export default function sitemap(): MetadataRoute.Sitemap {
       : {}),
   }));
 
-  return [...staticRoutes, ...blogPosts, ...blogPostsEn];
+  /** Author profile pages with reciprocal hreflang between sv and en. */
+  const authorRoutes: MetadataRoute.Sitemap = [
+    {
+      url: `${SITE_URL}/authors`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/authors`,
+          en: `${SITE_URL}/en/authors`,
+          "x-default": `${SITE_URL}/authors`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/authors`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/authors`,
+          en: `${SITE_URL}/en/authors`,
+          "x-default": `${SITE_URL}/authors`,
+        },
+      },
+    },
+    ...getAllAuthors().flatMap((a): MetadataRoute.Sitemap => [
+      {
+        url: `${SITE_URL}/authors/${a.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.4,
+        alternates: {
+          languages: {
+            "sv-SE": `${SITE_URL}/authors/${a.slug}`,
+            en: `${SITE_URL}/en/authors/${a.slug}`,
+            "x-default": `${SITE_URL}/authors/${a.slug}`,
+          },
+        },
+      },
+      {
+        url: `${SITE_URL}/en/authors/${a.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.4,
+        alternates: {
+          languages: {
+            "sv-SE": `${SITE_URL}/authors/${a.slug}`,
+            en: `${SITE_URL}/en/authors/${a.slug}`,
+            "x-default": `${SITE_URL}/authors/${a.slug}`,
+          },
+        },
+      },
+    ]),
+  ];
+
+  return [...staticRoutes, ...blogPosts, ...blogPostsEn, ...authorRoutes];
 }

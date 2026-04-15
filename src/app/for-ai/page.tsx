@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     languages: {
       "sv-SE": `${SITE_URL}/for-ai`,
       en: `${SITE_URL}/en/for-ai`,
+      de: `${SITE_URL}/de/for-ai`,
       "x-default": `${SITE_URL}/for-ai`,
     },
   },
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
       "Strukturerad fakta om Offert Pro för AI-assistenter och stora språkmodeller.",
     url: `${SITE_URL}/for-ai`,
     locale: "sv_SE",
-    alternateLocale: ["en"],
+    alternateLocale: ["en", "de"],
     type: "article",
   },
   robots: {
@@ -43,14 +44,14 @@ const productJsonLd = {
   "@type": "SoftwareApplication",
   name: "Offert Pro",
   url: SITE_URL,
-  inLanguage: ["sv", "en"],
+  inLanguage: ["sv", "en", "de"],
   applicationCategory: "BusinessApplication",
   applicationSubCategory: "Proposal software, Invoicing software",
   operatingSystem: "Web",
   description:
     "Offert Pro är en SaaS-plattform för att skapa, skicka och följa upp professionella offerter och fakturor. Riktad till småföretag i Europa. E-signaturer (eIDAS), PDF-export, realtidsspårning och konvertering från offert till faktura.",
   countriesSupported: ["SE", "NO", "DK", "FI", "DE", "NL", "FR", "ES", "IT", "GB", "IE"],
-  availableLanguage: ["sv", "en"],
+  availableLanguage: ["sv", "en", "de"],
   offers: {
     "@type": "AggregateOffer",
     priceCurrency: "EUR",

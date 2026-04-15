@@ -4,38 +4,48 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { Globe, Check } from "lucide-react";
-import { locales, localeNames, type Locale } from "@/i18n/config";
+import {
+  locales,
+  localeNames,
+  localePathPrefix,
+  defaultLocale,
+  type Locale,
+} from "@/i18n/config";
 
 /**
  * Derive the current locale from the pathname. Swedish is the default and
- * lives at the root; English lives under /en.
+ * lives at the root; other locales live under their prefix (/en, /de, ...).
  */
 function getCurrentLocale(pathname: string): Locale {
-  if (pathname === "/en" || pathname.startsWith("/en/")) return "en";
-  return "sv";
+  // Check non-default locales first (longest match wins implicitly because
+  // default has an empty prefix).
+  for (const loc of locales) {
+    if (loc === defaultLocale) continue;
+    const prefix = localePathPrefix[loc];
+    if (pathname === prefix || pathname.startsWith(`${prefix}/`)) return loc;
+  }
+  return defaultLocale;
 }
 
 /**
- * Map the current pathname to its equivalent in the target locale.
- * Swedish <-> English paths mirror each other for the supported marketing
- * pages ("/" <-> "/en", "/pricing" <-> "/en/pricing", "/for-ai" <-> "/en/for-ai").
- * For unsupported paths we fall back to the locale root.
+ * Map the current pathname to its equivalent in the target locale. Marketing
+ * pages mirror each other across locales (`/pricing`, `/for-ai`, `/blog`, ...),
+ * so we strip the current locale prefix and add the target one.
  */
 function buildHref(pathname: string, target: Locale): string {
   const current = getCurrentLocale(pathname);
   if (current === target) return pathname;
 
-  // Strip existing locale prefix
+  // Strip current locale prefix to obtain the locale-agnostic path.
+  const currentPrefix = localePathPrefix[current];
   const stripped =
-    current === "en"
-      ? pathname === "/en"
-        ? "/"
-        : pathname.replace(/^\/en/, "") || "/"
+    currentPrefix && (pathname === currentPrefix || pathname.startsWith(`${currentPrefix}/`))
+      ? pathname.slice(currentPrefix.length) || "/"
       : pathname;
 
-  if (target === "sv") return stripped === "" ? "/" : stripped;
-  // target === "en"
-  return stripped === "/" ? "/en" : `/en${stripped}`;
+  const targetPrefix = localePathPrefix[target];
+  if (!targetPrefix) return stripped === "" ? "/" : stripped;
+  return stripped === "/" ? targetPrefix : `${targetPrefix}${stripped}`;
 }
 
 interface Props {
@@ -70,9 +80,16 @@ export default function LanguageSwitcher({
     };
   }, [open]);
 
+  const ariaLabel =
+    current === "sv"
+      ? "Byt språk"
+      : current === "de"
+      ? "Sprache wechseln"
+      : "Change language";
+
   if (variant === "inline") {
     return (
-      <div className={`flex items-center gap-2 ${className}`}>
+      <div className={`flex items-center gap-2 flex-wrap ${className}`}>
         <Globe className="h-4 w-4 text-gray-400" aria-hidden="true" />
         {locales.map((loc, i) => {
           const active = loc === current;
@@ -106,7 +123,7 @@ export default function LanguageSwitcher({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label={current === "sv" ? "Byt språk" : "Change language"}
+        aria-label={ariaLabel}
         className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors duration-200 px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-brand-500/30"
       >
         <Globe className="h-4 w-4" aria-hidden="true" />

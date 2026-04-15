@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     languages: {
       "sv-SE": `${SITE_URL}/pricing`,
       en: `${SITE_URL}/en/pricing`,
+      de: `${SITE_URL}/de/pricing`,
       "x-default": `${SITE_URL}/pricing`,
     },
   },
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     title: "Priser – Offert Pro",
     description: "Planer från 0 kr/mån. Gratis att börja, ingen bindningstid.",
     locale: "sv_SE",
-    alternateLocale: ["en"],
+    alternateLocale: ["en", "de"],
     url: `${SITE_URL}/pricing`,
   },
 };

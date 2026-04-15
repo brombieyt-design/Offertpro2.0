@@ -14,20 +14,20 @@ import {
   Zap,
   Globe,
 } from "lucide-react";
-import NavbarEn from "@/components/landing/en/NavbarEn";
-import HeroEn from "@/components/landing/en/HeroEn";
-import FooterEn from "@/components/landing/en/FooterEn";
+import NavbarDe from "@/components/landing/de/NavbarDe";
+import HeroDe from "@/components/landing/de/HeroDe";
+import FooterDe from "@/components/landing/de/FooterDe";
 import { getDictionary } from "@/i18n/dictionaries";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const dict = await getDictionary("en");
+  const dict = await getDictionary("de");
   return {
     title: dict.home.meta.title,
     description: dict.home.meta.description,
     alternates: {
-      canonical: `${SITE_URL}/en`,
+      canonical: `${SITE_URL}/de`,
       languages: {
         "sv-SE": SITE_URL,
         en: `${SITE_URL}/en`,
@@ -38,9 +38,9 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: dict.home.meta.title,
       description: dict.home.meta.description,
-      url: `${SITE_URL}/en`,
-      locale: "en",
-      alternateLocale: ["sv_SE", "de"],
+      url: `${SITE_URL}/de`,
+      locale: "de",
+      alternateLocale: ["sv_SE", "en"],
       type: "website",
       siteName: "Offert Pro",
       images: [
@@ -48,7 +48,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "/og-image.png",
           width: 1200,
           height: 630,
-          alt: "Offert Pro – Proposals & invoices for modern small businesses",
+          alt: "Offert Pro – Professionelle Angebote und Rechnungen für moderne Kleinunternehmen",
         },
       ],
     },
@@ -63,8 +63,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const featureIcons = [FileText, Eye, PenTool, Copy, Bell, GitBranch];
 
-export default async function EnHome() {
-  const dict = await getDictionary("en");
+export default async function DeHome() {
+  const dict = await getDictionary("de");
   const featureEntries = Object.entries(dict.home.features.items) as [
     string,
     { title: string; description: string }
@@ -73,7 +73,7 @@ export default async function EnHome() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    inLanguage: "en",
+    inLanguage: "de",
     mainEntity: dict.home.faq.items.map((item) => ({
       "@type": "Question",
       name: item.q,
@@ -85,7 +85,7 @@ export default async function EnHome() {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
+      { "@type": "ListItem", position: 1, name: "Startseite", item: `${SITE_URL}/de` },
     ],
   };
 
@@ -93,8 +93,8 @@ export default async function EnHome() {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: "Offert Pro",
-    url: `${SITE_URL}/en`,
-    inLanguage: "en",
+    url: `${SITE_URL}/de`,
+    inLanguage: "de",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     description: dict.home.meta.description,
@@ -113,12 +113,12 @@ export default async function EnHome() {
       worstRating: "1",
     },
     featureList: [
-      "Professional PDF proposals",
-      "E-signatures (eIDAS)",
-      "Real-time tracking",
-      "Reusable templates",
-      "Automated reminders",
-      "Quote to invoice",
+      "Professionelle PDF-Angebote",
+      "E-Signaturen (eIDAS)",
+      "Echtzeit-Tracking",
+      "Wiederverwendbare Vorlagen",
+      "Automatische Erinnerungen",
+      "Angebot zu Rechnung",
     ],
   };
 
@@ -137,14 +137,14 @@ export default async function EnHome() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
       />
 
-      <NavbarEn />
+      <NavbarDe />
 
       <section aria-label="Hero">
-        <HeroEn />
+        <HeroDe />
       </section>
 
       {/* Social proof / stats */}
-      <section aria-label="Social proof" className="py-20 px-4 sm:px-6 lg:px-8 bg-white border-y border-gray-100">
+      <section aria-label="Social Proof" className="py-20 px-4 sm:px-6 lg:px-8 bg-white border-y border-gray-100">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             <div>
@@ -152,11 +152,11 @@ export default async function EnHome() {
               <p className="mt-2 text-sm text-gray-500">{dict.home.socialProof.businesses}</p>
             </div>
             <div>
-              <p className="text-4xl font-bold tracking-tight text-gray-900">4.9<span className="text-lg text-gray-400">/5</span></p>
+              <p className="text-4xl font-bold tracking-tight text-gray-900">4,9<span className="text-lg text-gray-400">/5</span></p>
               <p className="mt-2 text-sm text-gray-500">{dict.home.socialProof.rating}</p>
             </div>
             <div>
-              <p className="text-4xl font-bold tracking-tight text-gray-900">€2.4M+</p>
+              <p className="text-4xl font-bold tracking-tight text-gray-900">2,4 Mio. €+</p>
               <p className="mt-2 text-sm text-gray-500">{dict.home.socialProof.volume}</p>
             </div>
           </div>
@@ -166,14 +166,14 @@ export default async function EnHome() {
       {/* Features */}
       <section
         id="features"
-        aria-label="Features"
+        aria-label="Funktionen"
         className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-gray-50/50"
       >
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 mb-6">
               <span className="text-xs font-semibold text-purple-600 tracking-wide">
-                Features
+                Funktionen
               </span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">
@@ -211,18 +211,18 @@ export default async function EnHome() {
       {/* How it works */}
       <section
         id="how-it-works"
-        aria-label="How it works"
+        aria-label="So funktioniert's"
         className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white"
       >
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
               <span className="text-xs font-semibold text-brand-600 tracking-wide">
-                How it works
+                So funktioniert&apos;s
               </span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900">
-              Three steps to your perfect proposal
+              Drei Schritte zu Ihrem perfekten Angebot
             </h2>
           </div>
 
@@ -230,21 +230,21 @@ export default async function EnHome() {
             {[
               {
                 number: "01",
-                title: "Create your proposal",
+                title: "Angebot erstellen",
                 description:
-                  "Fill in client details, add line items and pick from saved templates. Done in under 2 minutes.",
+                  "Kundendaten eingeben, Positionen hinzufügen und aus gespeicherten Vorlagen wählen. In unter 2 Minuten fertig.",
               },
               {
                 number: "02",
-                title: "Send & track",
+                title: "Senden & verfolgen",
                 description:
-                  "Send as PDF via email. See in real time when your client opens and reads the proposal.",
+                  "Als PDF per E-Mail versenden. In Echtzeit sehen, wann Ihr Kunde das Angebot öffnet und liest.",
               },
               {
                 number: "03",
-                title: "Close the deal",
+                title: "Auftrag gewinnen",
                 description:
-                  "When accepted, convert to invoice with one click. Everything flows automatically.",
+                  "Angenommenes Angebot mit einem Klick in eine Rechnung umwandeln. Alles fließt automatisch.",
               },
             ].map((step) => (
               <div
@@ -269,14 +269,14 @@ export default async function EnHome() {
       </section>
 
       {/* Trust signals */}
-      <section aria-label="Trust and security" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
+      <section aria-label="Vertrauen und Sicherheit" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
-              { icon: Shield, title: "GDPR compliant", body: "Data stored within the EU, encrypted at rest and in transit." },
-              { icon: PenTool, title: "eIDAS e-signatures", body: "Legally binding electronic signatures across the European Union." },
-              { icon: Zap, title: "Built for speed", body: "Create, send and track a proposal in under 5 minutes." },
-              { icon: Globe, title: "Multi-currency", body: "Works in EUR, SEK, USD, GBP and more — VAT/tax aware." },
+              { icon: Shield, title: "DSGVO-konform", body: "Daten in der EU gespeichert, im Ruhezustand und bei Übertragung verschlüsselt." },
+              { icon: PenTool, title: "eIDAS E-Signaturen", body: "Rechtsverbindliche elektronische Signaturen in der gesamten Europäischen Union." },
+              { icon: Zap, title: "Auf Geschwindigkeit ausgelegt", body: "Ein Angebot in weniger als 5 Minuten erstellen, senden und nachverfolgen." },
+              { icon: Globe, title: "Mehrere Währungen", body: "Funktioniert mit EUR, SEK, USD, GBP und mehr — MwSt.-kompatibel." },
             ].map(({ icon: Icon, title, body }) => (
               <div key={title} className="bg-white rounded-2xl border border-gray-100 p-6">
                 <Icon className="h-5 w-5 text-brand-600 mb-4" />
@@ -289,7 +289,7 @@ export default async function EnHome() {
       </section>
 
       {/* Pricing teaser */}
-      <section aria-label="Pricing" className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white">
+      <section aria-label="Preise" className="py-28 md:py-36 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
@@ -309,10 +309,10 @@ export default async function EnHome() {
             {(["free", "starter", "pro", "enterprise"] as const).map((tier) => {
               const t = dict.pricing.tiers[tier];
               const prices: Record<typeof tier, string> = {
-                free: "€0",
-                starter: "€19",
-                pro: "€49",
-                enterprise: "Custom",
+                free: "0 €",
+                starter: "19 €",
+                pro: "49 €",
+                enterprise: "Individuell",
               };
               const isPro = tier === "pro";
               return (
@@ -367,8 +367,8 @@ export default async function EnHome() {
           </div>
 
           <p className="mt-10 text-center text-sm text-gray-400">
-            <Link href="/en/pricing" className="text-brand-600 hover:text-brand-700 font-medium">
-              Compare all plans →
+            <Link href="/de/pricing" className="text-brand-600 hover:text-brand-700 font-medium">
+              Alle Tarife vergleichen →
             </Link>
           </p>
         </div>
@@ -404,27 +404,27 @@ export default async function EnHome() {
       </section>
 
       {/* Testimonials */}
-      <section aria-label="Testimonials" className="py-28 px-4 sm:px-6 lg:px-8 bg-white">
+      <section aria-label="Kundenstimmen" className="py-28 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 quote:
-                  "We cut the time from first contact to signed proposal by 60%. Clients love the clean design and the real-time tracking gives us a huge edge.",
+                  "Wir haben die Zeit vom ersten Kontakt bis zum unterzeichneten Angebot um 60% reduziert. Kunden lieben das saubere Design und das Echtzeit-Tracking verschafft uns einen enormen Vorteil.",
                 author: "Sara Lindqvist",
-                role: "Founder, Studio North",
+                role: "Gründerin, Studio North",
               },
               {
                 quote:
-                  "The best investment we've made this year. Setup took 20 minutes and we closed our first deal through Offert Pro the same week.",
+                  "Die beste Investition des Jahres. Die Einrichtung dauerte 20 Minuten und wir haben in derselben Woche den ersten Auftrag über Offert Pro gewonnen.",
                 author: "Marco Bianchi",
                 role: "CEO, Bianchi Consulting",
               },
               {
                 quote:
-                  "Polished, simple and it just works. The e-signature flow alone saved us from rolling our own.",
+                  "Durchdacht, einfach und funktioniert einfach. Schon der E-Signatur-Flow hat uns davor bewahrt, etwas Eigenes zu bauen.",
                 author: "Ines Dubois",
-                role: "Operations lead, Atelier Paris",
+                role: "Operations Lead, Atelier Paris",
               },
             ].map((t) => (
               <figure
@@ -465,17 +465,17 @@ export default async function EnHome() {
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
             <Link
-              href="/en/pricing"
+              href="/de/pricing"
               className="inline-flex items-center justify-center px-8 py-4 text-sm font-semibold text-white bg-white/10 hover:bg-white/20 rounded-full transition-all border border-white/20"
             >
-              See pricing
+              Preise ansehen
             </Link>
           </div>
           <p className="mt-6 text-sm text-white/60">{dict.home.hero.noCreditCard}</p>
         </div>
       </section>
 
-      <FooterEn />
+      <FooterDe />
     </main>
   );
 }
