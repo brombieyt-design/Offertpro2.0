@@ -306,7 +306,11 @@ export default function Header({ onMenuToggle }: HeaderProps) {
             )}
           </div>
 
-          <button className="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors">
+          <button
+            onClick={() => window.dispatchEvent(new Event("open-shortcuts"))}
+            title="Tangentbordsgenvägar (?)"
+            className="p-2 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
+          >
             <HelpCircle className="w-[18px] h-[18px]" />
           </button>
         </div>

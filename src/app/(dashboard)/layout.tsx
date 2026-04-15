@@ -1,12 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import Sidebar from "@/components/dashboard/Sidebar";
 import Header from "@/components/dashboard/Header";
 import MobileBottomNav from "@/components/dashboard/MobileBottomNav";
 import { UserProvider } from "@/lib/user-context";
 import { ToastProvider } from "@/components/Toast";
 import { ThemeProvider } from "@/lib/theme-context";
+
+// Lazy-load non-critical client widgets
+const CommandPalette = dynamic(() => import("@/components/CommandPalette"), { ssr: false });
+const ShortcutsModal = dynamic(() => import("@/components/ShortcutsModal"), { ssr: false });
+const KeyboardShortcuts = dynamic(() => import("@/components/KeyboardShortcuts"), { ssr: false });
 
 export default function DashboardLayout({
   children,
@@ -31,6 +37,9 @@ export default function DashboardLayout({
               </main>
             </div>
             <MobileBottomNav />
+            <CommandPalette />
+            <ShortcutsModal />
+            <KeyboardShortcuts />
           </div>
         </ToastProvider>
       </UserProvider>

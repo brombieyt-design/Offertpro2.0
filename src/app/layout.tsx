@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import "./globals.css";
-import SupportBot from "@/components/SupportBot";
+import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
+
+// Lazy-load SupportBot — not critical for first paint
+const SupportBot = dynamic(() => import("@/components/SupportBot"));
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 const SITE_NAME = "Offert Pro";
@@ -158,6 +162,16 @@ export default function RootLayout({
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="alternate" type="application/rss+xml" title="Offert Pro Blogg" href="/blog/feed.xml" />
+        {/* Resource hints for performance */}
+        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="theme-color" content="#4F46E5" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0f1117" media="(prefers-color-scheme: dark)" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Offert Pro" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -173,6 +187,7 @@ export default function RootLayout({
         </a>
         {children}
         <SupportBot />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );
