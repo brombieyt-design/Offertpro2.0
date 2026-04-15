@@ -15,6 +15,9 @@ import {
   Building2,
   User,
   BookmarkPlus,
+  ImagePlus,
+  Sparkles,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SavedItemsPicker from "@/components/SavedItemsPicker";
@@ -28,6 +31,7 @@ interface LineItemData {
   quantity: number;
   unitPrice: number;
   discount: number;
+  optional?: boolean;
 }
 
 interface TemplateData {
@@ -40,9 +44,12 @@ interface TemplateData {
 const steps = [
   { number: 1, label: "Kundinformation" },
   { number: 2, label: "Radartiklar" },
-  { number: 3, label: "Förhandsvisning" },
-  { number: 4, label: "Skicka" },
+  { number: 3, label: "Presentation" },
+  { number: 4, label: "Förhandsvisning" },
+  { number: 5, label: "Skicka" },
 ];
+
+const MAX_COVER_BYTES = 500 * 1024; // 500 KB before base64 overhead
 
 export default function NewQuotePage() {
   const router = useRouter();
@@ -71,10 +78,17 @@ export default function NewQuotePage() {
 
   // Step 2 state
   const [items, setItems] = useState<LineItemData[]>([
-    { id: "1", description: "", quantity: 1, unitPrice: 0, discount: 0 },
+    { id: "1", description: "", quantity: 1, unitPrice: 0, discount: 0, optional: false },
   ]);
 
-  // Step 4 state
+  // Step 3 state (Cling-style presentation)
+  const [coverImage, setCoverImage] = useState<string>("");
+  const [introText, setIntroText] = useState<string>("");
+  const [termsText, setTermsText] = useState<string>(
+    "Offerten är giltig i 30 dagar från datumet ovan. Priserna är angivna exkl. moms. Eventuella ändringar i omfattning kan påverka pris och leveranstid. Vid accept binder båda parter sig till villkoren."
+  );
+
+  // Step 5 state
   const [deliveryEmail, setDeliveryEmail] = useState(true);
   const [deliveryLink, setDeliveryLink] = useState(false);
   const [sendEmail, setSendEmail] = useState("");
@@ -96,16 +110,32 @@ export default function NewQuotePage() {
         if (draft.customerType) setCustomerType(draft.customerType);
         if (draft.taxDeduction) setTaxDeduction(draft.taxDeduction);
         if (draft.laborCost) setLaborCost(draft.laborCost);
+        if (typeof draft.coverImage === "string") setCoverImage(draft.coverImage);
+        if (typeof draft.introText === "string") setIntroText(draft.introText);
+        if (typeof draft.termsText === "string") setTermsText(draft.termsText);
       } catch {}
     }
   }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      localStorage.setItem(DRAFT_KEY, JSON.stringify({ formData, items, sendEmail, customerType, taxDeduction, laborCost }));
+      localStorage.setItem(
+        DRAFT_KEY,
+        JSON.stringify({
+          formData,
+          items,
+          sendEmail,
+          customerType,
+          taxDeduction,
+          laborCost,
+          coverImage,
+          introText,
+          termsText,
+        })
+      );
     }, 500);
     return () => clearTimeout(timeout);
-  }, [formData, items, sendEmail, customerType, taxDeduction, laborCost]);
+  }, [formData, items, sendEmail, customerType, taxDeduction, laborCost, coverImage, introText, termsText]);
 
   function clearDraft() {
     localStorage.removeItem(DRAFT_KEY);
@@ -134,6 +164,7 @@ export default function NewQuotePage() {
         quantity: item.quantity,
         unitPrice: item.unitPrice,
         discount: item.discount ?? 0,
+        optional: item.optional ?? false,
       }))
     );
     setShowTemplates(false);
@@ -179,6 +210,7 @@ export default function NewQuotePage() {
         quantity: 1,
         unitPrice: 0,
         discount: 0,
+        optional: false,
       },
     ]);
   };
@@ -194,9 +226,36 @@ export default function NewQuotePage() {
         quantity: 1,
         unitPrice: saved.unitPrice,
         discount: 0,
+        optional: false,
       };
       return isFirstEmpty ? [newItem] : [...prev, newItem];
     });
+  };
+
+  const toggleOptional = (id: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, optional: !item.optional } : item
+      )
+    );
+  };
+
+  const handleCoverUpload = async (file: File | null) => {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast("Välj en bildfil", "error");
+      return;
+    }
+    if (file.size > MAX_COVER_BYTES) {
+      toast("Bilden är för stor (max 500 KB)", "error");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") setCoverImage(reader.result);
+    };
+    reader.onerror = () => toast("Kunde inte läsa bilden", "error");
+    reader.readAsDataURL(file);
   };
 
   const removeItem = (id: string) => {
@@ -267,12 +326,14 @@ export default function NewQuotePage() {
   };
 
   const goNext = () => {
-    if (canProceed() && currentStep < 4) setCurrentStep(currentStep + 1);
+    if (canProceed() && currentStep < 5) setCurrentStep(currentStep + 1);
   };
 
   const goBack = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
+
+  const hasOptionalItems = items.some((i) => i.optional);
 
   return (
     <div className="space-y-8 pb-28">
@@ -638,6 +699,9 @@ export default function NewQuotePage() {
                   <th className="text-right text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 w-28">
                     Summa
                   </th>
+                  <th className="text-center text-xs font-medium text-gray-500 uppercase tracking-wider pb-4 w-20">
+                    Valfri
+                  </th>
                   <th className="w-20"></th>
                 </tr>
               </thead>
@@ -704,6 +768,16 @@ export default function NewQuotePage() {
                     <td className="py-3.5 text-right text-sm font-semibold text-gray-900">
                       {formatCurrency(lineTotal(item))}
                     </td>
+                    <td className="py-3.5 text-center">
+                      <label className="inline-flex items-center justify-center cursor-pointer" title="Låt kunden välja till/från denna rad">
+                        <input
+                          type="checkbox"
+                          checked={Boolean(item.optional)}
+                          onChange={() => toggleOptional(item.id)}
+                          className="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+                        />
+                      </label>
+                    </td>
                     <td className="py-3.5 pl-2">
                       <div className="flex items-center gap-1">
                         <button
@@ -767,12 +841,122 @@ export default function NewQuotePage() {
                 </div>
               </>
             )}
+            {hasOptionalItems && (
+              <p className="text-xs text-gray-500 pt-2">
+                Valfria rader är inkluderade i totalen som standard. Kunden kan själv välja bort dem på offertsidan.
+              </p>
+            )}
           </div>
         </div>
       )}
 
-      {/* Step 3: Preview */}
+      {/* Step 3: Presentation (Cling-style) */}
       {currentStep === 3 && (
+        <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-7">
+          <div>
+            <h2 className="text-lg font-semibold tracking-tight text-gray-900">
+              Presentation
+            </h2>
+            <p className="text-sm text-gray-500 mt-1">
+              Gör offerten personlig med omslagsbild, hälsning och villkor. Visas på den delbara offertsidan.
+            </p>
+          </div>
+
+          {/* Cover image */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Omslagsbild <span className="text-gray-400 font-normal">(valfritt)</span>
+            </label>
+            {coverImage ? (
+              <div className="relative rounded-2xl overflow-hidden border border-gray-200 bg-gray-50">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={coverImage}
+                  alt="Omslag"
+                  className="w-full h-48 sm:h-64 object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => setCoverImage("")}
+                  className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm hover:bg-white rounded-full shadow-sm text-gray-600 hover:text-red-600 transition-all"
+                  title="Ta bort bild"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center gap-2 h-48 sm:h-56 rounded-2xl border-2 border-dashed border-gray-200 hover:border-indigo-300 hover:bg-indigo-50/40 cursor-pointer transition-all duration-300">
+                <ImagePlus className="w-8 h-8 text-gray-400" />
+                <span className="text-sm font-medium text-gray-700">
+                  Klicka för att ladda upp
+                </span>
+                <span className="text-xs text-gray-400">
+                  PNG eller JPG, max 500 KB
+                </span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => handleCoverUpload(e.target.files?.[0] ?? null)}
+                />
+              </label>
+            )}
+          </div>
+
+          {/* Intro text */}
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Hälsning <span className="text-gray-400 font-normal">(valfritt)</span>
+              </label>
+              <span className="inline-flex items-center gap-1 text-xs text-gray-400">
+                <Sparkles className="w-3 h-3" /> Personligt intryck
+              </span>
+            </div>
+            <textarea
+              className="form-input"
+              rows={5}
+              placeholder={`Hej ${formData.name || "[namn]"}!\n\nTack för intresset. Här kommer vårt förslag baserat på vårt samtal. Hör av dig om du har frågor!`}
+              value={introText}
+              onChange={(e) => setIntroText(e.target.value)}
+            />
+            <p className="text-xs text-gray-400 mt-1.5">
+              Visas överst på offertsidan, ovanför radartiklar.
+            </p>
+          </div>
+
+          {/* Terms text */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Villkor
+            </label>
+            <textarea
+              className="form-input"
+              rows={5}
+              placeholder="Betalningsvillkor, giltighetstid, ansvar…"
+              value={termsText}
+              onChange={(e) => setTermsText(e.target.value)}
+            />
+            <p className="text-xs text-gray-400 mt-1.5">
+              Visas längst ner på offertsidan, innan signering.
+            </p>
+          </div>
+
+          {hasOptionalItems && (
+            <div className="rounded-xl bg-indigo-50 border border-indigo-100 p-4">
+              <p className="text-sm font-medium text-indigo-900">
+                Valfria rader upptäckta
+              </p>
+              <p className="text-xs text-indigo-700 mt-1">
+                Kunden kan välja till eller bort de markerade valfria raderna direkt i offerten. Totalen uppdateras automatiskt.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Step 4: Preview */}
+      {currentStep === 4 && (
         <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-7">
           <div>
             <h2 className="text-lg font-semibold tracking-tight text-gray-900">
@@ -784,7 +968,16 @@ export default function NewQuotePage() {
           </div>
 
           {/* PDF-like preview */}
-          <div className="border border-gray-200/80 rounded-2xl p-4 sm:p-6 md:p-10 max-w-2xl mx-auto space-y-6 sm:space-y-10 shadow-sm bg-white">
+          <div className="border border-gray-200/80 rounded-2xl overflow-hidden max-w-2xl mx-auto shadow-sm bg-white">
+            {coverImage && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={coverImage}
+                alt="Omslag"
+                className="w-full h-40 sm:h-56 object-cover"
+              />
+            )}
+            <div className="p-4 sm:p-6 md:p-10 space-y-6 sm:space-y-10">
             {/* Company header */}
             <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-start">
               <div>
@@ -829,6 +1022,13 @@ export default function NewQuotePage() {
               )}
             </div>
 
+            {/* Intro text */}
+            {introText.trim() && (
+              <div className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
+                {introText}
+              </div>
+            )}
+
             {/* Items table */}
             <table className="w-full text-sm">
               <thead>
@@ -857,6 +1057,11 @@ export default function NewQuotePage() {
                     <tr key={item.id}>
                       <td className="py-3 text-gray-900">
                         {item.description}
+                        {item.optional && (
+                          <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-indigo-50 text-indigo-700">
+                            Valfri
+                          </span>
+                        )}
                       </td>
                       <td className="py-3 text-right text-gray-600">
                         {item.quantity}
@@ -905,12 +1110,25 @@ export default function NewQuotePage() {
                 </>
               )}
             </div>
+
+            {/* Terms */}
+            {termsText.trim() && (
+              <div className="pt-6 border-t border-gray-100">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  Villkor
+                </p>
+                <p className="text-xs text-gray-600 whitespace-pre-wrap leading-relaxed">
+                  {termsText}
+                </p>
+              </div>
+            )}
+            </div>
           </div>
         </div>
       )}
 
-      {/* Step 4: Send */}
-      {currentStep === 4 && (
+      {/* Step 5: Send */}
+      {currentStep === 5 && (
         <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-7">
           <div>
             <h2 className="text-lg font-semibold tracking-tight text-gray-900">
@@ -1009,6 +1227,9 @@ export default function NewQuotePage() {
                   status: "draft",
                   taxDeduction: taxDeduction !== "none" ? taxDeduction : undefined,
                   laborCost: laborCost > 0 ? laborCost : undefined,
+                  coverImage: coverImage || undefined,
+                  introText: introText.trim() || undefined,
+                  termsText: termsText.trim() || undefined,
                 }),
               });
               clearDraft();
@@ -1018,7 +1239,7 @@ export default function NewQuotePage() {
           >
             Spara utkast
           </button>
-          {currentStep < 4 ? (
+          {currentStep < 5 ? (
             <button
               onClick={goNext}
               disabled={!canProceed()}
@@ -1050,6 +1271,9 @@ export default function NewQuotePage() {
                     status: "sent",
                     taxDeduction: taxDeduction !== "none" ? taxDeduction : undefined,
                     laborCost: laborCost > 0 ? laborCost : undefined,
+                    coverImage: coverImage || undefined,
+                    introText: introText.trim() || undefined,
+                    termsText: termsText.trim() || undefined,
                   }),
                 });
                 clearDraft();

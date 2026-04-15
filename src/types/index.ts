@@ -31,6 +31,10 @@ export interface LineItem {
   quantity: number;
   unitPrice: number;
   discount?: number;
+  /** Optional add-on the customer can include/exclude on the public offer page */
+  optional?: boolean;
+  /** Whether the customer has opted in to this optional item (default true = included) */
+  selected?: boolean;
 }
 
 export interface Quote {
@@ -45,6 +49,23 @@ export interface Quote {
   taxDeduction?: TaxDeduction;
   laborCost?: number;
   tags?: string[];
+  /** Cling-style interactive offer fields ------------------------------- */
+  /** Base64 data URL or external URL shown as the hero on /q/[token] */
+  coverImage?: string;
+  /** Presentation text shown above line items (plain text, line breaks preserved) */
+  introText?: string;
+  /** Terms block shown below line items */
+  termsText?: string;
+  /** Random URL-safe token used to build the public share URL /q/[token] */
+  shareToken?: string;
+  /** First time the customer opened the public page */
+  openedAt?: string;
+  /** When the customer accepted the offer */
+  acceptedAt?: string;
+  /** When the customer rejected the offer */
+  rejectedAt?: string;
+  /** Customer's name as typed in the signature box */
+  signedBy?: string;
 }
 
 export interface Payment {

@@ -14,6 +14,12 @@ import {
   Save,
   X,
   Plus,
+  ExternalLink,
+  CheckCircle2,
+  XCircle,
+  Eye,
+  FileText,
+  Check,
 } from "lucide-react";
 import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
 import { formatDate, cn } from "@/lib/utils";
@@ -31,7 +37,44 @@ export default function QuoteDetailPage() {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [converting, setConverting] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const { toast } = useToast();
+
+  function shareUrl(token?: string) {
+    if (!token) return "";
+    if (typeof window !== "undefined") {
+      return `${window.location.origin}/q/${token}`;
+    }
+    return `/q/${token}`;
+  }
+
+  async function copyShareLink() {
+    if (!quote?.shareToken) return;
+    const url = shareUrl(quote.shareToken);
+    try {
+      await navigator.clipboard.writeText(url);
+      setLinkCopied(true);
+      toast("Länk kopierad", "success");
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      toast("Kunde inte kopiera", "error");
+    }
+  }
+
+  function formatDateTime(iso?: string) {
+    if (!iso) return "";
+    try {
+      return new Date(iso).toLocaleString("sv-SE", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      });
+    } catch {
+      return iso;
+    }
+  }
 
   // Edit state
   const [editItems, setEditItems] = useState<LineItem[]>([]);
@@ -556,6 +599,143 @@ export default function QuoteDetailPage() {
 
         {/* Sidebar */}
         <div className="space-y-6">
+          {/* Share link (Cling-style public offer page) */}
+          {quote.shareToken && (
+            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100/80 p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <ExternalLink className="w-4 h-4 text-indigo-600" />
+                <h3 className="text-sm font-semibold text-gray-900">Delbar offertlänk</h3>
+              </div>
+              <p className="text-xs text-gray-600 mb-4">
+                Skicka den här länken till kunden för en interaktiv offert med e-signering.
+              </p>
+              <div className="flex items-stretch gap-2">
+                <input
+                  readOnly
+                  value={shareUrl(quote.shareToken)}
+                  onFocus={(e) => e.currentTarget.select()}
+                  className="flex-1 min-w-0 px-3 py-2 text-xs font-mono text-gray-700 bg-white border border-indigo-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-200"
+                />
+                <button
+                  onClick={copyShareLink}
+                  className={cn(
+                    "inline-flex items-center gap-1 px-3 py-2 text-xs font-medium rounded-xl transition-all shrink-0",
+                    linkCopied
+                      ? "bg-green-600 text-white"
+                      : "bg-indigo-600 text-white hover:bg-indigo-700"
+                  )}
+                  title="Kopiera länk"
+                >
+                  {linkCopied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" />
+                      Kopierad
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      Kopiera
+                    </>
+                  )}
+                </button>
+              </div>
+              <a
+                href={shareUrl(quote.shareToken)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-indigo-700 hover:text-indigo-800"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                Öppna i ny flik
+              </a>
+            </div>
+          )}
+
+          {/* Activity timeline */}
+          <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-6">
+            <h3 className="text-sm font-semibold text-gray-900 mb-4">Aktivitet</h3>
+            <ol className="space-y-4">
+              <li className="flex gap-3">
+                <div className="flex flex-col items-center">
+                  <div className="w-7 h-7 rounded-full bg-gray-100 text-gray-500 flex items-center justify-center shrink-0">
+                    <FileText className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="w-px flex-1 bg-gray-100 mt-1" />
+                </div>
+                <div className="pb-1 min-w-0">
+                  <p className="text-sm font-medium text-gray-900">Skapad</p>
+                  <p className="text-xs text-gray-500 mt-0.5">{formatDate(quote.createdAt)}</p>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={cn(
+                      "w-7 h-7 rounded-full flex items-center justify-center shrink-0",
+                      quote.openedAt
+                        ? "bg-blue-100 text-blue-600"
+                        : "bg-gray-50 text-gray-300"
+                    )}
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="w-px flex-1 bg-gray-100 mt-1" />
+                </div>
+                <div className="pb-1 min-w-0">
+                  <p className={cn("text-sm font-medium", quote.openedAt ? "text-gray-900" : "text-gray-400")}>
+                    Öppnad av kund
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {quote.openedAt ? formatDateTime(quote.openedAt) : "Väntar på att kunden öppnar"}
+                  </p>
+                </div>
+              </li>
+              <li className="flex gap-3">
+                <div className="flex flex-col items-center">
+                  <div
+                    className={cn(
+                      "w-7 h-7 rounded-full flex items-center justify-center shrink-0",
+                      quote.acceptedAt
+                        ? "bg-emerald-100 text-emerald-600"
+                        : quote.rejectedAt
+                          ? "bg-red-100 text-red-600"
+                          : "bg-gray-50 text-gray-300"
+                    )}
+                  >
+                    {quote.rejectedAt ? (
+                      <XCircle className="w-3.5 h-3.5" />
+                    ) : (
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                    )}
+                  </div>
+                </div>
+                <div className="min-w-0">
+                  {quote.acceptedAt ? (
+                    <>
+                      <p className="text-sm font-medium text-emerald-700">Accepterad</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{formatDateTime(quote.acceptedAt)}</p>
+                      {quote.signedBy && (
+                        <p className="text-xs text-gray-500 mt-1">
+                          Signerad av <span className="font-medium text-gray-700">{quote.signedBy}</span>
+                        </p>
+                      )}
+                    </>
+                  ) : quote.rejectedAt ? (
+                    <>
+                      <p className="text-sm font-medium text-red-700">Avvisad</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{formatDateTime(quote.rejectedAt)}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm font-medium text-gray-400">Beslut</p>
+                      <p className="text-xs text-gray-500 mt-0.5">Väntar på kundens svar</p>
+                    </>
+                  )}
+                </div>
+              </li>
+            </ol>
+          </div>
+
           {/* Quick actions */}
           <div className="bg-white rounded-2xl border border-gray-100/60 shadow-sm p-6">
             <h3 className="text-sm font-semibold text-gray-900 mb-4">Snabbåtgärder</h3>
