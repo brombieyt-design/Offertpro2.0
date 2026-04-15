@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail, Search, Copy, CheckSquare } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search, Copy, CheckSquare, ClipboardList } from "lucide-react";
 import { invoiceStatusLabels, invoiceStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/components/Toast";
+import EmptyState from "@/components/EmptyState";
 import type { Invoice, InvoiceStatus } from "@/types";
 
 const tabs: { label: string; value: InvoiceStatus | "all" }[] = [
@@ -29,10 +30,12 @@ export default function InvoicesPage() {
     setLoading(true);
     try {
       const res = await fetch("/api/invoices");
-      const data = res.ok ? await res.json() : [];
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
       setInvoices(Array.isArray(data) ? data : []);
     } catch {
       setInvoices([]);
+      toast("Kunde inte ladda fakturor. Försök igen.", "error");
     } finally {
       setLoading(false);
     }
@@ -55,12 +58,18 @@ export default function InvoicesPage() {
 
   async function deleteInvoice(id: string) {
     if (!confirm("Vill du ta bort denna faktura?")) return;
-    await fetch("/api/invoices", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    });
-    fetchInvoices();
+    try {
+      const res = await fetch("/api/invoices", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (!res.ok) throw new Error();
+      toast("Faktura borttagen", "success");
+      fetchInvoices();
+    } catch {
+      toast("Kunde inte ta bort faktura.", "error");
+    }
   }
 
   async function duplicateInvoice(invoice: Invoice) {
@@ -75,8 +84,12 @@ export default function InvoicesPage() {
           paymentTerms: invoice.paymentTerms,
         }),
       });
-      if (res.ok) fetchInvoices();
-    } catch {}
+      if (!res.ok) throw new Error();
+      toast("Faktura duplicerad", "success");
+      fetchInvoices();
+    } catch {
+      toast("Kunde inte duplicera faktura.", "error");
+    }
   }
 
   function toggleSelect(id: string) {
@@ -267,6 +280,14 @@ export default function InvoicesPage() {
           <div className="px-4 sm:px-7 py-16 text-center text-sm text-gray-400">
             Laddar fakturor...
           </div>
+        ) : invoices.length === 0 ? (
+          <EmptyState
+            icon={ClipboardList}
+            title="Inga fakturor ännu"
+            description="Skapa din första faktura och få betalt snabbare med automatiska påminnelser och Swish/QR-betalning."
+            actionLabel="Skapa din första faktura"
+            actionHref="/invoices/new"
+          />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[600px]">

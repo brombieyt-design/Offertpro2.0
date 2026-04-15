@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft, Copy, CheckSquare } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Download, Mail, Search, ArrowRightLeft, Copy, CheckSquare, FileText } from "lucide-react";
 import { quoteStatusLabels, quoteStatusColors } from "@/lib/constants";
 import { formatCurrency, formatDate, cn } from "@/lib/utils";
 import { useToast } from "@/components/Toast";
+import EmptyState from "@/components/EmptyState";
 import type { Quote, QuoteStatus } from "@/types";
 
 const tabs: { label: string; value: QuoteStatus | "all" }[] = [
@@ -32,10 +33,12 @@ export default function QuotesPage() {
     setLoading(true);
     try {
       const res = await fetch("/api/quotes");
-      const data = res.ok ? await res.json() : [];
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
       setQuotes(Array.isArray(data) ? data : []);
     } catch {
       setQuotes([]);
+      toast("Kunde inte ladda offerter. Försök igen.", "error");
     } finally {
       setLoading(false);
     }
@@ -58,12 +61,18 @@ export default function QuotesPage() {
 
   async function deleteQuote(id: string) {
     if (!confirm("Vill du ta bort denna offert?")) return;
-    await fetch("/api/quotes", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    });
-    fetchQuotes();
+    try {
+      const res = await fetch("/api/quotes", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (!res.ok) throw new Error();
+      toast("Offert borttagen", "success");
+      fetchQuotes();
+    } catch {
+      toast("Kunde inte ta bort offert.", "error");
+    }
   }
 
   async function convertToInvoice(quote: Quote) {
@@ -80,9 +89,11 @@ export default function QuotesPage() {
           paymentTerms: "30 dagar netto",
         }),
       });
-      if (res.ok) {
-        router.push("/invoices");
-      }
+      if (!res.ok) throw new Error();
+      toast("Faktura skapad från offert", "success");
+      router.push("/invoices");
+    } catch {
+      toast("Kunde inte skapa faktura.", "error");
     } finally {
       setConverting(null);
     }
@@ -99,8 +110,12 @@ export default function QuotesPage() {
           status: "draft",
         }),
       });
-      if (res.ok) fetchQuotes();
-    } catch {}
+      if (!res.ok) throw new Error();
+      toast("Offert duplicerad", "success");
+      fetchQuotes();
+    } catch {
+      toast("Kunde inte duplicera offert.", "error");
+    }
   }
 
   function toggleSelect(id: string) {
@@ -246,6 +261,14 @@ export default function QuotesPage() {
           <div className="px-4 sm:px-7 py-16 text-center text-sm text-gray-400">
             Laddar offerter...
           </div>
+        ) : quotes.length === 0 ? (
+          <EmptyState
+            icon={FileText}
+            title="Inga offerter ännu"
+            description="Skapa din första offert på under en minut och vinn fler affärer med professionell design."
+            actionLabel="Skapa din första offert"
+            actionHref="/quotes/new"
+          />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[600px]">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Sidebar from "@/components/dashboard/Sidebar";
 import Header from "@/components/dashboard/Header";
+import MobileBottomNav from "@/components/dashboard/MobileBottomNav";
 import { UserProvider } from "@/lib/user-context";
 import { ToastProvider } from "@/components/Toast";
 import { ThemeProvider } from "@/lib/theme-context";
@@ -22,10 +23,14 @@ export default function DashboardLayout({
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
             <div className="flex-1 flex flex-col min-w-0">
               <Header onMenuToggle={() => setSidebarOpen((prev) => !prev)} />
-              <main className="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8">
+              <main
+                id="main-content"
+                className="flex-1 overflow-y-auto bg-gray-50 p-4 sm:p-6 lg:p-8 pb-24 lg:pb-8"
+              >
                 {children}
               </main>
             </div>
+            <MobileBottomNav />
           </div>
         </ToastProvider>
       </UserProvider>

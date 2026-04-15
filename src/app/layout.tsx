@@ -168,6 +168,9 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <a href="#main-content" className="skip-to-content">
+          Hoppa till innehåll
+        </a>
         {children}
         <SupportBot />
       </body>
