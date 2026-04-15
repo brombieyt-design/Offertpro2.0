@@ -16,6 +16,7 @@ import {
   LogOut,
   Moon,
   Sun,
+  Package,
 } from "lucide-react";
 import { navItems } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -30,6 +31,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Users,
   BarChart3,
   Settings,
+  Package,
 };
 
 interface SidebarProps {

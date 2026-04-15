@@ -5,6 +5,7 @@ export const navItems = [
   { label: "Offerter", href: "/quotes", icon: "FileText" },
   { label: "Fakturor", href: "/invoices", icon: "ClipboardList" },
   { label: "Mallar", href: "/templates", icon: "Copy" },
+  { label: "Artiklar", href: "/saved-items", icon: "Package" },
   { label: "Kunder", href: "/clients", icon: "Users" },
   { label: "Analys", href: "/analytics", icon: "BarChart3" },
   { label: "Inställningar", href: "/settings", icon: "Settings" },

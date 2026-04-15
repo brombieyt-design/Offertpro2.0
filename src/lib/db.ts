@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import type { Customer, Quote, Invoice, Template, User, Session } from "@/types";
+import type { Customer, Quote, Invoice, Template, User, Session, SavedItem } from "@/types";
 
 export interface Settings {
   company?: {
@@ -44,6 +44,7 @@ export interface DB {
   users: User[];
   sessions: Session[];
   settings?: Settings;
+  savedItems?: SavedItem[];
 }
 
 const DB_PATH = path.join(process.cwd(), "data", "db.json");

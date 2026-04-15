@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const protectedPaths = ["/dashboard", "/quotes", "/invoices", "/clients", "/analytics", "/settings", "/templates"];
+const protectedPaths = ["/dashboard", "/quotes", "/invoices", "/clients", "/analytics", "/settings", "/templates", "/saved-items"];
 const authPaths = ["/login", "/signup"];
 const publicApiPaths = ["/api/auth/login", "/api/auth/signup", "/api/auth/logout"];
 
@@ -88,6 +88,7 @@ export const config = {
     "/analytics/:path*",
     "/settings/:path*",
     "/templates/:path*",
+    "/saved-items/:path*",
     "/login",
     "/signup",
     "/api/:path*",

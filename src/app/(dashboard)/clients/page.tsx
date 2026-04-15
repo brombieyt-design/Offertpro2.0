@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Users, Building2, Phone, MapPin, X, RefreshCw, Pencil, Trash2, Search, User } from "lucide-react";
+import Link from "next/link";
+import { Plus, Users, Building2, Phone, MapPin, X, RefreshCw, Pencil, Trash2, Search, User, Upload, Eye } from "lucide-react";
 import type { Customer, CustomerType } from "@/types";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/Toast";
 
 const emptyForm = { name: "", email: "", phone: "", company: "", city: "", address: "", orgNr: "", personnummer: "", customerType: "business" as CustomerType };
 
@@ -15,6 +17,61 @@ export default function ClientsPage() {
   const [search, setSearch] = useState("");
   const [deleting, setDeleting] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
+  const [importing, setImporting] = useState(false);
+  const { toast } = useToast();
+
+  async function handleCsvImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImporting(true);
+    try {
+      const text = await file.text();
+      const lines = text.split(/\r?\n/).filter((l) => l.trim());
+      if (lines.length < 2) {
+        toast("CSV-filen är tom eller saknar rader.", "error");
+        return;
+      }
+      const headers = lines[0]
+        .toLowerCase()
+        .split(/[,;]/)
+        .map((h) => h.trim().replace(/"/g, ""));
+      const rows = lines.slice(1).map((line) => {
+        const cells = line.split(/[,;]/).map((c) => c.trim().replace(/^"|"$/g, ""));
+        const obj: Record<string, string> = {};
+        headers.forEach((h, i) => (obj[h] = cells[i] || ""));
+        return {
+          name: obj.name || obj.namn || obj.kontaktperson || "",
+          email: obj.email || obj["e-post"] || obj.mejl || "",
+          phone: obj.phone || obj.telefon || obj.tel || "",
+          company: obj.company || obj.företag || obj.foretag || "",
+          city: obj.city || obj.stad || obj.ort || "",
+          address: obj.address || obj.adress || "",
+          orgNr: obj.orgnr || obj["org.nr"] || obj.organisationsnummer || "",
+          customerType: obj.company || obj.företag ? "business" : "private",
+        };
+      }).filter((r) => r.name && r.email);
+
+      if (rows.length === 0) {
+        toast("Inga giltiga rader hittades. Säkerställ att kolumnerna 'name' och 'email' finns.", "error");
+        return;
+      }
+
+      const res = await fetch("/api/customers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(rows),
+      });
+      if (!res.ok) throw new Error();
+      const result = await res.json();
+      toast(`${result.created} kunder importerades`, "success");
+      fetchCustomers();
+    } catch {
+      toast("Kunde inte importera CSV-filen.", "error");
+    } finally {
+      setImporting(false);
+      e.target.value = "";
+    }
+  }
 
   async function fetchCustomers() {
     setLoading(true);
@@ -116,19 +173,37 @@ export default function ClientsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className="text-2xl font-bold text-gray-900">Kunder</h1>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             onClick={fetchCustomers}
             className="p-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-all"
+            title="Uppdatera"
           >
             <RefreshCw className={cn("w-4 h-4", loading && "animate-spin")} />
           </button>
+          <label
+            className={cn(
+              "inline-flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer",
+              importing && "opacity-50 pointer-events-none"
+            )}
+            title="Importera CSV (kolumner: name, email, phone, company, city, address, orgnr)"
+          >
+            <Upload className={cn("w-4 h-4", importing && "animate-spin")} />
+            <span className="hidden sm:inline">{importing ? "Importerar..." : "Importera CSV"}</span>
+            <input
+              type="file"
+              accept=".csv,text/csv"
+              onChange={handleCsvImport}
+              className="hidden"
+              disabled={importing}
+            />
+          </label>
           <button
             onClick={() => { resetForm(); setShowForm(true); }}
             className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 transition-colors"
           >
             <Plus className="w-4 h-4" />
-            Ny kund
+            <span className="hidden sm:inline">Ny kund</span>
           </button>
         </div>
       </div>
@@ -343,7 +418,14 @@ export default function ClientsPage() {
               <tbody className="divide-y divide-gray-50">
                 {filtered.map((customer) => (
                   <tr key={customer.id} className="hover:bg-gray-50 transition-colors group">
-                    <td className="px-5 py-3.5 font-medium text-gray-900">{customer.name}</td>
+                    <td className="px-5 py-3.5 font-medium text-gray-900">
+                      <Link
+                        href={`/clients/${customer.id}`}
+                        className="hover:text-brand-600 transition-colors"
+                      >
+                        {customer.name}
+                      </Link>
+                    </td>
                     <td className="px-5 py-3.5 text-gray-600">
                       {customer.company || (
                         <span className="inline-flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full">

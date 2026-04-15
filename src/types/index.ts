@@ -21,6 +21,8 @@ export interface Customer {
   personnummer?: string;
   customerType?: CustomerType;
   notes?: string;
+  tags?: string[];
+  createdAt?: string;
 }
 
 export interface LineItem {
@@ -42,6 +44,7 @@ export interface Quote {
   total: number;
   taxDeduction?: TaxDeduction;
   laborCost?: number;
+  tags?: string[];
 }
 
 export interface Invoice {
@@ -56,6 +59,15 @@ export interface Invoice {
   paymentTerms: string;
   taxDeduction?: TaxDeduction;
   laborCost?: number;
+  tags?: string[];
+}
+
+export interface SavedItem {
+  id: string;
+  description: string;
+  unitPrice: number;
+  category?: string;
+  createdAt: string;
 }
 
 export interface Template {
