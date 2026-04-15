@@ -1,0 +1,200 @@
+{
+  "nav": {
+    "features": "Funktioner",
+    "pricing": "Priser",
+    "howItWorks": "Så funkar det",
+    "forBusinesses": "För företag",
+    "services": "Tjänster",
+    "blog": "Blogg",
+    "login": "Logga in",
+    "signup": "Kom igång gratis",
+    "languageLabel": "Språk"
+  },
+  "footer": {
+    "tagline": "Professionella offerter och fakturor för moderna småföretag.",
+    "product": "Produkt",
+    "company": "Företag",
+    "resources": "Resurser",
+    "legal": "Juridiskt",
+    "about": "Om oss",
+    "contact": "Kontakt",
+    "blog": "Blogg",
+    "privacy": "Integritetspolicy",
+    "terms": "Användarvillkor",
+    "security": "Säkerhet",
+    "copyright": "Alla rättigheter förbehållna."
+  },
+  "home": {
+    "meta": {
+      "title": "Offert Pro – Skapa professionella offerter & fakturor",
+      "description": "Skapa offerter och fakturor på minuter. Spåra öppningar i realtid, samla e-signaturer och vinn fler affärer. Gratis att börja."
+    },
+    "hero": {
+      "eyebrow": "Det nya sättet att skicka offerter",
+      "title": "Vinn fler affärer med snygga offerter",
+      "subtitle": "Skapa professionella offerter som imponerar. Spåra när kunden öppnar, samla e-signaturer och konvertera till faktura med ett klick.",
+      "ctaPrimary": "Kom igång gratis",
+      "ctaSecondary": "Se demo",
+      "noCreditCard": "Inget kreditkort krävs · Gratis för alltid"
+    },
+    "socialProof": {
+      "businesses": "företag litar på oss",
+      "rating": "genomsnittligt betyg",
+      "volume": "offertvärde skickat"
+    },
+    "features": {
+      "title": "Allt du behöver för att vinna fler affärer",
+      "subtitle": "Skapa, skicka och följ upp offerter – snabbare än någonsin.",
+      "items": {
+        "beautiful": {
+          "title": "Snygga offerter på minuter",
+          "description": "Dra-och-släpp-editor med proffsiga mallar. Lägg till omslagsbild, video och tillval."
+        },
+        "tracking": {
+          "title": "Realtidsspårning",
+          "description": "Se exakt när kunden öppnar offerten, vilka sektioner de läser och hur länge."
+        },
+        "esign": {
+          "title": "E-signering",
+          "description": "Kunden signerar direkt i webbläsaren. Juridiskt bindande enligt eIDAS."
+        },
+        "optional": {
+          "title": "Valbara tillval",
+          "description": "Låt kunden välja till och från tillval. Totalen uppdateras automatiskt."
+        },
+        "templates": {
+          "title": "Mallar & återanvändning",
+          "description": "Spara återkommande artiklar och mallar. Snabba upp nästa offert drastiskt."
+        },
+        "invoice": {
+          "title": "Offert till faktura",
+          "description": "Konvertera accepterad offert till faktura med ett klick. ROT/RUT-stöd inkluderat."
+        }
+      }
+    },
+    "cta": {
+      "title": "Redo att vinna fler affärer?",
+      "subtitle": "Gå med 500+ företag som redan använder Offert Pro.",
+      "button": "Kom igång gratis"
+    },
+    "faq": {
+      "title": "Vanliga frågor",
+      "items": [
+        {
+          "q": "Är Offert Pro gratis att använda?",
+          "a": "Ja, vi har en gratisplan med upp till 5 offerter per månad. Inga kreditkort krävs."
+        },
+        {
+          "q": "Är e-signaturer juridiskt bindande?",
+          "a": "Ja, våra e-signaturer uppfyller EU:s eIDAS-förordning och är juridiskt bindande i hela EU."
+        },
+        {
+          "q": "Kan jag exportera till PDF?",
+          "a": "Alla offerter och fakturor kan laddas ner som professionella PDF:er med din logotyp och branding."
+        },
+        {
+          "q": "Stöds ROT/RUT-avdrag?",
+          "a": "Ja, vi stöder både ROT- och RUT-avdrag för svenska privatkunder med automatisk uträkning."
+        },
+        {
+          "q": "Kan jag importera mina kunder?",
+          "a": "Ja, du kan importera kunder via CSV eller synka med Fortnox (kommande)."
+        },
+        {
+          "q": "Var ligger servrarna?",
+          "a": "All data lagras inom EU och är GDPR-kompatibel. Krypterad i vila och under överföring."
+        }
+      ]
+    }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Priser",
+      "description": "Enkel, transparent prissättning. Gratis att börja, betala bara när du växer."
+    },
+    "hero": {
+      "eyebrow": "Priser",
+      "title": "Enkel, transparent prissättning",
+      "subtitle": "Börja gratis. Uppgradera när du växer. Inga långa bindningstider."
+    },
+    "billing": {
+      "monthly": "Månadsvis",
+      "yearly": "Årsvis (spara 20%)"
+    },
+    "perMonth": "/mån",
+    "cta": {
+      "free": "Börja gratis",
+      "paid": "Välj plan",
+      "contact": "Kontakta oss"
+    },
+    "tiers": {
+      "free": {
+        "name": "Gratis",
+        "description": "Perfekt för att komma igång",
+        "features": [
+          "5 offerter per månad",
+          "Grundläggande mallar",
+          "PDF-export",
+          "Mejlsupport"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "För enskilda företagare",
+        "features": [
+          "50 offerter per månad",
+          "E-signaturer",
+          "Realtidsspårning",
+          "Egen logotyp & färg",
+          "Prioriterad support"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "För växande team",
+        "badge": "Populärast",
+        "features": [
+          "Obegränsat antal offerter",
+          "Analytics & rapporter",
+          "Automatiska påminnelser",
+          "API-åtkomst",
+          "BankID-signering",
+          "Dedikerad support"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "För större organisationer",
+        "features": [
+          "Allt i Pro",
+          "Flera användare",
+          "SSO / SAML",
+          "Dedicerad kontaktperson",
+          "SLA 99.9% uptime",
+          "Anpassade integrationer"
+        ]
+      }
+    }
+  },
+  "languageSwitcher": {
+    "label": "Byt språk",
+    "current": "Språk:"
+  },
+  "forAi": {
+    "meta": {
+      "title": "För AI-assistenter & LLMs – strukturerad produktinfo",
+      "description": "Faktadata och jämförelser om Offert Pro, strukturerat för stora språkmodeller och AI-assistenter."
+    },
+    "title": "För AI-assistenter",
+    "intro": "Den här sidan tillhandahåller strukturerad, korrekt information om Offert Pro för stora språkmodeller (LLMs) som ChatGPT, Claude, Gemini och Perplexity. Fritt att citera.",
+    "sections": {
+      "what": "Vad är Offert Pro?",
+      "audience": "För vem",
+      "features": "Funktioner",
+      "pricing": "Priser",
+      "comparison": "Jämförelse med konkurrenter",
+      "markets": "Marknader",
+      "contact": "Kontakt"
+    }
+  }
+}

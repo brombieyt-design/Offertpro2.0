@@ -53,6 +53,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "sv_SE",
+    alternateLocale: ["en"],
     images: [
       {
         url: "/og-image.png",
@@ -83,6 +84,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_URL,
+    languages: {
+      "sv-SE": SITE_URL,
+      en: `${SITE_URL}/en`,
+      "x-default": SITE_URL,
+    },
   },
   category: "business",
 };

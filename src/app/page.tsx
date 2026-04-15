@@ -15,9 +15,23 @@ import FAQ from "@/components/landing/FAQ";
 import CTA from "@/components/landing/CTA";
 import Footer from "@/components/landing/Footer";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
+
 export const metadata: Metadata = {
   title: "Offert Pro – Skapa professionella offerter & fakturor för småföretag",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      "sv-SE": SITE_URL,
+      en: `${SITE_URL}/en`,
+      "x-default": SITE_URL,
+    },
+  },
+  openGraph: {
+    locale: "sv_SE",
+    alternateLocale: ["en"],
+    url: SITE_URL,
+  },
 };
 
 const faqJsonLd = {

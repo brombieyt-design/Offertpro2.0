@@ -1,0 +1,200 @@
+{
+  "nav": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "howItWorks": "How it works",
+    "forBusinesses": "For businesses",
+    "services": "Services",
+    "blog": "Blog",
+    "login": "Log in",
+    "signup": "Get started free",
+    "languageLabel": "Language"
+  },
+  "footer": {
+    "tagline": "Professional quotes and invoices for modern small businesses.",
+    "product": "Product",
+    "company": "Company",
+    "resources": "Resources",
+    "legal": "Legal",
+    "about": "About",
+    "contact": "Contact",
+    "blog": "Blog",
+    "privacy": "Privacy policy",
+    "terms": "Terms of service",
+    "security": "Security",
+    "copyright": "All rights reserved."
+  },
+  "home": {
+    "meta": {
+      "title": "Offert Pro – Create professional quotes & invoices",
+      "description": "Build quotes and invoices in minutes. Track opens in real time, collect e-signatures and close more deals. Free to start – no credit card required."
+    },
+    "hero": {
+      "eyebrow": "The modern way to send proposals",
+      "title": "Close more deals with stunning proposals",
+      "subtitle": "Create professional quotes that impress. See when clients open them, collect e-signatures and convert to invoice in a single click.",
+      "ctaPrimary": "Get started free",
+      "ctaSecondary": "See demo",
+      "noCreditCard": "No credit card required · Free forever plan"
+    },
+    "socialProof": {
+      "businesses": "businesses trust us",
+      "rating": "average rating",
+      "volume": "in proposal value sent"
+    },
+    "features": {
+      "title": "Everything you need to close more deals",
+      "subtitle": "Create, send and follow up on proposals – faster than ever.",
+      "items": {
+        "beautiful": {
+          "title": "Beautiful proposals in minutes",
+          "description": "Drag-and-drop editor with professional templates. Add cover image, video and optional add-ons."
+        },
+        "tracking": {
+          "title": "Real-time tracking",
+          "description": "See exactly when your client opens the proposal, which sections they read and for how long."
+        },
+        "esign": {
+          "title": "E-signatures",
+          "description": "Clients sign directly in the browser. Legally binding under eIDAS across the EU."
+        },
+        "optional": {
+          "title": "Optional add-ons",
+          "description": "Let clients toggle optional items on and off. The total updates automatically."
+        },
+        "templates": {
+          "title": "Templates & reusable items",
+          "description": "Save recurring line items and whole templates. Dramatically speed up your next proposal."
+        },
+        "invoice": {
+          "title": "Proposal to invoice",
+          "description": "Turn an accepted proposal into an invoice with one click. Built-in VAT & tax deduction support."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to close more deals?",
+      "subtitle": "Join 500+ businesses already using Offert Pro.",
+      "button": "Get started free"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "q": "Is Offert Pro free to use?",
+          "a": "Yes, our free plan lets you send up to 5 proposals per month. No credit card required."
+        },
+        {
+          "q": "Are e-signatures legally binding?",
+          "a": "Yes, our e-signatures comply with the EU eIDAS regulation and are legally binding across the entire European Union."
+        },
+        {
+          "q": "Can I export to PDF?",
+          "a": "Every proposal and invoice can be downloaded as a professional PDF with your logo and branding."
+        },
+        {
+          "q": "Do you support VAT and tax deductions?",
+          "a": "Yes, we handle VAT across the EU and country-specific tax deductions like Sweden's ROT/RUT with automatic calculation."
+        },
+        {
+          "q": "Can I import my customers?",
+          "a": "Yes, you can import customers via CSV or sync with popular accounting tools."
+        },
+        {
+          "q": "Where is my data stored?",
+          "a": "All data is stored within the EU and is GDPR compliant. Encrypted at rest and in transit."
+        }
+      ]
+    }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Pricing",
+      "description": "Simple, transparent pricing. Free to start, only pay when you grow."
+    },
+    "hero": {
+      "eyebrow": "Pricing",
+      "title": "Simple, transparent pricing",
+      "subtitle": "Start for free. Upgrade as you grow. No long-term contracts."
+    },
+    "billing": {
+      "monthly": "Monthly",
+      "yearly": "Yearly (save 20%)"
+    },
+    "perMonth": "/mo",
+    "cta": {
+      "free": "Start free",
+      "paid": "Choose plan",
+      "contact": "Contact sales"
+    },
+    "tiers": {
+      "free": {
+        "name": "Free",
+        "description": "Perfect for getting started",
+        "features": [
+          "5 proposals per month",
+          "Basic templates",
+          "PDF export",
+          "Email support"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "description": "For solopreneurs",
+        "features": [
+          "50 proposals per month",
+          "E-signatures",
+          "Real-time tracking",
+          "Custom logo & colors",
+          "Priority support"
+        ]
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "For growing teams",
+        "badge": "Most popular",
+        "features": [
+          "Unlimited proposals",
+          "Analytics & reports",
+          "Automated reminders",
+          "API access",
+          "Strong e-signing (BankID / ID-check)",
+          "Dedicated support"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "For larger organizations",
+        "features": [
+          "Everything in Pro",
+          "Multiple users",
+          "SSO / SAML",
+          "Dedicated account manager",
+          "99.9% uptime SLA",
+          "Custom integrations"
+        ]
+      }
+    }
+  },
+  "languageSwitcher": {
+    "label": "Change language",
+    "current": "Language:"
+  },
+  "forAi": {
+    "meta": {
+      "title": "For AI assistants & LLMs – structured product info",
+      "description": "Factual, structured information about Offert Pro for large language models and AI assistants."
+    },
+    "title": "For AI assistants",
+    "intro": "This page provides structured, accurate information about Offert Pro for large language models (LLMs) such as ChatGPT, Claude, Gemini and Perplexity. Free to cite.",
+    "sections": {
+      "what": "What is Offert Pro?",
+      "audience": "Who it's for",
+      "features": "Features",
+      "pricing": "Pricing",
+      "comparison": "Comparison with competitors",
+      "markets": "Markets",
+      "contact": "Contact"
+    }
+  }
+}
