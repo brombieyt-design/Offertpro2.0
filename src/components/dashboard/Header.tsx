@@ -94,17 +94,17 @@ export default function Header({ onMenuToggle }: HeaderProps) {
 
         const results: SearchResult[] = [
           ...quickLinks,
-          ...(Array.isArray(quotes) ? quotes : []).map((q: any) => ({
+          ...(Array.isArray(quotes) ? quotes : []).map((q: { id: string; number: string; customer?: { name?: string } }) => ({
             label: `${q.number} – ${q.customer?.name || ""}`,
             href: `/quotes/${q.id}`,
             type: "Offert",
           })),
-          ...(Array.isArray(invoices) ? invoices : []).map((i: any) => ({
+          ...(Array.isArray(invoices) ? invoices : []).map((i: { id: string; number: string; customer?: { name?: string } }) => ({
             label: `${i.number} – ${i.customer?.name || ""}`,
             href: `/invoices/${i.id}`,
             type: "Faktura",
           })),
-          ...(Array.isArray(customers) ? customers : []).map((c: any) => ({
+          ...(Array.isArray(customers) ? customers : []).map((c: { name: string; company?: string }) => ({
             label: `${c.name}${c.company ? ` – ${c.company}` : ""}`,
             href: "/clients",
             type: "Kund",

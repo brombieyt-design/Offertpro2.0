@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const db = readDB();
+    const db = await readDB();
     const user = db.users.find(
       (u) => u.email.toLowerCase() === email.toLowerCase()
     );
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const session = createSession(user.id);
+    const session = await createSession(user.id);
     await setSessionCookie(session.id);
 
     return Response.json({

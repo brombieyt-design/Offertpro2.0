@@ -4,7 +4,7 @@ import { sanitizeText, sanitizeNumber } from "@/lib/sanitize";
 
 export async function GET() {
   try {
-    const db = readDB();
+    const db = await readDB();
     return Response.json(db.savedItems || []);
   } catch (err) {
     return Response.json({ error: "Serverfel", details: String(err) }, { status: 500 });
@@ -14,7 +14,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const db = readDB();
+    const db = await readDB();
     if (!db.savedItems) db.savedItems = [];
 
     const item = {
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     db.savedItems.unshift(item);
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(item, { status: 201 });
   } catch (err) {
@@ -41,9 +41,9 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
-    const db = readDB();
+    const db = await readDB();
     db.savedItems = (db.savedItems || []).filter((i) => i.id !== id);
-    writeDB(db);
+    await writeDB(db);
     return Response.json({ ok: true });
   } catch (err) {
     return Response.json({ error: "Kunde inte ta bort objekt", details: String(err) }, { status: 500 });

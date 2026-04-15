@@ -14,26 +14,25 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleTheme: () => {},
 });
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+function getInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  const stored = localStorage.getItem("offertpro-theme") as Theme | null;
+  return stored === "dark" ? "dark" : "light";
+}
 
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+
+  // Sync DOM class with current theme (external side effect, no setState)
   useEffect(() => {
-    const stored = localStorage.getItem("offertpro-theme") as Theme | null;
-    if (stored === "dark") {
-      setTheme("dark");
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
+    if (theme === "dark") document.documentElement.classList.add("dark");
+    else document.documentElement.classList.remove("dark");
+  }, [theme]);
 
   function toggleTheme() {
     const next = theme === "light" ? "dark" : "light";
     setTheme(next);
     localStorage.setItem("offertpro-theme", next);
-    if (next === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
   }
 
   return (

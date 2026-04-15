@@ -5,7 +5,7 @@ import type { NextRequest } from "next/server";
 export async function POST(request: NextRequest) {
   try {
     const { id } = await request.json();
-    const db = readDB();
+    const db = await readDB();
     const invoice = db.invoices.find((inv) => inv.id === id);
     if (!invoice) {
       return Response.json({ success: false, message: "Faktura hittades ej" }, { status: 404 });

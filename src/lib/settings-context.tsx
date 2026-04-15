@@ -59,29 +59,29 @@ const SettingsContext = createContext<SettingsContextValue>({
 
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useState<AppSettings>({});
-  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   const load = useCallback(() => {
-    setLoading(true);
     fetch("/api/settings")
       .then((r) => (r.ok ? r.json() : {}))
       .then((data) => setSettings(data || {}))
       .catch(() => {})
-      .finally(() => setLoading(false));
+      .finally(() => setLoaded(true));
   }, []);
 
+  // Initial load + refetch on "settings-updated" event.
+  // We attach a listener that syncs external state into React state -
+  // setState is only called from async callbacks, never synchronously in the effect body.
   useEffect(() => {
     load();
-  }, [load]);
-
-  // Refetch when settings are saved elsewhere (event from settings page)
-  useEffect(() => {
     function onUpdate() {
       load();
     }
     window.addEventListener("settings-updated", onUpdate);
     return () => window.removeEventListener("settings-updated", onUpdate);
   }, [load]);
+
+  const loading = !loaded;
 
   const currency = settings.defaults?.currency || "SEK";
   const vatRate = Number(settings.defaults?.vatRate ?? 25) || 25;

@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   try {
     const { id } = await request.json();
 
-    const db = readDB();
+    const db = await readDB();
     const invoice = db.invoices.find((inv) => inv.id === id);
     if (!invoice) return Response.json({ error: "Not found" }, { status: 404 });
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     if (result.success && invoice.status === "draft") {
       const idx = db.invoices.findIndex((inv) => inv.id === id);
       db.invoices[idx].status = "sent";
-      writeDB(db);
+      await writeDB(db);
     }
 
     return Response.json(result);

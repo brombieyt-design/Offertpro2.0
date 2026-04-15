@@ -14,19 +14,30 @@ export default function SavedItemsPicker({ onPick }: SavedItemsPickerProps) {
   const { formatMoney: formatCurrency } = useSettings();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<SavedItem[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [query, setQuery] = useState("");
   const ref = useRef<HTMLDivElement>(null);
+  const fetchedRef = useRef(false);
+  const loading = open && !hasLoaded;
 
   useEffect(() => {
-    if (!open || items.length > 0) return;
-    setLoading(true);
+    if (!open || fetchedRef.current) return;
+    fetchedRef.current = true;
+    let cancelled = false;
     fetch("/api/saved-items")
       .then((r) => (r.ok ? r.json() : []))
-      .then((data) => setItems(Array.isArray(data) ? data : []))
+      .then((data) => {
+        if (cancelled) return;
+        setItems(Array.isArray(data) ? data : []);
+      })
       .catch(() => {})
-      .finally(() => setLoading(false));
-  }, [open, items.length]);
+      .finally(() => {
+        if (!cancelled) setHasLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [open]);
 
   // Close on outside click
   useEffect(() => {

@@ -108,7 +108,18 @@ function StatusDonut({
   const stroke = 6;
   const r = (size - stroke) / 2;
   const circumference = 2 * Math.PI * r;
-  let offset = 0;
+
+  const visible = segments.filter((s) => s.value > 0);
+  const rendered = visible.reduce<
+    { seg: { value: number; color: string }; dash: number; gap: number; offset: number }[]
+  >((acc, seg) => {
+    const pctVal = seg.value / total;
+    const dash = pctVal * circumference;
+    const gap = circumference - dash;
+    const offset = acc.reduce((sum, item) => sum + item.dash, 0);
+    acc.push({ seg, dash, gap, offset });
+    return acc;
+  }, []);
 
   return (
     <svg width={size} height={size} className="shrink-0 -rotate-90">
@@ -120,30 +131,21 @@ function StatusDonut({
         stroke="#f3f4f6"
         strokeWidth={stroke}
       />
-      {segments
-        .filter((s) => s.value > 0)
-        .map((seg, i) => {
-          const pctVal = seg.value / total;
-          const dash = pctVal * circumference;
-          const gap = circumference - dash;
-          const currentOffset = offset;
-          offset += dash;
-          return (
-            <circle
-              key={i}
-              cx={size / 2}
-              cy={size / 2}
-              r={r}
-              fill="none"
-              stroke={seg.color}
-              strokeWidth={stroke}
-              strokeDasharray={`${dash} ${gap}`}
-              strokeDashoffset={-currentOffset}
-              strokeLinecap="round"
-              className="transition-all duration-700"
-            />
-          );
-        })}
+      {rendered.map(({ seg, dash, gap, offset }, i) => (
+        <circle
+          key={i}
+          cx={size / 2}
+          cy={size / 2}
+          r={r}
+          fill="none"
+          stroke={seg.color}
+          strokeWidth={stroke}
+          strokeDasharray={`${dash} ${gap}`}
+          strokeDashoffset={-offset}
+          strokeLinecap="round"
+          className="transition-all duration-700"
+        />
+      ))}
     </svg>
   );
 }

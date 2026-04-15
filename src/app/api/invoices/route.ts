@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const db = readDB();
+    const db = await readDB();
     const id = request.nextUrl.searchParams.get("id");
     if (id) {
       const invoice = db.invoices.find((inv) => inv.id === id);
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     const total = (body.items ?? []).reduce(
       (sum: number, item: { quantity: number; unitPrice: number; discount?: number }) => {
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     };
 
     db.invoices.push(invoice);
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(invoice, { status: 201 });
   } catch (err) {
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     const idx = db.invoices.findIndex((inv) => inv.id === body.id);
     if (idx === -1) {
@@ -82,7 +82,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     db.invoices[idx] = updated;
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(db.invoices[idx]);
   } catch (err) {
@@ -93,10 +93,10 @@ export async function PATCH(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     db.invoices = db.invoices.filter((inv) => inv.id !== id);
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json({ ok: true });
   } catch (err) {

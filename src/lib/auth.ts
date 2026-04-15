@@ -18,15 +18,15 @@ export function verifyPassword(password: string, stored: string): boolean {
   return hash === test;
 }
 
-export function createSession(userId: string): Session {
-  const db = readDB();
+export async function createSession(userId: string): Promise<Session> {
+  const db = await readDB();
   const session: Session = {
     id: generateId(),
     userId,
     expiresAt: new Date(Date.now() + SESSION_DURATION_MS).toISOString(),
   };
   db.sessions.push(session);
-  writeDB(db);
+  await writeDB(db);
   return session;
 }
 
@@ -51,7 +51,7 @@ export async function getCurrentUser(): Promise<User | null> {
   const sessionId = cookieStore.get(SESSION_COOKIE)?.value;
   if (!sessionId) return null;
 
-  const db = readDB();
+  const db = await readDB();
   const session = db.sessions.find(
     (s) => s.id === sessionId && new Date(s.expiresAt) > new Date()
   );
@@ -61,8 +61,8 @@ export async function getCurrentUser(): Promise<User | null> {
   return user ?? null;
 }
 
-export function removeSession(sessionId: string) {
-  const db = readDB();
+export async function removeSession(sessionId: string): Promise<void> {
+  const db = await readDB();
   db.sessions = db.sessions.filter((s) => s.id !== sessionId);
-  writeDB(db);
+  await writeDB(db);
 }

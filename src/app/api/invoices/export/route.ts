@@ -21,7 +21,7 @@ const statusLabels: Record<string, string> = {
 
 export async function GET() {
   try {
-    const db = readDB();
+    const db = await readDB();
     const invoices = db.invoices;
 
     const headers = [

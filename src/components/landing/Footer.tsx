@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Phone, Mail } from "lucide-react";
 
 const columns = [
@@ -35,14 +36,14 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10 lg:gap-16">
           {/* Brand column */}
           <div className="col-span-2">
-            <a href="/" className="inline-flex items-center gap-2.5 mb-6 group">
+            <Link href="/" className="inline-flex items-center gap-2.5 mb-6 group">
               <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center group-hover:bg-brand-600 transition-colors duration-300">
                 <span className="text-white text-xs font-bold">OP</span>
               </div>
               <span className="text-lg font-bold tracking-tight text-white">
                 Offert Pro
               </span>
-            </a>
+            </Link>
             <p className="text-sm text-gray-500 leading-relaxed max-w-xs mb-8">
               Den moderna plattformen för offerter och fakturor. Bygg
               professionella dokument, spåra i realtid och stäng fler affärer.

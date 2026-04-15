@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 
 export async function GET() {
   try {
-    const db = readDB();
+    const db = await readDB();
     return Response.json(db.templates);
   } catch (err) {
     return Response.json({ error: "Serverfel", details: String(err) }, { status: 500 });
@@ -13,7 +13,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     const template = {
       id: generateId(),
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
     };
 
     db.templates.push(template);
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(template, { status: 201 });
   } catch (err) {
@@ -38,10 +38,10 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     db.templates = db.templates.filter((t) => t.id !== id);
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json({ ok: true });
   } catch (err) {

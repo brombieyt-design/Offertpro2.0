@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: "invoiceId krävs" }, { status: 400 });
     }
 
-    const db = readDB();
+    const db = await readDB();
     const idx = db.invoices.findIndex((inv) => inv.id === invoiceId);
     if (idx === -1) {
       return Response.json({ error: "Faktura hittades ej" }, { status: 404 });
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     }
 
     db.invoices[idx] = invoice;
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(invoice);
   } catch (err) {
@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { invoiceId, paymentId } = await request.json();
-    const db = readDB();
+    const db = await readDB();
     const idx = db.invoices.findIndex((inv) => inv.id === invoiceId);
     if (idx === -1) {
       return Response.json({ error: "Faktura hittades ej" }, { status: 404 });
@@ -84,7 +84,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     db.invoices[idx] = invoice;
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(invoice);
   } catch (err) {

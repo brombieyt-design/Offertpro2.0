@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const id = request.nextUrl.searchParams.get("id");
     if (!id) return Response.json({ error: "Missing id" }, { status: 400 });
 
-    const db = readDB();
+    const db = await readDB();
     const invoice = db.invoices.find((inv) => inv.id === id);
     if (!invoice) return Response.json({ error: "Not found" }, { status: 404 });
 

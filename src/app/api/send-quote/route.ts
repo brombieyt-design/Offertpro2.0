@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
   try {
     const { id } = await request.json();
 
-    const db = readDB();
+    const db = await readDB();
     const quote = db.quotes.find((q) => q.id === id);
     if (!quote) return Response.json({ error: "Not found" }, { status: 404 });
 
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     if (result.success && quote.status === "draft") {
       const idx = db.quotes.findIndex((q) => q.id === id);
       db.quotes[idx].status = "sent";
-      writeDB(db);
+      await writeDB(db);
     }
 
     return Response.json(result);

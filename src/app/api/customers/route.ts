@@ -11,7 +11,7 @@ import {
 
 export async function GET() {
   try {
-    const db = readDB();
+    const db = await readDB();
     return Response.json(db.customers);
   } catch (err) {
     return Response.json({ error: "Serverfel", details: String(err) }, { status: 500 });
@@ -39,7 +39,7 @@ function buildCustomer(body: Record<string, unknown>) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     // Allow bulk create via array
     if (Array.isArray(body)) {
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
         ...buildCustomer(entry),
       }));
       db.customers.push(...created);
-      writeDB(db);
+      await writeDB(db);
       return Response.json({ created: created.length, customers: created }, { status: 201 });
     }
 
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     };
 
     db.customers.push(customer);
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(customer, { status: 201 });
   } catch (err) {
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     const idx = db.customers.findIndex((c) => c.id === body.id);
     if (idx === -1) {
@@ -79,7 +79,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     db.customers[idx] = { ...db.customers[idx], ...body };
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json(db.customers[idx]);
   } catch (err) {
@@ -90,10 +90,10 @@ export async function PATCH(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const { id } = await request.json();
-    const db = readDB();
+    const db = await readDB();
 
     db.customers = db.customers.filter((c) => c.id !== id);
-    writeDB(db);
+    await writeDB(db);
 
     return Response.json({ ok: true });
   } catch (err) {
