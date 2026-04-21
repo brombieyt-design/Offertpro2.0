@@ -11,6 +11,8 @@ export interface BlogPostEn {
   tags: string[];
   /** Optional slug of a Swedish counterpart for hreflang cross-linking */
   swedishSlug?: string;
+  /** Optional slug of a German counterpart for hreflang cross-linking */
+  germanSlug?: string;
   /** Optional list of structured "how-to" steps for Schema.org HowTo */
   howToSteps?: { name: string; text: string }[];
   /** HTML content. Authored by the Offert Pro editorial team. */
@@ -35,6 +37,7 @@ export const blogPostsEn: BlogPostEn[] = [
     readTime: "10 min",
     category: "Comparison",
     swedishSlug: "basta-offertverktyget-sverige-2026",
+    germanSlug: "beste-angebotssoftware-europa-2026",
     tags: [
       "proposal software",
       "quote software",
@@ -143,6 +146,7 @@ export const blogPostsEn: BlogPostEn[] = [
     category: "Guide",
     tags: ["proposal", "b2b sales", "guide", "template", "closing"],
     swedishSlug: "sa-skriver-du-en-offert-som-vinner",
+    germanSlug: "b2b-angebot-schreiben-leitfaden",
     howToSteps: [
       { name: "Understand the buyer", text: "Spend 10 minutes summarising the prospect's problem in their own words before you open the editor." },
       { name: "Structure clearly", text: "Use five sections: summary, scope, timeline, pricing and terms. Put the summary first, not last." },
@@ -225,6 +229,7 @@ export const blogPostsEn: BlogPostEn[] = [
     readTime: "9 min",
     category: "Legal",
     swedishSlug: "digitala-signaturer-guide",
+    germanSlug: "eidas-elektronische-signaturen-leitfaden",
     tags: ["eidas", "e-signature", "compliance", "eu regulation", "legal"],
     content: `
 <p>In the EU, electronic signatures are regulated by the eIDAS regulation (Regulation (EU) No 910/2014, updated by eIDAS 2.0 in 2024). This guide explains what the regulation requires in plain English, so you can pick the right signature level for each contract type and avoid compliance mistakes.</p>
