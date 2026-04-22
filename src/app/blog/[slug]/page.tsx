@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Clock, User, ChevronRight, Home } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getBlogPost, getAllBlogPosts } from "@/content/blog-posts";
+import { getAllBlogPostsDe } from "@/content/blog-posts-de";
 import { authorNameToSlug, getAuthorByName } from "@/content/authors";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
@@ -23,6 +24,8 @@ export async function generateMetadata({
   if (!post) return {};
 
   const hasEnglish = !!post.englishSlug;
+  const deMatch = getAllBlogPostsDe().find((p) => p.swedishSlug === post.slug);
+  const hasGerman = !!deMatch;
   const languages: Record<string, string> = {
     "sv-SE": `${SITE_URL}/blog/${post.slug}`,
     "x-default": `${SITE_URL}/blog/${post.slug}`,
@@ -30,6 +33,13 @@ export async function generateMetadata({
   if (hasEnglish) {
     languages.en = `${SITE_URL}/en/blog/${post.englishSlug}`;
   }
+  if (hasGerman && deMatch) {
+    languages.de = `${SITE_URL}/de/blog/${deMatch.slug}`;
+  }
+
+  const alternateLocale: string[] = [];
+  if (hasEnglish) alternateLocale.push("en");
+  if (hasGerman) alternateLocale.push("de");
 
   return {
     title: post.title,
@@ -47,7 +57,7 @@ export async function generateMetadata({
       authors: [post.author],
       tags: post.tags,
       locale: "sv_SE",
-      alternateLocale: hasEnglish ? ["en"] : [],
+      alternateLocale,
     },
     twitter: {
       card: "summary_large_image",

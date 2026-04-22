@@ -5,14 +5,26 @@ import { getAllBlogPosts } from "@/content/blog-posts";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
+
 export const metadata: Metadata = {
   title: "Blogg – Tips, guider & nyheter om offerter och fakturor",
   description:
     "Lär dig skriva vinnande offerter, förbättra din faktureringsprocess och väx ditt företag. Tips, guider och nyheter från Offert Pro.",
-  alternates: { canonical: "/blog" },
+  alternates: {
+    canonical: `${SITE_URL}/blog`,
+    languages: {
+      "sv-SE": `${SITE_URL}/blog`,
+      en: `${SITE_URL}/en/blog`,
+      de: `${SITE_URL}/de/blog`,
+      "x-default": `${SITE_URL}/blog`,
+    },
+  },
   openGraph: {
     title: "Blogg – Offert Pro",
     description: "Tips, guider och nyheter om offerter, fakturor och småföretagande.",
+    locale: "sv_SE",
+    alternateLocale: ["en", "de"],
   },
 };
 

@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     languages: {
       "sv-SE": `${SITE_URL}/authors`,
       en: `${SITE_URL}/en/authors`,
+      de: `${SITE_URL}/de/authors`,
       "x-default": `${SITE_URL}/authors`,
     },
   },
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     description: "Meet the team behind Offert Pro's guides and articles.",
     url: `${SITE_URL}/en/authors`,
     locale: "en",
-    alternateLocale: ["sv_SE"],
+    alternateLocale: ["sv_SE", "de"],
     type: "website",
   },
 };

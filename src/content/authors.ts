@@ -13,10 +13,14 @@ export interface AuthorBio {
   roleEn: string;
   /** Role within Offert Pro (Swedish). */
   roleSv: string;
+  /** Role within Offert Pro (German). */
+  roleDe: string;
   /** Short bio in English (1–3 sentences). */
   bioEn: string;
   /** Short bio in Swedish (1–3 sentences). */
   bioSv: string;
+  /** Short bio in German (1–3 sentences). */
+  bioDe: string;
   /** Areas of expertise used for schema knowsAbout. */
   expertise: string[];
   /** Years of experience in the field. */
@@ -31,10 +35,13 @@ export const authors: AuthorBio[] = [
     name: "Emma Lindqvist",
     roleEn: "Product marketing lead",
     roleSv: "Produktmarknadschef",
+    roleDe: "Leitung Produktmarketing",
     bioEn:
       "Emma leads product marketing at Offert Pro. She has spent the last decade helping European SaaS companies turn technical products into stories that small business owners can act on — from early-stage B2B startups in Stockholm to scale-ups in Berlin and Amsterdam.",
     bioSv:
       "Emma leder produktmarknadsföringen på Offert Pro. Hon har tillbringat det senaste decenniet med att hjälpa europeiska SaaS-bolag översätta tekniska produkter till historier som småföretagare faktiskt kan agera på — från tidiga B2B-startups i Stockholm till scale-ups i Berlin och Amsterdam.",
+    bioDe:
+      "Emma leitet das Produktmarketing bei Offert Pro. Seit über einem Jahrzehnt hilft sie europäischen SaaS-Unternehmen dabei, technische Produkte in Geschichten zu übersetzen, mit denen Kleinunternehmerinnen und Kleinunternehmer tatsächlich arbeiten können — von frühen B2B-Startups in Stockholm bis hin zu Scale-ups in Berlin und Amsterdam.",
     expertise: [
       "Proposal writing",
       "B2B sales enablement",
@@ -49,10 +56,13 @@ export const authors: AuthorBio[] = [
     name: "Marcus Ström",
     roleEn: "Head of customer success",
     roleSv: "Chef för kundframgång",
+    roleDe: "Leitung Customer Success",
     bioEn:
       "Marcus runs customer success at Offert Pro. Before joining the team he spent eight years as an independent consultant and agency owner, sending several thousand proposals of his own — which is why our templates actually work in the real world.",
     bioSv:
       "Marcus är ansvarig för kundframgång på Offert Pro. Innan han började här drev han eget konsultbolag och byrå i åtta år och skickade flera tusen egna offerter — vilket är anledningen till att våra mallar faktiskt fungerar i verkligheten.",
+    bioDe:
+      "Marcus leitet Customer Success bei Offert Pro. Bevor er zum Team kam, arbeitete er acht Jahre lang als selbstständiger Berater und Agenturinhaber und versendete mehrere tausend eigene Angebote — deshalb funktionieren unsere Vorlagen in der Praxis wirklich.",
     expertise: [
       "Invoicing workflows",
       "Pricing strategy",
@@ -67,10 +77,13 @@ export const authors: AuthorBio[] = [
     name: "Anna Berg",
     roleEn: "Legal & compliance",
     roleSv: "Juridik & compliance",
+    roleDe: "Recht & Compliance",
     bioEn:
       "Anna is a qualified EU lawyer who advises Offert Pro on GDPR, eIDAS e-signatures and cross-border VAT. She previously worked with e-signature compliance at one of the largest Nordic law firms.",
     bioSv:
       "Anna är EU-jurist och rådger Offert Pro kring GDPR, eIDAS-signaturer och gränsöverskridande moms. Hon har tidigare arbetat med e-signaturcompliance på en av Nordens största advokatbyråer.",
+    bioDe:
+      "Anna ist zugelassene EU-Juristin und berät Offert Pro in Fragen zu DSGVO, eIDAS-E-Signaturen und grenzüberschreitender Mehrwertsteuer. Zuvor war sie bei einer der größten nordischen Kanzleien im Bereich E-Signatur-Compliance tätig.",
     expertise: [
       "GDPR",
       "eIDAS e-signatures",

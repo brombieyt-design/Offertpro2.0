@@ -30,6 +30,7 @@ export async function generateMetadata({
       languages: {
         "sv-SE": `${SITE_URL}/authors/${author.slug}`,
         en: `${SITE_URL}/en/authors/${author.slug}`,
+        de: `${SITE_URL}/de/authors/${author.slug}`,
         "x-default": `${SITE_URL}/authors/${author.slug}`,
       },
     },
@@ -38,7 +39,7 @@ export async function generateMetadata({
       description: author.bioSv,
       url: `${SITE_URL}/authors/${author.slug}`,
       locale: "sv_SE",
-      alternateLocale: ["en"],
+      alternateLocale: ["en", "de"],
       type: "profile",
     },
   };

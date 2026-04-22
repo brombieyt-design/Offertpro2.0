@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Clock, User } from "lucide-react";
-import NavbarEn from "@/components/landing/en/NavbarEn";
-import FooterEn from "@/components/landing/en/FooterEn";
+import NavbarDe from "@/components/landing/de/NavbarDe";
+import FooterDe from "@/components/landing/de/FooterDe";
 import { getAllAuthors, getAuthor } from "@/content/authors";
-import { getAllBlogPostsEn } from "@/content/blog-posts-en";
+import { getAllBlogPostsDe } from "@/content/blog-posts-de";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
@@ -20,13 +20,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const author = getAuthor(slug);
-  if (!author) return { title: "Author not found" };
+  if (!author) return { title: "Autor nicht gefunden" };
 
   return {
-    title: `${author.name} – ${author.roleEn}`,
-    description: author.bioEn,
+    title: `${author.name} – ${author.roleDe}`,
+    description: author.bioDe,
     alternates: {
-      canonical: `${SITE_URL}/en/authors/${author.slug}`,
+      canonical: `${SITE_URL}/de/authors/${author.slug}`,
       languages: {
         "sv-SE": `${SITE_URL}/authors/${author.slug}`,
         en: `${SITE_URL}/en/authors/${author.slug}`,
@@ -36,16 +36,16 @@ export async function generateMetadata({
     },
     openGraph: {
       title: `${author.name} – Offert Pro`,
-      description: author.bioEn,
-      url: `${SITE_URL}/en/authors/${author.slug}`,
-      locale: "en",
-      alternateLocale: ["sv_SE", "de"],
+      description: author.bioDe,
+      url: `${SITE_URL}/de/authors/${author.slug}`,
+      locale: "de",
+      alternateLocale: ["sv_SE", "en"],
       type: "profile",
     },
   };
 }
 
-export default async function AuthorPageEn({
+export default async function AuthorPageDe({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -54,15 +54,15 @@ export default async function AuthorPageEn({
   const author = getAuthor(slug);
   if (!author) notFound();
 
-  const posts = getAllBlogPostsEn().filter((p) => p.author === author.name);
+  const posts = getAllBlogPostsDe().filter((p) => p.author === author.name);
 
   const personJsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: author.name,
-    jobTitle: author.roleEn,
-    description: author.bioEn,
-    url: `${SITE_URL}/en/authors/${author.slug}`,
+    jobTitle: author.roleDe,
+    description: author.bioDe,
+    url: `${SITE_URL}/de/authors/${author.slug}`,
     worksFor: {
       "@type": "Organization",
       name: "Offert Pro",
@@ -76,9 +76,9 @@ export default async function AuthorPageEn({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
-      { "@type": "ListItem", position: 2, name: "Editorial team", item: `${SITE_URL}/en/authors` },
-      { "@type": "ListItem", position: 3, name: author.name, item: `${SITE_URL}/en/authors/${author.slug}` },
+      { "@type": "ListItem", position: 1, name: "Start", item: `${SITE_URL}/de` },
+      { "@type": "ListItem", position: 2, name: "Redaktionsteam", item: `${SITE_URL}/de/authors` },
+      { "@type": "ListItem", position: 3, name: author.name, item: `${SITE_URL}/de/authors/${author.slug}` },
     ],
   };
 
@@ -92,14 +92,14 @@ export default async function AuthorPageEn({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <NavbarEn />
+      <NavbarDe />
 
       <article className="pt-32 pb-24 px-6">
         <div className="max-w-3xl mx-auto">
           <nav aria-label="Breadcrumb" className="mb-10 text-sm text-gray-400">
-            <Link href="/en" className="hover:text-indigo-600">Home</Link>
+            <Link href="/de" className="hover:text-indigo-600">Start</Link>
             <span className="mx-1.5">/</span>
-            <Link href="/en/authors" className="hover:text-indigo-600">Editorial team</Link>
+            <Link href="/de/authors" className="hover:text-indigo-600">Redaktionsteam</Link>
             <span className="mx-1.5">/</span>
             <span className="text-gray-600">{author.name}</span>
           </nav>
@@ -112,20 +112,20 @@ export default async function AuthorPageEn({
               <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
                 {author.name}
               </h1>
-              <p className="text-indigo-600 mt-1">{author.roleEn}</p>
+              <p className="text-indigo-600 mt-1">{author.roleDe}</p>
               <p className="text-sm text-gray-400 mt-1">
-                {author.yearsExperience}+ years of experience · Offert Pro
+                {author.yearsExperience}+ Jahre Erfahrung · Offert Pro
               </p>
             </div>
           </div>
 
           <p className="text-lg text-gray-600 leading-relaxed mb-10">
-            {author.bioEn}
+            {author.bioDe}
           </p>
 
           <div className="border-t border-gray-100 pt-8 mb-12">
             <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Areas of expertise
+              Fachgebiete
             </h2>
             <div className="flex flex-wrap gap-2">
               {author.expertise.map((e) => (
@@ -142,13 +142,13 @@ export default async function AuthorPageEn({
           {posts.length > 0 && (
             <div className="border-t border-gray-100 pt-10">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Articles by {author.name}
+                Artikel von {author.name}
               </h2>
               <ul className="space-y-4">
                 {posts.map((p) => (
                   <li key={p.slug}>
                     <Link
-                      href={`/en/blog/${p.slug}`}
+                      href={`/de/blog/${p.slug}`}
                       className="block bg-white border border-gray-100 hover:border-indigo-200 rounded-xl p-5 transition-all"
                     >
                       <h3 className="text-base font-semibold text-gray-900">
@@ -173,7 +173,7 @@ export default async function AuthorPageEn({
         </div>
       </article>
 
-      <FooterEn />
+      <FooterDe />
     </div>
   );
 }

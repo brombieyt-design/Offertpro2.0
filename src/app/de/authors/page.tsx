@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { User } from "lucide-react";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import NavbarDe from "@/components/landing/de/NavbarDe";
+import FooterDe from "@/components/landing/de/FooterDe";
 import { getAllAuthors } from "@/content/authors";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 export const metadata: Metadata = {
-  title: "Redaktionen – Offert Pro",
+  title: "Redaktionsteam – Offert Pro",
   description:
-    "Möt teamet bakom Offert Pros guider och artiklar: produktspecialister, kundframgångschefer och jurister med lång erfarenhet av B2B-försäljning och europeisk compliance.",
+    "Lernen Sie das Team hinter den Leitfäden und Artikeln von Offert Pro kennen: Produktspezialistinnen, Customer-Success-Leads und Juristinnen mit tiefer Erfahrung in B2B-Vertrieb und europäischer Compliance.",
   alternates: {
-    canonical: `${SITE_URL}/authors`,
+    canonical: `${SITE_URL}/de/authors`,
     languages: {
       "sv-SE": `${SITE_URL}/authors`,
       en: `${SITE_URL}/en/authors`,
@@ -21,16 +21,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Redaktionen – Offert Pro",
-    description: "Möt teamet bakom Offert Pros guider och artiklar.",
-    url: `${SITE_URL}/authors`,
-    locale: "sv_SE",
-    alternateLocale: ["en", "de"],
+    title: "Redaktionsteam – Offert Pro",
+    description:
+      "Lernen Sie das Team hinter den Leitfäden und Artikeln von Offert Pro kennen.",
+    url: `${SITE_URL}/de/authors`,
+    locale: "de",
+    alternateLocale: ["sv_SE", "en"],
     type: "website",
   },
 };
 
-export default function AuthorsIndexPage() {
+export default function AuthorsIndexPageDe() {
   const authors = getAllAuthors();
 
   const itemListJsonLd = {
@@ -42,8 +43,8 @@ export default function AuthorsIndexPage() {
       item: {
         "@type": "Person",
         name: a.name,
-        jobTitle: a.roleSv,
-        url: `${SITE_URL}/authors/${a.slug}`,
+        jobTitle: a.roleDe,
+        url: `${SITE_URL}/de/authors/${a.slug}`,
         worksFor: { "@type": "Organization", name: "Offert Pro", url: SITE_URL },
       },
     })),
@@ -55,20 +56,20 @@ export default function AuthorsIndexPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <Navbar />
+      <NavbarDe />
 
       <section className="pt-32 pb-16 px-6">
         <div className="max-w-4xl mx-auto">
           <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">
-            Redaktionen
+            Redaktionsteam
           </p>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mt-3">
-            Teamet bakom våra artiklar
+            Die Menschen hinter unseren Artikeln
           </h1>
           <p className="mt-6 text-lg text-gray-500 leading-relaxed max-w-2xl">
-            Allt vi publicerar på Offert Pros blogg skrivs eller granskas av
-            någon i vårt team — inga ghostwriters, ingen AI som spottar ut
-            generiska SEO-texter. Här är personerna bakom artiklarna.
+            Jeder Artikel im Offert-Pro-Blog wird von einer Person aus unserem
+            Team geschrieben oder geprüft — keine Ghostwriter, keine generischen
+            KI-SEO-Texte. Lernen Sie die Menschen hinter den Leitfäden kennen.
           </p>
         </div>
       </section>
@@ -78,7 +79,7 @@ export default function AuthorsIndexPage() {
           {authors.map((a) => (
             <Link
               key={a.slug}
-              href={`/authors/${a.slug}`}
+              href={`/de/authors/${a.slug}`}
               className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-indigo-200 hover:shadow-lg transition-all"
             >
               <div className="flex items-start gap-4">
@@ -87,9 +88,9 @@ export default function AuthorsIndexPage() {
                 </div>
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900">{a.name}</h2>
-                  <p className="text-sm text-indigo-600 mt-0.5">{a.roleSv}</p>
+                  <p className="text-sm text-indigo-600 mt-0.5">{a.roleDe}</p>
                   <p className="text-sm text-gray-500 mt-3 leading-relaxed">
-                    {a.bioSv}
+                    {a.bioDe}
                   </p>
                 </div>
               </div>
@@ -98,7 +99,7 @@ export default function AuthorsIndexPage() {
         </div>
       </section>
 
-      <Footer />
+      <FooterDe />
     </div>
   );
 }

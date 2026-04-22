@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Clock } from "lucide-react";
-import { getAllBlogPostsEn } from "@/content/blog-posts-en";
-import NavbarEn from "@/components/landing/en/NavbarEn";
-import FooterEn from "@/components/landing/en/FooterEn";
+import { getAllBlogPostsDe } from "@/content/blog-posts-de";
+import NavbarDe from "@/components/landing/de/NavbarDe";
+import FooterDe from "@/components/landing/de/FooterDe";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 export const metadata: Metadata = {
-  title: "Blog – Guides, comparisons & insights on proposals and invoicing",
+  title: "Blog – Leitfäden, Vergleiche & Einblicke zu Angeboten und Rechnungen",
   description:
-    "Long-form guides and comparisons for European small businesses: how to write winning proposals, choosing proposal software, eIDAS e-signatures and more.",
+    "Langform-Leitfäden und Vergleiche für kleine Unternehmen in DACH: wie Sie gewinnende Angebote schreiben, die richtige Angebotssoftware wählen, eIDAS-E-Signaturen und mehr.",
   alternates: {
-    canonical: `${SITE_URL}/en/blog`,
+    canonical: `${SITE_URL}/de/blog`,
     languages: {
       "sv-SE": `${SITE_URL}/blog`,
       en: `${SITE_URL}/en/blog`,
@@ -23,25 +23,25 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Blog – Offert Pro",
     description:
-      "Guides, comparisons and insights on proposals, invoicing and small business growth in Europe.",
-    url: `${SITE_URL}/en/blog`,
-    locale: "en",
-    alternateLocale: ["sv_SE", "de"],
+      "Leitfäden, Vergleiche und Einblicke zu Angeboten, Rechnungen und Wachstum von Kleinunternehmen in Europa.",
+    url: `${SITE_URL}/de/blog`,
+    locale: "de",
+    alternateLocale: ["sv_SE", "en"],
     type: "website",
   },
 };
 
-export default function EnBlogPage() {
-  const posts = getAllBlogPostsEn();
+export default function DeBlogPage() {
+  const posts = getAllBlogPostsDe();
 
   const blogJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "Offert Pro Blog",
     description:
-      "Guides, comparisons and insights on proposals, invoicing and small business growth in Europe.",
-    url: `${SITE_URL}/en/blog`,
-    inLanguage: "en",
+      "Leitfäden, Vergleiche und Einblicke zu Angeboten, Rechnungen und Wachstum von Kleinunternehmen in Europa.",
+    url: `${SITE_URL}/de/blog`,
+    inLanguage: "de",
     publisher: {
       "@type": "Organization",
       name: "Offert Pro",
@@ -52,7 +52,7 @@ export default function EnBlogPage() {
       headline: p.title,
       description: p.description,
       datePublished: p.date,
-      url: `${SITE_URL}/en/blog/${p.slug}`,
+      url: `${SITE_URL}/de/blog/${p.slug}`,
       author: { "@type": "Person", name: p.author },
     })),
   };
@@ -63,7 +63,7 @@ export default function EnBlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
       />
-      <NavbarEn />
+      <NavbarDe />
 
       {/* Hero */}
       <section className="pt-32 pb-16 px-6">
@@ -72,11 +72,11 @@ export default function EnBlogPage() {
             Blog
           </p>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-6">
-            Guides, comparisons & insights
+            Leitfäden, Vergleiche & Einblicke
           </h1>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Long-form guides for European small businesses: proposal writing,
-            pricing strategy, e-signature compliance and tool comparisons.
+            Langform-Leitfäden für kleine Unternehmen in DACH: Angebots&shy;erstellung,
+            Preisstrategie, E-Signatur-Compliance und Tool-Vergleiche.
           </p>
         </div>
       </section>
@@ -91,7 +91,7 @@ export default function EnBlogPage() {
                 i === 0 ? "md:col-span-2" : ""
               }`}
             >
-              <Link href={`/en/blog/${post.slug}`} className="block p-8">
+              <Link href={`/de/blog/${post.slug}`} className="block p-8">
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-xs font-medium text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
                     {post.category}
@@ -101,7 +101,7 @@ export default function EnBlogPage() {
                     {post.readTime}
                   </span>
                   <span className="text-xs text-gray-400">
-                    {new Date(post.date).toLocaleDateString("en-GB", {
+                    {new Date(post.date).toLocaleDateString("de-DE", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
@@ -119,7 +119,7 @@ export default function EnBlogPage() {
                   {post.description}
                 </p>
                 <div className="flex items-center gap-2 text-sm font-medium text-brand-600 group-hover:gap-3 transition-all">
-                  Read more
+                  Weiterlesen
                   <ArrowRight className="w-4 h-4" />
                 </div>
               </Link>
@@ -131,21 +131,21 @@ export default function EnBlogPage() {
       {/* CTA */}
       <section className="bg-brand-600 py-16 px-6 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-          Ready to send your first proposal?
+          Bereit, Ihr erstes Angebot zu versenden?
         </h2>
         <p className="text-brand-100 mb-8 max-w-xl mx-auto">
-          Start free today — no credit card, no commitment.
+          Starten Sie heute kostenlos — keine Kreditkarte, keine Verpflichtung.
         </p>
         <Link
           href="/signup"
           className="inline-flex items-center gap-2 px-8 py-3 text-sm font-semibold bg-white text-brand-600 rounded-xl hover:bg-gray-100 transition-colors"
         >
-          Get started free
+          Kostenlos starten
           <ArrowRight className="w-4 h-4" />
         </Link>
       </section>
 
-      <FooterEn />
+      <FooterDe />
     </div>
   );
 }

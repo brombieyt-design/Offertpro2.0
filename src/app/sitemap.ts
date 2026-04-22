@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllBlogPosts } from "@/content/blog-posts";
 import { getAllBlogPostsEn } from "@/content/blog-posts-en";
+import { getAllBlogPostsDe } from "@/content/blog-posts-de";
 import { getAllAuthors } from "@/content/authors";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
@@ -69,6 +70,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           "sv-SE": `${SITE_URL}/blog`,
           en: `${SITE_URL}/en/blog`,
+          de: `${SITE_URL}/de/blog`,
           "x-default": `${SITE_URL}/blog`,
         },
       },
@@ -77,78 +79,157 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/en`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/en/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${SITE_URL}/en/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
-    { url: `${SITE_URL}/en/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    {
+      url: `${SITE_URL}/en/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/blog`,
+          en: `${SITE_URL}/en/blog`,
+          de: `${SITE_URL}/de/blog`,
+          "x-default": `${SITE_URL}/blog`,
+        },
+      },
+    },
     // German tree
     { url: `${SITE_URL}/de`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/de/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${SITE_URL}/de/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
+    {
+      url: `${SITE_URL}/de/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/blog`,
+          en: `${SITE_URL}/en/blog`,
+          de: `${SITE_URL}/de/blog`,
+          "x-default": `${SITE_URL}/blog`,
+        },
+      },
+    },
   ];
 
-  /** Swedish blog posts. If a post has an English counterpart, announce it. */
-  const blogPosts: MetadataRoute.Sitemap = getAllBlogPosts().map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: post.date,
-    changeFrequency: "monthly",
-    priority: 0.6,
-    ...(post.englishSlug
-      ? {
-          alternates: {
-            languages: {
-              "sv-SE": `${SITE_URL}/blog/${post.slug}`,
-              en: `${SITE_URL}/en/blog/${post.englishSlug}`,
-              "x-default": `${SITE_URL}/blog/${post.slug}`,
-            },
-          },
-        }
-      : {}),
-  }));
+  /**
+   * Build `alternates.languages` for a blog post given optional counterpart
+   * slugs in the other two locales. The current locale is always included;
+   * x-default points at the Swedish version when present, otherwise at the
+   * current locale.
+   */
+  type BlogAlternates = {
+    alternates: {
+      languages: Record<string, string>;
+    };
+  };
+  const blogAlternates = (
+    current: "sv" | "en" | "de",
+    slugs: { sv?: string; en?: string; de?: string }
+  ): BlogAlternates | Record<string, never> => {
+    const entries: [string, string][] = [];
+    if (slugs.sv) entries.push(["sv-SE", `${SITE_URL}/blog/${slugs.sv}`]);
+    if (slugs.en) entries.push(["en", `${SITE_URL}/en/blog/${slugs.en}`]);
+    if (slugs.de) entries.push(["de", `${SITE_URL}/de/blog/${slugs.de}`]);
+    // x-default prefers Swedish, then English, then the current locale
+    const defaultSlug = slugs.sv
+      ? `${SITE_URL}/blog/${slugs.sv}`
+      : slugs.en
+      ? `${SITE_URL}/en/blog/${slugs.en}`
+      : slugs.de
+      ? `${SITE_URL}/de/blog/${slugs.de}`
+      : `${SITE_URL}/${current === "sv" ? "blog" : `${current}/blog`}`;
+    entries.push(["x-default", defaultSlug]);
+    if (entries.length === 1) return {};
+    return { alternates: { languages: Object.fromEntries(entries) } };
+  };
 
-  /** English blog posts. If matched to a Swedish post, announce alternates. */
-  const blogPostsEn: MetadataRoute.Sitemap = getAllBlogPostsEn().map((post) => ({
-    url: `${SITE_URL}/en/blog/${post.slug}`,
+  /** Swedish blog posts. Announce English and German counterparts when present. */
+  const blogPosts: MetadataRoute.Sitemap = getAllBlogPosts().map((post) => {
+    const deMatch = getAllBlogPostsDe().find(
+      (p) => p.swedishSlug === post.slug
+    );
+    return {
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: post.date,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      ...blogAlternates("sv", {
+        sv: post.slug,
+        en: post.englishSlug,
+        de: deMatch?.slug,
+      }),
+    };
+  });
+
+  /** English blog posts. Announce Swedish and German counterparts when present. */
+  const blogPostsEn: MetadataRoute.Sitemap = getAllBlogPostsEn().map((post) => {
+    const deMatch = getAllBlogPostsDe().find(
+      (p) => p.englishSlug === post.slug
+    );
+    return {
+      url: `${SITE_URL}/en/blog/${post.slug}`,
+      lastModified: post.date,
+      changeFrequency: "monthly",
+      priority: 0.65,
+      ...blogAlternates("en", {
+        sv: post.swedishSlug,
+        en: post.slug,
+        de: deMatch?.slug,
+      }),
+    };
+  });
+
+  /** German blog posts. Announce Swedish and English counterparts when present. */
+  const blogPostsDe: MetadataRoute.Sitemap = getAllBlogPostsDe().map((post) => ({
+    url: `${SITE_URL}/de/blog/${post.slug}`,
     lastModified: post.date,
     changeFrequency: "monthly",
     priority: 0.65,
-    ...(post.swedishSlug
-      ? {
-          alternates: {
-            languages: {
-              "sv-SE": `${SITE_URL}/blog/${post.swedishSlug}`,
-              en: `${SITE_URL}/en/blog/${post.slug}`,
-              "x-default": `${SITE_URL}/en/blog/${post.slug}`,
-            },
-          },
-        }
-      : {}),
+    ...blogAlternates("de", {
+      sv: post.swedishSlug,
+      en: post.englishSlug,
+      de: post.slug,
+    }),
   }));
 
-  /** Author profile pages with reciprocal hreflang between sv and en. */
+  /** Author profile pages with tri-locale hreflang across sv, en and de. */
+  const authorLanguages = (slug: string) => ({
+    "sv-SE": `${SITE_URL}/authors/${slug}`,
+    en: `${SITE_URL}/en/authors/${slug}`,
+    de: `${SITE_URL}/de/authors/${slug}`,
+    "x-default": `${SITE_URL}/authors/${slug}`,
+  });
+
+  const authorIndexLanguages = {
+    "sv-SE": `${SITE_URL}/authors`,
+    en: `${SITE_URL}/en/authors`,
+    de: `${SITE_URL}/de/authors`,
+    "x-default": `${SITE_URL}/authors`,
+  };
+
   const authorRoutes: MetadataRoute.Sitemap = [
     {
       url: `${SITE_URL}/authors`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.5,
-      alternates: {
-        languages: {
-          "sv-SE": `${SITE_URL}/authors`,
-          en: `${SITE_URL}/en/authors`,
-          "x-default": `${SITE_URL}/authors`,
-        },
-      },
+      alternates: { languages: authorIndexLanguages },
     },
     {
       url: `${SITE_URL}/en/authors`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.5,
-      alternates: {
-        languages: {
-          "sv-SE": `${SITE_URL}/authors`,
-          en: `${SITE_URL}/en/authors`,
-          "x-default": `${SITE_URL}/authors`,
-        },
-      },
+      alternates: { languages: authorIndexLanguages },
+    },
+    {
+      url: `${SITE_URL}/de/authors`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: { languages: authorIndexLanguages },
     },
     ...getAllAuthors().flatMap((a): MetadataRoute.Sitemap => [
       {
@@ -156,29 +237,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.4,
-        alternates: {
-          languages: {
-            "sv-SE": `${SITE_URL}/authors/${a.slug}`,
-            en: `${SITE_URL}/en/authors/${a.slug}`,
-            "x-default": `${SITE_URL}/authors/${a.slug}`,
-          },
-        },
+        alternates: { languages: authorLanguages(a.slug) },
       },
       {
         url: `${SITE_URL}/en/authors/${a.slug}`,
         lastModified: now,
         changeFrequency: "monthly",
         priority: 0.4,
-        alternates: {
-          languages: {
-            "sv-SE": `${SITE_URL}/authors/${a.slug}`,
-            en: `${SITE_URL}/en/authors/${a.slug}`,
-            "x-default": `${SITE_URL}/authors/${a.slug}`,
-          },
-        },
+        alternates: { languages: authorLanguages(a.slug) },
+      },
+      {
+        url: `${SITE_URL}/de/authors/${a.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: 0.4,
+        alternates: { languages: authorLanguages(a.slug) },
       },
     ]),
   ];
 
-  return [...staticRoutes, ...blogPosts, ...blogPostsEn, ...authorRoutes];
+  return [
+    ...staticRoutes,
+    ...blogPosts,
+    ...blogPostsEn,
+    ...blogPostsDe,
+    ...authorRoutes,
+  ];
 }

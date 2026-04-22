@@ -10,6 +10,7 @@ const links = [
   { label: "So funktioniert's", href: "/de#how-it-works" },
   { label: "Funktionen", href: "/de#features" },
   { label: "Preise", href: "/de/pricing" },
+  { label: "Blog", href: "/de/blog" },
   { label: "Für KI", href: "/de/for-ai" },
 ];
 

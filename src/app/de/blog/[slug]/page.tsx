@@ -3,18 +3,17 @@ import Link from "next/link";
 import { Clock, User, ChevronRight, Home } from "lucide-react";
 import { notFound } from "next/navigation";
 import {
-  getBlogPostEn,
-  getAllBlogPostsEn,
-} from "@/content/blog-posts-en";
-import { getAllBlogPostsDe } from "@/content/blog-posts-de";
+  getBlogPostDe,
+  getAllBlogPostsDe,
+} from "@/content/blog-posts-de";
 import { authorNameToSlug, getAuthorByName } from "@/content/authors";
-import NavbarEn from "@/components/landing/en/NavbarEn";
-import FooterEn from "@/components/landing/en/FooterEn";
+import NavbarDe from "@/components/landing/de/NavbarDe";
+import FooterDe from "@/components/landing/de/FooterDe";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 export async function generateStaticParams() {
-  return getAllBlogPostsEn().map((post) => ({ slug: post.slug }));
+  return getAllBlogPostsDe().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -23,44 +22,41 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostEn(slug);
+  const post = getBlogPostDe(slug);
   if (!post) return {};
 
-  const hasSwedish = !!post.swedishSlug;
-  const deMatch = getAllBlogPostsDe().find((p) => p.englishSlug === post.slug);
-  const hasGerman = !!deMatch;
   const languages: Record<string, string> = {
-    en: `${SITE_URL}/en/blog/${post.slug}`,
-    "x-default": `${SITE_URL}/en/blog/${post.slug}`,
+    de: `${SITE_URL}/de/blog/${post.slug}`,
+    "x-default": `${SITE_URL}/de/blog/${post.slug}`,
   };
-  if (hasSwedish) {
+  if (post.swedishSlug) {
     languages["sv-SE"] = `${SITE_URL}/blog/${post.swedishSlug}`;
     languages["x-default"] = `${SITE_URL}/blog/${post.swedishSlug}`;
   }
-  if (hasGerman && deMatch) {
-    languages.de = `${SITE_URL}/de/blog/${deMatch.slug}`;
+  if (post.englishSlug) {
+    languages["en"] = `${SITE_URL}/en/blog/${post.englishSlug}`;
   }
 
   const alternateLocale: string[] = [];
-  if (hasSwedish) alternateLocale.push("sv_SE");
-  if (hasGerman) alternateLocale.push("de");
+  if (post.swedishSlug) alternateLocale.push("sv_SE");
+  if (post.englishSlug) alternateLocale.push("en");
 
   return {
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `${SITE_URL}/en/blog/${post.slug}`,
+      canonical: `${SITE_URL}/de/blog/${post.slug}`,
       languages,
     },
     openGraph: {
       title: post.title,
       description: post.description,
       type: "article",
-      url: `${SITE_URL}/en/blog/${post.slug}`,
+      url: `${SITE_URL}/de/blog/${post.slug}`,
       publishedTime: post.date,
       authors: [post.author],
       tags: post.tags,
-      locale: "en",
+      locale: "de",
       alternateLocale,
     },
     twitter: {
@@ -71,13 +67,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function EnBlogPostPage({
+export default async function DeBlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPostEn(slug);
+  const post = getBlogPostDe(slug);
   if (!post) notFound();
 
   const articleJsonLd = {
@@ -87,7 +83,7 @@ export default async function EnBlogPostPage({
     description: post.description,
     datePublished: post.date,
     dateModified: post.date,
-    inLanguage: "en",
+    inLanguage: "de",
     author: (() => {
       const authorBio = getAuthorByName(post.author);
       return {
@@ -96,7 +92,7 @@ export default async function EnBlogPostPage({
         jobTitle: post.authorRole,
         ...(authorBio
           ? {
-              url: `${SITE_URL}/en/authors/${authorBio.slug}`,
+              url: `${SITE_URL}/de/authors/${authorBio.slug}`,
               knowsAbout: authorBio.expertise,
             }
           : {}),
@@ -116,7 +112,7 @@ export default async function EnBlogPostPage({
         url: `${SITE_URL}/logo.png`,
       },
     },
-    mainEntityOfPage: `${SITE_URL}/en/blog/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/de/blog/${post.slug}`,
     image: `${SITE_URL}/og-image.png`,
     keywords: post.tags.join(", "),
     articleSection: post.category,
@@ -126,13 +122,13 @@ export default async function EnBlogPostPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en` },
-      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/en/blog` },
+      { "@type": "ListItem", position: 1, name: "Start", item: `${SITE_URL}/de` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/de/blog` },
       {
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `${SITE_URL}/en/blog/${post.slug}`,
+        item: `${SITE_URL}/de/blog/${post.slug}`,
       },
     ],
   };
@@ -143,7 +139,7 @@ export default async function EnBlogPostPage({
         "@type": "HowTo",
         name: post.title,
         description: post.description,
-        inLanguage: "en",
+        inLanguage: "de",
         step: post.howToSteps.map((s, i) => ({
           "@type": "HowToStep",
           position: i + 1,
@@ -169,7 +165,7 @@ export default async function EnBlogPostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
         />
       )}
-      <NavbarEn />
+      <NavbarDe />
 
       <article className="pt-32 pb-24 px-6">
         <div className="max-w-3xl mx-auto">
@@ -178,18 +174,18 @@ export default async function EnBlogPostPage({
             <ol className="flex items-center gap-1.5 text-sm text-gray-400">
               <li>
                 <Link
-                  href="/en"
+                  href="/de"
                   className="hover:text-brand-600 transition-colors flex items-center gap-1"
                 >
                   <Home className="w-3.5 h-3.5" />
-                  <span className="sr-only">Home</span>
+                  <span className="sr-only">Start</span>
                 </Link>
               </li>
               <li>
                 <ChevronRight className="w-3.5 h-3.5" />
               </li>
               <li>
-                <Link href="/en/blog" className="hover:text-brand-600 transition-colors">
+                <Link href="/de/blog" className="hover:text-brand-600 transition-colors">
                   Blog
                 </Link>
               </li>
@@ -209,10 +205,10 @@ export default async function EnBlogPostPage({
             </span>
             <span className="flex items-center gap-1 text-sm text-gray-400">
               <Clock className="w-3.5 h-3.5" />
-              {post.readTime} read
+              {post.readTime} Lesezeit
             </span>
             <span className="text-sm text-gray-400">
-              {new Date(post.date).toLocaleDateString("en-GB", {
+              {new Date(post.date).toLocaleDateString("de-DE", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -232,22 +228,33 @@ export default async function EnBlogPostPage({
             </div>
             <div>
               <Link
-                href={`/en/authors/${authorNameToSlug(post.author)}`}
+                href={`/de/authors/${authorNameToSlug(post.author)}`}
                 className="text-sm font-medium text-gray-900 hover:text-brand-600 transition-colors"
               >
                 {post.author}
               </Link>
               <p className="text-xs text-gray-500">{post.authorRole}</p>
             </div>
-            {post.swedishSlug && (
-              <Link
-                href={`/blog/${post.swedishSlug}`}
-                hrefLang="sv"
-                className="ml-auto text-xs text-brand-600 hover:text-brand-700 font-medium"
-              >
-                Läs på svenska →
-              </Link>
-            )}
+            <div className="ml-auto flex gap-3">
+              {post.swedishSlug && (
+                <Link
+                  href={`/blog/${post.swedishSlug}`}
+                  hrefLang="sv"
+                  className="text-xs text-brand-600 hover:text-brand-700 font-medium"
+                >
+                  Läs på svenska →
+                </Link>
+              )}
+              {post.englishSlug && (
+                <Link
+                  href={`/en/blog/${post.englishSlug}`}
+                  hrefLang="en"
+                  className="text-xs text-brand-600 hover:text-brand-700 font-medium"
+                >
+                  Read in English →
+                </Link>
+              )}
+            </div>
           </div>
 
           {/* Content */}
@@ -285,22 +292,22 @@ export default async function EnBlogPostPage({
           {/* CTA */}
           <div className="mt-12 bg-brand-50 rounded-2xl p-8 text-center">
             <h3 className="text-lg font-bold text-gray-900 mb-2">
-              Ready to send better proposals?
+              Bereit für bessere Angebote?
             </h3>
             <p className="text-gray-600 mb-6">
-              Get started free — create your first proposal in under 5 minutes.
+              Kostenlos starten — erstellen Sie Ihr erstes Angebot in unter 5 Minuten.
             </p>
             <Link
               href="/signup"
               className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold bg-brand-600 text-white rounded-xl hover:bg-brand-700 transition-colors"
             >
-              Try it free
+              Kostenlos testen
             </Link>
           </div>
         </div>
       </article>
 
-      <FooterEn />
+      <FooterDe />
     </div>
   );
 }
