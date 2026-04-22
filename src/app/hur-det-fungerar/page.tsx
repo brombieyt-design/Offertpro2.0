@@ -90,6 +90,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/hur-det-fungerar`,
     languages: {
       "sv-SE": `${SITE_URL}/hur-det-fungerar`,
+      en: `${SITE_URL}/en/how-it-works`,
       de: `${SITE_URL}/de/funktionsweise`,
       "x-default": `${SITE_URL}/hur-det-fungerar`,
     },
@@ -98,7 +99,7 @@ export const metadata: Metadata = {
     title: "Hur det fungerar – Offert Pro",
     description: "Skapa offerter i 3 enkla steg. Välj mall, anpassa, skicka.",
     locale: "sv_SE",
-    alternateLocale: ["de"],
+    alternateLocale: ["en", "de"],
   },
 };
 

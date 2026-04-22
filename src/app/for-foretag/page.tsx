@@ -96,6 +96,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/for-foretag`,
     languages: {
       "sv-SE": `${SITE_URL}/for-foretag`,
+      en: `${SITE_URL}/en/for-businesses`,
       de: `${SITE_URL}/de/fuer-unternehmen`,
       "x-default": `${SITE_URL}/for-foretag`,
     },
@@ -104,7 +105,7 @@ export const metadata: Metadata = {
     title: "För företag – Offert Pro",
     description: "Skala din offertprocess. 40% högre acceptansgrad, teamsamarbete, API-integrationer.",
     locale: "sv_SE",
-    alternateLocale: ["de"],
+    alternateLocale: ["en", "de"],
   },
 };
 

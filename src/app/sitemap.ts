@@ -64,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "sv-SE": `${SITE_URL}/hur-det-fungerar`,
+          en: `${SITE_URL}/en/how-it-works`,
           de: `${SITE_URL}/de/funktionsweise`,
           "x-default": `${SITE_URL}/hur-det-fungerar`,
         },
@@ -77,6 +78,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "sv-SE": `${SITE_URL}/tjanster`,
+          en: `${SITE_URL}/en/services`,
           de: `${SITE_URL}/de/leistungen`,
           "x-default": `${SITE_URL}/tjanster`,
         },
@@ -90,6 +92,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "sv-SE": `${SITE_URL}/for-foretag`,
+          en: `${SITE_URL}/en/for-businesses`,
           de: `${SITE_URL}/de/fuer-unternehmen`,
           "x-default": `${SITE_URL}/for-foretag`,
         },
@@ -116,6 +119,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/en/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${SITE_URL}/en/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
     {
+      url: `${SITE_URL}/en/how-it-works`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/hur-det-fungerar`,
+          en: `${SITE_URL}/en/how-it-works`,
+          de: `${SITE_URL}/de/funktionsweise`,
+          "x-default": `${SITE_URL}/hur-det-fungerar`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/services`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/tjanster`,
+          en: `${SITE_URL}/en/services`,
+          de: `${SITE_URL}/de/leistungen`,
+          "x-default": `${SITE_URL}/tjanster`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/for-businesses`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/for-foretag`,
+          en: `${SITE_URL}/en/for-businesses`,
+          de: `${SITE_URL}/de/fuer-unternehmen`,
+          "x-default": `${SITE_URL}/for-foretag`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -141,6 +186,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "sv-SE": `${SITE_URL}/hur-det-fungerar`,
+          en: `${SITE_URL}/en/how-it-works`,
           de: `${SITE_URL}/de/funktionsweise`,
           "x-default": `${SITE_URL}/hur-det-fungerar`,
         },
@@ -154,6 +200,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "sv-SE": `${SITE_URL}/tjanster`,
+          en: `${SITE_URL}/en/services`,
           de: `${SITE_URL}/de/leistungen`,
           "x-default": `${SITE_URL}/tjanster`,
         },
@@ -167,6 +214,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: {
         languages: {
           "sv-SE": `${SITE_URL}/for-foretag`,
+          en: `${SITE_URL}/en/for-businesses`,
           de: `${SITE_URL}/de/fuer-unternehmen`,
           "x-default": `${SITE_URL}/for-foretag`,
         },

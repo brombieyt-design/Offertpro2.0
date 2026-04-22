@@ -6,9 +6,10 @@ const columns = [
   {
     title: "Product",
     links: [
-      { label: "How it works", href: "/en#how-it-works" },
-      { label: "Features", href: "/en#features" },
+      { label: "How it works", href: "/en/how-it-works" },
+      { label: "Services", href: "/en/services" },
       { label: "Pricing", href: "/en/pricing" },
+      { label: "For businesses", href: "/en/for-businesses" },
       { label: "For AI", href: "/en/for-ai" },
     ],
   },
@@ -16,6 +17,7 @@ const columns = [
     title: "Company",
     links: [
       { label: "Blog", href: "/en/blog" },
+      { label: "Editorial team", href: "/en/authors" },
       { label: "Contact", href: "mailto:hello@offertpro.se" },
       { label: "Swedish site", href: "/" },
       { label: "German site", href: "/de" },

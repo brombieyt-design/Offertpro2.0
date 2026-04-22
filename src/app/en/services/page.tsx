@@ -9,102 +9,130 @@ import {
   ArrowRight,
   Check,
 } from "lucide-react";
-import { features } from "@/lib/constants";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import NavbarEn from "@/components/landing/en/NavbarEn";
+import FooterEn from "@/components/landing/en/FooterEn";
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-  FileText,
-  Eye,
-  Copy,
-  PenTool,
-  Bell,
-  GitBranch,
-};
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
+
+const featuresEn = [
+  {
+    icon: FileText,
+    title: "Beautiful PDFs",
+    description:
+      "Create professional, on-brand proposals that make a great first impression.",
+  },
+  {
+    icon: Eye,
+    title: "Real-time tracking",
+    description:
+      "Get instant notifications when clients open and read your proposals.",
+  },
+  {
+    icon: Copy,
+    title: "Reusable templates",
+    description: "Save time with a library of customisable proposal templates.",
+  },
+  {
+    icon: PenTool,
+    title: "E-signatures",
+    description:
+      "Legally binding digital signatures built into the platform — eIDAS-compliant.",
+  },
+  {
+    icon: Bell,
+    title: "Automated reminders",
+    description:
+      "Follow-up notifications at the right moment for the best results.",
+  },
+  {
+    icon: GitBranch,
+    title: "Status pipeline",
+    description:
+      "Visual sales pipeline to manage every deal — drag and drop between stages.",
+  },
+];
 
 const detailedFeatures = [
   {
     icon: FileText,
-    title: "Professionella PDF-offerter",
+    title: "Professional PDF proposals",
     description:
-      "Skapa snygga, varumärkta PDF-offerter med din logotyp, färger och typsnitt. Välj bland flera mallar eller skapa din egen design från grunden.",
+      "Create polished, on-brand PDF proposals with your logo, colours and typography. Pick from multiple templates or design from scratch.",
     benefits: [
-      "Anpassad med ditt varumärke",
-      "Flera professionella mallar",
-      "Automatisk formatering",
-      "Exportera till PDF med ett klick",
+      "Matched to your branding",
+      "Multiple professional templates",
+      "Automatic formatting",
+      "One-click PDF export",
     ],
   },
   {
     icon: Eye,
-    title: "Realtidsspårning",
+    title: "Real-time tracking",
     description:
-      "Få omedelbara notiser när dina kunder öppnar och läser dina offerter. Se exakt vilka sektioner de spenderar mest tid på.",
+      "Get instant notifications as soon as clients open and read your proposals. See exactly which sections get the most attention.",
     benefits: [
-      "Öppnings-notiser i realtid",
-      "Sektionsspårning",
-      "Läshistorik per kund",
-      "Optimal uppföljningstid",
+      "Real-time open notifications",
+      "Per-section tracking",
+      "Read history per client",
+      "Optimal follow-up timing",
     ],
   },
   {
     icon: PenTool,
-    title: "E-signaturer",
+    title: "E-signatures",
     description:
-      "Juridiskt bindande digitala signaturer inbyggt i plattformen. Kunder kan signera direkt i webbläsaren utan extra programvara.",
+      "Legally binding digital signatures built straight into the platform. Clients sign in the browser — no extra software needed.",
     benefits: [
-      "Juridiskt bindande",
-      "Signera i webbläsaren",
-      "BankID-stöd",
-      "Automatisk arkivering",
+      "Legally binding (eIDAS)",
+      "Sign in the browser",
+      "BankID-backed QES for Nordic signers",
+      "Automatic archiving",
     ],
   },
   {
     icon: Bell,
-    title: "Automatiska påminnelser",
+    title: "Automated reminders",
     description:
-      "Ställ in smarta påminnelser som skickas vid optimala tidpunkter. Öka din acceptansgrad utan manuellt arbete.",
+      "Set smart reminders that send at the optimal time. Raise your acceptance rate without manual follow-up.",
     benefits: [
-      "AI-optimerade tidpunkter",
-      "Anpassningsbara meddelanden",
-      "Eskaleringsregler",
-      "Statistik per påminnelse",
+      "AI-optimised timing",
+      "Customisable messages",
+      "Escalation rules",
+      "Stats per reminder",
     ],
   },
   {
     icon: Copy,
-    title: "Mallbibliotek",
+    title: "Template library",
     description:
-      "Spara tid med ett bibliotek av återanvändbara mallar. Skapa nya offerter på sekunder baserat på tidigare framgångsrika offerter.",
+      "Save time with a library of reusable templates. Spin up new proposals in seconds based on previous wins.",
     benefits: [
-      "Obegränsade mallar",
-      "Kategoribaserad organisation",
-      "Dynamiska variabler",
-      "Team-delning",
+      "Unlimited templates",
+      "Category-based organisation",
+      "Dynamic variables",
+      "Team sharing",
     ],
   },
   {
     icon: GitBranch,
-    title: "Statuspipeline",
+    title: "Status pipeline",
     description:
-      "Visuell försäljningspipeline för att hantera alla dina affärer. Dra och släpp offerter mellan stadier.",
+      "Visual sales pipeline to manage every deal you have. Drag and drop proposals between stages.",
     benefits: [
-      "Drag & drop-gränssnitt",
-      "Anpassningsbara stadier",
-      "Automatiska statusbyten",
-      "Pipeline-rapporter",
+      "Drag-and-drop interface",
+      "Customisable stages",
+      "Automatic status changes",
+      "Pipeline reports",
     ],
   },
 ];
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
-
 export const metadata: Metadata = {
-  title: "Tjänster – Allt du behöver för professionella offerter",
+  title: "Services – Everything you need for professional proposals",
   description:
-    "PDF-offerter, realtidsspårning, e-signaturer, återanvändbara mallar, automatiska påminnelser och statuspipeline. Allt i ett offertverktyg.",
+    "PDF proposals, real-time tracking, eIDAS e-signatures, reusable templates, automated reminders and a status pipeline. All in one proposal tool.",
   alternates: {
-    canonical: `${SITE_URL}/tjanster`,
+    canonical: `${SITE_URL}/en/services`,
     languages: {
       "sv-SE": `${SITE_URL}/tjanster`,
       en: `${SITE_URL}/en/services`,
@@ -113,32 +141,35 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Tjänster – Offert Pro",
-    description: "PDF-offerter, e-signaturer, realtidsspårning – allt i ett verktyg.",
-    locale: "sv_SE",
-    alternateLocale: ["en", "de"],
+    title: "Services – Offert Pro",
+    description:
+      "PDF proposals, e-signatures, real-time tracking — all in one tool.",
+    url: `${SITE_URL}/en/services`,
+    locale: "en",
+    alternateLocale: ["sv_SE", "de"],
+    type: "website",
   },
 };
 
-export default function TjansterPage() {
+export default function ServicesPageEn() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <NavbarEn />
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-indigo-600 mb-4">
-            Tjänster
+            Services
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
-            Allt du behöver för
+            Everything you need for
             <br />
-            <span className="text-gray-400">professionella offerter</span>
+            <span className="text-gray-400">professional proposals</span>
           </h1>
           <p className="mt-6 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Kraftfulla verktyg som hjälper dig att skapa, skicka och följa upp
-            offerter snabbare än någonsin.
+            Powerful tools that help you create, send and follow up on proposals
+            faster than ever.
           </p>
         </div>
       </section>
@@ -147,25 +178,22 @@ export default function TjansterPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((f) => {
-              const Icon = iconMap[f.icon];
-              return (
-                <div
-                  key={f.title}
-                  className="bg-white rounded-2xl p-8 border border-gray-100/50 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-5">
-                    {Icon && <Icon className="h-5 w-5 text-indigo-600" />}
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {f.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-400 leading-relaxed">
-                    {f.description}
-                  </p>
+            {featuresEn.map((f) => (
+              <div
+                key={f.title}
+                className="bg-white rounded-2xl p-8 border border-gray-100/50 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-5">
+                  <f.icon className="h-5 w-5 text-indigo-600" />
                 </div>
-              );
-            })}
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {f.title}
+                </h3>
+                <p className="mt-2 text-sm text-gray-400 leading-relaxed">
+                  {f.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -175,11 +203,11 @@ export default function TjansterPage() {
         <div className="mx-auto max-w-5xl">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-              Utforska varje funktion
+              Every feature in depth
             </h2>
             <p className="mt-4 text-lg text-gray-400">
-              Djupdyk i de verktyg som gör Offert Pro till marknadens bästa
-              offertplattform.
+              Dive into the tools that make Offert Pro the best proposal
+              platform for European SMEs.
             </p>
           </div>
 
@@ -228,31 +256,31 @@ export default function TjansterPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-            Testa alla funktioner gratis
+            Try every feature free
           </h2>
           <p className="text-lg text-gray-400 mb-10">
-            Kom igång utan kostnad och utforska alla verktyg. Uppgradera när du
-            är redo.
+            Get started for free and explore every tool. Upgrade when you&rsquo;re
+            ready.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="/signup"
               className="inline-flex items-center px-10 py-4 text-base font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-all duration-300 shadow-sm hover:shadow-lg group"
             >
-              Kom igång gratis
+              Get started free
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a
-              href="/pricing"
+              href="/en/pricing"
               className="inline-flex items-center px-10 py-4 text-base font-medium text-gray-600 bg-white hover:bg-gray-50 rounded-full transition-all duration-300 border border-gray-200"
             >
-              Se priser
+              See pricing
             </a>
           </div>
         </div>
       </section>
 
-      <Footer />
+      <FooterEn />
     </div>
   );
 }

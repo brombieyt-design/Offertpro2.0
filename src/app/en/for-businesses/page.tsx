@@ -9,91 +9,90 @@ import {
   ArrowRight,
   Star,
 } from "lucide-react";
-import NavbarDe from "@/components/landing/de/NavbarDe";
-import FooterDe from "@/components/landing/de/FooterDe";
+import NavbarEn from "@/components/landing/en/NavbarEn";
+import FooterEn from "@/components/landing/en/FooterEn";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 const benefits = [
   {
     icon: Users,
-    title: "Team-Zusammenarbeit",
+    title: "Team collaboration",
     description:
-      "Das gesamte Team arbeitet in einer Plattform mit rollenbasiertem Zugriff und geteilter Pipeline.",
+      "The entire team works in the same platform with role-based access and a shared pipeline.",
   },
   {
     icon: BarChart3,
-    title: "Fortgeschrittene Analysen",
+    title: "Advanced analytics",
     description:
-      "Detaillierte Statistiken zu Angeboten, Annahmerate und Umsatz. Export nach Excel möglich.",
+      "Detailed statistics on proposals, acceptance rates and revenue. Export to Excel or your BI tool.",
   },
   {
     icon: Shield,
-    title: "Enterprise-Sicherheit",
+    title: "Enterprise security",
     description:
-      "SSO/SAML-Login, eIDAS-QES-Signaturen und Verschlüsselung in Ruhe und bei der Übertragung.",
+      "SSO/SAML login, eIDAS-grade e-signatures and encryption at rest and in transit.",
   },
   {
     icon: Zap,
-    title: "Integrationen",
+    title: "Integrations",
     description:
-      "Anbindung an DATEV, CRM-Systeme, Zapier und über 100 weitere Werkzeuge.",
+      "Connect with HubSpot, Salesforce, Xero, Zapier and over 100 other tools.",
   },
   {
     icon: Globe,
-    title: "Eigene Domain",
+    title: "Custom domain",
     description:
-      "Versenden Sie Angebote von Ihrer eigenen Domain mit White-Label-Branding in allen Dokumenten.",
+      "Send proposals from your own domain with white-label branding across every document.",
   },
   {
     icon: Building2,
-    title: "Dedizierter Support",
+    title: "Dedicated support",
     description:
-      "Persönliche Ansprechperson, Onboarding-Hilfe und priorisierter Support rund um die Uhr.",
+      "Named customer success manager, onboarding help and priority support around the clock.",
   },
 ];
 
 const stats = [
-  { value: "40 %", label: "Höhere Annahmerate" },
-  { value: "2x", label: "Schnellerer Angebotsprozess" },
-  { value: "500+", label: "Unternehmenskunden" },
-  { value: "98 %", label: "Kundenzufriedenheit" },
+  { value: "40%", label: "Higher acceptance rate" },
+  { value: "2x", label: "Faster proposal cycle" },
+  { value: "500+", label: "Business customers" },
+  { value: "98%", label: "Customer satisfaction" },
 ];
 
 const caseStudies = [
   {
-    company: "Meier Bau GmbH",
+    company: "Nordberg Construction",
     quote:
-      "Mit Offert Pro haben wir den gesamten Angebotsprozess zentralisiert. Unsere 15 Außendienstmitarbeitenden sparen im Schnitt 8 Stunden pro Woche.",
-    name: "Thomas Meier",
-    role: "Geschäftsführer",
+      "With Offert Pro we&rsquo;ve centralised the entire proposal process. Our 15 sales reps save 8 hours a week on average.",
+    name: "Erik Nordberg",
+    role: "CEO",
     rating: 5,
   },
   {
-    company: "Digital Vision Berlin",
+    company: "Digital Vision London",
     quote:
-      "Wir sind von verlorenen Angeboten in E-Mail-Ketten zu voller Kontrolle mit Pipeline und Follow-ups gewechselt.",
-    name: "Lisa Schneider",
+      "We went from losing proposals in email threads to having full control through the pipeline and follow-up tools.",
+    name: "Lisa Hall",
     role: "COO",
     rating: 5,
   },
   {
-    company: "Cleantech Solutions Austria",
+    company: "Cleantech Solutions",
     quote:
-      "Der Enterprise-Tarif mit SSO und API-Integration passte perfekt zu unseren Sicherheitsanforderungen.",
-    name: "Andreas Huber",
+      "The Enterprise plan with SSO and API integration fit our security requirements perfectly.",
+    name: "Anders Johansson",
     role: "CTO",
     rating: 5,
   },
 ];
 
 export const metadata: Metadata = {
-  title:
-    "Für Unternehmen – Skalieren Sie Ihren Angebotsprozess mit dem ganzen Team",
+  title: "For businesses – Scale your proposal process with the whole team",
   description:
-    "Offert Pro für Unternehmen: 40 % höhere Annahmerate, 2x schnellerer Angebotsprozess. Team-Zusammenarbeit, Rollenverwaltung, API-Integrationen und dedizierter Support.",
+    "Offert Pro for businesses: 40% higher acceptance rate, 2x faster proposal cycle. Team collaboration, role management, API integrations and dedicated support.",
   alternates: {
-    canonical: `${SITE_URL}/de/fuer-unternehmen`,
+    canonical: `${SITE_URL}/en/for-businesses`,
     languages: {
       "sv-SE": `${SITE_URL}/for-foretag`,
       en: `${SITE_URL}/en/for-businesses`,
@@ -102,49 +101,49 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Für Unternehmen – Offert Pro",
+    title: "For businesses – Offert Pro",
     description:
-      "Skalieren Sie Ihren Angebotsprozess. 40 % höhere Annahmerate, Team-Zusammenarbeit, API-Integrationen.",
-    url: `${SITE_URL}/de/fuer-unternehmen`,
-    locale: "de",
-    alternateLocale: ["sv_SE", "en"],
+      "Scale your proposal process. 40% higher acceptance rate, team collaboration, API integrations.",
+    url: `${SITE_URL}/en/for-businesses`,
+    locale: "en",
+    alternateLocale: ["sv_SE", "de"],
     type: "website",
   },
 };
 
-export default function FuerUnternehmenPage() {
+export default function ForBusinessesPageEn() {
   return (
     <div className="min-h-screen bg-white">
-      <NavbarDe />
+      <NavbarEn />
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-indigo-600 mb-4">
-            Für Unternehmen
+            For businesses
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
-            Skalieren Sie Ihren Angebotsprozess
+            Scale your proposal process
             <br />
-            <span className="text-gray-400">mit dem ganzen Team</span>
+            <span className="text-gray-400">with the whole team</span>
           </h1>
           <p className="mt-6 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Offert Pro für Unternehmen bietet Team-Zusammenarbeit, fortgeschrittene
-            Analysen und Enterprise-Funktionen, um mehr Aufträge zu gewinnen.
+            Offert Pro for businesses gives you team collaboration, advanced
+            analytics and enterprise features to win more deals.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="/signup"
               className="inline-flex items-center px-10 py-4 text-base font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-all duration-300 shadow-sm hover:shadow-lg group"
             >
-              Demo vereinbaren
+              Book a demo
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a
-              href="/de/pricing"
+              href="/en/pricing"
               className="inline-flex items-center px-10 py-4 text-base font-medium text-gray-600 bg-white hover:bg-gray-50 rounded-full transition-all duration-300 border border-gray-200"
             >
-              Preise ansehen
+              See pricing
             </a>
           </div>
         </div>
@@ -169,11 +168,11 @@ export default function FuerUnternehmenPage() {
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-              Gebaut für wachsende Unternehmen
+              Built for growing companies
             </h2>
             <p className="mt-4 text-lg text-gray-400">
-              Alles, was Ihr Team braucht, um Angebote effizient im großen
-              Maßstab zu verwalten.
+              Everything your team needs to manage proposals efficiently at
+              scale.
             </p>
           </div>
 
@@ -203,11 +202,10 @@ export default function FuerUnternehmenPage() {
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-              Unternehmen, die uns vertrauen
+              Companies that trust us
             </h2>
             <p className="mt-4 text-lg text-gray-400">
-              Sehen Sie, wie andere Unternehmen ihren Angebotsprozess
-              transformiert haben.
+              See how other businesses have transformed their proposal process.
             </p>
           </div>
 
@@ -226,7 +224,7 @@ export default function FuerUnternehmenPage() {
                   ))}
                 </div>
                 <p className="text-gray-600 leading-relaxed mb-8">
-                  &bdquo;{cs.quote}&ldquo;
+                  &ldquo;{cs.quote}&rdquo;
                 </p>
                 <div className="pt-6 border-t border-gray-100">
                   <p className="text-sm font-semibold text-gray-900">
@@ -247,32 +245,32 @@ export default function FuerUnternehmenPage() {
         <div className="mx-auto max-w-4xl">
           <div className="rounded-3xl bg-gradient-to-br from-gray-50 to-gray-100/50 border border-gray-100 px-8 py-16 md:px-16 md:py-20 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Bereit zum Skalieren?
+              Ready to scale?
             </h2>
             <p className="text-lg text-gray-400 max-w-xl mx-auto mb-10">
-              Vereinbaren Sie eine kostenlose Demo und sehen Sie, wie Offert Pro
-              Ihrem Unternehmen hilft, mehr Aufträge zu gewinnen.
+              Book a free demo and see how Offert Pro can help your business
+              win more deals.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="/signup"
                 className="inline-flex items-center px-10 py-4 text-base font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-all duration-300 shadow-sm hover:shadow-lg group"
               >
-                Demo vereinbaren
+                Book a demo
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
-                href="/de/pricing"
+                href="/en/pricing"
                 className="inline-flex items-center px-10 py-4 text-base font-medium text-gray-600 bg-white hover:bg-gray-50 rounded-full transition-all duration-300 border border-gray-200"
               >
-                Alle Tarife ansehen
+                See all plans
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <FooterDe />
+      <FooterEn />
     </div>
   );
 }

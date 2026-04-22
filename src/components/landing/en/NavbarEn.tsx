@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils";
 import LanguageSwitcher from "@/components/landing/LanguageSwitcher";
 
 const links = [
-  { label: "How it works", href: "/en#how-it-works" },
-  { label: "Features", href: "/en#features" },
+  { label: "How it works", href: "/en/how-it-works" },
+  { label: "Services", href: "/en/services" },
   { label: "Pricing", href: "/en/pricing" },
+  { label: "For businesses", href: "/en/for-businesses" },
   { label: "Blog", href: "/en/blog" },
 ];
 

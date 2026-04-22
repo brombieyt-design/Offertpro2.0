@@ -135,6 +135,7 @@ export const metadata: Metadata = {
     canonical: `${SITE_URL}/de/leistungen`,
     languages: {
       "sv-SE": `${SITE_URL}/tjanster`,
+      en: `${SITE_URL}/en/services`,
       de: `${SITE_URL}/de/leistungen`,
       "x-default": `${SITE_URL}/tjanster`,
     },
@@ -145,7 +146,7 @@ export const metadata: Metadata = {
       "PDF-Angebote, E-Signaturen, Echtzeit-Tracking — alles in einem Tool.",
     url: `${SITE_URL}/de/leistungen`,
     locale: "de",
-    alternateLocale: ["sv_SE"],
+    alternateLocale: ["sv_SE", "en"],
     type: "website",
   },
 };
