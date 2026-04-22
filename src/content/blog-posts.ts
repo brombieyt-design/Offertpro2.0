@@ -240,6 +240,7 @@ export const blogPosts: BlogPost[] = [
     author: "Emma Lindqvist",
     readTime: "4 min",
     category: "Resurser",
+    englishSlug: "free-proposal-template-2026",
     tags: ["offertmall", "gratis", "mall", "PDF", "ladda ner"],
     content: `
 <p>Letar du efter en professionell offertmall? Vi har skapat en gratis mall som innehåller allt du behöver för att göra ett starkt intryck hos dina kunder.</p>

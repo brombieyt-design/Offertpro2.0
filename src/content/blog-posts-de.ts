@@ -432,6 +432,68 @@ export const blogPostsDe: BlogPostDe[] = [
 <p>Zahlungsverzug ist teilweise ein Systemproblem, nicht nur ein Kundenproblem. Fixieren Sie das System — sofortige Rechnungen, 14-Tage-Fristen, reibungslose Zahlung, automatisierte Erinnerungen und gesetzliche Verzugszinsen — und Ihre Zahlungstage sinken messbar. <a href="/signup">Jetzt kostenlos mit Offert Pro starten</a> und die gesamte Kadenz in wenigen Minuten einrichten.</p>
 `,
   },
+  {
+    slug: "kostenlose-angebotsvorlage-2026",
+    title: "Kostenlose Angebotsvorlage 2026 — herunterladen & sofort nutzen",
+    description:
+      "Eine kostenlose, professionell gestaltete Angebotsvorlage für KMU in DACH. Enthält alle Pflichtangaben nach UStG, Reverse-Charge-Struktur und einen eIDAS-Signaturblock. Als PDF oder direkt in Offert Pro.",
+    date: "2026-02-24",
+    author: "Emma Lindqvist",
+    authorRole: "Produktmarketing, Offert Pro",
+    readTime: "4 Min.",
+    category: "Ressourcen",
+    swedishSlug: "offertmall-gratis-ladda-ner",
+    englishSlug: "free-proposal-template-2026",
+    tags: ["angebotsvorlage", "kostenlos", "vorlage", "pdf", "b2b"],
+    content: `
+<p>Sie suchen eine professionelle Angebotsvorlage, die im deutschen B2B-Alltag tatsächlich funktioniert? Wir haben eine kostenlose Vorlage erstellt, die alle Pflichtfelder enthält, um beim Kunden auf den ersten Blick einen starken Eindruck zu hinterlassen — plus die rechtliche Struktur, die in Deutschland, Österreich und der Schweiz erwartet wird.</p>
+
+<h2>Was ein Angebot enthalten sollte</h2>
+<p>Ein vollständiges B2B-Angebot in DACH sollte Folgendes enthalten:</p>
+<ul>
+<li><strong>Firmenname und Logo</strong></li>
+<li><strong>Angebotsnummer</strong> — für Nachvollziehbarkeit und Referenzen</li>
+<li><strong>Datum und Bindefrist</strong> (typischerweise 30 Tage nach § 147 BGB)</li>
+<li><strong>Kundendaten</strong> — Firma, USt-ID, registrierter Sitz</li>
+<li><strong>Leistungsbeschreibung</strong></li>
+<li><strong>Einzelpositionen mit Preisen</strong> — je Zeile mit etwaigen Rabatten</li>
+<li><strong>Summen</strong> — netto, MwSt., brutto</li>
+<li><strong>Zahlungsbedingungen</strong></li>
+<li><strong>Lieferbedingungen und Zeitplan</strong></li>
+<li><strong>Unterschriftsblock</strong> — mit eIDAS-konformer E-Signatur-Option</li>
+</ul>
+
+<h2>Tipps für ein professionelles Angebot</h2>
+<ol>
+<li><strong>Kurz und scanbar halten</strong> — der Kunde sollte das Angebot in 30 Sekunden erfassen</li>
+<li><strong>Branding einsetzen</strong> — Logo, Farben und Typografie schaffen Vertrauen auf Seite 1</li>
+<li><strong>Präzise zum Leistungsumfang</strong> — beschreiben Sie, was enthalten IST und was nicht (&bdquo;Nicht im Leistungsumfang&ldquo; erspart spätere Streitigkeiten)</li>
+<li><strong>Bindefrist angeben</strong> — schafft Verbindlichkeit und schützt Sie vor Preissteigerungen in der Lieferkette</li>
+</ol>
+
+<h2>Warum Offert Pro statt einer statischen Vorlage?</h2>
+<p>Eine statische Word- oder PDF-Vorlage funktioniert, hat aber klare Grenzen:</p>
+<ul>
+<li><strong>Kein Tracking</strong> — Sie wissen nicht, ob der Kunde das Angebot geöffnet hat</li>
+<li><strong>Keine E-Signatur</strong> — der Kunde muss drucken, unterschreiben und zurückscannen</li>
+<li><strong>Manuelle Berechnung</strong> — Risiko falscher MwSt.- und Endsummen</li>
+<li><strong>Keine Kundenstammdaten</strong> — Sie geben dieselben Daten jedes Mal neu ein</li>
+</ul>
+<p>Mit <a href="/signup">Offert Pro</a> erhalten Sie eine dynamische Angebotsvorlage, die Summen (inklusive MwSt. und Reverse Charge) automatisch berechnet, Kundendaten speichert, Angebote per E-Mail mit Lesebestätigung versendet und E-Signaturen direkt im Browser einholt. <strong>Kostenloser Start — 5 Angebote pro Monat ohne Kosten.</strong></p>
+
+<h2>MwSt. und Reverse Charge bei grenzüberschreitendem Geschäft</h2>
+<p>Bei B2B-Leistungen an Kunden in anderen EU-Mitgliedsstaaten greift in der Regel das <strong>Reverse-Charge-Verfahren</strong>: auf der Rechnung wird keine deutsche/österreichische MwSt. ausgewiesen, die Steuerschuld geht auf den Leistungsempfänger über. Achten Sie stets auf:</p>
+<ul>
+<li>Beide USt-IDs (Ihre und die des Kunden) auf dem Angebot</li>
+<li>Validierung der Kunden-USt-ID über das <a href="https://ec.europa.eu/taxation_customs/vies/" rel="nofollow">VIES-System</a> vor Ausstellung</li>
+<li>Hinweis: &bdquo;Steuerschuldnerschaft des Leistungsempfängers — Reverse Charge (§ 13b UStG bzw. Art. 196 der Richtlinie 2006/112/EG)&ldquo;</li>
+</ul>
+<p>Offert Pro erledigt das automatisch, sobald Sie einen Kunden als &bdquo;EU-B2B, anderer Mitgliedsstaat&ldquo; markieren.</p>
+
+<h2>Herunterladen oder direkt starten</h2>
+<p>Sie können entweder unsere kostenlose PDF-Vorlage herunterladen oder <a href="/signup">ein kostenloses Offert-Pro-Konto erstellen</a> und professionelle Angebote direkt aus dem Browser versenden. Keine Kreditkarte nötig, kein Testablauf.</p>
+`,
+  },
 ];
 
 export function getBlogPostDe(slug: string): BlogPostDe | undefined {

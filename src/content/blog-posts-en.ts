@@ -433,6 +433,67 @@ export const blogPostsEn: BlogPostEn[] = [
 <p>Late payment is partly a system problem, not just a client problem. Fix the system — same-day invoices, 14-day terms, frictionless payment, automated reminders, and lawful interest — and your days-to-pay will drop measurably. <a href="/signup">Get started free with Offert Pro</a> and configure the whole cadence in minutes.</p>
 `,
   },
+  {
+    slug: "free-proposal-template-2026",
+    title: "Free proposal template 2026 — download & use today",
+    description:
+      "A free, professionally designed proposal template for European SMEs. Includes every field you need, EU VAT-ready structure and an eIDAS e-sign block. Available as PDF or inside Offert Pro.",
+    date: "2026-02-22",
+    author: "Emma Lindqvist",
+    authorRole: "Product marketing, Offert Pro",
+    readTime: "4 min",
+    category: "Resources",
+    swedishSlug: "offertmall-gratis-ladda-ner",
+    tags: ["proposal template", "free download", "template", "pdf", "b2b"],
+    content: `
+<p>Looking for a professional proposal template that actually works for European B2B? We&rsquo;ve built a free template that ships with every field you need to make a strong first impression — plus the legal structure expected in the EU.</p>
+
+<h2>What a proposal should contain</h2>
+<p>A complete European B2B proposal should include:</p>
+<ul>
+<li><strong>Your company name and logo</strong></li>
+<li><strong>Proposal number</strong> — for traceability and references</li>
+<li><strong>Date and validity period</strong> (typically 30 days)</li>
+<li><strong>Client details</strong> — company, VAT number, registered address</li>
+<li><strong>Scope of services or products</strong></li>
+<li><strong>Line items with pricing</strong> — split per row with any discounts</li>
+<li><strong>Totals</strong> — net, VAT, gross</li>
+<li><strong>Payment terms</strong></li>
+<li><strong>Delivery terms and timeline</strong></li>
+<li><strong>Signature block</strong> — with an eIDAS-compliant e-sign option</li>
+</ul>
+
+<h2>Tips for a professional-looking proposal</h2>
+<ol>
+<li><strong>Keep it short and scannable</strong> — the client should understand the offer within 30 seconds</li>
+<li><strong>Use your brand</strong> — logo, colours and typography build trust on the first page</li>
+<li><strong>Be specific about scope</strong> — describe what&rsquo;s included AND what isn&rsquo;t (&ldquo;out of scope&rdquo; saves disputes later)</li>
+<li><strong>State the validity period</strong> — creates urgency and protects you from price changes upstream</li>
+</ol>
+
+<h2>Why use Offert Pro instead of a static template?</h2>
+<p>A static Word or PDF template works, but has real limitations:</p>
+<ul>
+<li><strong>No tracking</strong> — you don&rsquo;t know if the client has opened the proposal</li>
+<li><strong>No e-signature</strong> — the client must print, sign and scan back to you</li>
+<li><strong>Manual maths</strong> — risk of incorrect VAT and totals</li>
+<li><strong>No client records</strong> — you retype the same details every time</li>
+</ul>
+<p>With <a href="/signup">Offert Pro</a> you get a dynamic proposal template that automatically calculates totals (including EU VAT and reverse charge), stores client details, sends via email with read tracking, and collects e-signatures in the browser. <strong>Free to start — 5 proposals per month at no cost.</strong></p>
+
+<h2>EU VAT and cross-border notes</h2>
+<p>For B2B sales across EU borders you usually apply the <strong>reverse charge</strong> mechanism: no VAT is charged on the invoice, but your client accounts for it in their country. Always:</p>
+<ul>
+<li>Include both your and the client&rsquo;s VAT numbers</li>
+<li>Validate the client&rsquo;s VAT number against <a href="https://ec.europa.eu/taxation_customs/vies/" rel="nofollow">VIES</a> before issuing</li>
+<li>Add a line: &ldquo;Reverse charge — VAT to be accounted for by the recipient (Art. 196 of Directive 2006/112/EC)&rdquo;</li>
+</ul>
+<p>Offert Pro handles this automatically when you mark a client as &ldquo;EU B2B, other member state&rdquo;.</p>
+
+<h2>Download or start directly</h2>
+<p>You can either download our free PDF template, or <a href="/signup">create a free Offert Pro account</a> and start sending professional proposals straight from the browser. No credit card required, and no trial expiry.</p>
+`,
+  },
 ];
 
 export function getBlogPostEn(slug: string): BlogPostEn | undefined {
