@@ -56,9 +56,45 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
-    { url: `${SITE_URL}/hur-det-fungerar`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/tjanster`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/for-foretag`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    {
+      url: `${SITE_URL}/hur-det-fungerar`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/hur-det-fungerar`,
+          de: `${SITE_URL}/de/funktionsweise`,
+          "x-default": `${SITE_URL}/hur-det-fungerar`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/tjanster`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/tjanster`,
+          de: `${SITE_URL}/de/leistungen`,
+          "x-default": `${SITE_URL}/tjanster`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/for-foretag`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/for-foretag`,
+          de: `${SITE_URL}/de/fuer-unternehmen`,
+          "x-default": `${SITE_URL}/for-foretag`,
+        },
+      },
+    },
     { url: `${SITE_URL}/login`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/signup`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     {
@@ -97,6 +133,45 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/de`, lastModified: now, changeFrequency: "weekly", priority: 0.95 },
     { url: `${SITE_URL}/de/pricing`, lastModified: now, changeFrequency: "monthly", priority: 0.85 },
     { url: `${SITE_URL}/de/for-ai`, lastModified: now, changeFrequency: "monthly", priority: 0.75 },
+    {
+      url: `${SITE_URL}/de/funktionsweise`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/hur-det-fungerar`,
+          de: `${SITE_URL}/de/funktionsweise`,
+          "x-default": `${SITE_URL}/hur-det-fungerar`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/leistungen`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/tjanster`,
+          de: `${SITE_URL}/de/leistungen`,
+          "x-default": `${SITE_URL}/tjanster`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/fuer-unternehmen`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/for-foretag`,
+          de: `${SITE_URL}/de/fuer-unternehmen`,
+          "x-default": `${SITE_URL}/for-foretag`,
+        },
+      },
+    },
     {
       url: `${SITE_URL}/de/blog`,
       lastModified: now,

@@ -7,93 +7,93 @@ import {
   Zap,
   Globe,
   ArrowRight,
-  Check,
   Star,
 } from "lucide-react";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import NavbarDe from "@/components/landing/de/NavbarDe";
+import FooterDe from "@/components/landing/de/FooterDe";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 const benefits = [
   {
     icon: Users,
-    title: "Teamsamarbete",
+    title: "Team-Zusammenarbeit",
     description:
-      "Hela teamet kan arbeta i samma plattform med rollbaserad åtkomst och delad pipeline.",
+      "Das gesamte Team arbeitet in einer Plattform mit rollenbasiertem Zugriff und geteilter Pipeline.",
   },
   {
     icon: BarChart3,
-    title: "Avancerad analys",
+    title: "Fortgeschrittene Analysen",
     description:
-      "Detaljerad statistik över offerter, acceptansgrad och intäkter. Exportera till Excel.",
+      "Detaillierte Statistiken zu Angeboten, Annahmerate und Umsatz. Export nach Excel möglich.",
   },
   {
     icon: Shield,
-    title: "Enterprise-säkerhet",
+    title: "Enterprise-Sicherheit",
     description:
-      "SSO/SAML-inloggning, BankID-signaturer och kryptering i vila och under överföring.",
+      "SSO/SAML-Login, eIDAS-QES-Signaturen und Verschlüsselung in Ruhe und bei der Übertragung.",
   },
   {
     icon: Zap,
-    title: "Integrationer",
+    title: "Integrationen",
     description:
-      "Koppla ihop med Fortnox, CRM-system, Zapier och 100+ andra verktyg.",
+      "Anbindung an DATEV, CRM-Systeme, Zapier und über 100 weitere Werkzeuge.",
   },
   {
     icon: Globe,
-    title: "Anpassad domän",
+    title: "Eigene Domain",
     description:
-      "Skicka offerter från din egen domän med white-label-branding i alla dokument.",
+      "Versenden Sie Angebote von Ihrer eigenen Domain mit White-Label-Branding in allen Dokumenten.",
   },
   {
     icon: Building2,
-    title: "Dedikerad support",
+    title: "Dedizierter Support",
     description:
-      "Personlig kontaktperson, onboarding-hjälp och prioriterad support dygnet runt.",
+      "Persönliche Ansprechperson, Onboarding-Hilfe und priorisierter Support rund um die Uhr.",
   },
 ];
 
 const stats = [
-  { value: "40%", label: "Högre acceptansgrad" },
-  { value: "2x", label: "Snabbare offertprocess" },
-  { value: "500+", label: "Företagskunder" },
-  { value: "98%", label: "Kundnöjdhet" },
+  { value: "40 %", label: "Höhere Annahmerate" },
+  { value: "2x", label: "Schnellerer Angebotsprozess" },
+  { value: "500+", label: "Unternehmenskunden" },
+  { value: "98 %", label: "Kundenzufriedenheit" },
 ];
 
 const caseStudies = [
   {
-    company: "Nordberg Bygg AB",
+    company: "Meier Bau GmbH",
     quote:
-      "Med Offert Pro har vi centraliserat hela offertprocessen. Våra 15 säljare sparar i snitt 8 timmar per vecka.",
-    name: "Erik Nordberg",
-    role: "VD",
+      "Mit Offert Pro haben wir den gesamten Angebotsprozess zentralisiert. Unsere 15 Außendienstmitarbeitenden sparen im Schnitt 8 Stunden pro Woche.",
+    name: "Thomas Meier",
+    role: "Geschäftsführer",
     rating: 5,
   },
   {
-    company: "Digital Vision Stockholm",
+    company: "Digital Vision Berlin",
     quote:
-      "Vi gick från att tappa offerter i e-postkedjor till att ha full kontroll med pipeline och uppföljning.",
-    name: "Lisa Hallström",
+      "Wir sind von verlorenen Angeboten in E-Mail-Ketten zu voller Kontrolle mit Pipeline und Follow-ups gewechselt.",
+    name: "Lisa Schneider",
     role: "COO",
     rating: 5,
   },
   {
-    company: "Cleantech Solutions",
+    company: "Cleantech Solutions Austria",
     quote:
-      "Enterprise-planen med SSO och API-integration passade perfekt för våra säkerhetskrav.",
-    name: "Anders Johansson",
+      "Der Enterprise-Tarif mit SSO und API-Integration passte perfekt zu unseren Sicherheitsanforderungen.",
+    name: "Andreas Huber",
     role: "CTO",
     rating: 5,
   },
 ];
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
-
 export const metadata: Metadata = {
-  title: "För företag – Skala din offertprocess med hela teamet",
+  title:
+    "Für Unternehmen – Skalieren Sie Ihren Angebotsprozess mit dem ganzen Team",
   description:
-    "Offert Pro för företag: 40% högre acceptansgrad, 2x snabbare offertprocess. Teamsamarbete, rollhantering, API-integrationer och dedikerad support.",
+    "Offert Pro für Unternehmen: 40 % höhere Annahmerate, 2x schnellerer Angebotsprozess. Team-Zusammenarbeit, Rollenverwaltung, API-Integrationen und dedizierter Support.",
   alternates: {
-    canonical: `${SITE_URL}/for-foretag`,
+    canonical: `${SITE_URL}/de/fuer-unternehmen`,
     languages: {
       "sv-SE": `${SITE_URL}/for-foretag`,
       de: `${SITE_URL}/de/fuer-unternehmen`,
@@ -101,46 +101,49 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "För företag – Offert Pro",
-    description: "Skala din offertprocess. 40% högre acceptansgrad, teamsamarbete, API-integrationer.",
-    locale: "sv_SE",
-    alternateLocale: ["de"],
+    title: "Für Unternehmen – Offert Pro",
+    description:
+      "Skalieren Sie Ihren Angebotsprozess. 40 % höhere Annahmerate, Team-Zusammenarbeit, API-Integrationen.",
+    url: `${SITE_URL}/de/fuer-unternehmen`,
+    locale: "de",
+    alternateLocale: ["sv_SE"],
+    type: "website",
   },
 };
 
-export default function ForForetagPage() {
+export default function FuerUnternehmenPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
+      <NavbarDe />
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-indigo-600 mb-4">
-            För företag
+            Für Unternehmen
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
-            Skala din offertprocess
+            Skalieren Sie Ihren Angebotsprozess
             <br />
-            <span className="text-gray-400">med hela teamet</span>
+            <span className="text-gray-400">mit dem ganzen Team</span>
           </h1>
           <p className="mt-6 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Offert Pro för företag ger dig teamsamarbete, avancerad analys och
-            enterprise-funktioner för att vinna fler affärer.
+            Offert Pro für Unternehmen bietet Team-Zusammenarbeit, fortgeschrittene
+            Analysen und Enterprise-Funktionen, um mehr Aufträge zu gewinnen.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="/signup"
               className="inline-flex items-center px-10 py-4 text-base font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-all duration-300 shadow-sm hover:shadow-lg group"
             >
-              Boka en demo
+              Demo vereinbaren
               <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a
-              href="/pricing"
+              href="/de/pricing"
               className="inline-flex items-center px-10 py-4 text-base font-medium text-gray-600 bg-white hover:bg-gray-50 rounded-full transition-all duration-300 border border-gray-200"
             >
-              Se priser
+              Preise ansehen
             </a>
           </div>
         </div>
@@ -165,11 +168,11 @@ export default function ForForetagPage() {
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-              Byggt för växande företag
+              Gebaut für wachsende Unternehmen
             </h2>
             <p className="mt-4 text-lg text-gray-400">
-              Allt ditt team behöver för att hantera offerter effektivt i stor
-              skala.
+              Alles, was Ihr Team braucht, um Angebote effizient im großen
+              Maßstab zu verwalten.
             </p>
           </div>
 
@@ -199,10 +202,11 @@ export default function ForForetagPage() {
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-20">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-              Företag som litar på oss
+              Unternehmen, die uns vertrauen
             </h2>
             <p className="mt-4 text-lg text-gray-400">
-              Se hur andra företag har transformerat sin offertprocess.
+              Sehen Sie, wie andere Unternehmen ihren Angebotsprozess
+              transformiert haben.
             </p>
           </div>
 
@@ -221,7 +225,7 @@ export default function ForForetagPage() {
                   ))}
                 </div>
                 <p className="text-gray-600 leading-relaxed mb-8">
-                  &ldquo;{cs.quote}&rdquo;
+                  &bdquo;{cs.quote}&ldquo;
                 </p>
                 <div className="pt-6 border-t border-gray-100">
                   <p className="text-sm font-semibold text-gray-900">
@@ -242,32 +246,32 @@ export default function ForForetagPage() {
         <div className="mx-auto max-w-4xl">
           <div className="rounded-3xl bg-gradient-to-br from-gray-50 to-gray-100/50 border border-gray-100 px-8 py-16 md:px-16 md:py-20 text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Redo att skala?
+              Bereit zum Skalieren?
             </h2>
             <p className="text-lg text-gray-400 max-w-xl mx-auto mb-10">
-              Boka en kostnadsfri demo och se hur Offert Pro kan hjälpa ditt
-              företag att vinna fler affärer.
+              Vereinbaren Sie eine kostenlose Demo und sehen Sie, wie Offert Pro
+              Ihrem Unternehmen hilft, mehr Aufträge zu gewinnen.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="/signup"
                 className="inline-flex items-center px-10 py-4 text-base font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-all duration-300 shadow-sm hover:shadow-lg group"
               >
-                Boka demo
+                Demo vereinbaren
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a
-                href="/pricing"
+                href="/de/pricing"
                 className="inline-flex items-center px-10 py-4 text-base font-medium text-gray-600 bg-white hover:bg-gray-50 rounded-full transition-all duration-300 border border-gray-200"
               >
-                Se alla planer
+                Alle Tarife ansehen
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <Footer />
+      <FooterDe />
     </div>
   );
 }

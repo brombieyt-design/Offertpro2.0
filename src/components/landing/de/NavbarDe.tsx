@@ -7,11 +7,11 @@ import { cn } from "@/lib/utils";
 import LanguageSwitcher from "@/components/landing/LanguageSwitcher";
 
 const links = [
-  { label: "So funktioniert's", href: "/de#how-it-works" },
-  { label: "Funktionen", href: "/de#features" },
+  { label: "So funktioniert's", href: "/de/funktionsweise" },
+  { label: "Leistungen", href: "/de/leistungen" },
   { label: "Preise", href: "/de/pricing" },
+  { label: "Unternehmen", href: "/de/fuer-unternehmen" },
   { label: "Blog", href: "/de/blog" },
-  { label: "Für KI", href: "/de/for-ai" },
 ];
 
 export default function NavbarDe() {

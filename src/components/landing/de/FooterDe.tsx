@@ -6,9 +6,10 @@ const columns = [
   {
     title: "Produkt",
     links: [
-      { label: "So funktioniert's", href: "/de#how-it-works" },
-      { label: "Funktionen", href: "/de#features" },
+      { label: "Funktionsweise", href: "/de/funktionsweise" },
+      { label: "Leistungen", href: "/de/leistungen" },
       { label: "Preise", href: "/de/pricing" },
+      { label: "Für Unternehmen", href: "/de/fuer-unternehmen" },
       { label: "Für KI", href: "/de/for-ai" },
     ],
   },

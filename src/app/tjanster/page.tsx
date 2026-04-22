@@ -97,14 +97,25 @@ const detailedFeatures = [
   },
 ];
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
+
 export const metadata: Metadata = {
   title: "Tjänster – Allt du behöver för professionella offerter",
   description:
     "PDF-offerter, realtidsspårning, e-signaturer, återanvändbara mallar, automatiska påminnelser och statuspipeline. Allt i ett offertverktyg.",
-  alternates: { canonical: "/tjanster" },
+  alternates: {
+    canonical: `${SITE_URL}/tjanster`,
+    languages: {
+      "sv-SE": `${SITE_URL}/tjanster`,
+      de: `${SITE_URL}/de/leistungen`,
+      "x-default": `${SITE_URL}/tjanster`,
+    },
+  },
   openGraph: {
     title: "Tjänster – Offert Pro",
     description: "PDF-offerter, e-signaturer, realtidsspårning – allt i ett verktyg.",
+    locale: "sv_SE",
+    alternateLocale: ["de"],
   },
 };
 

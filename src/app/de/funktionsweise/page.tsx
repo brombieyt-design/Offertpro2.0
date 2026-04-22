@@ -9,46 +9,48 @@ import {
   Shield,
   Zap,
 } from "lucide-react";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import NavbarDe from "@/components/landing/de/NavbarDe";
+import FooterDe from "@/components/landing/de/FooterDe";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
 
 const steps = [
   {
     number: "01",
-    title: "Beskriv ditt behov",
+    title: "Bedarf beschreiben",
     description:
-      "Fyll i en enkel beskrivning av vad du behöver hjälp med. Det tar bara en minut att fylla i dina uppgifter och krav.",
+      "Tragen Sie in wenigen Minuten ein, wobei Sie Unterstützung brauchen. Kategorie, Anforderungen und Zeitrahmen — fertig.",
     details: [
-      "Välj kategori och bransch",
-      "Beskriv projektet i fritext",
-      "Ange budget och tidslinje",
-      "Ladda upp eventuella bilagor",
+      "Kategorie und Branche wählen",
+      "Projekt im Freitext beschreiben",
+      "Budget und Zeitplan angeben",
+      "Anhänge hochladen",
     ],
     icon: ClipboardEdit,
   },
   {
     number: "02",
-    title: "Få matchade offerter",
+    title: "Passende Angebote erhalten",
     description:
-      "Vi matchar dig med de bästa leverantörerna baserat på dina krav. Du får skräddarsydda offerter direkt i din inkorg.",
+      "Wir matchen Sie mit den passendsten Anbietern basierend auf Ihren Anforderungen. Maßgeschneiderte Angebote landen direkt in Ihrem Posteingang.",
     details: [
-      "AI-driven matchning",
-      "Kvalitetssäkrade leverantörer",
-      "Offerter inom 24 timmar",
-      "Jämförbara format",
+      "KI-gestütztes Matching",
+      "Qualitätsgeprüfte Anbieter",
+      "Angebote innerhalb von 24 Stunden",
+      "Vergleichbares Format",
     ],
     icon: MailCheck,
   },
   {
     number: "03",
-    title: "Jämför och välj",
+    title: "Vergleichen und auswählen",
     description:
-      "Jämför priser, betyg och villkor sida vid sida. Välj den offert som passar dig bäst och signera digitalt.",
+      "Vergleichen Sie Preise, Bewertungen und Bedingungen nebeneinander. Wählen Sie das passende Angebot und signieren Sie digital — eIDAS-konform.",
     details: [
-      "Sida-vid-sida-jämförelse",
-      "Transparenta priser",
-      "Kundbetyg och recensioner",
-      "Digital signering",
+      "Seite-an-Seite-Vergleich",
+      "Transparente Preise",
+      "Kundenbewertungen und Rezensionen",
+      "Digitale Signatur (eIDAS)",
     ],
     icon: BarChart3,
   },
@@ -56,38 +58,36 @@ const steps = [
 
 const benefits = [
   {
-    title: "Spara tid",
-    description: "Slipp ringa runt och jaga offerter. Allt sker automatiskt.",
+    title: "Zeit sparen",
+    description: "Kein Telefon-Ping-Pong mehr. Alles passiert automatisch.",
     icon: Clock,
   },
   {
-    title: "Bättre priser",
+    title: "Bessere Preise",
     description:
-      "Konkurrens mellan leverantörer ger dig bättre villkor och priser.",
+      "Wettbewerb zwischen Anbietern führt zu besseren Konditionen und Preisen.",
     icon: Zap,
   },
   {
-    title: "Kvalitetssäkrat",
+    title: "Qualitätsgeprüft",
     description:
-      "Alla leverantörer granskas och verifieras innan de kan lämna offerter.",
+      "Alle Anbieter werden geprüft und verifiziert, bevor sie Angebote abgeben dürfen.",
     icon: Shield,
   },
   {
-    title: "Helt gratis",
+    title: "Komplett kostenlos",
     description:
-      "Det kostar inget att ta emot offerter. Du betalar bara om du väljer att gå vidare.",
+      "Angebote empfangen kostet nichts. Sie zahlen nur, wenn Sie weitermachen.",
     icon: CheckCircle2,
   },
 ];
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://offertpro.se";
-
 export const metadata: Metadata = {
-  title: "Hur det fungerar – Skapa offerter i 3 enkla steg",
+  title: "Funktionsweise – Angebote in 3 einfachen Schritten erstellen",
   description:
-    "Från behov till offert på tre enkla steg. Välj mall, anpassa innehållet och skicka professionella offerter direkt till kunden. Spåra öppningar i realtid.",
+    "Vom Bedarf zum Angebot in drei einfachen Schritten. Vorlage wählen, Inhalt anpassen und professionelle Angebote direkt an Kunden senden. Öffnungen in Echtzeit verfolgen.",
   alternates: {
-    canonical: `${SITE_URL}/hur-det-fungerar`,
+    canonical: `${SITE_URL}/de/funktionsweise`,
     languages: {
       "sv-SE": `${SITE_URL}/hur-det-fungerar`,
       de: `${SITE_URL}/de/funktionsweise`,
@@ -95,66 +95,72 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Hur det fungerar – Offert Pro",
-    description: "Skapa offerter i 3 enkla steg. Välj mall, anpassa, skicka.",
-    locale: "sv_SE",
-    alternateLocale: ["de"],
+    title: "Funktionsweise – Offert Pro",
+    description:
+      "Angebote in 3 einfachen Schritten erstellen. Vorlage wählen, anpassen, senden.",
+    url: `${SITE_URL}/de/funktionsweise`,
+    locale: "de",
+    alternateLocale: ["sv_SE"],
+    type: "website",
   },
 };
 
 const howToJsonLd = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "Hur du skapar en professionell offert med Offert Pro",
-  description: "Skapa och skicka professionella offerter i tre enkla steg med Offert Pro.",
+  name: "So erstellen Sie ein professionelles Angebot mit Offert Pro",
+  description:
+    "Erstellen und versenden Sie professionelle Angebote in drei einfachen Schritten mit Offert Pro.",
+  inLanguage: "de",
   step: [
     {
       "@type": "HowToStep",
       position: 1,
-      name: "Beskriv ditt behov",
-      text: "Fyll i en enkel beskrivning av vad du behöver hjälp med. Välj kategori, beskriv projektet och ange budget.",
-      url: "https://offertpro.se/hur-det-fungerar#steg-1",
+      name: "Bedarf beschreiben",
+      text: "Tragen Sie eine einfache Beschreibung ein, wobei Sie Unterstützung brauchen. Kategorie wählen, Projekt beschreiben und Budget angeben.",
+      url: `${SITE_URL}/de/funktionsweise#schritt-1`,
     },
     {
       "@type": "HowToStep",
       position: 2,
-      name: "Få matchade offerter",
-      text: "Vi matchar dig med de bästa leverantörerna. Du får skräddarsydda offerter direkt i din inkorg inom 24 timmar.",
-      url: "https://offertpro.se/hur-det-fungerar#steg-2",
+      name: "Passende Angebote erhalten",
+      text: "Wir matchen Sie mit den passendsten Anbietern. Sie erhalten maßgeschneiderte Angebote innerhalb von 24 Stunden direkt in Ihrem Posteingang.",
+      url: `${SITE_URL}/de/funktionsweise#schritt-2`,
     },
     {
       "@type": "HowToStep",
       position: 3,
-      name: "Jämför och välj",
-      text: "Jämför priser, betyg och villkor sida vid sida. Välj den bästa offerten och signera digitalt med e-signatur.",
-      url: "https://offertpro.se/hur-det-fungerar#steg-3",
+      name: "Vergleichen und auswählen",
+      text: "Vergleichen Sie Preise, Bewertungen und Bedingungen nebeneinander. Wählen Sie das beste Angebot und signieren Sie digital per eIDAS-E-Signatur.",
+      url: `${SITE_URL}/de/funktionsweise#schritt-3`,
     },
   ],
 };
 
-export default function HowItWorksPage() {
+export default function FunktionsweisePage() {
   return (
     <div className="min-h-screen bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
-      <Navbar />
+      <NavbarDe />
 
       {/* Hero */}
       <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-xs font-semibold tracking-[0.2em] uppercase text-indigo-600 mb-4">
-            Hur det fungerar
+            Funktionsweise
           </p>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
-            Från behov till offert
+            Vom Bedarf zum Angebot
             <br />
-            <span className="text-gray-400">på tre enkla steg</span>
+            <span className="text-gray-400">in drei einfachen Schritten</span>
           </h1>
           <p className="mt-6 text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            Vi har gjort det enkelt att hitta rätt leverantör. Beskriv ditt
-            behov, få offerter och välj den bästa — allt på en plats.
+            Wir machen es einfach, den richtigen Anbieter zu finden. Bedarf
+            beschreiben, Angebote empfangen und das beste auswählen — alles an
+            einem Ort.
           </p>
         </div>
       </section>
@@ -165,6 +171,7 @@ export default function HowItWorksPage() {
           {steps.map((step, i) => (
             <div
               key={step.number}
+              id={`schritt-${i + 1}`}
               className={`flex flex-col md:flex-row items-start gap-12 ${
                 i % 2 === 1 ? "md:flex-row-reverse" : ""
               }`}
@@ -211,11 +218,11 @@ export default function HowItWorksPage() {
         <div className="mx-auto max-w-6xl">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
-              Varför välja Offert Pro?
+              Warum Offert Pro?
             </h2>
             <p className="mt-4 text-lg text-gray-400">
-              Vi tar bort krånglet och ger dig mer tid att fokusera på det
-              viktiga.
+              Wir nehmen den Aufwand und geben Ihnen mehr Zeit für das
+              Wesentliche.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -240,22 +247,22 @@ export default function HowItWorksPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50/50">
         <div className="mx-auto max-w-3xl text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-            Redo att få din första offert?
+            Bereit für Ihr erstes Angebot?
           </h2>
           <p className="text-lg text-gray-400 mb-10">
-            Kom igång gratis på under 2 minuter. Inget kreditkort krävs.
+            In unter 2 Minuten kostenlos starten. Keine Kreditkarte nötig.
           </p>
           <a
             href="/signup"
             className="inline-flex items-center px-10 py-4 text-base font-medium text-white bg-gray-900 hover:bg-gray-800 rounded-full transition-all duration-300 shadow-sm hover:shadow-lg group"
           >
-            Kom igång gratis
+            Kostenlos starten
             <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </div>
       </section>
 
-      <Footer />
+      <FooterDe />
     </div>
   );
 }
