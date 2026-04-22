@@ -494,6 +494,104 @@ export const blogPostsDe: BlogPostDe[] = [
 <p>Sie können entweder unsere kostenlose PDF-Vorlage herunterladen oder <a href="/signup">ein kostenloses Offert-Pro-Konto erstellen</a> und professionelle Angebote direkt aus dem Browser versenden. Keine Kreditkarte nötig, kein Testablauf.</p>
 `,
   },
+  {
+    slug: "offert-pro-vs-sevdesk",
+    title: "Offert Pro vs. sevDesk: Welches Tool passt zu Ihrem DACH-KMU?",
+    description:
+      "Ein fairer, direkter Vergleich von Offert Pro und sevDesk im Jahr 2026 — Preise, DSGVO, MwSt., eIDAS-Signaturen, DATEV-Export und Angebots-Workflow. Für Freelancer, Handwerk und KMU in DACH.",
+    date: "2026-03-28",
+    author: "Emma Lindqvist",
+    authorRole: "Produktmarketing, Offert Pro",
+    readTime: "9 Min.",
+    category: "Vergleich",
+    tags: ["sevdesk", "vergleich", "angebotssoftware", "kmu", "dach"],
+    content: `
+<p>sevDesk ist wahrscheinlich das bekannteste Online-Buchhaltungs-Tool für KMU in Deutschland. Offert Pro ist die angebotszentrierte Alternative, die aus den nordischen B2B-Märkten nach DACH kommt. Beide versenden Angebote und Rechnungen im Browser — welches sollten Sie als kleines Unternehmen in Deutschland, Österreich oder der Schweiz tatsächlich wählen?</p>
+
+<p>Dieser Leitfaden vergleicht beide ehrlich. Wir entwickeln Offert Pro, sind also nicht neutral — aber wir haben uns bemüht, den Vergleich sachlich und zum Zeitpunkt der Veröffentlichung (2026) korrekt zu halten.</p>
+
+<h2>Überblick</h2>
+<table>
+<thead><tr><th></th><th>Offert Pro</th><th>sevDesk</th></tr></thead>
+<tbody>
+<tr><td>Einstiegspreis</td><td>0 € (Free)</td><td>8,90 €/Monat (Rechnung Classic)</td></tr>
+<tr><td>Echter Free-Tarif</td><td>Ja — 5 Angebote/Monat</td><td>Nein (14-Tage-Test)</td></tr>
+<tr><td>Angebots-Editor</td><td>Drag-and-Drop, mehrseitig</td><td>Einfaches Formular</td></tr>
+<tr><td>Echtzeit-Tracking von Angeboten</td><td>Ja</td><td>Nein</td></tr>
+<tr><td>eIDAS-E-Signatur</td><td>Ja, in jedem Tarif</td><td>Nein (Add-on über Drittanbieter)</td></tr>
+<tr><td>QES via D-Trust</td><td>Ja, auf Pro</td><td>Nein</td></tr>
+<tr><td>MwSt. + Reverse Charge</td><td>Eingebaut</td><td>Eingebaut</td></tr>
+<tr><td>DATEV-Export</td><td>Geplant 2026</td><td>Ja, Kernfunktion</td></tr>
+<tr><td>EU-Datenhaltung</td><td>Ja, Standard</td><td>Ja, Deutschland</td></tr>
+<tr><td>Fokus</td><td>Angebots- und Rechnungs-Workflow</td><td>Buchhaltung mit Rechnung</td></tr>
+</tbody>
+</table>
+
+<h2>Grundlegende Positionierung</h2>
+<p>Das ist die wichtigste Unterscheidung: die Werkzeuge adressieren unterschiedliche Arbeitsabläufe.</p>
+<ul>
+<li><strong>sevDesk</strong> ist vor allem ein Buchhaltungs-Tool mit integrierter Rechnungsstellung. Die Rechnungsmodule sind ausgereift, aber Angebote und Proposals sind eine Nebenfunktion.</li>
+<li><strong>Offert Pro</strong> ist angebotszentriert: Der gesamte Editor, das Tracking und die E-Signatur sind auf das &bdquo;Angebot schreiben &rarr; versenden &rarr; annehmen lassen &rarr; in Rechnung umwandeln&ldquo;-Muster ausgelegt. Die Buchhaltungs-Übergabe erfolgt über DATEV-Export bzw. API an Ihr Steuerbüro.</li>
+</ul>
+<p>Wenn Ihre Kerntätigkeit Buchhaltung ist und Sie ab und zu Angebote schreiben, ist sevDesk ein naheliegender Kandidat. Wenn Sie täglich Angebote versenden und Buchhaltung an den Steuerberater auslagern, ist Offert Pro besser zugeschnitten.</p>
+
+<h2>Preise</h2>
+<p><strong>Offert Pro</strong> startet kostenlos (5 Angebote pro Monat, PDF-Export, Grundbranding). Bezahlstufen:</p>
+<ul>
+<li><strong>Starter</strong> — 19 €/Monat — E-Signaturen, Lese-Tracking, individuelles Branding</li>
+<li><strong>Pro</strong> — 49 €/Monat — unbegrenzte Angebote, automatische Erinnerungen, QES via D-Trust, API</li>
+</ul>
+<p><strong>sevDesk</strong> startet bei 8,90 €/Monat (Rechnung Classic) für Grundfunktionen. Für die vollständigen Buchhaltungs-Features inklusive EÜR und DATEV brauchen Sie den Buchhaltung-Pro-Tarif ab 25,90 €/Monat. E-Signatur-Funktionen laufen in der Regel über zugekaufte Drittanbieter-Add-ons.</p>
+<p>Die Zahl, die zählt, hängt von Ihrem Workflow ab. Als reines &bdquo;Ich versende Angebote&ldquo;-Tool ist Offert Pro günstiger; als &bdquo;Ich mache meine komplette Buchhaltung&ldquo;-Tool ist sevDesk günstiger.</p>
+
+<h2>Angebots-Editor und Workflow</h2>
+<p>Das ist der Bereich, in dem Offert Pro deutlich vorne liegt:</p>
+<ul>
+<li><strong>Mehrseitige Proposals</strong> mit Titelbild, optionalen Zusatzleistungen, die der Kunde selbst an- und ausschalten kann, und Live-Update der Summen</li>
+<li><strong>Echtzeit-Tracking</strong> — Sie sehen, wann der Kunde das Angebot geöffnet hat und welche Abschnitte am meisten gelesen wurden</li>
+<li><strong>Automatische Follow-up-Erinnerungen</strong> nach einer von Ihnen gesetzten Kadenz</li>
+<li><strong>Ein-Klick-Umwandlung</strong> vom angenommenen Angebot zur Rechnung</li>
+</ul>
+<p>sevDesk bietet einen sauberen, aber deutlich einfacheren Angebotseditor (im Wesentlichen ein Formular) und kein Tracking oder optionale Positionen. Das reicht für einfache Preisangebote, ist aber keine Proposal-Plattform.</p>
+
+<h2>E-Signaturen</h2>
+<p>Offert Pro hat eIDAS-konforme E-Signaturen standardmäßig in jedem Tarif — einfache (EES) und fortgeschrittene (FES) inklusive, und auf dem Pro-Tarif die qualifizierte Signatur (QES) über D-Trust für rechtsverbindliche Unterschriften mit der Beweiskraft einer handschriftlichen.</p>
+<p>sevDesk enthält keine native E-Signatur-Funktion — Sie müssten das Angebot als PDF exportieren und mit einem Drittanbieter-Tool (z. B. DocuSign) unterzeichnen lassen, was einen zusätzlichen Workflow-Schritt und meist zusätzliche Kosten pro Signatur bedeutet.</p>
+
+<h2>MwSt. und grenzüberschreitendes Geschäft</h2>
+<p>Beide Tools verstehen deutsche/österreichische MwSt. und Reverse Charge. sevDesk hat den Vorteil tieferer Buchhaltungs-Integration — die Umsatzsteuer-Voranmeldung wird ELSTER-konform vorbereitet. Offert Pro bereitet die Belege vor; die ELSTER-Abgabe erfolgt via DATEV-Export (2026 geplant) oder API an das Steuerbüro.</p>
+
+<h2>DATEV und Steuerberater-Anbindung</h2>
+<p>Das ist der größte Vorteil von sevDesk im DACH-Markt: der DATEV-Export ist eine Kernfunktion und gut ausgebaut. Wenn Ihr Steuerberater mit DATEV arbeitet (etwa 90 % tun es in Deutschland), ist die Übergabe nahtlos.</p>
+<p>Offert Pro arbeitet an einem DATEV-Export für 2026. Bis dahin läuft die Steuerberater-Übergabe entweder via CSV-Export oder — eleganter — über unsere REST-API bzw. Zapier, die Ihr Steuerbüro anbinden können.</p>
+
+<h2>Wann sevDesk wählen?</h2>
+<ul>
+<li>Ihr Schwerpunkt liegt auf Buchhaltung, nicht auf Vertrieb</li>
+<li>Sie machen die gesamte Buchhaltung selbst statt sie auszulagern</li>
+<li>Sie brauchen einen nativen DATEV-Export ab Tag 1</li>
+<li>Sie versenden wenige, einfache Preisangebote ohne Bedarf für Tracking, optionale Positionen oder E-Signatur</li>
+<li>Sie wollen ELSTER-konforme Voranmeldungen direkt aus dem Tool</li>
+</ul>
+
+<h2>Wann Offert Pro wählen?</h2>
+<ul>
+<li>Sie versenden regelmäßig Angebote und wollen deren Öffnung/Annahme verfolgen</li>
+<li>Sie brauchen eIDAS-konforme E-Signaturen ohne Drittanbieter</li>
+<li>Sie wollen einen echten Free-Tarif zum Testen mit echten Kunden, bevor Sie sich binden</li>
+<li>Sie schätzen mehrseitige Proposals mit optionalen Zusatzleistungen (gut/besser/am besten)</li>
+<li>Sie lagern die Buchhaltung an den Steuerberater aus und brauchen &bdquo;nur&ldquo; einen sauberen Angebots- und Rechnungs-Workflow</li>
+<li>Sie arbeiten grenzüberschreitend und wollen Reverse Charge automatisch korrekt</li>
+</ul>
+
+<h2>Fazit</h2>
+<p>sevDesk und Offert Pro konkurrieren weniger direkt, als es auf den ersten Blick aussieht. sevDesk ist ein hervorragendes Buchhaltungs-Tool mit integrierter Rechnungsstellung; Offert Pro ist ein modernes Angebots- und Rechnungs-Tool mit Fokus auf den Vertriebszyklus. Viele unserer Kundinnen und Kunden nutzen tatsächlich beide: Offert Pro für den Vertrieb, sevDesk oder den Steuerberater für die Buchhaltung.</p>
+
+<p>Wenn Sie nur eines davon betreiben wollen, hängt die Antwort davon ab, wo Ihre Zeit hingeht. Wenn Sie mehr Zeit in Angebote stecken als in Buchhaltung, wählen Sie Offert Pro. Umgekehrt wählen Sie sevDesk.</p>
+
+<p><a href="/signup">Erstellen Sie ein kostenloses Offert-Pro-Konto</a> und versenden Sie Ihr erstes echtes Angebot in unter fünf Minuten — keine Kreditkarte, kein Testablauf.</p>
+`,
+  },
 ];
 
 export function getBlogPostDe(slug: string): BlogPostDe | undefined {

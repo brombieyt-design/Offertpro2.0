@@ -494,6 +494,105 @@ export const blogPostsEn: BlogPostEn[] = [
 <p>You can either download our free PDF template, or <a href="/signup">create a free Offert Pro account</a> and start sending professional proposals straight from the browser. No credit card required, and no trial expiry.</p>
 `,
   },
+  {
+    slug: "offert-pro-vs-pandadoc",
+    title: "Offert Pro vs PandaDoc: which proposal tool is right for European SMEs?",
+    description:
+      "A fair, head-to-head comparison of Offert Pro and PandaDoc in 2026 — pricing, EU data residency, free tier, EU VAT, CRM integrations and BankID. Built for European small businesses, freelancers and agencies.",
+    date: "2026-03-26",
+    author: "Emma Lindqvist",
+    authorRole: "Product marketing, Offert Pro",
+    readTime: "9 min",
+    category: "Comparison",
+    tags: [
+      "pandadoc",
+      "comparison",
+      "proposal software",
+      "small business",
+      "europe",
+    ],
+    content: `
+<p>PandaDoc is probably the best-known proposal tool in the world. Offert Pro is the European alternative. Both produce branded proposals, both include electronic signatures, and both run in the browser — so which one should you actually pick if you&rsquo;re a European small business?</p>
+
+<p>This guide compares the two side by side, honestly. We build Offert Pro, so we&rsquo;re not neutral — but we&rsquo;ve tried to keep the comparison fair and factually accurate at the time of writing (2026).</p>
+
+<h2>At-a-glance</h2>
+<table>
+<thead><tr><th></th><th>Offert Pro</th><th>PandaDoc</th></tr></thead>
+<tbody>
+<tr><td>Starting price</td><td>€0 (free tier)</td><td>€35/mo (Essentials)</td></tr>
+<tr><td>Real free tier</td><td>Yes — 5 proposals/mo</td><td>No (14-day trial)</td></tr>
+<tr><td>EU data residency</td><td>Yes, default</td><td>Enterprise add-on only</td></tr>
+<tr><td>EU VAT + reverse charge</td><td>Built in</td><td>Custom fields</td></tr>
+<tr><td>eIDAS e-signing</td><td>Yes, every plan</td><td>Yes</td></tr>
+<tr><td>BankID (Nordics)</td><td>Yes, on Pro</td><td>No</td></tr>
+<tr><td>HubSpot / Salesforce integrations</td><td>Zapier + API</td><td>Native, polished</td></tr>
+<tr><td>Template gallery size</td><td>15+ (growing)</td><td>750+</td></tr>
+<tr><td>Average time-to-first-proposal</td><td>~5 min</td><td>~15–20 min</td></tr>
+</tbody>
+</table>
+
+<h2>Pricing</h2>
+<p>Pricing is where the two tools differ most.</p>
+<p><strong>Offert Pro</strong> starts free (5 proposals per month, PDF export, basic branding). Paid tiers:</p>
+<ul>
+<li><strong>Starter</strong> — €19/mo — e-signatures, read tracking, custom branding</li>
+<li><strong>Pro</strong> — €49/mo — unlimited proposals, automated reminders, BankID for Nordic signers, API access</li>
+</ul>
+<p><strong>PandaDoc</strong> starts at €35/mo per seat (Essentials), which excludes branding removal, content library and CRM integration. The features most B2B teams need are on the Business tier at €65/mo per seat, and enterprise capabilities (SSO, custom approval workflows, EU data residency) require the enterprise plan.</p>
+<p>For a one-person European freelance business, that&rsquo;s a €0 vs €35+/mo difference — roughly €420/year you keep by picking Offert Pro.</p>
+
+<h2>EU data residency and GDPR</h2>
+<p>This is the single biggest divergence for European buyers.</p>
+<ul>
+<li><strong>Offert Pro</strong> hosts every byte of customer data inside the EU by default — the EU has been the first-class deployment region since day one.</li>
+<li><strong>PandaDoc</strong> hosts customer data in the US by default. EU data residency is technically available, but only through the enterprise plan (contact sales). For a Stockholm consultancy, a Berlin agency or a Paris freelancer, that&rsquo;s a meaningful friction.</li>
+</ul>
+<p>GDPR doesn&rsquo;t <em>forbid</em> US hosting — you can rely on Standard Contractual Clauses and, since 2023, the EU–US Data Privacy Framework. But a meaningful share of European clients prefer suppliers that host in the EU, and your own DPA reviews are simpler when your proposal tool follows suit.</p>
+
+<h2>EU VAT and local tax handling</h2>
+<p>Offert Pro handles EU VAT natively — 27 member-state rates, automatic reverse-charge markers on B2B cross-border proposals, and support for country-specific deductions (Sweden&rsquo;s ROT/RUT, German §13b UStG reverse charge copy, etc.).</p>
+<p>PandaDoc doesn&rsquo;t natively understand EU VAT. You can model it with custom fields and conditional logic, but it&rsquo;s you who has to build the spreadsheet of rates and keep it current.</p>
+
+<h2>E-signatures</h2>
+<p>Both tools have eIDAS-compliant electronic signatures. The distinction is at the upper tier:</p>
+<ul>
+<li><strong>Offert Pro Pro</strong> — supports BankID (QES-equivalent) for Swedish, Norwegian and Finnish signers, and D-Trust for German signers — the strongest eIDAS tier available in each country</li>
+<li><strong>PandaDoc</strong> — strong SES and AES signatures, but no native BankID or D-Trust integration; cross-border QES sits on enterprise partnerships</li>
+</ul>
+
+<h2>Templates and editor</h2>
+<p>PandaDoc&rsquo;s template gallery is large (750+ last we checked) and the editor is polished. Offert Pro ships with a smaller but carefully curated gallery (~15 templates), each rewritten for European B2B conventions.</p>
+<p>If you want a specific industry template <em>and</em> are willing to pay €65/mo, PandaDoc wins on choice. If you want a clean, fast editor that opens to a relevant European-style template and gets out of your way, Offert Pro wins on simplicity.</p>
+
+<h2>Integrations</h2>
+<p>PandaDoc has deeper native integrations with HubSpot, Salesforce and Pipedrive. If your sales motion runs through one of those CRMs and you want tight two-way sync, PandaDoc is ahead.</p>
+<p>Offert Pro offers Zapier, a REST API and native integrations with European accounting tools (Fortnox, Visma in the Nordics; DATEV is on the roadmap for 2026). For most small businesses on HubSpot the Zapier path covers the common workflows (proposal-sent → deal-stage update, proposal-signed → invoice-draft).</p>
+
+<h2>When to pick PandaDoc</h2>
+<ul>
+<li>You&rsquo;re a US company, or you have most of your customer base in the US</li>
+<li>You&rsquo;re deeply invested in HubSpot or Salesforce and want native two-way sync</li>
+<li>You need a very large off-the-shelf template library</li>
+<li>Your finance or legal team has already approved US-hosted tools, and EU data residency isn&rsquo;t a blocker</li>
+</ul>
+
+<h2>When to pick Offert Pro</h2>
+<ul>
+<li>You sell primarily to European customers</li>
+<li>EU data residency and GDPR-first design matter to you or your clients</li>
+<li>You need EU VAT, reverse charge and country-specific deductions out of the box</li>
+<li>You want a real free tier (not a trial) to test with a live client before committing</li>
+<li>You want BankID-backed QES for Nordic customers, or D-Trust QES for German customers</li>
+<li>You prefer a clean, fast editor over a feature-maximalist one</li>
+</ul>
+
+<h2>Bottom line</h2>
+<p>PandaDoc is a great product. It&rsquo;s also built primarily for the North American market, and the price reflects the US SaaS cost base. If you run a European small business, the economics and compliance story favour Offert Pro in most scenarios — free tier to start, EU hosting by default, and a Pro plan that lands 25–40% below the equivalent PandaDoc tier while handling EU VAT and eIDAS QES natively.</p>
+
+<p><a href="/signup">Create a free Offert Pro account</a> and send your first proposal in under five minutes. No credit card, no trial expiry — just the European alternative.</p>
+`,
+  },
 ];
 
 export function getBlogPostEn(slug: string): BlogPostEn | undefined {
