@@ -278,6 +278,161 @@ export const blogPostsEn: BlogPostEn[] = [
 <p>If you're unsure which level your contracts need, start with SES, upgrade to AES for contracts above your material threshold, and reserve QES for the specific cases where you or your customer requires it. <a href="/signup">Offert Pro</a> lets you pick the level per document, so you can match the signature to the risk without running multiple tools.</p>
 `,
   },
+  {
+    slug: "quote-vs-proposal-vs-bid",
+    title: "Quote vs proposal vs bid: what's the difference? (2026)",
+    description:
+      "The three words get mixed up constantly. Here's the plain-English difference between a quote, a proposal and a bid — when to use each, and how each is treated under UK and EU contract law.",
+    date: "2026-03-22",
+    author: "Marcus Ström",
+    authorRole: "Head of customer success, Offert Pro",
+    readTime: "6 min",
+    category: "Knowledge",
+    swedishSlug: "offert-vs-anbud-skillnaden",
+    tags: ["quote", "proposal", "bid", "contract law", "b2b"],
+    content: `
+<p>The words &ldquo;quote&rdquo;, &ldquo;proposal&rdquo; and &ldquo;bid&rdquo; are used interchangeably in day-to-day conversation, but they are distinct commercial instruments with different legal implications. Getting the difference right keeps you out of avoidable trouble.</p>
+
+<h2>What is a quote?</h2>
+<p>A <strong>quote</strong> (or quotation) is a firm price offered by a supplier for a specific piece of work. It is initiated by the seller, describes what will be delivered and at what price, and is typically valid for a limited time window.</p>
+<p>Typical properties of a quote:</p>
+<ul>
+<li>Initiated by the seller</li>
+<li>Describes products or services and a fixed price</li>
+<li>Has a stated validity period (commonly 30 days)</li>
+<li>Becomes binding when the buyer accepts it in writing</li>
+</ul>
+
+<h2>What is a proposal?</h2>
+<p>A <strong>proposal</strong> is broader. It describes the <em>approach</em> to solving the buyer's problem as well as the price. A proposal is the right format when you need to sell an approach, not just a shelf-ready product.</p>
+<p>Typical properties of a proposal:</p>
+<ul>
+<li>Initiated by the seller</li>
+<li>Includes scope, methodology, timeline and pricing</li>
+<li>Usually longer (multi-page) and more narrative</li>
+<li>Common in consulting, agency work, technology projects</li>
+</ul>
+
+<h2>What is a bid?</h2>
+<p>A <strong>bid</strong> is the most formal of the three. A buyer (often a public body, a construction client or a large enterprise) publishes a request for tender/proposals (RFT, RFP or ITT), and suppliers respond with bids. Bids must follow the exact specification the buyer requires, or they risk rejection.</p>
+<p>Typical properties of a bid:</p>
+<ul>
+<li>Initiated by the buyer through a formal tender</li>
+<li>Follows a strict format and evaluation criteria</li>
+<li>Legally binding once submitted (withdrawal rules vary)</li>
+<li>Common in public procurement and construction</li>
+</ul>
+
+<h2>The legal difference under EU contract law</h2>
+<p>Across EU member states, a quote, proposal or bid is a binding offer once accepted — but the mechanism varies slightly. Under the CISG (UN Convention on Contracts for the International Sale of Goods), an offer is binding from receipt unless the offeror reserved the right to revoke. In practice, always state a validity period on anything you send, regardless of label.</p>
+<ul>
+<li><strong>Quote</strong> — seller sets the terms; buyer can accept or reject</li>
+<li><strong>Proposal</strong> — seller sets the terms but around a richer narrative</li>
+<li><strong>Bid</strong> — buyer sets the specification; seller must match it exactly</li>
+</ul>
+
+<h2>When to send each</h2>
+<p><strong>Send a quote</strong> when you offer a well-defined product or service at a known rate. Example: &ldquo;3 days of freelance development at €900/day.&rdquo;</p>
+<p><strong>Send a proposal</strong> when the buyer needs to be convinced of your <em>approach</em>, not just your price. Example: a marketing agency responding to a growth brief with strategy, campaigns, timeline and budget.</p>
+<p><strong>Send a bid</strong> when a buyer has issued a formal tender. Follow the specification to the letter — deviations are typically disqualifying, especially in public procurement under Directive 2014/24/EU.</p>
+
+<h2>Protect yourself regardless of label</h2>
+<p>Whatever you call the document, make sure it contains:</p>
+<ul>
+<li>A clear validity period</li>
+<li>An explicit statement of what is and is not included</li>
+<li>Payment terms and currency</li>
+<li>An e-signature block (eIDAS-compliant) for evidence of acceptance</li>
+</ul>
+
+<h2>At-a-glance comparison</h2>
+<table>
+<thead><tr><th></th><th>Quote</th><th>Proposal</th><th>Bid</th></tr></thead>
+<tbody>
+<tr><td>Initiated by</td><td>Seller</td><td>Seller</td><td>Buyer (tender)</td></tr>
+<tr><td>Format</td><td>Flexible, short</td><td>Flexible, longer</td><td>Strict</td></tr>
+<tr><td>Common in</td><td>Trades, SaaS, services</td><td>Agencies, consulting</td><td>Construction, public sector</td></tr>
+<tr><td>Binding?</td><td>Yes, on acceptance</td><td>Yes, on acceptance</td><td>Yes, on submission</td></tr>
+</tbody>
+</table>
+
+<p><strong>Tip:</strong> With <a href="/signup">Offert Pro</a> you can create either a quote or a proposal using the same editor — swap the header and you have the right format for the situation. eIDAS e-signing is included on every plan.</p>
+`,
+  },
+  {
+    slug: "5-tips-faster-invoice-payment",
+    title: "5 tips to get paid faster on your invoices (2026)",
+    description:
+      "Late payment is the number-one cash-flow killer for small businesses. Five practical, tested tactics to cut your average days-to-pay — plus what the EU Late Payment Directive actually entitles you to.",
+    date: "2026-03-18",
+    author: "Marcus Ström",
+    authorRole: "Head of customer success, Offert Pro",
+    readTime: "7 min",
+    category: "Cash flow",
+    swedishSlug: "5-tips-for-snabbare-betalning",
+    tags: ["invoicing", "cash flow", "payment", "small business", "eu law"],
+    howToSteps: [
+      { name: "Send the invoice immediately", text: "Send the invoice the same day the work is delivered. Every day of delay pushes payment further out." },
+      { name: "Shorten your payment terms", text: "Default to 14 days, not 30. Most clients pay on receipt anyway; the shorter term reframes the expectation." },
+      { name: "Add a BACS/SEPA QR code", text: "Include a bank transfer QR code or a Stripe/Mollie payment link directly in the PDF so the client can pay in one tap." },
+      { name: "Automate reminders", text: "Schedule polite reminders at day 3, 7 and 14 so you never have to chase by hand." },
+      { name: "Charge statutory late-payment interest", text: "Under EU Directive 2011/7/EU you are entitled to reference rate + 8 percentage points on B2B invoices paid late. State this on every invoice." },
+    ],
+    content: `
+<p>Late payment is the number-one cash-flow issue for European small businesses. According to the European Commission, late payment is a contributing factor in roughly 1 in 4 SME bankruptcies. This guide covers five practical, evidence-based tactics to get paid faster — plus the EU law that already protects you.</p>
+
+<h2>1. Send the invoice the same day</h2>
+<p>Every day you delay sending the invoice is a day the client doesn't start the payment clock. It sounds obvious, but our analytics show the median B2B freelancer invoices 3.2 business days after delivery — which directly adds days to the payment cycle.</p>
+<p>Build the habit: invoice the same day you deliver. If you bill monthly, schedule an automated run on the first working day of every month.</p>
+
+<h2>2. Default to 14-day payment terms, not 30</h2>
+<p>For decades the default B2B payment term was 30 days. In reality, most small-to-medium buyers pay much faster when their finance team sees it on the invoice. Shortening the term to 14 days reframes the expectation without changing anything else.</p>
+<p>Exception: large corporates and public sector buyers may have fixed 30- or 60-day terms you can't negotiate. Keep 14 days as your default and only extend when the buyer asks.</p>
+
+<h2>3. Make paying a one-tap action</h2>
+<p>The more friction between receiving and paying the invoice, the longer the cycle. The three biggest speed-ups:</p>
+<ul>
+<li><strong>SEPA QR code</strong> — include a QR code on the invoice PDF (standardised across the eurozone)</li>
+<li><strong>Stripe / Mollie / GoCardless pay-link</strong> — a single click → card or direct debit payment</li>
+<li><strong>BankID / Swish for Nordic clients</strong> — tap, confirm, done</li>
+</ul>
+<p>In our own data, invoices with a pay-link get paid 4.2 days faster on average than invoices with only bank details in the footer.</p>
+
+<h2>4. Automate reminders so you don't have to chase</h2>
+<p>Most freelancers hate chasing. They put it off, and the delay compounds. Automated reminders remove the awkwardness: the system sends a polite nudge, not you.</p>
+<p>A three-step cadence works well for most B2B invoices:</p>
+<ol>
+<li><strong>Day 3</strong> after due date — friendly reminder, attach the invoice again</li>
+<li><strong>Day 7</strong> after due date — firmer tone, mention the late-payment interest you are entitled to</li>
+<li><strong>Day 14</strong> after due date — final demand, copy the client's finance team, state you will refer to debt collection if unpaid by a specific date</li>
+</ol>
+<p><a href="/signup">Offert Pro</a> includes automated reminders out of the box — you set the cadence once, and every invoice follows it without manual work.</p>
+
+<h2>5. Charge the statutory late-payment interest the EU entitles you to</h2>
+<p>Many European small businesses don't realise they already have strong legal backing. Under EU Directive 2011/7/EU on combating late payment in commercial transactions, B2B creditors are entitled to:</p>
+<ul>
+<li>Interest at the ECB reference rate plus at least <strong>8 percentage points</strong> on any late B2B invoice</li>
+<li>A flat compensation amount of <strong>at least €40</strong> per late invoice for recovery costs</li>
+<li>Further recovery costs (e.g. debt collection fees) proportional to the debt</li>
+</ul>
+<p>The entitlement is automatic — you don't need a clause in the contract for it to apply. But stating it on the invoice and in your reminder emails shortens the gap dramatically. Clients who know you will actually invoice the interest pay faster.</p>
+
+<h2>Bonus: make your payment terms explicit on the proposal</h2>
+<p>The conversation about payment should happen before the invoice is sent, not after. State the payment terms on the <em>proposal</em> so the client signs them along with the scope. There's no renegotiating terms at invoice time if they accepted them at proposal time.</p>
+
+<h2>What to do when a client still won't pay</h2>
+<p>If you're past the third reminder and still no payment:</p>
+<ol>
+<li><strong>Final demand letter</strong> — formal, sent by email and post, giving a clear deadline (typically 7 days)</li>
+<li><strong>European Order for Payment</strong> — an EU-wide simplified procedure for uncontested cross-border B2B debts</li>
+<li><strong>Debt collection agency</strong> — typically 10–20% commission, but takes the problem off your desk</li>
+<li><strong>Small-claims court</strong> — for contested debts below the small-claims threshold in your jurisdiction</li>
+</ol>
+
+<h2>Summary</h2>
+<p>Late payment is partly a system problem, not just a client problem. Fix the system — same-day invoices, 14-day terms, frictionless payment, automated reminders, and lawful interest — and your days-to-pay will drop measurably. <a href="/signup">Get started free with Offert Pro</a> and configure the whole cadence in minutes.</p>
+`,
+  },
 ];
 
 export function getBlogPostEn(slug: string): BlogPostEn | undefined {

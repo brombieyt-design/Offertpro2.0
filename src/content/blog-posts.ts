@@ -76,6 +76,7 @@ export const blogPosts: BlogPost[] = [
     author: "Marcus Ström",
     readTime: "6 min",
     category: "Kunskap",
+    englishSlug: "quote-vs-proposal-vs-bid",
     tags: ["offert", "anbud", "juridik", "guide"],
     content: `
 <p>Orden "offert" och "anbud" används ofta synonymt i vardagsspråk, men det finns en viktig juridisk skillnad som alla företagare bör känna till.</p>
@@ -146,6 +147,7 @@ export const blogPosts: BlogPost[] = [
     author: "Emma Lindqvist",
     readTime: "5 min",
     category: "Tips",
+    englishSlug: "5-tips-faster-invoice-payment",
     tags: ["faktura", "betalning", "cashflow", "tips"],
     content: `
 <p>Sena betalningar är en av de vanligaste utmaningarna för småföretag. Enligt en undersökning väntar svenska småföretag i genomsnitt 8 dagar längre än avtalat på betalning. Här är 5 beprövade strategier för att få betalt snabbare.</p>

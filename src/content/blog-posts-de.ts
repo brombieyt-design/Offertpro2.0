@@ -275,6 +275,163 @@ export const blogPostsDe: BlogPostDe[] = [
 <p>Wenn Sie unsicher sind, welche Stufe Ihre Verträge brauchen, starten Sie mit EES, upgraden Sie auf FES für Verträge oberhalb Ihrer Wesentlichkeitsschwelle und reservieren Sie QES für die spezifischen Fälle, in denen Sie oder Ihr Kunde sie verlangen. <a href="/signup">Offert Pro</a> lässt Sie die Stufe pro Dokument wählen, sodass Sie die Signatur an das Risiko anpassen können, ohne mehrere Tools zu betreiben.</p>
 `,
   },
+  {
+    slug: "angebot-vs-ausschreibung-unterschied",
+    title: "Angebot vs. Ausschreibung — Wo liegt der Unterschied? (2026)",
+    description:
+      "&bdquo;Angebot&ldquo;, &bdquo;Offerte&ldquo; und &bdquo;Ausschreibung&ldquo; werden oft durcheinandergeworfen. Der juristische Unterschied nach BGB, wann Sie was nutzen und wie Sie sich als Unternehmerin oder Unternehmer schützen.",
+    date: "2026-03-24",
+    author: "Marcus Ström",
+    authorRole: "Leitung Customer Success, Offert Pro",
+    readTime: "6 Min.",
+    category: "Wissen",
+    swedishSlug: "offert-vs-anbud-skillnaden",
+    englishSlug: "quote-vs-proposal-vs-bid",
+    tags: ["angebot", "ausschreibung", "bgb", "vertragsrecht", "b2b"],
+    content: `
+<p>Die Wörter &bdquo;Angebot&ldquo;, &bdquo;Offerte&ldquo; und &bdquo;Ausschreibung&ldquo; werden im Alltag oft synonym verwendet, sind aber juristisch unterschiedliche Instrumente. Wer die Unterschiede kennt, vermeidet vermeidbare Konflikte.</p>
+
+<h2>Was ist ein Angebot?</h2>
+<p>Ein <strong>Angebot</strong> (auch <em>Offerte</em> in Österreich und der Schweiz) ist eine empfangsbedürftige Willenserklärung eines Anbieters an eine bestimmte Person. Nach <strong>§ 145 BGB</strong> ist der Antragende an sein Angebot gebunden, es sei denn, er hat die Gebundenheit ausgeschlossen (&bdquo;freibleibend&ldquo;).</p>
+<p>Typische Eigenschaften eines Angebots:</p>
+<ul>
+<li>Initiierung durch den Anbieter</li>
+<li>Beschreibt Leistungen und Preis</li>
+<li>Enthält eine Bindefrist (häufig 30 Tage)</li>
+<li>Wird mit der Annahme nach § 147 BGB zum bindenden Vertrag</li>
+</ul>
+
+<h2>Was ist ein Angebot mit Konzept (Proposal)?</h2>
+<p>Ein schriftliches <strong>Angebot mit Leistungskonzept</strong> ist die deutsche Entsprechung zum englischen &bdquo;Proposal&ldquo;. Es beschreibt nicht nur den Preis, sondern auch den Lösungsansatz — üblich bei Beratungsmandaten, Agentur- und IT-Projekten.</p>
+<ul>
+<li>Initiierung durch den Anbieter</li>
+<li>Umfasst Umfang, Methodik, Zeitplan und Preis</li>
+<li>Häufig mehrseitig und narrativ</li>
+<li>Gilt rechtlich ebenfalls als Angebot nach § 145 BGB</li>
+</ul>
+
+<h2>Was ist eine Ausschreibung?</h2>
+<p>Eine <strong>Ausschreibung</strong> ist das formellste Format. Ein Auftraggeber (häufig ein öffentlicher Träger, ein Bauherr oder ein Großunternehmen) veröffentlicht eine Vergabebekanntmachung, und Anbieter reichen ihre Angebote innerhalb einer festen Frist ein.</p>
+<p>Typische Eigenschaften einer Ausschreibung:</p>
+<ul>
+<li>Initiierung durch den Auftraggeber</li>
+<li>Strikte Anforderungen an Form, Fristen und Inhalt</li>
+<li>Unterliegt im öffentlichen Sektor GWB und VgV (in Deutschland) bzw. BVergG (in Österreich)</li>
+<li>Abweichungen führen regelmäßig zum Ausschluss</li>
+</ul>
+
+<h2>Der rechtliche Unterschied</h2>
+<p>Nach dem BGB sind Angebot und Annahme zwei übereinstimmende Willenserklärungen (§§ 145 ff. BGB). Die wichtigste Unterscheidung in der Praxis:</p>
+<ul>
+<li><strong>Angebot</strong> — Der Anbieter ergreift die Initiative und setzt die Konditionen</li>
+<li><strong>Ausschreibung</strong> — Der Auftraggeber definiert das Leistungsverzeichnis, Anbieter reichen darauf ihr Angebot ein</li>
+</ul>
+<p>In beiden Fällen entsteht mit der Annahme ein bindender Vertrag.</p>
+
+<h2>Wann sollten Sie ein Angebot senden?</h2>
+<p>Nutzen Sie ein Angebot, wenn Sie proaktiv Ihre Leistungen anbieten. Das ist der häufigste Weg für KMU, im B2B zu verkaufen. Ein Angebot gibt Ihnen die Flexibilität, das Paket frei zu gestalten.</p>
+
+<h2>Wann reichen Sie ein Angebot auf eine Ausschreibung ein?</h2>
+<p>Wenn ein Auftraggeber eine formelle Ausschreibung veröffentlicht hat. Halten Sie sich strikt an die Anforderungen — abweichende Angebote werden regelmäßig ausgeschlossen, insbesondere bei öffentlichen Vergaben nach VgV (Deutschland) oder BVergG (Österreich).</p>
+
+<h2>So schützen Sie sich als Unternehmerin oder Unternehmer</h2>
+<p>Unabhängig davon, welche Form Sie wählen, achten Sie auf:</p>
+<ul>
+<li>Klare Bindefrist (z. B. &bdquo;gültig bis TT.MM.JJJJ&ldquo;)</li>
+<li>Genaue Spezifikation, was enthalten ist und was nicht</li>
+<li>Klare Zahlungsbedingungen</li>
+<li>eIDAS-E-Signatur als Nachweis der Annahme</li>
+</ul>
+
+<h2>Überblickstabelle</h2>
+<table>
+<thead><tr><th></th><th>Angebot</th><th>Proposal</th><th>Ausschreibung</th></tr></thead>
+<tbody>
+<tr><td>Initiierung</td><td>Anbieter</td><td>Anbieter</td><td>Auftraggeber</td></tr>
+<tr><td>Format</td><td>Flexibel, kurz</td><td>Flexibel, länger</td><td>Strikt</td></tr>
+<tr><td>Typisch in</td><td>Handwerk, SaaS, Dienstleistung</td><td>Beratung, Agentur</td><td>Bau, öffentlicher Sektor</td></tr>
+<tr><td>Bindend?</td><td>Ja, bei Annahme (§ 145 BGB)</td><td>Ja, bei Annahme</td><td>Ja, bei Einreichung</td></tr>
+</tbody>
+</table>
+
+<p><strong>Tipp:</strong> Mit <a href="/signup">Offert Pro</a> erstellen Sie sowohl klassische Angebote als auch mehrseitige Proposals im selben Editor — und können eIDAS-konform unterzeichnen lassen.</p>
+`,
+  },
+  {
+    slug: "5-tipps-schnellere-rechnungszahlung",
+    title: "5 Tipps für schnellere Bezahlung Ihrer Rechnungen (2026)",
+    description:
+      "Verzugszahlung ist der größte Cashflow-Killer für KMU. Fünf praktische, erprobte Taktiken, um Ihre durchschnittlichen Zahlungstage zu senken — plus was Ihnen die EU-Zahlungsverzugsrichtlinie und das BGB tatsächlich zusichern.",
+    date: "2026-03-20",
+    author: "Marcus Ström",
+    authorRole: "Leitung Customer Success, Offert Pro",
+    readTime: "7 Min.",
+    category: "Cashflow",
+    swedishSlug: "5-tips-for-snabbare-betalning",
+    englishSlug: "5-tips-faster-invoice-payment",
+    tags: ["rechnung", "cashflow", "zahlung", "kmu", "eu-recht"],
+    howToSteps: [
+      { name: "Rechnung sofort versenden", text: "Versenden Sie die Rechnung am selben Tag, an dem die Leistung erbracht wurde. Jeder Tag Verzögerung schiebt die Zahlung weiter nach hinten." },
+      { name: "Zahlungsfrist verkürzen", text: "Setzen Sie 14 Tage als Standard, nicht 30. Die meisten Kunden zahlen ohnehin nach Eingang; die kürzere Frist justiert die Erwartung." },
+      { name: "SEPA-QR-Code beifügen", text: "Fügen Sie einen SEPA-QR-Code oder einen Stripe/Mollie-Zahlungslink direkt in das PDF ein, damit der Kunde mit einem Tippen bezahlen kann." },
+      { name: "Erinnerungen automatisieren", text: "Planen Sie höfliche Erinnerungen an Tag 3, 7 und 14, damit Sie nie manuell nachhaken müssen." },
+      { name: "Gesetzliche Verzugszinsen in Rechnung stellen", text: "Nach § 288 Abs. 2 BGB stehen Ihnen im B2B-Verhältnis 9 Prozentpunkte über dem Basiszinssatz zu. Weisen Sie dies auf jeder Rechnung aus." },
+    ],
+    content: `
+<p>Zahlungsverzug ist das Cashflow-Problem Nummer eins für KMU in DACH. Laut Europäischer Kommission trägt verspätete Zahlung zu etwa jeder vierten KMU-Insolvenz bei. Dieser Leitfaden deckt fünf praktische, datenbasierte Taktiken ab, mit denen Sie schneller bezahlt werden — plus das EU- und deutsche Recht, das Sie bereits schützt.</p>
+
+<h2>1. Rechnung noch am selben Tag versenden</h2>
+<p>Jeder Tag, den Sie mit dem Versand warten, ist ein Tag, an dem die Zahlungsuhr nicht läuft. Klingt banal, ist es aber nicht: Unsere Analytik zeigt, dass der typische B2B-Freelancer im Median 3,2 Arbeitstage nach Leistungserbringung fakturiert — das schlägt direkt auf den Zahlungszyklus durch.</p>
+<p>Machen Sie es zur Gewohnheit: fakturieren am Tag der Leistungserbringung. Bei monatlicher Abrechnung planen Sie einen automatisierten Lauf am ersten Arbeitstag jedes Monats.</p>
+
+<h2>2. 14 Tage als Standard-Zahlungsfrist, nicht 30</h2>
+<p>Jahrzehntelang war die B2B-Standardfrist 30 Tage. Tatsächlich zahlen kleine bis mittlere Kunden viel schneller, wenn ihre Buchhaltung &bdquo;14 Tage&ldquo; auf der Rechnung sieht. Eine kürzere Frist justiert die Erwartung, ohne inhaltlich etwas zu verändern.</p>
+<p>Ausnahme: Großkonzerne und öffentliche Auftraggeber haben oft feste 30- oder 60-Tage-Fristen, die Sie nicht verhandeln können. Nutzen Sie 14 Tage als Standard und verlängern Sie nur auf ausdrücklichen Wunsch.</p>
+
+<h2>3. Bezahlen mit einem Tippen ermöglichen</h2>
+<p>Je mehr Reibung zwischen Rechnungserhalt und Zahlung, desto länger der Zyklus. Die drei wirksamsten Beschleuniger:</p>
+<ul>
+<li><strong>SEPA-QR-Code</strong> — in der gesamten Eurozone standardisiert, per Banking-App scannbar</li>
+<li><strong>Stripe / Mollie / GoCardless Zahlungslink</strong> — ein Klick → Kartenzahlung oder Lastschrift</li>
+<li><strong>giropay / Sofort / Apple Pay</strong> — für DACH-Kunden sofort verfügbar</li>
+</ul>
+<p>In unseren eigenen Daten werden Rechnungen mit Zahlungslink im Schnitt 4,2 Tage schneller bezahlt als Rechnungen, die nur Bankdaten im Footer zeigen.</p>
+
+<h2>4. Erinnerungen automatisieren, statt manuell nachzufassen</h2>
+<p>Die meisten Selbstständigen hassen das Mahnen. Sie schieben es auf, und die Verzögerung verstärkt sich. Automatisierte Erinnerungen nehmen die Unannehmlichkeit heraus: das System schickt den höflichen Stupser — nicht Sie persönlich.</p>
+<p>Eine dreistufige Kadenz funktioniert für die meisten B2B-Rechnungen gut:</p>
+<ol>
+<li><strong>Tag 3</strong> nach Fälligkeit — freundliche Erinnerung, Rechnung nochmals im Anhang</li>
+<li><strong>Tag 7</strong> nach Fälligkeit — bestimmterer Ton, Hinweis auf die Ihnen zustehenden Verzugszinsen</li>
+<li><strong>Tag 14</strong> nach Fälligkeit — letzte Mahnung, Buchhaltung des Kunden auf CC, Ankündigung der Übergabe an Inkasso zu einem genannten Datum</li>
+</ol>
+<p><a href="/signup">Offert Pro</a> bringt automatisierte Erinnerungen standardmäßig mit — Sie stellen die Kadenz einmal ein, und jede Rechnung folgt ihr ohne manuelles Zutun.</p>
+
+<h2>5. Die gesetzlichen Verzugszinsen tatsächlich in Rechnung stellen</h2>
+<p>Vielen KMU in DACH ist nicht bewusst, dass sie bereits starke rechtliche Ansprüche haben. Nach <strong>§ 288 Absatz 2 BGB</strong> und der EU-Richtlinie 2011/7/EU (Zahlungsverzug im Geschäftsverkehr) stehen B2B-Gläubigern zu:</p>
+<ul>
+<li>Verzugszinsen von <strong>9 Prozentpunkten über dem Basiszinssatz</strong> ab dem Tag nach Fälligkeit</li>
+<li>Eine Mahnkostenpauschale von <strong>40 €</strong> je säumiger Rechnung (§ 288 Abs. 5 BGB)</li>
+<li>Ersatz weiterer Beitreibungskosten (z. B. Inkassogebühren) im angemessenen Umfang</li>
+</ul>
+<p>Der Anspruch entsteht automatisch mit Verzug — Sie brauchen keine Klausel im Vertrag dafür. Den Hinweis trotzdem auf die Rechnung und in die Mahnung zu setzen, verkürzt den Zyklus drastisch. Kunden, die wissen, dass Sie die Zinsen tatsächlich in Rechnung stellen, zahlen schneller.</p>
+
+<h2>Bonus: Zahlungsbedingungen schon im Angebot festschreiben</h2>
+<p>Das Gespräch über Zahlungsbedingungen sollte vor dem Rechnungsversand stattfinden, nicht danach. Nehmen Sie die Zahlungsfrist in das <em>Angebot</em> auf, damit der Kunde sie zusammen mit dem Umfang unterschreibt. Es gibt keine Neuverhandlung der Konditionen im Rechnungsversand, wenn sie bereits beim Angebot akzeptiert wurden.</p>
+
+<h2>Wenn ein Kunde trotzdem nicht zahlt</h2>
+<p>Nach der dritten Erinnerung ohne Zahlung:</p>
+<ol>
+<li><strong>Letzte Mahnung (Inverzugsetzung)</strong> — formell, per E-Mail und Post, klare Frist (typischerweise 7 Tage)</li>
+<li><strong>Mahnbescheid</strong> — in Deutschland über das Mahnverfahren beim zentralen Mahngericht, online kostengünstig beantragbar</li>
+<li><strong>Europäisches Mahnverfahren</strong> — EU-weites vereinfachtes Verfahren für unbestrittene grenzüberschreitende B2B-Forderungen</li>
+<li><strong>Inkassobüro</strong> — typischerweise 10–20 % Provision, dafür nehmen Sie sich das Problem vom Schreibtisch</li>
+</ol>
+
+<h2>Zusammenfassung</h2>
+<p>Zahlungsverzug ist teilweise ein Systemproblem, nicht nur ein Kundenproblem. Fixieren Sie das System — sofortige Rechnungen, 14-Tage-Fristen, reibungslose Zahlung, automatisierte Erinnerungen und gesetzliche Verzugszinsen — und Ihre Zahlungstage sinken messbar. <a href="/signup">Jetzt kostenlos mit Offert Pro starten</a> und die gesamte Kadenz in wenigen Minuten einrichten.</p>
+`,
+  },
 ];
 
 export function getBlogPostDe(slug: string): BlogPostDe | undefined {
