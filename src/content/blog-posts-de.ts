@@ -592,6 +592,111 @@ export const blogPostsDe: BlogPostDe[] = [
 <p><a href="/signup">Erstellen Sie ein kostenloses Offert-Pro-Konto</a> und versenden Sie Ihr erstes echtes Angebot in unter fünf Minuten — keine Kreditkarte, kein Testablauf.</p>
 `,
   },
+  {
+    slug: "offert-pro-vs-lexoffice",
+    title: "Offert Pro vs. Lexware Office (lexoffice): Welches Tool passt besser?",
+    description:
+      "Ein fairer 2026-Vergleich zwischen Offert Pro und Lexware Office (vormals lexoffice): Preise, DSGVO, eIDAS-Signaturen, Angebots-Editor, ELSTER- und DATEV-Anbindung. Für Freelancer, Handwerk und KMU in DACH.",
+    date: "2026-04-01",
+    author: "Emma Lindqvist",
+    authorRole: "Produktmarketing, Offert Pro",
+    readTime: "8 Min.",
+    category: "Vergleich",
+    tags: ["lexoffice", "lexware", "vergleich", "kmu", "dach"],
+    content: `
+<p>Lexware Office (vormals bekannt als lexoffice, nach dem Rebrand 2024 neu benannt) ist eines der etabliertesten Online-Buchhaltungs-Tools für KMU in Deutschland. Offert Pro ist die angebotszentrierte Alternative mit europäischem Fokus. Beide versenden Angebote und Rechnungen im Browser — welches passt besser zu Ihrem Unternehmen in DACH?</p>
+
+<p>Dieser Leitfaden vergleicht beide ehrlich. Wir entwickeln Offert Pro, sind also nicht neutral — der Vergleich ist aber sachlich und zum Zeitpunkt der Veröffentlichung (2026) korrekt.</p>
+
+<h2>Überblick</h2>
+<table>
+<thead><tr><th></th><th>Offert Pro</th><th>Lexware Office</th></tr></thead>
+<tbody>
+<tr><td>Einstiegspreis</td><td>0 € (Free)</td><td>10,90 €/Monat (S-Tarif)</td></tr>
+<tr><td>Echter Free-Tarif</td><td>Ja — 5 Angebote/Monat</td><td>Nein (30-Tage-Test)</td></tr>
+<tr><td>Angebots-Editor</td><td>Drag-and-Drop, mehrseitig</td><td>Einfaches Formular</td></tr>
+<tr><td>Optionale Positionen (gut/besser/am besten)</td><td>Ja</td><td>Nein</td></tr>
+<tr><td>Echtzeit-Angebots-Tracking</td><td>Ja</td><td>Nein</td></tr>
+<tr><td>eIDAS-E-Signatur</td><td>Ja, in jedem Tarif</td><td>Nein (Export nötig)</td></tr>
+<tr><td>QES via D-Trust</td><td>Ja, auf Pro</td><td>Nein</td></tr>
+<tr><td>DATEV-Export</td><td>Geplant 2026</td><td>Ja, Kernfunktion</td></tr>
+<tr><td>ELSTER-Anbindung</td><td>Nein (über Steuerberater)</td><td>Ja, nativ</td></tr>
+<tr><td>EU-Datenhaltung</td><td>Ja, Standard</td><td>Ja, Freiburg/Deutschland</td></tr>
+<tr><td>Fokus</td><td>Angebots- und Rechnungs-Workflow</td><td>Buchhaltung mit Rechnung</td></tr>
+</tbody>
+</table>
+
+<h2>Grundlegende Positionierung</h2>
+<p>Die Werkzeuge adressieren unterschiedliche Arbeitsabläufe — und das ist die wichtigste Entscheidung.</p>
+<ul>
+<li><strong>Lexware Office</strong> ist primär ein Buchhaltungs-Tool, an das eine solide Rechnungsfunktion angebaut ist. ELSTER-Anbindung, EÜR, Umsatzsteuer-Voranmeldung und DATEV-Export sind Kernbestandteile. Angebote sind eine Nebenfunktion.</li>
+<li><strong>Offert Pro</strong> ist angebotszentriert: mehrseitiger Editor, Echtzeit-Tracking, eIDAS-E-Signaturen, automatische Erinnerungen, Ein-Klick-Umwandlung zur Rechnung. Die Buchhaltungs-Übergabe an den Steuerberater läuft über CSV/API und (ab 2026) DATEV-Export.</li>
+</ul>
+<p>Wenn Sie hauptsächlich Buchhaltung selbst machen und nebenbei Angebote schreiben, ist Lexware Office naheliegend. Wenn Sie hauptsächlich verkaufen und die Buchhaltung an den Steuerberater auslagern, passt Offert Pro besser.</p>
+
+<h2>Preise</h2>
+<p><strong>Offert Pro</strong> startet kostenlos (5 Angebote pro Monat, PDF-Export, Grundbranding). Bezahlstufen:</p>
+<ul>
+<li><strong>Starter</strong> — 19 €/Monat — E-Signaturen, Tracking, individuelles Branding</li>
+<li><strong>Pro</strong> — 49 €/Monat — unbegrenzte Angebote, automatische Erinnerungen, QES via D-Trust, API</li>
+</ul>
+<p><strong>Lexware Office</strong> staffelt sich aufwärts:</p>
+<ul>
+<li><strong>S</strong> — 10,90 €/Monat — Rechnungen, Angebote, Bankabgleich</li>
+<li><strong>M</strong> — 18,90 €/Monat — + EÜR, ELSTER-Anbindung</li>
+<li><strong>L</strong> — 21,90 €/Monat — + volle Buchhaltung, DATEV-Export, Bilanzierung</li>
+</ul>
+<p>Die eigentliche Frage ist nicht, was günstiger ist, sondern was Sie tatsächlich brauchen. Als reines &bdquo;Ich versende Angebote&ldquo;-Tool ist Offert Pro günstiger und funktional reicher. Als &bdquo;Ich mache meine gesamte Buchhaltung selbst&ldquo;-Tool ist Lexware Office das passendere Paket.</p>
+
+<h2>Angebots-Editor und Workflow</h2>
+<p>Hier liegt Offert Pro klar vorn:</p>
+<ul>
+<li><strong>Mehrseitige Proposals</strong> mit Cover, Leistungsbeschreibung, optionalen Positionen, Zeitplan und Preisen auf separaten Abschnitten</li>
+<li><strong>Optionale Positionen (gut/besser/am besten)</strong> — der Kunde kann Zusatzleistungen selbst an- und ausschalten, die Summe aktualisiert sich live</li>
+<li><strong>Echtzeit-Tracking</strong> — Sie sehen, wann geöffnet wurde, welche Abschnitte am meisten gelesen wurden und wie lange</li>
+<li><strong>Automatisches Follow-up</strong> nach Ihrer gewählten Kadenz (Tag 1 / 3 / 7)</li>
+<li><strong>Ein-Klick-Umwandlung</strong> vom angenommenen Angebot zur Rechnung</li>
+</ul>
+<p>Lexware Office bietet einen sauberen, aber deutlich einfacheren Angebotseditor — im Wesentlichen ein Formular mit Rechnungspositionen. Kein Tracking, keine optionalen Positionen, keine eingebaute E-Signatur.</p>
+
+<h2>E-Signaturen</h2>
+<p>Offert Pro hat eIDAS-konforme E-Signaturen standardmäßig in jedem Tarif: einfache (EES), fortgeschrittene (FES) und auf dem Pro-Tarif qualifizierte (QES) via D-Trust — rechtlich der handschriftlichen Unterschrift gleichgestellt nach Artikel 25 Absatz 2 eIDAS-Verordnung.</p>
+<p>Lexware Office hat keine native E-Signatur-Funktion. Sie exportieren das Angebot als PDF und signieren extern (z. B. via Drittanbieter oder papierhaft) — ein zusätzlicher Schritt mit zusätzlichen Kosten pro Signatur.</p>
+
+<h2>Buchhaltung: ELSTER, DATEV und Steuerberater</h2>
+<p>Das ist der größte Vorteil von Lexware Office: direkte ELSTER-Anbindung für die Umsatzsteuer-Voranmeldung und EÜR, nativer DATEV-Export für die Übergabe an den Steuerberater. Das Paket ist tief in den deutschen Standard-Workflow integriert.</p>
+<p>Offert Pro fokussiert den Vertriebszyklus. Die Steuerberater-Übergabe läuft heute über CSV-Export oder REST-API; nativer DATEV-Export ist für 2026 in der Roadmap. Wenn Sie Ihre Buchhaltung an ein Steuerbüro auslagern, ist das ausreichend. Wenn Sie alles selbst erledigen wollen, ist Lexware Office besser.</p>
+
+<h2>DSGVO und Datenhaltung</h2>
+<p>Beide hosten innerhalb der EU — Lexware Office in Freiburg (Haufe-Group-Rechenzentrum), Offert Pro in der EU-Region des Cloud-Anbieters. DSGVO-konform mit AV-Vertrag auf beiden Seiten. Kein relevanter Unterschied.</p>
+
+<h2>Wann Lexware Office wählen?</h2>
+<ul>
+<li>Sie machen Ihre Buchhaltung komplett selbst und wollen ELSTER-konforme Voranmeldungen direkt aus dem Tool</li>
+<li>Sie brauchen nativen DATEV-Export ab Tag 1</li>
+<li>Sie versenden wenige, einfache Preisangebote ohne Bedarf für Tracking, optionale Positionen oder E-Signatur</li>
+<li>Sie wollen ein etabliertes Produkt mit deutschem Kundensupport aus Freiburg</li>
+<li>Buchhaltung ist Ihr Hauptarbeitsfeld, Vertrieb ist die Ausnahme</li>
+</ul>
+
+<h2>Wann Offert Pro wählen?</h2>
+<ul>
+<li>Sie versenden regelmäßig Angebote und wollen deren Öffnung/Annahme verfolgen</li>
+<li>Sie schätzen mehrseitige Proposals mit optionalen Positionen (gut/besser/am besten)</li>
+<li>Sie brauchen eIDAS-konforme E-Signaturen (inkl. QES via D-Trust) ohne Drittanbieter</li>
+<li>Sie wollen einen echten Free-Tarif zum Testen mit echten Kunden</li>
+<li>Sie lagern die Buchhaltung an den Steuerberater aus und brauchen nur einen sauberen Angebots- und Rechnungs-Workflow</li>
+<li>Sie arbeiten grenzüberschreitend im EU-B2B und wollen Reverse Charge automatisch korrekt</li>
+</ul>
+
+<h2>Fazit</h2>
+<p>Lexware Office und Offert Pro konkurrieren nicht direkt, obwohl sie auf den ersten Blick ähnlich aussehen. Lexware Office ist ein ausgezeichnetes Buchhaltungs-Tool mit integrierter Rechnungsstellung. Offert Pro ist ein modernes Angebots- und Rechnungs-Tool mit Vertriebs-Fokus.</p>
+
+<p>Viele unserer Kundinnen und Kunden nutzen tatsächlich beide parallel: Offert Pro für den Vertriebszyklus (Angebot → Signatur → Rechnung) und einen Buchhaltungs-Dienst — entweder Lexware Office selbst oder direkt den Steuerberater — für den Jahresabschluss.</p>
+
+<p>Wenn Sie nur <em>ein</em> Tool betreiben wollen, entscheidet der Zeitanteil: mehr Zeit im Vertrieb &rarr; Offert Pro; mehr Zeit in der Buchhaltung &rarr; Lexware Office. <a href="/signup">Kostenloser Offert-Pro-Start</a> — in unter fünf Minuten das erste Angebot, ohne Kreditkarte und ohne Testablauf.</p>
+`,
+  },
 ];
 
 export function getBlogPostDe(slug: string): BlogPostDe | undefined {

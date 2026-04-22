@@ -593,6 +593,102 @@ export const blogPostsEn: BlogPostEn[] = [
 <p><a href="/signup">Create a free Offert Pro account</a> and send your first proposal in under five minutes. No credit card, no trial expiry — just the European alternative.</p>
 `,
   },
+  {
+    slug: "offert-pro-vs-qwilr",
+    title: "Offert Pro vs Qwilr: PDFs or interactive web proposals?",
+    description:
+      "Qwilr turns proposals into interactive web pages; Offert Pro ships as PDFs plus a client-facing web view. A fair 2026 comparison on pricing, output format, analytics, EU VAT and e-signatures for European SMEs.",
+    date: "2026-03-30",
+    author: "Emma Lindqvist",
+    authorRole: "Product marketing, Offert Pro",
+    readTime: "8 min",
+    category: "Comparison",
+    tags: ["qwilr", "comparison", "proposal software", "design", "agencies"],
+    content: `
+<p>Qwilr is the best-known &ldquo;proposal as a web page&rdquo; tool on the market. Instead of sending a static PDF, you send a link to a branded, scrollable page with embedded video, quote blocks and animated sections. Offert Pro takes a different position: a polished PDF with a parallel client-facing web view that supports signing, optional items and tracking.</p>
+
+<p>Both are credible options for European B2B. This guide walks through where each one wins, honestly. We build Offert Pro — so we&rsquo;re not neutral — but we&rsquo;ve tried to keep the facts accurate as of 2026.</p>
+
+<h2>At-a-glance</h2>
+<table>
+<thead><tr><th></th><th>Offert Pro</th><th>Qwilr</th></tr></thead>
+<tbody>
+<tr><td>Starting price</td><td>€0 (free tier)</td><td>€35/mo per user (Business)</td></tr>
+<tr><td>Real free tier</td><td>Yes — 5 proposals/mo</td><td>No (14-day trial)</td></tr>
+<tr><td>Primary output</td><td>PDF + client web view</td><td>Web page only</td></tr>
+<tr><td>Download/print-friendly</td><td>Yes (native PDF)</td><td>Yes, but secondary</td></tr>
+<tr><td>Embedded video</td><td>Yes</td><td>Yes, first-class</td></tr>
+<tr><td>Read tracking</td><td>Yes</td><td>Yes, strong</td></tr>
+<tr><td>eIDAS e-signing</td><td>Yes, every plan</td><td>Yes</td></tr>
+<tr><td>BankID (Nordics)</td><td>Yes, on Pro</td><td>No</td></tr>
+<tr><td>EU VAT + reverse charge</td><td>Built in</td><td>Custom fields</td></tr>
+<tr><td>EU data residency</td><td>Yes, default</td><td>No (AWS US-East by default)</td></tr>
+<tr><td>Convert to invoice</td><td>Native, one click</td><td>Via integrations</td></tr>
+</tbody>
+</table>
+
+<h2>Output format — the fundamental split</h2>
+<p>This is the single most important thing to decide:</p>
+<ul>
+<li><strong>Qwilr</strong> proposals are interactive web pages by design. They can feel like a mini-microsite for the deal — cover image, embedded video, ROI calculator, animated sections. Excellent for visually-driven sales motions.</li>
+<li><strong>Offert Pro</strong> gives you both: a polished, printable PDF (which construction firms, law firms and finance teams <em>still</em> prefer) and a client-facing web view with the signing, optional items and tracking a modern tool needs.</li>
+</ul>
+<p>A rule of thumb: if your proposal will be forwarded to a procurement or legal team, the PDF matters. If your proposal will be consumed directly by a marketing or CX buyer, the interactive web page shines.</p>
+
+<h2>Pricing</h2>
+<p><strong>Offert Pro</strong> starts free — 5 proposals per month, PDF export, basic branding. Paid tiers:</p>
+<ul>
+<li><strong>Starter</strong> — €19/mo — e-signatures, read tracking, custom branding</li>
+<li><strong>Pro</strong> — €49/mo — unlimited proposals, automated reminders, BankID, API</li>
+</ul>
+<p><strong>Qwilr</strong> starts at €35/mo per user (Business plan). The Enterprise tier (for SSO and advanced security) is quote-based. There is no persistent free tier — only a 14-day trial.</p>
+<p>For a two-person agency, that&rsquo;s €70/mo on Qwilr vs €0–€38/mo on Offert Pro depending on how many proposals you send. Over a year, the gap is meaningful.</p>
+
+<h2>The visual experience</h2>
+<p>Qwilr genuinely wins on visual polish out of the box. The templates are designed by designers, and the default output looks modern without any tweaking. For creative and marketing agencies where the proposal is part of the pitch, that matters.</p>
+<p>Offert Pro&rsquo;s templates are clean and European-B2B-styled. You can customise logo, colours and typography, but the philosophy is different: the proposal should get out of the way and let the offer speak. If you want a proposal that looks like a landing page, Qwilr is closer. If you want a proposal that looks like a professional business document, Offert Pro is closer.</p>
+
+<h2>Analytics and tracking</h2>
+<p>Both tools track opens, time-on-page and section-level reading. Qwilr has a slight edge in the depth of its web-page analytics (because the whole document is a web page). Offert Pro&rsquo;s tracking is comparable for the fields most salespeople actually act on: opened / not opened, how much time, which section.</p>
+
+<h2>E-signatures</h2>
+<p>Both offer eIDAS-compliant electronic signatures. The differentiator is at the upper tier:</p>
+<ul>
+<li><strong>Offert Pro Pro</strong> — supports BankID (QES-equivalent) for Swedish, Norwegian and Finnish signers, and D-Trust for German signers — the strongest signature level available in each country</li>
+<li><strong>Qwilr</strong> — standard and advanced e-signing (SES / AES), no native BankID or D-Trust; for QES you&rsquo;d integrate a third-party</li>
+</ul>
+
+<h2>EU VAT, GDPR, data residency</h2>
+<p>Offert Pro handles EU VAT natively (reverse charge on B2B cross-border, country-specific tax deductions) and hosts every byte inside the EU by default. Qwilr is headquartered in Australia with AWS US-East as the default primary region. GDPR compliance is in place on both sides, but EU-native hosting is an Offert Pro edge that matters for procurement reviews at German, French and Nordic clients.</p>
+
+<h2>Proposal → invoice workflow</h2>
+<p>After the client signs, Offert Pro lets you convert the accepted proposal into an invoice in one click — same line items, same VAT handling. Qwilr doesn&rsquo;t include invoicing; you&rsquo;d push the accepted proposal into Xero / QuickBooks / Fortnox via Zapier or native integrations and continue there.</p>
+<p>If you want a single tool for the full propose → sign → invoice → follow-up cycle, Offert Pro is more end-to-end. If you already run an invoicing stack you&rsquo;re happy with and only need the proposal step, Qwilr slots in cleanly.</p>
+
+<h2>When to pick Qwilr</h2>
+<ul>
+<li>You&rsquo;re a creative, marketing or design-led agency and the look of the proposal is part of the sale</li>
+<li>Your buyers are unlikely to forward the proposal to a procurement team that wants a PDF</li>
+<li>You want to embed video, ROI calculators and interactive elements directly in the proposal</li>
+<li>You already have invoicing handled and just need a proposal layer</li>
+<li>You&rsquo;re fine with US data residency and pricing in the €35+/user/mo band</li>
+</ul>
+
+<h2>When to pick Offert Pro</h2>
+<ul>
+<li>Your industry still expects a PDF (construction, legal, finance, manufacturing, consulting for larger enterprises)</li>
+<li>You sell primarily to European customers and want EU data residency by default</li>
+<li>You want EU VAT, reverse charge and country deductions handled automatically</li>
+<li>You want to run the full propose → sign → invoice cycle in one tool</li>
+<li>You want a real free tier to pilot with a live client before paying anything</li>
+<li>You need BankID or D-Trust QES for Nordic or German signers</li>
+</ul>
+
+<h2>Bottom line</h2>
+<p>Qwilr is a beautiful tool with a clear philosophy: proposals should feel like the web. That philosophy is great for a subset of buyers and a subset of industries.</p>
+<p>For the broader European B2B market — consulting, construction, legal, SaaS, manufacturing, agencies that serve large enterprises — the PDF is still the shared language, and the tool that handles EU VAT, eIDAS QES and end-to-end invoicing natively is the more pragmatic choice. <a href="/signup">Create a free Offert Pro account</a> and test it against a live client; no credit card, no expiry.</p>
+`,
+  },
 ];
 
 export function getBlogPostEn(slug: string): BlogPostEn | undefined {
