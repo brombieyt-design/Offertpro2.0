@@ -115,6 +115,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/changelog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/changelog`,
+          en: `${SITE_URL}/en/changelog`,
+          de: `${SITE_URL}/de/changelog`,
+          "x-default": `${SITE_URL}/changelog`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -189,6 +203,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/changelog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/changelog`,
+          en: `${SITE_URL}/en/changelog`,
+          de: `${SITE_URL}/de/changelog`,
+          "x-default": `${SITE_URL}/changelog`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -259,6 +287,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/security`,
           de: `${SITE_URL}/de/sicherheit`,
           "x-default": `${SITE_URL}/security`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/changelog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/changelog`,
+          en: `${SITE_URL}/en/changelog`,
+          de: `${SITE_URL}/de/changelog`,
+          "x-default": `${SITE_URL}/changelog`,
         },
       },
     },

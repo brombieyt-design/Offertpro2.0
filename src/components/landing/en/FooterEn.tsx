@@ -18,6 +18,7 @@ const columns = [
     links: [
       { label: "Blog", href: "/en/blog" },
       { label: "Editorial team", href: "/en/authors" },
+      { label: "Changelog", href: "/en/changelog" },
       { label: "Contact", href: "mailto:hello@offertpro.se" },
       { label: "Swedish site", href: "/" },
       { label: "German site", href: "/de" },

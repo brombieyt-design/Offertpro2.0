@@ -16,6 +16,7 @@ const columns = [
     links: [
       { label: "För företag", href: "/for-foretag" },
       { label: "Blogg", href: "/blog" },
+      { label: "Ändringslogg", href: "/changelog" },
       { label: "Om oss", href: "/for-foretag" },
     ],
   },
