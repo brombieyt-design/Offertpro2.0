@@ -24,7 +24,8 @@ const columns = [
   {
     title: "Support",
     links: [
-      { label: "Kontakta oss", href: "mailto:hej@offertpro.se" },
+      { label: "Kontakt", href: "/kontakt" },
+      { label: "Vanliga frågor", href: "/faq" },
       { label: "Säkerhet", href: "/security" },
       { label: "Status", href: "/status" },
       { label: "Logga in", href: "/login" },

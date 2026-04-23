@@ -213,6 +213,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/kontakt`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/kontakt`,
+          en: `${SITE_URL}/en/contact`,
+          de: `${SITE_URL}/de/kontakt`,
+          "x-default": `${SITE_URL}/kontakt`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -385,6 +399,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/contact`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/kontakt`,
+          en: `${SITE_URL}/en/contact`,
+          de: `${SITE_URL}/de/kontakt`,
+          "x-default": `${SITE_URL}/kontakt`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -553,6 +581,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/dpa`,
           de: `${SITE_URL}/de/avv`,
           "x-default": `${SITE_URL}/dpa`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/kontakt`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.5,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/kontakt`,
+          en: `${SITE_URL}/en/contact`,
+          de: `${SITE_URL}/de/kontakt`,
+          "x-default": `${SITE_URL}/kontakt`,
         },
       },
     },

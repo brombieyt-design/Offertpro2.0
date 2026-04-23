@@ -28,6 +28,8 @@ const columns = [
   {
     title: "Support",
     links: [
+      { label: "Kontakt", href: "/de/kontakt" },
+      { label: "FAQ", href: "/de/faq" },
       { label: "Sicherheit", href: "/de/sicherheit" },
       { label: "Status", href: "/de/status" },
       { label: "Anmelden", href: "/login" },
