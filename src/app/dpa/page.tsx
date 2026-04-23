@@ -58,19 +58,19 @@ export default function DpaPage() {
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             <a
-              href="/legal/offert-pro-dpa-sv.pdf"
+              href="mailto:legal@offertpro.se?subject=DPA-mall"
               className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-indigo-200 hover:shadow-lg transition-all"
             >
               <FileCheck className="h-6 w-6 text-indigo-600 mb-3" />
               <h3 className="text-base font-semibold text-gray-900 mb-1">
-                Ladda ner DPA (PDF)
+                Begär DPA-mall (PDF)
               </h3>
               <p className="text-xs text-gray-500 mb-3">
                 Vår förskrivna mall — gäller automatiskt för alla kunder
               </p>
               <span className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Ladda ner
+                Begär via e-post
               </span>
             </a>
             <a

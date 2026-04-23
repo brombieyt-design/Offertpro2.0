@@ -58,12 +58,12 @@ export default function DpaPageEn() {
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
             <a
-              href="/legal/offert-pro-dpa-en.pdf"
+              href="mailto:legal@offertpro.se?subject=DPA%20template"
               className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-indigo-200 hover:shadow-lg transition-all"
             >
               <FileCheck className="h-6 w-6 text-indigo-600 mb-3" />
               <h3 className="text-base font-semibold text-gray-900 mb-1">
-                Download DPA (PDF)
+                Request DPA template (PDF)
               </h3>
               <p className="text-xs text-gray-500 mb-3">
                 Our pre-signed template — applies automatically to every
@@ -71,7 +71,7 @@ export default function DpaPageEn() {
               </p>
               <span className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Download
+                Request by email
               </span>
             </a>
             <a

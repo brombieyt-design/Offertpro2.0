@@ -117,7 +117,7 @@ export default function PressPage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Nedladdningar</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a
-              href="/press/offert-pro-logos.zip"
+              href="mailto:press@offertpro.se?subject=Logotyppaket"
               className="bg-white border border-gray-100 rounded-2xl p-8 hover:border-indigo-200 hover:shadow-lg transition-all text-center group"
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-4">
@@ -131,11 +131,11 @@ export default function PressPage() {
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Ladda ner (.zip)
+                Begär (.zip)
               </span>
             </a>
             <a
-              href="/press/offert-pro-screenshots.zip"
+              href="mailto:press@offertpro.se?subject=Produktsk%C3%A4rmdumpar"
               className="bg-white border border-gray-100 rounded-2xl p-8 hover:border-indigo-200 hover:shadow-lg transition-all text-center group"
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-4">
@@ -149,11 +149,11 @@ export default function PressPage() {
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Ladda ner (.zip)
+                Begär (.zip)
               </span>
             </a>
             <a
-              href="/press/offert-pro-factsheet.pdf"
+              href="mailto:press@offertpro.se?subject=Faktablad"
               className="bg-white border border-gray-100 rounded-2xl p-8 hover:border-indigo-200 hover:shadow-lg transition-all text-center group"
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-4">
@@ -167,10 +167,14 @@ export default function PressPage() {
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Ladda ner (.pdf)
+                Begär (.pdf)
               </span>
             </a>
           </div>
+          <p className="mt-6 text-xs text-gray-400 text-center">
+            Materialet skickas per e-post inom en arbetsdag. Högupplösta
+            versioner finns på begäran.
+          </p>
         </div>
       </section>
 

@@ -117,7 +117,7 @@ export default function PressePage() {
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Downloads</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a
-              href="/press/offert-pro-logos.zip"
+              href="mailto:press@offertpro.se?subject=Logo-Paket"
               className="bg-white border border-gray-100 rounded-2xl p-8 hover:border-indigo-200 hover:shadow-lg transition-all text-center"
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-4">
@@ -131,11 +131,11 @@ export default function PressePage() {
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Herunterladen (.zip)
+                Anfragen (.zip)
               </span>
             </a>
             <a
-              href="/press/offert-pro-screenshots.zip"
+              href="mailto:press@offertpro.se?subject=Produkt-Screenshots"
               className="bg-white border border-gray-100 rounded-2xl p-8 hover:border-indigo-200 hover:shadow-lg transition-all text-center"
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-4">
@@ -149,11 +149,11 @@ export default function PressePage() {
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Herunterladen (.zip)
+                Anfragen (.zip)
               </span>
             </a>
             <a
-              href="/press/offert-pro-factsheet.pdf"
+              href="mailto:press@offertpro.se?subject=Factsheet"
               className="bg-white border border-gray-100 rounded-2xl p-8 hover:border-indigo-200 hover:shadow-lg transition-all text-center"
             >
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 mb-4">
@@ -167,10 +167,14 @@ export default function PressePage() {
               </p>
               <span className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600">
                 <Download className="h-4 w-4" />
-                Herunterladen (.pdf)
+                Anfragen (.pdf)
               </span>
             </a>
           </div>
+          <p className="mt-6 text-xs text-gray-400 text-center">
+            Materialien werden innerhalb eines Werktags per E-Mail zugesendet.
+            Hochauflösende Versionen auf Anfrage verfügbar.
+          </p>
         </div>
       </section>
 
