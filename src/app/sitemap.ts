@@ -143,6 +143,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/status`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.4,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/status`,
+          en: `${SITE_URL}/en/status`,
+          de: `${SITE_URL}/de/status`,
+          "x-default": `${SITE_URL}/status`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -245,6 +259,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/status`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.4,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/status`,
+          en: `${SITE_URL}/en/status`,
+          de: `${SITE_URL}/de/status`,
+          "x-default": `${SITE_URL}/status`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -343,6 +371,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/press`,
           de: `${SITE_URL}/de/presse`,
           "x-default": `${SITE_URL}/press`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/status`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.4,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/status`,
+          en: `${SITE_URL}/en/status`,
+          de: `${SITE_URL}/de/status`,
+          "x-default": `${SITE_URL}/status`,
         },
       },
     },
