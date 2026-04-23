@@ -227,6 +227,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/faq`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/faq`,
+          en: `${SITE_URL}/en/faq`,
+          de: `${SITE_URL}/de/faq`,
+          "x-default": `${SITE_URL}/faq`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -413,6 +427,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/faq`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/faq`,
+          en: `${SITE_URL}/en/faq`,
+          de: `${SITE_URL}/de/faq`,
+          "x-default": `${SITE_URL}/faq`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -595,6 +623,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/contact`,
           de: `${SITE_URL}/de/kontakt`,
           "x-default": `${SITE_URL}/kontakt`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/faq`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/faq`,
+          en: `${SITE_URL}/en/faq`,
+          de: `${SITE_URL}/de/faq`,
+          "x-default": `${SITE_URL}/faq`,
         },
       },
     },
