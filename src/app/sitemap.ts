@@ -157,6 +157,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/integritet`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/integritet`,
+          en: `${SITE_URL}/en/privacy`,
+          de: `${SITE_URL}/de/datenschutz`,
+          "x-default": `${SITE_URL}/integritet`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/cookies`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.2,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/cookies`,
+          en: `${SITE_URL}/en/cookies`,
+          de: `${SITE_URL}/de/cookies`,
+          "x-default": `${SITE_URL}/cookies`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -273,6 +301,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/privacy`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/integritet`,
+          en: `${SITE_URL}/en/privacy`,
+          de: `${SITE_URL}/de/datenschutz`,
+          "x-default": `${SITE_URL}/integritet`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/cookies`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.2,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/cookies`,
+          en: `${SITE_URL}/en/cookies`,
+          de: `${SITE_URL}/de/cookies`,
+          "x-default": `${SITE_URL}/cookies`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -385,6 +441,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/status`,
           de: `${SITE_URL}/de/status`,
           "x-default": `${SITE_URL}/status`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/datenschutz`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/integritet`,
+          en: `${SITE_URL}/en/privacy`,
+          de: `${SITE_URL}/de/datenschutz`,
+          "x-default": `${SITE_URL}/integritet`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/cookies`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.2,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/cookies`,
+          en: `${SITE_URL}/en/cookies`,
+          de: `${SITE_URL}/de/cookies`,
+          "x-default": `${SITE_URL}/cookies`,
         },
       },
     },

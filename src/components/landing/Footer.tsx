@@ -31,13 +31,20 @@ const columns = [
       { label: "Skapa konto", href: "/signup" },
     ],
   },
+  {
+    title: "Juridiskt",
+    links: [
+      { label: "Integritetspolicy", href: "/integritet" },
+      { label: "Cookies", href: "/cookies" },
+    ],
+  },
 ];
 
 export default function Footer() {
   return (
     <footer className="bg-gray-950 border-t border-white/5">
       <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-10 py-20">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10 lg:gap-16">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 lg:gap-12">
           {/* Brand column */}
           <div className="col-span-2">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-6 group">

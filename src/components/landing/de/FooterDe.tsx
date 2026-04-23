@@ -34,13 +34,20 @@ const columns = [
       { label: "Konto erstellen", href: "/signup" },
     ],
   },
+  {
+    title: "Rechtliches",
+    links: [
+      { label: "Datenschutz", href: "/de/datenschutz" },
+      { label: "Cookies", href: "/de/cookies" },
+    ],
+  },
 ];
 
 export default function FooterDe() {
   return (
     <footer className="bg-gray-950 border-t border-white/5">
       <div className="mx-auto max-w-6xl px-6 sm:px-8 lg:px-10 py-20">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-10 lg:gap-16">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-10 lg:gap-12">
           <div className="col-span-2">
             <Link href="/de" className="inline-flex items-center gap-2.5 mb-6 group">
               <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center group-hover:bg-brand-600 transition-colors duration-300">
