@@ -38,6 +38,8 @@ const columns = [
     title: "Rechtliches",
     links: [
       { label: "Datenschutz", href: "/de/datenschutz" },
+      { label: "AGB", href: "/de/agb" },
+      { label: "AVV", href: "/de/avv" },
       { label: "Cookies", href: "/de/cookies" },
     ],
   },

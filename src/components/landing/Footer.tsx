@@ -35,6 +35,8 @@ const columns = [
     title: "Juridiskt",
     links: [
       { label: "Integritetspolicy", href: "/integritet" },
+      { label: "Allmänna villkor", href: "/villkor" },
+      { label: "DPA", href: "/dpa" },
       { label: "Cookies", href: "/cookies" },
     ],
   },

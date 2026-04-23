@@ -185,6 +185,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/villkor`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/villkor`,
+          en: `${SITE_URL}/en/terms`,
+          de: `${SITE_URL}/de/agb`,
+          "x-default": `${SITE_URL}/villkor`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/dpa`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/dpa`,
+          en: `${SITE_URL}/en/dpa`,
+          de: `${SITE_URL}/de/avv`,
+          "x-default": `${SITE_URL}/dpa`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -329,6 +357,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/terms`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/villkor`,
+          en: `${SITE_URL}/en/terms`,
+          de: `${SITE_URL}/de/agb`,
+          "x-default": `${SITE_URL}/villkor`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/en/dpa`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/dpa`,
+          en: `${SITE_URL}/en/dpa`,
+          de: `${SITE_URL}/de/avv`,
+          "x-default": `${SITE_URL}/dpa`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -469,6 +525,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/cookies`,
           de: `${SITE_URL}/de/cookies`,
           "x-default": `${SITE_URL}/cookies`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/agb`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/villkor`,
+          en: `${SITE_URL}/en/terms`,
+          de: `${SITE_URL}/de/agb`,
+          "x-default": `${SITE_URL}/villkor`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/avv`,
+      lastModified: now,
+      changeFrequency: "yearly",
+      priority: 0.3,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/dpa`,
+          en: `${SITE_URL}/en/dpa`,
+          de: `${SITE_URL}/de/avv`,
+          "x-default": `${SITE_URL}/dpa`,
         },
       },
     },

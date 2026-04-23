@@ -38,6 +38,8 @@ const columns = [
     title: "Legal",
     links: [
       { label: "Privacy", href: "/en/privacy" },
+      { label: "Terms of service", href: "/en/terms" },
+      { label: "DPA", href: "/en/dpa" },
       { label: "Cookies", href: "/en/cookies" },
     ],
   },
