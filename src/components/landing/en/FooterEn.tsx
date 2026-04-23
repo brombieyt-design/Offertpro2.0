@@ -26,6 +26,7 @@ const columns = [
   {
     title: "Support",
     links: [
+      { label: "Security", href: "/en/security" },
       { label: "Log in", href: "/login" },
       { label: "Create account", href: "/signup" },
     ],

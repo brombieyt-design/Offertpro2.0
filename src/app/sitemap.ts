@@ -101,6 +101,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/login`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${SITE_URL}/signup`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     {
+      url: `${SITE_URL}/security`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/security`,
+          en: `${SITE_URL}/en/security`,
+          de: `${SITE_URL}/de/sicherheit`,
+          "x-default": `${SITE_URL}/security`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -161,6 +175,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/security`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/security`,
+          en: `${SITE_URL}/en/security`,
+          de: `${SITE_URL}/de/sicherheit`,
+          "x-default": `${SITE_URL}/security`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -217,6 +245,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/for-businesses`,
           de: `${SITE_URL}/de/fuer-unternehmen`,
           "x-default": `${SITE_URL}/for-foretag`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/sicherheit`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/security`,
+          en: `${SITE_URL}/en/security`,
+          de: `${SITE_URL}/de/sicherheit`,
+          "x-default": `${SITE_URL}/security`,
         },
       },
     },
