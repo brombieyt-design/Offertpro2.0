@@ -9,6 +9,7 @@ const columns = [
       { label: "Funktionsweise", href: "/de/funktionsweise" },
       { label: "Leistungen", href: "/de/leistungen" },
       { label: "Preise", href: "/de/pricing" },
+      { label: "Integrationen", href: "/de/integrationen" },
       { label: "Für Unternehmen", href: "/de/fuer-unternehmen" },
       { label: "Für KI", href: "/de/for-ai" },
     ],

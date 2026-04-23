@@ -241,6 +241,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/integrations`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/integrations`,
+          en: `${SITE_URL}/en/integrations`,
+          de: `${SITE_URL}/de/integrationen`,
+          "x-default": `${SITE_URL}/integrations`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -441,6 +455,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/integrations`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/integrations`,
+          en: `${SITE_URL}/en/integrations`,
+          de: `${SITE_URL}/de/integrationen`,
+          "x-default": `${SITE_URL}/integrations`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -637,6 +665,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/faq`,
           de: `${SITE_URL}/de/faq`,
           "x-default": `${SITE_URL}/faq`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/integrationen`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/integrations`,
+          en: `${SITE_URL}/en/integrations`,
+          de: `${SITE_URL}/de/integrationen`,
+          "x-default": `${SITE_URL}/integrations`,
         },
       },
     },

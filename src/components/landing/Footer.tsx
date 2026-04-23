@@ -8,7 +8,7 @@ const columns = [
       { label: "Hur det fungerar", href: "/hur-det-fungerar" },
       { label: "Tjänster", href: "/tjanster" },
       { label: "Priser", href: "/pricing" },
-      { label: "Integrationer", href: "/tjanster#integrationer" },
+      { label: "Integrationer", href: "/integrations" },
     ],
   },
   {
