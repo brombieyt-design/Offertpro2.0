@@ -129,6 +129,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/press`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.4,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/press`,
+          en: `${SITE_URL}/en/press`,
+          de: `${SITE_URL}/de/presse`,
+          "x-default": `${SITE_URL}/press`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -217,6 +231,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
+      url: `${SITE_URL}/en/press`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.4,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/press`,
+          en: `${SITE_URL}/en/press`,
+          de: `${SITE_URL}/de/presse`,
+          "x-default": `${SITE_URL}/press`,
+        },
+      },
+    },
+    {
       url: `${SITE_URL}/en/blog`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -301,6 +329,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
           en: `${SITE_URL}/en/changelog`,
           de: `${SITE_URL}/de/changelog`,
           "x-default": `${SITE_URL}/changelog`,
+        },
+      },
+    },
+    {
+      url: `${SITE_URL}/de/presse`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.4,
+      alternates: {
+        languages: {
+          "sv-SE": `${SITE_URL}/press`,
+          en: `${SITE_URL}/en/press`,
+          de: `${SITE_URL}/de/presse`,
+          "x-default": `${SITE_URL}/press`,
         },
       },
     },

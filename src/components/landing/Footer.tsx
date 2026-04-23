@@ -17,6 +17,7 @@ const columns = [
       { label: "För företag", href: "/for-foretag" },
       { label: "Blogg", href: "/blog" },
       { label: "Ändringslogg", href: "/changelog" },
+      { label: "Press", href: "/press" },
       { label: "Om oss", href: "/for-foretag" },
     ],
   },
